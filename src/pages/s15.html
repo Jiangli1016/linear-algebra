@@ -95,7 +95,45 @@
     <div class="st">\(|A|=3\times54=162\)。</div>
   </div>
 </div>
-<p>参数型行列式中，提取公因子尤其重要：往往一提出来，剩下的就是熟悉的结构。</p>
+<p>参数型行列式中，提取公因子尤其重要：往往一提出来，剩下的就是熟悉的结构；而且结果是<b>因式分解</b>的形式，一眼就能看出它何时为 0。公因子的出现有三种情形：<b>直接可见</b>、<b>把各行（列）加起来后出现</b>、<b>倍加之后出现</b>。</p>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 参数型（一）公因子直接可见</div>
+  <p>计算 \(D=\begin{vmatrix}a&a^2&a^3\\b&b^2&b^3\\c&c^2&c^3\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">三行分别有公因子 \(a,b,c\)，逐行提出<span class="why">性质 3</span>：\(D=abc\begin{vmatrix}1&a&a^2\\1&b&b^2\\1&c&c^2\end{vmatrix}\)。</div>
+    <div class="st">第 1 行乘 \(-1\) 加到第 2、3 行<span class="why">性质 7</span>：\(\begin{vmatrix}1&a&a^2\\0&b-a&b^2-a^2\\0&c-a&c^2-a^2\end{vmatrix}\)。第 2、3 行又出现公因子 \(b-a\)、\(c-a\)，再提出：
+      \[=(b-a)(c-a)\begin{vmatrix}1&a&a^2\\0&1&b+a\\0&1&c+a\end{vmatrix}=(b-a)(c-a)\bigl[(c+a)-(b+a)\bigr].\]</div>
+    <div class="st">\(D=abc\,(b-a)(c-a)(c-b)\)。中间那个行列式正是下面要讲的 Vandermonde 行列式（例 1.5.6）。</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 参数型（二）各行之和相等：加起来再提</div>
+  <p>计算 \(D=\begin{vmatrix}x+1&1&1\\1&x+1&1\\1&1&x+1\end{vmatrix}\)，并求使 \(D=0\) 的 \(x\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">每一行的和都是 \(x+3\)。把第 2、3 列都加到第 1 列<span class="why">性质 7′</span>，第 1 列全变成 \(x+3\)，提出<span class="why">性质 3′</span>：
+      \[D=(x+3)\begin{vmatrix}1&1&1\\1&x+1&1\\1&1&x+1\end{vmatrix}.\]</div>
+    <div class="st">第 1 行乘 \(-1\) 加到第 2、3 行，化为上三角<span class="why">性质 1</span>：\(\begin{vmatrix}1&1&1\\0&x&0\\0&0&x\end{vmatrix}=x^2\)。</div>
+    <div class="st">\(D=(x+3)x^2\)，所以 \(D=0\iff x=0\) 或 \(x=-3\)。若直接展开会得到 \(x^3+3x^2\)，还得再因式分解一次——提公因子一步到位。</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 参数型（三）倍加之后才出现公因子</div>
+  <p>计算 \(D=\begin{vmatrix}1&a&bc\\1&b&ca\\1&c&ab\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">表面上没有公因子。第 1 行乘 \(-1\) 加到第 2、3 行<span class="why">性质 7</span>：
+      \[D=\begin{vmatrix}1&a&bc\\0&b-a&c(a-b)\\0&c-a&b(a-c)\end{vmatrix}.\]</div>
+    <div class="st">第 2 行 \(=(b-a)(0,\,1,\,-c)\)，第 3 行 \(=(c-a)(0,\,1,\,-b)\)，提出<span class="why">性质 3</span>：
+      \[D=(b-a)(c-a)\begin{vmatrix}1&a&bc\\0&1&-c\\0&1&-b\end{vmatrix}=(b-a)(c-a)\bigl[-b-(-c)\bigr].\]</div>
+    <div class="st">\(D=(b-a)(c-a)(c-b)\)。可见 \(a,b,c\) 中有两个相等时 \(D=0\)——这时恰有两行相同（性质 5），与结果吻合。</div>
+  </div>
+</div>
+<div class="box note"><span class="tag">提公因子的时机</span>
+  <ul>
+    <li>先看每一行、每一列有没有<b>直接可见</b>的公因子（例 1.5.5、参数型一）；</li>
+    <li>各行（列）之和相等时，<b>先加起来</b>再提（参数型二）；</li>
+    <li>两行“长得像”时，<b>先相减</b>，差里常常带着公因子（参数型三）。</li>
+  </ul>
+</div>
 
 <h2>方法四：化为三角形</h2>
 <p>如果经过行列变换得到上（下）三角形，则 \(D=d_1d_2\cdots d_n\)。上面的“消元降阶”组件做的正是这件事：一列一列地把主对角线下方化为 0。</p>
