@@ -44,10 +44,10 @@
   <div class="boxed-eq">\[|A|=a_{1r}A_{1r}+a_{2r}A_{2r}+\cdots+a_{nr}A_{nr}=\sum_{i=1}^n a_{ir}A_{ir}.\]</div>
   <p>又对任意 \(s\ne r\)，有</p>
   <div class="boxed-eq">\[a_{1r}A_{1s}+a_{2r}A_{2s}+\cdots+a_{nr}A_{ns}=0.\]</div>
+  <p>原因一眼可见：左边恰好是下面这个行列式<b>按第 \(s\) 列展开</b>的结果——它是把 \(|A|\) 的第 \(s\) 列换成第 \(r\) 列得到的，<b>第 \(r\) 列与第 \(s\) 列相同</b>，所以等于 0（性质 5′）：</p>
+  \[\sum_{i=1}^n a_{ir}A_{is}=\begin{vmatrix}a_{11}&\cdots&\overset{\text{第}\,r\,\text{列}}{a_{1r}}&\cdots&\overset{\text{第}\,s\,\text{列}}{a_{1r}}&\cdots&a_{1n}\\a_{21}&\cdots&a_{2r}&\cdots&a_{2r}&\cdots&a_{2n}\\\vdots&&\vdots&&\vdots&&\vdots\\a_{n1}&\cdots&a_{nr}&\cdots&a_{nr}&\cdots&a_{nn}\end{vmatrix}=0.\]
+  <p>上面画的是 \(r\lt s\) 的情形（\(r\gt s\) 同理）。按第 \(s\) 列展开时，第 \(s\) 列的元素是 \(a_{1r},\dots,a_{nr}\)；而划掉第 \(s\) 列后剩下的部分与 \(|A|\) 完全相同，所以各元素的代数余子式仍是 \(A_{1s},\dots,A_{ns}\)。</p>
 </div>
-<details class="proof"><summary>证明第二个等式（异乘变零）</summary><div class="dbody">
-  <p>考虑把 \(|A|\) 的第 \(s\) 列换成第 \(r\) 列所得的行列式。它的第 \(r\) 列与第 \(s\) 列相同，值为 0。把它按第 \(s\) 列展开：第 \(s\) 列的元素是 \(a_{1r},\dots,a_{nr}\)，而第 \(s\) 列各元素的代数余子式与 \(|A|\) 中的 \(A_{1s},\dots,A_{ns}\) 完全相同（划掉第 \(s\) 列后剩下的部分没变）。所以 \(\sum_i a_{ir}A_{is}=0\)。</p>
-</div></details>
 
 <h2>展开定理的本质：降阶</h2>
 <div class="box board"><span class="tag">核心结论</span>
@@ -70,7 +70,8 @@
 <div class="box thm"><span class="tag">定理 1.4.2<em>按任意一行展开</em></span>
   <p>对任意 \(r=1,2,\dots,n\)：</p>
   <div class="boxed-eq">\[|A|=a_{r1}A_{r1}+a_{r2}A_{r2}+\cdots+a_{rn}A_{rn}=\sum_{j=1}^n a_{rj}A_{rj}.\]</div>
-  <p>又对任意 \(s\ne r\)：\(\;a_{r1}A_{s1}+a_{r2}A_{s2}+\cdots+a_{rn}A_{sn}=0.\)</p>
+  <p>又对任意 \(s\ne r\)：左边是把第 \(s\) 行换成第 \(r\) 行后、按第 \(s\) 行展开的行列式，它有两行相同：</p>
+  \[\sum_{j=1}^n a_{rj}A_{sj}=\begin{vmatrix}a_{11}&a_{12}&\cdots&a_{1n}\\\vdots&\vdots&&\vdots\\a_{r1}&a_{r2}&\cdots&a_{rn}\\\vdots&\vdots&&\vdots\\a_{r1}&a_{r2}&\cdots&a_{rn}\\\vdots&\vdots&&\vdots\\a_{n1}&a_{n2}&\cdots&a_{nn}\end{vmatrix}\begin{matrix}\vphantom{a_{11}}\\\vphantom{\vdots}\\\leftarrow\text{第 }r\text{ 行}\vphantom{a_{r1}}\\\vphantom{\vdots}\\\leftarrow\text{第 }s\text{ 行}\vphantom{a_{r1}}\\\vphantom{\vdots}\\\vphantom{a_{n1}}\end{matrix}=0.\]
 </div>
 <p class="small muted">证明：由引理 1.4.1 及性质 4，与定理 1.4.1 的证明类似（把第 \(r\) 行逐次换到第一行）。</p>
 
