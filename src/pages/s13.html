@@ -114,9 +114,10 @@
 <div class="tw"><table class="t l small">
 <tr><th></th><th>对行做操作</th><th>对列做操作</th></tr>
 <tr><td>在展开式里的处境</td><td>每一行都一样：要么作为系数 \(a_{i1}\) 出现，要么原样进入余子式</td><td>第 1 列是系数，其余各列只在余子式里——第 1 列很特殊</td></tr>
-<tr><td>证明手法</td><td>“被操作的那一项单独看，其余项交给归纳假设”统一适用</td><td>一旦操作牵涉第 1 列，系数整个变了，这个手法失效</td></tr>
+<tr><td>证明手法</td><td>“被操作的那一项单独看，其余项交给归纳假设”统一适用</td><td>只要操作把第 1 列与别的列交换（或比较），系数整个变了，这个手法失效</td></tr>
 <tr><td>以交换为例</td><td>交换相邻两行：只是两个系数换位，余子式里也恰好交换相邻两行，可直接归纳</td><td>交换第 1、2 列：系数 \(a_{11},\dots,a_{n1}\) 全部换成第 2 列元素，无法逐项对比</td></tr>
 </table></div>
+<div class="widget" data-widget="rowcol" data-t="行操作与列操作：按第一列展开逐项对比" data-d="选一种操作，看 |A| 与 |B| 沿第一列展开的每一项能否一一对应。行操作和“第 2 列以后的列操作”都能逐项对应；把第 1 列与第 2 列交换，对应关系就断了。"></div>
 <div class="box note"><span class="tag">教材的做法：列的证明顺序是倒过来的</span>
   <ol class="flow"><li class="arr"><b>行：</b></li><li>4 交换</li><li class="arr">→</li><li>5 成比例</li><li class="arr">→</li><li>6 可加</li><li class="arr">→</li><li>7 倍加</li></ol>
   <ol class="flow"><li class="arr"><b>列：</b></li><li>5′ 两列相同</li><li class="arr">→</li><li>6′ 可加</li><li class="arr">→</li><li>7′ 倍加</li><li class="arr">→</li><li>4′ 交换</li></ol>

@@ -760,4 +760,91 @@ W.vol3=function(el){
   function end(){drag=null}svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
   setM(D.toM(EX));
 };
+/* ---------- §1.3 行操作 vs 列操作：按第一列展开后逐项对比 ---------- */
+W.rowcol=function(el){
+  var body=frame(el);
+  var n=3,op='rswap',t=0,c=F(2),M=null;
+  var OPS=[['rswap','交换相邻两行'],['rscale','某一行乘 c'],['cswap','交换相邻两列'],['cscale','某一列乘 c']];
+  body.innerHTML='<div class="ctrl"><label>阶数 <select class="n">'+opt(['3','4'],'3')+'</select></label><label>操作 <select class="op">'+opt(OPS,op)+'</select></label><span class="rc-idx"></span><button class="btn sm rnd">换一组数</button></div>'+
+    '<div class="btns rc-quick"><span class="tiny muted">快速对比：</span><button class="btn sm" data-q="r">交换第 1、2 行</button><button class="btn sm" data-q="c2">交换第 2、3 列</button><button class="btn sm err" data-q="c1">交换第 1、2 列</button></div>'+
+    '<div class="rc-stage"></div>';
+  var stage=$('.rc-stage',body);
+  function isRow(){return op[0]==='r'}
+  function isSwap(){return op.indexOf('swap')>0}
+  function gen(fixed){
+    if(fixed&&n===3){M=D.toM([[2,1,3],[1,-1,2],[3,2,1]]);return}
+    for(var k=0;k<60;k++){M=D.randM(n,-3,5);if(!D.det(M).isZero())return}
+  }
+  function idx(){
+    var L=isRow()?'行':'列',h;
+    if(isSwap()) h='交换第 <select class="t">'+opt(Array.apply(null,{length:n-1}).map(function(_,k){return [k,(k+1)+'、'+(k+2)]}),t)+'</select> '+L;
+    else h='第 <select class="t">'+idxOpts(n,t)+'</select> '+L+'乘 c = <input class="num c" value="'+esc(c.toString())+'" aria-label="倍数 c">';
+    $('.rc-idx',body).innerHTML=h;
+  }
+  function apply(A){
+    var B=D.cloneM(A),T=isRow()?B:D.transpose(B);
+    if(isSwap()){var x=T[t];T[t]=T[t+1];T[t+1]=x}else T[t]=T[t].map(function(v){return v.mul(c)});
+    return isRow()?T:D.transpose(T);
+  }
+  function lines(){return isSwap()?[t,t+1]:[t]}
+  function bigCell(i,j){var L=lines(),on=isRow()?L.indexOf(i)>=0:L.indexOf(j)>=0;return (j===0?'rc-coef ':'')+(on?'mk':'')}
+  function term(A,i){var m=D.det(D.minorOf(A,i,0)),v=A[i][0].mul(m);return {a:A[i][0],m:m,v:i%2?v.neg():v,mi:D.minorOf(A,i,0)}}
+  function miniCell(i){ // 余子式里哪一行/列来自被操作的线
+    var L=lines();
+    return function(r,cc){
+      if(isRow()){var orig=r<i?r:r+1;return L.indexOf(orig)>=0?'mk':''}
+      var oc=cc+1;return L.indexOf(oc)>=0?'mk':'';
+    };
+  }
+  function tex(tm,i){return (i%2?'-':'+')+D.pt(tm.a)+'\\cdot'+D.pt(tm.m)+'='+tm.v.tex()}
+  function rel(i,TA,TB){
+    var f=isSwap()?F(-1):c,fs=isSwap()?'-':c.tex()+'\\cdot',j=i,why='',bad=false,cls='';
+    if(isRow()){
+      if(isSwap()&&(i===t||i===t+1)){j=i===t?t+1:t;why='被操作的那一项：两个系数换位，余子式相同';cls='neg'}
+      else if(!isSwap()&&i===t){why='被操作的那一项：系数乘 c，余子式不受影响';cls='neg'}
+      else why='余子式里也做了同样的'+(isSwap()?'相邻行交换':'倍乘')+' → 归纳假设';
+    }else{
+      if(t===0&&isSwap()){bad=true}
+      else if(t===0){why='第 1 列是系数列：每个系数都乘 c，余子式不变';cls='neg'}
+      else why='系数不变；余子式里做了同样的'+(isSwap()?'相邻列交换':'倍乘')+' → 归纳假设';
+    }
+    if(bad) return '<span class="no">✗ 无对应</span><div class="tiny muted">系数从第 1 列的 '+K(TA[i].a.tex())+' 变成了原第 2 列的 '+K(TB[i].a.tex())+'，余子式也换成另一个</div>';
+    var ok=TB[i].v.eq(TA[j].v.mul(f));
+    return K('='+fs+'(\\text{第 '+(j+1)+' 项})')+(ok?' <span class="ok">✓</span>':' <span class="no">?</span>')+'<div class="tiny"><span class="chip'+(cls?' '+cls:'')+'">'+why+'</span></div>';
+  }
+  function render(){
+    var B=apply(M),TA=[],TB=[],i;
+    for(i=0;i<n;i++){TA.push(term(M,i));TB.push(term(B,i))}
+    var L=isRow()?'行':'列',bad=!isRow()&&isSwap()&&t===0;
+    var h='<div class="row rc-pair"><span class="p4-g">'+K('|A|=')+D.matHTML(M,{cell:bigCell})+'</span><span class="p4-arrow">'+$('.op',body).selectedOptions[0].textContent+' →</span><span class="p4-g">'+K('|B|=')+D.matHTML(B,{cell:bigCell})+'</span></div>'+
+      '<p class="tiny muted">灰底的第 1 列是展开时的<b>系数列</b>；黄色是被操作的'+L+'。两个行列式都按定义<b>沿第一列展开</b>，第 i 项 = '+K('(-1)^{i+1}a_{i1}M_{i1}')+'。</p>'+
+      '<div class="tw"><table class="t rc-t"><tr><th>i</th><th>|A| 的第 i 项（余子式）</th><th>|B| 的第 i 项（余子式）</th><th>对应关系</th></tr>';
+    for(i=0;i<n;i++){
+      h+='<tr'+(bad?' class="rc-bad"':'')+'><td>'+(i+1)+'</td><td><div class="rc-cell">'+D.matHTML(TA[i].mi,{cls:'xs',cell:miniCell(i)})+K(tex(TA[i],i))+'</div></td><td><div class="rc-cell">'+D.matHTML(TB[i].mi,{cls:'xs',cell:miniCell(i)})+K(tex(TB[i],i))+'</div></td><td class="small">'+rel(i,TA,TB)+'</td></tr>';
+    }
+    var dA=D.det(M),dB=D.det(B),f=isSwap()?F(-1):c;
+    h+='<tr class="sum"><td>和</td><td>'+K('|A|='+dA.tex())+'</td><td>'+K('|B|='+dB.tex())+'</td><td class="small">'+(dB.eq(dA.mul(f))?'<span class="ok">'+(isSwap()?'|B| = −|A|':'|B| = c|A|')+'</span>':'')+'</td></tr></table></div>';
+    if(bad) h+='<div class="err-note">逐项对比失败：交换第 1、2 列后，B 的系数列整个换成了原第 2 列，|B| 的第 i 项与 |A| 的任何一项都不是“同一个系数 × 同一个余子式”，“单独看被操作的一项、其余交给归纳”无从下手。总和仍然是 −|A|——结论是对的，只是要换一条路证明：先证 5′（两列相同为 0）和 6′（列可加），再推出 4′。</div>';
+    else if(isRow()) h+='<div class="ok-note">行操作：被操作的行在第 '+lines().map(function(x){return x+1}).join('、')+' 项里作为<b>系数</b>出现，在其余各项里<b>原样待在余子式中</b>（黄色）。每一行的处境都一样，所以对任何一行都能这样逐项证明。</div>';
+    else if(t===0) h+='<div class="ok-note">倍乘第 1 列仍可逐项处理：每一项的系数都乘 c，余子式不变。真正的困难出在<b>把第 1 列与别的列交换或比较</b>时——试试“交换第 1、2 列”。</div>';
+    else h+='<div class="ok-note">只动第 2 列以后的列：系数列没变，被操作的列在每个余子式里都原样出现（黄色），可以交给归纳假设。</div>';
+    stage.innerHTML=h;
+    body.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+  function reset(){idx();render()}
+  body.addEventListener('change',function(e){
+    var x=e.target;if(!x.matches||!x.matches('select')) return;
+    if(x.classList.contains('n')){n=+x.value;t=Math.min(t,n-2);gen(false);reset()}
+    else if(x.classList.contains('op')){op=x.value;if(isSwap())t=Math.min(t,n-2);reset()}
+    else if(x.classList.contains('t')){t=+x.value;render()}
+  });
+  body.addEventListener('input',function(e){if(e.target.classList.contains('c')){var v=D.parseFr(e.target.value);e.target.classList.toggle('bad',!v);if(v){c=v;render()}}});
+  body.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b) return;
+    if(b.classList.contains('rnd')){gen(false);render();return}
+    var q=b.dataset.q;if(!q) return;
+    op=q==='r'?'rswap':'cswap';t=q==='c2'?1:0;$('.op',body).value=op;reset();
+  });
+  gen(true);reset();
+};
 })();

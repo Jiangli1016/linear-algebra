@@ -627,3 +627,14 @@ svg .area-ghost{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:
 .sw-log li.p2::marker{color:#b08a00}
 .vol-svg{touch-action:none;cursor:grab;color:var(--ink)}
 svg .vol-face{stroke-width:1.2;fill-opacity:.2}
+
+/* 行操作 vs 列操作 */
+.rc-pair{gap:.3rem .6rem;padding:.3rem 0}
+.dm .c.rc-coef{background:var(--tint)}
+.dm .c.rc-coef.mk{background:var(--mark)}
+.rc-cell{display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.rc-t td{white-space:nowrap}
+.rc-t td:last-child{white-space:normal;min-width:11rem}
+.rc-t td .chip{font-family:inherit;font-size:.72rem;white-space:normal;text-align:left}
+.rc-t tr.rc-bad td{background:var(--neg-soft)}
+.rc-quick{margin:.2rem 0 .4rem;align-items:center}
