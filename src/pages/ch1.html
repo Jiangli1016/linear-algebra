@@ -1,0 +1,88 @@
+<template data-route="c1" data-chapter="1" data-num="导引" data-short="本章导引" data-group="">
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="det-eyebrow">高等代数 · 第一章</span>
+      <h1><span class="bars">行列式</span></h1>
+      <p class="lede">从解线性方程组出发：先在二阶、三阶里看清规律，再用这些规律定义一般的 \(n\) 阶行列式，最后学会高效地计算它、用它判断方程组是否有唯一解。</p>
+      <div class="meta-row"><span class="pill acc">7 节 · 建议 8–10 学时</span><span class="pill">谢启鸿 等《高等代数学（第四版）》</span></div>
+      <div class="btns" style="margin-top:1rem"><a class="btn pri" href="#s1-1">从 §1.1 开始</a><a class="btn" href="#c1-summary">看本章总结</a><a class="btn" href="#c1-practice">做综合练习</a></div>
+    </div>
+    <div class="hero-demo" data-widget="hero3"></div>
+  </div>
+</section>
+
+<h2>这一章到底在学什么</h2>
+<p>表面上是在学“行列式怎么算”，教材真正的逻辑是一条从具体到抽象的链：</p>
+<ol class="flow">
+  <li>线性方程组</li><li class="arr">→</li><li>二阶行列式</li><li class="arr">→</li><li>三阶行列式</li><li class="arr">→</li><li>余子式与递归</li><li class="arr">→</li><li class="key">\(n\) 阶行列式</li><li class="arr">→</li><li>基本性质</li><li class="arr">→</li><li>按任意行、列展开与转置</li><li class="arr">→</li><li>Cramer 法则</li><li class="arr">→</li><li>高效计算</li><li class="arr">→</li><li>排列与逆序数</li><li class="arr">→</li><li>等价定义</li><li class="arr">→</li><li>Laplace 定理</li>
+</ol>
+<p>整章依次回答四个问题：</p>
+<ol>
+  <li><b>行列式为什么会出现？</b>它是解线性方程组时自然冒出来的那个“只由系数决定的量”。</li>
+  <li><b>一般的 \(n\) 阶行列式怎么定义？</b>教材用递归：\(n\) 阶由 \(n-1\) 阶来定义。</li>
+  <li><b>它有哪些结构性质，怎样高效计算？</b>8 条性质 + 展开定理 + 消元降阶。</li>
+  <li><b>递归定义背后有没有更统一的表达？</b>有：\(n!\) 项的排列求和公式，以及更一般的 Laplace 展开。</li>
+</ol>
+
+<h2>三个阶段</h2>
+<div class="stage-grid">
+  <div class="stage"><span class="sk">第一阶段 · §1.1 → §1.3</span><h3>从具体到一般</h3><p>从二元、三元方程组里的具体量出发，逐步建立 \(n\) 阶行列式与它的 8 条性质。</p><p><a href="#s1-1">§1.1</a> · <a href="#s1-2">§1.2</a> · <a href="#s1-3">§1.3</a></p></div>
+  <div class="stage"><span class="sk">第二阶段 · §1.3 → §1.5</span><h3>从定义到操作</h3><p>展开定理、转置、Cramer 法则，再把它们组合成真正好用的计算策略。</p><p><a href="#s1-4">§1.4</a> · <a href="#s1-5">§1.5</a></p></div>
+  <div class="stage"><span class="sk">第三阶段 · §1.6 → §1.7</span><h3>从操作到结构</h3><p>用排列重新理解行列式；把“按一个元素展开”推广为“按 \(k\) 阶子式展开”。</p><p><a href="#s1-6">§1.6</a> · <a href="#s1-7">§1.7</a></p></div>
+</div>
+
+<h2>贯穿全章的两个思想</h2>
+<div class="w-grid">
+  <div class="box idea"><span class="tag">思想一 · 结构</span>
+    <p>拿到一个行列式，先别急着算，先问：</p>
+    <ul><li>有没有零？</li><li>有没有相同或成比例的行、列？</li><li>有没有公因子？</li><li>能不能通过行列变换制造零？</li><li>有没有三角形、Vandermonde、递推、分块结构？</li></ul>
+  </div>
+  <div class="box idea"><span class="tag">思想二 · 降阶</span>
+    <p>行列式的计算本质上是不断地降低阶数：</p>
+    <div class="boxed-eq">\[n\text{ 阶}\longrightarrow(n-1)\text{ 阶}\longrightarrow\cdots\longrightarrow 2\text{ 阶}\]</div>
+    <p class="small">计算的标准动作：观察结构 → 适当变换 → 制造零 → 选择展开位置 → 降阶。</p>
+  </div>
+</div>
+
+<h2>各节导航</h2>
+<div class="cards">
+  <a class="card" href="#s1-1" data-route="s1-1"><span class="no">§1.1</span><span class="tt">二阶行列式</span><span class="ds">方程组 → 二阶行列式；8 条性质的雏形；有向面积</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s1-2" data-route="s1-2"><span class="no">§1.2</span><span class="tt">三阶行列式</span><span class="ds">由性质反推定义；余子式初现；对角线法只适用于三阶</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s1-3" data-route="s1-3"><span class="no">§1.3</span><span class="tt">\(n\) 阶行列式</span><span class="ds">递归定义；代数余子式；8 条性质的一般证明</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s1-4" data-route="s1-4"><span class="no">§1.4</span><span class="tt">展开与转置</span><span class="ds">按任意行、列展开；异乘变零；转置不变；Cramer 法则</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s1-5" data-route="s1-5"><span class="no">§1.5</span><span class="tt">行列式的计算</span><span class="ds">消元降阶；Vandermonde；“对角 x 其余 a”；递推</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s1-6" data-route="s1-6"><span class="no">§1.6</span><span class="tt">等价定义</span><span class="ds">排列、逆序数、奇偶性；\(n!\) 项展开式</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s1-7" data-route="s1-7"><span class="no">*§1.7</span><span class="tt">Laplace 定理</span><span class="ds">\(k\) 阶子式及其代数余子式；分块三角</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#c1-summary" data-route="c1-summary"><span class="no">小结</span><span class="tt">知识结构与思维方式</span><span class="ds">定义与定理清单、易错点、结构诊断工具、历史</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#c1-practice" data-route="c1-practice"><span class="no">练习</span><span class="tt">综合练习</span><span class="ds">选择题、填空题、随机出题与分步解答</span><span class="seen" hidden>✓ 已浏览</span></a>
+</div>
+
+<h2>行列式与统计学</h2>
+<div class="box stat"><span class="tag">统计视角</span>
+  <p>本章每一节都放了一个与统计相关的例子，帮助你看到行列式以后会出现在哪里：</p>
+  <ul>
+    <li><b>线性回归</b>：正规方程 \(X^{\top}X\hat\beta=X^{\top}y\) 有唯一解，当且仅当 \(|X^{\top}X|\ne0\)；完全多重共线性就是 \(|X^{\top}X|=0\)。</li>
+    <li><b>多元正态分布</b>：密度 \(\dfrac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\!\bigl(-\tfrac12(x-\mu)^{\top}\Sigma^{-1}(x-\mu)\bigr)\) 里有协方差矩阵的行列式。</li>
+    <li><b>广义方差</b>：\(|\Sigma|\) 衡量多维数据“散开的体积”。</li>
+    <li><b>变量变换</b>：多元随机变量换元时，密度要乘 Jacobian 行列式的绝对值。</li>
+  </ul>
+  <p class="small muted">现在不必看懂这些公式，学完本章再回来看，你会认出里面的行列式。</p>
+</div>
+
+<h2>本章的学习方式</h2>
+<ul>
+  <li>每一节按“学习目标 → 讲解 → 例题 → 互动实验 → 易错点 → 课堂练习 → 小结”组织。</li>
+  <li>例题解答可以<b>逐步展开</b>；互动区块可以直接改数字，计算按<b>分数精确</b>进行。</li>
+  <li>上课时点右上角“<b>放映</b>”进入 PPT 模式；课后在手机上按讲义模式阅读即可。</li>
+</ul>
+<details class="tnote"><summary>教学提示 · 本章课时安排参考</summary><div class="dbody">
+  <div class="tw"><table class="t l"><tr><th>课次</th><th>内容</th><th>重点活动</th></tr>
+  <tr><td>第 1 次</td><td>§1.1、§1.2</td><td>由方程组引出二阶行列式；性质验证器；对角线法与四阶陷阱</td></tr>
+  <tr><td>第 2 次</td><td>§1.3</td><td>递归定义、代数余子式、符号棋盘；性质实验室</td></tr>
+  <tr><td>第 3 次</td><td>§1.4</td><td>展开定理、异乘变零、转置、Cramer 法则</td></tr>
+  <tr><td>第 4–5 次</td><td>§1.5</td><td>消元降阶；Vandermonde；文字行列式；递推</td></tr>
+  <tr><td>第 6 次</td><td>§1.6</td><td>逆序数、拆列得到 \(n!\) 项、放车游戏</td></tr>
+  <tr><td>第 7 次</td><td>*§1.7 与复习</td><td>Laplace 定理、分块三角；结构诊断、综合练习</td></tr></table></div>
+</div></details>
+</template>

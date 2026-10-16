@@ -1,0 +1,214 @@
+<template data-chapter="1" data-route="s1-3" data-num="§1.3" data-short="n 阶行列式" data-group="第一阶段 · 从具体到一般">
+<header class="page-head">
+  <span class="det-eyebrow">§1.3</span>
+  <h1>\(n\) 阶行列式</h1>
+  <p class="lede">三阶行列式是用二阶定义的，那么 \(n\) 阶行列式就可以用 \(n-1\) 阶来定义。本节给出递归定义、代数余子式，并用数学归纳法证明 8 条性质中的前 7 条。</p>
+  <div class="meta-row"><span class="pill acc">建议 1.5 学时</span><span class="pill">教材第 12–21 页</span><span class="pill">关键词：定义与性质</span></div>
+  <ul class="goals">
+    <li>掌握 \(n\) 阶行列式的记号与术语</li>
+    <li>掌握余子式、代数余子式的完整定义</li>
+    <li>理解“按第一列展开”的递归定义</li>
+    <li>掌握 \(n\) 阶行列式的基本性质及证明思路</li>
+    <li>会用性质判断行列式为零</li>
+    <li>熟练掌握三种行、列变换</li>
+    <li>理解“定义 → 性质 → 计算”的逻辑关系</li>
+  </ul>
+</header>
+
+<h2>\(n\) 阶行列式的记号</h2>
+<p>把 \(n^2\) 个数排成 \(n\) 行 \(n\) 列，两边加竖线：</p>
+\[|A|=\begin{vmatrix}a_{11}&a_{12}&\cdots&a_{1n}\\a_{21}&a_{22}&\cdots&a_{2n}\\\vdots&\vdots&&\vdots\\a_{n1}&a_{n2}&\cdots&a_{nn}\end{vmatrix}.\]
+<ul>
+  <li>第 \(i\) 行上的元素全体称为第 \(i\) 行，第 \(j\) 列同理；</li>
+  <li>\(a_{ij}\) 位于第 \(i\) 行第 \(j\) 列，称为 \((i,j)\) 元素——<b>先行后列</b>；</li>
+  <li>\(a_{11},a_{22},\dots,a_{nn}\) 称为<b>主对角线</b>。</li>
+</ul>
+
+<h2>余子式与递归定义</h2>
+<div class="box def"><span class="tag">定义 1.3.1<em>余子式</em></span>
+  <p>在 \(|A|\) 中划去第 \(i\) 行第 \(j\) 列，剩下的 \(n-1\) 行与 \(n-1\) 列元素按原来的相对位置组成的 \(n-1\) 阶行列式，称为元素 \(a_{ij}\) 的<b>余子式</b>，记为 \(M_{ij}\)。</p>
+</div>
+<div class="box def"><span class="tag">定义 1.3.2<em>\(n\) 阶行列式（递归定义）</em></span>
+  <p>当 \(n=1\) 时，\(|A|=a_{11}\)。假设 \(n-1\) 阶行列式已经定义（从而所有 \(M_{ij}\) 的值已定义），定义</p>
+  <div class="boxed-eq">\[|A|=a_{11}M_{11}-a_{21}M_{21}+\cdots+(-1)^{n+1}a_{n1}M_{n1}.\]</div>
+  <p>这称为行列式<b>按第一列展开</b>的展开式。</p>
+</div>
+<p>这个公式给出了计算方法：把 \(n\) 阶化为 \(n-1\) 阶，再化为 \(n-2\) 阶……最后便可求出 \(|A|\)。</p>
+<div class="box warn"><span class="tag">课堂强调</span>
+  <p>教材在这里<b>没有</b>用排列求和来定义行列式。排列与逆序数要到 §1.6 才引入，届时会证明它与这里的递归定义等价。两种定义不要混用。</p>
+</div>
+
+<div class="box def"><span class="tag">定义 1.3.3<em>代数余子式</em></span>
+  <div class="boxed-eq">\[A_{ij}=(-1)^{i+j}M_{ij}.\]</div>
+  <p>于是递归定义可以写成更整齐的形式：</p>
+  \[|A|=a_{11}A_{11}+a_{21}A_{21}+\cdots+a_{n1}A_{n1}.\]
+</div>
+<p>\((-1)^{i+j}\) 只取决于位置，像一张<b>符号棋盘</b>：左上角为正，横向、纵向相邻的位置符号相反。</p>
+\[\begin{pmatrix}+&-&+&-&\cdots\\-&+&-&+&\cdots\\+&-&+&-&\cdots\\-&+&-&+&\cdots\\\vdots&&&&\ddots\end{pmatrix}\]
+<div class="box note"><span class="tag">注 · 与二阶、三阶一致</span>
+  <p>对二阶行列式：\(M_{11}=a_{22},\ M_{21}=a_{12}\)，所以 \(A_{11}=a_{22},\ A_{21}=-a_{12}\)，定义给出 \(a_{11}a_{22}-a_{12}a_{21}\)，与 §1.1 一致。三阶同样一致。</p>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.3.1 <span class="src">教材第 13–14 页</span></div>
+  <p>设五阶行列式 \(|A|=\begin{vmatrix}1&0&-1&3&1\\0&2&-5&4&1\\3&-2&-1&1&0\\0&0&2&1&3\\1&3&-1&5&1\end{vmatrix}\)，写出 \(a_{11},a_{34},a_{41}\) 的余子式与代数余子式。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(a_{11}=1\)：\(M_{11}=\begin{vmatrix}2&-5&4&1\\-2&-1&1&0\\0&2&1&3\\3&-1&5&1\end{vmatrix}\)，\(A_{11}=(-1)^{1+1}M_{11}=M_{11}\)。</div>
+    <div class="st">\(a_{34}=1\)：\(M_{34}=\begin{vmatrix}1&0&-1&1\\0&2&-5&1\\0&0&2&3\\1&3&-1&1\end{vmatrix}\)，\(A_{34}=(-1)^{3+4}M_{34}=-M_{34}\)。</div>
+    <div class="st">\(a_{41}=0\)：\(M_{41}=\begin{vmatrix}0&-1&3&1\\2&-5&4&1\\-2&-1&1&0\\3&-1&5&1\end{vmatrix}\)，\(A_{41}=(-1)^{4+1}M_{41}=-M_{41}\)。</div>
+    <div class="st">（用下面的组件可以算出具体数值：\(M_{11}=158,\ M_{34}=-51,\ M_{41}=29\)。）</div>
+  </div>
+</div>
+
+<div class="widget" data-widget="minor" data-presets="e131,e121,x1,x2" data-t="余子式与代数余子式" data-d="点击任一元素，看划去的行列、\(M_{ij}\) 与 \(A_{ij}\)。打开“符号棋盘”可以先猜符号再验证。"></div>
+
+<h2>\(n\) 阶行列式的基本性质</h2>
+<p>因为行列式是用归纳法定义的，所以它的性质也用归纳法证明。下面先证明关于<b>行</b>的性质，再证明关于<b>列</b>的版本。性质 8 留到 §1.4。</p>
+
+<div class="box prop"><span class="tag">性质 1<em>三角形行列式</em></span>
+  <p>上三角或下三角行列式的值等于主对角线元素之积：</p>
+  \[\begin{vmatrix}a_{11}&a_{12}&\cdots&a_{1n}\\0&a_{22}&\cdots&a_{2n}\\\vdots&&\ddots&\vdots\\0&0&\cdots&a_{nn}\end{vmatrix}=\begin{vmatrix}a_{11}&0&\cdots&0\\a_{21}&a_{22}&\cdots&0\\\vdots&&\ddots&\vdots\\a_{n1}&a_{n2}&\cdots&a_{nn}\end{vmatrix}=a_{11}a_{22}\cdots a_{nn}.\]
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>对 \(n\) 归纳，\(n=1\) 显然。上三角：按定义 \(|A|=a_{11}M_{11}\)（第一列其余元素为 0），而 \(M_{11}\) 仍是上三角，由归纳假设 \(M_{11}=a_{22}\cdots a_{nn}\)。</p>
+  <p>下三角：\(|A|=a_{11}M_{11}-a_{21}M_{21}+\cdots\)。对 \(i\gt1\)，\(M_{i1}\) 仍是下三角，且主对角线上至少有一个 0，故 \(M_{i1}=0\)；而 \(M_{11}=a_{22}\cdots a_{nn}\)。</p>
+</div></details>
+
+<div class="box prop"><span class="tag">性质 2<em>零行（列）</em></span><p>若某一行或某一列全为 0，则 \(|A|=0\)。</p></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>设第 \(i\) 行全为 0。展开式中 \(j\ne i\) 的 \(M_{j1}\) 都含一个零行，由归纳假设为 0；而 \(a_{i1}=0\)，所以每一项都是 0。若第 \(i\) 列全为 0：\(i=1\) 时显然；\(i\gt1\) 时每个 \(M_{j1}\) 都含零列，为 0。</p>
+</div></details>
+
+<div class="box prop"><span class="tag">性质 3<em>倍乘</em></span><p>某一行（列）乘常数 \(c\)，得到的行列式 \(|B|=c|A|\)。</p></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>设 \(|B|\) 的第 \(i\) 行是 \(|A|\) 第 \(i\) 行的 \(c\) 倍。按定义 \(|B|=a_{11}N_{11}-\cdots+(-1)^{i+1}ca_{i1}N_{i1}+\cdots\)。由归纳假设 \(N_{r1}=cM_{r1}\ (r\ne i)\)，而 \(N_{i1}=M_{i1}\)，所以每一项都恰好多了一个因子 \(c\)。列的情形类似。</p>
+</div></details>
+
+<div class="box prop"><span class="tag">性质 4<em>交换</em></span><p>对换行列式的任意两行，行列式的值改变符号（绝对值不变）。</p></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p><b>先证相邻两行。</b>设 \(|B|\) 由 \(|A|\) 交换第 \(r,r+1\) 行而得。展开 \(|B|\) 时，第 \(r\) 项和第 \(r+1\) 项恰好互换位置并且各自多了一个负号；其余 \(i\ne r,r+1\) 的项中，余子式由归纳假设变号。所以 \(|B|=-|A|\)。</p>
+  <p><b>再证一般情形。</b>交换第 \(i\) 行与第 \(j\) 行（\(j\gt i\)）：先把第 \(i\) 行与第 \(i+1,\dots,j\) 行依次相邻交换（\(j-i\) 次），再把原第 \(j\) 行向上依次相邻交换回第 \(i\) 行的位置（\(j-i-1\) 次），共 \(2(j-i)-1\) 次，是奇数次，所以变号。</p>
+</div></details>
+<div class="widget" data-widget="prop4" data-t="相邻两行交换为什么变号：按第一列逐项对比" data-d="两个行列式都按第一列展开：被交换的两项“换位置并变号”，其余各项的余子式也交换了相邻两行，由归纳假设变号。点表格的一行看细节。"></div>
+<div class="widget" data-widget="swapany" data-t="任意两行的交换：拆成相邻交换" data-d="选两行（不必相邻），按“下一步”一次只交换相邻两行，看行怎样移动：蓝色行先下沉 \(j-i\) 格，黄色行再上移 \(j-i-1\) 格，共 \(2(j-i)-1\) 次，奇数次变号。"></div>
+
+<div class="box prop"><span class="tag">性质 5<em>成比例</em></span><p>若两行成比例，则 \(|A|=0\)；特别地，两行相同时 \(|A|=0\)。</p></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>两行相同时，交换这两行，行列式不变，但由性质 4 又应变号：\(|A|=-|A|\)，所以 \(|A|=0\)。两行成比例时，用性质 3 提出比例因子，化为两行相同的情形。</p>
+</div></details>
+
+<div class="box prop"><span class="tag">性质 6<em>可加性</em></span>
+  <p>若 \(|C|\) 的第 \(r\) 行等于 \(|A|\) 与 \(|B|\) 的第 \(r\) 行之和，其他行三者相同，则 \(|C|=|A|+|B|\)：</p>
+  \[\begin{vmatrix}a_{11}&\cdots&a_{1n}\\\vdots&&\vdots\\a_{r1}+b_{r1}&\cdots&a_{rn}+b_{rn}\\\vdots&&\vdots\\a_{n1}&\cdots&a_{nn}\end{vmatrix}=\begin{vmatrix}a_{11}&\cdots&a_{1n}\\\vdots&&\vdots\\a_{r1}&\cdots&a_{rn}\\\vdots&&\vdots\\a_{n1}&\cdots&a_{nn}\end{vmatrix}+\begin{vmatrix}a_{11}&\cdots&a_{1n}\\\vdots&&\vdots\\b_{r1}&\cdots&b_{rn}\\\vdots&&\vdots\\a_{n1}&\cdots&a_{nn}\end{vmatrix}.\]
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>把 \(|C|\) 按第一列展开。对 \(i\ne r\)，余子式 \(Q_{i1}\) 仍满足同样的条件，由归纳假设 \(Q_{i1}=M_{i1}+N_{i1}\)；对 \(i=r\)，\(Q_{r1}=M_{r1}=N_{r1}\)，而系数是 \(a_{r1}+b_{r1}\)。合并即得 \(|C|=|A|+|B|\)。</p>
+</div></details>
+
+<div class="box prop"><span class="tag">性质 7<em>倍加</em></span><p>将某一行乘常数 \(c\) 加到另一行上，行列式的值不变。</p></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>由性质 6，左边可以拆成两个行列式之和：一个就是原行列式；另一个的第 \(j\) 行是第 \(i\) 行的 \(c\) 倍，与第 \(i\) 行成比例，由性质 5 为 0。</p>
+</div></details>
+
+<h2>为什么列的性质要单独证明</h2>
+<p>上面只对<b>行</b>证明了性质 4–7。列的版本 4′–7′ 不能“同理可得”，原因在定义本身：\(|A|=a_{11}A_{11}+a_{21}A_{21}+\cdots+a_{n1}A_{n1}\) 是<b>按第一列</b>展开的，行和列在定义里的地位并不对称。</p>
+<div class="tw"><table class="t l small">
+<tr><th></th><th>对行做操作</th><th>对列做操作</th></tr>
+<tr><td>在展开式里的处境</td><td>每一行都一样：要么作为系数 \(a_{i1}\) 出现，要么原样进入余子式</td><td>第 1 列是系数，其余各列只在余子式里——第 1 列很特殊</td></tr>
+<tr><td>证明手法</td><td>“被操作的那一项单独看，其余项交给归纳假设”统一适用</td><td>一旦操作牵涉第 1 列，系数整个变了，这个手法失效</td></tr>
+<tr><td>以交换为例</td><td>交换相邻两行：只是两个系数换位，余子式里也恰好交换相邻两行，可直接归纳</td><td>交换第 1、2 列：系数 \(a_{11},\dots,a_{n1}\) 全部换成第 2 列元素，无法逐项对比</td></tr>
+</table></div>
+<div class="box note"><span class="tag">教材的做法：列的证明顺序是倒过来的</span>
+  <ol class="flow"><li class="arr"><b>行：</b></li><li>4 交换</li><li class="arr">→</li><li>5 成比例</li><li class="arr">→</li><li>6 可加</li><li class="arr">→</li><li>7 倍加</li></ol>
+  <ol class="flow"><li class="arr"><b>列：</b></li><li>5′ 两列相同</li><li class="arr">→</li><li>6′ 可加</li><li class="arr">→</li><li>7′ 倍加</li><li class="arr">→</li><li>4′ 交换</li></ol>
+  <p>交换两列（4′）不好直接证，就先证“两列相同为 0”（5′）和列的可加性（6′），再用它们拼出 4′：</p>
+  <ul>
+    <li><b>性质 5′</b>（两列成比例则为 0）：若相同的两列都不是第一列，展开后用归纳法；若第一列与第 \(r\) 列相同，设 \(a_{s1}\ne0\)，换到第一行后用第一行消去第一列其余元素，展开后的 \(n-1\) 阶行列式有一列全为 0。</li>
+    <li><b>性质 6′</b>（列的可加性）：展开后对余子式用归纳假设。</li>
+    <li><b>性质 7′</b>（列的倍加）：由性质 6′ 和 5′ 即得。</li>
+    <li><b>性质 4′</b>（交换两列变号）：作 \(|C|\)，使它的第 \(r,s\) 列都等于 \(|A|\) 的第 \(r,s\) 列之和，用 6′ 拆成四项，其中两项有相同的两列，于是 \(0=|C|=|A|+|B|\)。</li>
+  </ul>
+</div>
+<div class="box warn"><span class="tag">为什么不先证转置不变、一次省掉一半工作？</span>
+  <p>因为会<b>循环论证</b>。§1.4 证明“按任意行列展开”和“转置不变”时，本身就要用到列的性质：</p>
+  <ul>
+    <li><b>定理 1.4.1</b>（按第 \(r\) 列展开）：先把第 \(r\) 列经 \(r-1\) 次相邻<b>列</b>交换搬到第一列——用到 4′；</li>
+    <li><b>引理 1.4.1</b>（按第一行展开）：把拆出的各项经<b>列</b>交换移到第一列——用到 4′；</li>
+    <li><b>性质 8</b>（\(|A'|=|A|\)）：把 \(|A'|\) 按第一行展开——依赖引理 1.4.1，间接依赖 4′。</li>
+  </ul>
+  <p>所以 4′–7′ 必须在本节直接从定义证出来，§1.4 才有工具可用。§1.4 证明性质 8 之后，行列地位对称，<b>以后关于列的结论就不必再单独证明</b>了。</p>
+</div>
+
+
+<h2>为什么“倍加不变”</h2>
+<p>这是本节最需要讲透的性质，因为后面所有的计算都靠它“制造零”。设 \(R_i'=R_i+cR_j\)，由第 \(i\) 行的可加性与齐次性：</p>
+\[D'=D+c\,D_1,\]
+<p>其中 \(D_1\) 是把第 \(i\) 行换成第 \(j\) 行所得的行列式。\(D_1\) 有两行相同，\(D_1=0\)，所以 \(D'=D\)。</p>
+<div class="widget" data-widget="addinv" data-t="把 D′ = D + c·D₁ 摆出来看" data-d="黄色是被改动的第 i 行，蓝色是复制过去的第 j 行。无论 c 取什么，\(D_1\) 总是 0。"></div>
+
+<h2>性质实验室</h2>
+<div class="widget" data-widget="lab" data-t="对行列式做变换，看值如何变化" data-d="对 2–4 阶行列式执行行（列）变换。每一步都会记录值的变化，并点亮用到的性质。格子里的数字可以直接改，支持分数。"></div>
+
+<div class="box board"><span class="tag">要点 · 三种变换必须熟记</span>
+  \[R_i\leftrightarrow R_j\Rightarrow -D\qquad R_i\leftarrow cR_i\Rightarrow cD\qquad R_i\leftarrow R_i+cR_j\Rightarrow D\]
+  <p class="small">列变换完全相同。</p>
+</div>
+
+<h2>用性质判断行列式为零</h2>
+<p>很多行列式不用计算就能看出等于 0：</p>
+<ul>
+  <li>有零行或零列（性质 2）；</li>
+  <li>有两行（列）相同或成比例（性质 5）；</li>
+  <li>某一行是其他几行的组合——用倍加把它消成零行。</li>
+</ul>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 不计算判断 \(\begin{vmatrix}1&2&3\\4&5&6\\7&8&9\end{vmatrix}=0\)</div></div>
+  <div class="sol" data-steps>
+    <div class="st">观察：第三行减第二行是 \((3,3,3)\)，第二行减第一行也是 \((3,3,3)\)。</div>
+    <div class="st">\(R_3\leftarrow R_3-R_2\)，\(R_2\leftarrow R_2-R_1\)<span class="why">性质 7</span>：\(\begin{vmatrix}1&2&3\\3&3&3\\3&3&3\end{vmatrix}\)。</div>
+    <div class="st">两行相同，值为 0<span class="why">性质 5</span>。</div>
+  </div>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 换单位会改变广义方差</span>
+  <p>由性质 3，\(n\) 阶行列式所有元素乘 \(c\) 时，每一行各提出一个 \(c\)：\(|cA|=c^n|A|\)。</p>
+  <p>若把 \(p\) 个变量的单位全部从“米”换成“厘米”，每个变量乘 100，协方差矩阵的每个元素乘 \(100^2\)，于是 \(|\Sigma|\) 乘 \(100^{2p}\)。广义方差强烈依赖单位，这就是多元分析里常常改用<b>相关系数矩阵</b>的原因之一。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>\(M_{ij}\) 与 \(A_{ij}\) 混淆：\(A_{ij}=(-1)^{i+j}M_{ij}\)，符号由位置决定，与 \(a_{ij}\) 的正负无关。</li>
+    <li>\(M_{ij}\) 与 \(a_{ij}\) 本身<b>无关</b>：改变 \(a_{ij}\) 不会改变 \(M_{ij}\)。</li>
+    <li>“第 \(j\) 行先乘 \(k\) 再加上第 \(i\) 行”会让值乘 \(k\)，不是倍加。</li>
+    <li>\(|cA|=c^n|A|\)，不是 \(c|A|\)；\(|-A|=(-1)^n|A|\)。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="1"><div class="qt">四阶行列式中 \(a_{23}\) 的代数余子式 \(A_{23}\) 与余子式 \(M_{23}\) 的关系是：</div><ol class="opts"><li>\(A_{23}=M_{23}\)</li><li>\(A_{23}=-M_{23}\)</li><li>\(A_{23}=a_{23}M_{23}\)</li><li>与 \(a_{23}\) 的符号有关</li></ol><div class="explain">\((-1)^{2+3}=-1\)。</div></div>
+  <div class="fill" data-ans="-3"><div class="qt">\(\begin{vmatrix}1&-1&1&1\\-1&2&-1&0\\1&1&2&-1\\1&-1&0&-2\end{vmatrix}\) 中 \((1,2)\) 元的代数余子式 \(A_{12}=\)？<span class="tiny muted">（习题 1.3 第 1(1) 题）</span></div><div class="explain">\(M_{12}=\begin{vmatrix}-1&-1&0\\1&2&-1\\1&0&-2\end{vmatrix}=3\)，\(A_{12}=-M_{12}=-3\)。</div></div>
+  <div class="fill" data-ans="-6"><div class="qt">\(\begin{vmatrix}2&0&0&0\\3&-1&0&0\\-2&0&3&0\\9&-1&2&1\end{vmatrix}=\)？<span class="tiny muted">（习题 1.3 第 2(2) 题）</span></div><div class="explain">下三角，\(2\times(-1)\times3\times1=-6\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(\begin{vmatrix}1&1&0&-1\\2&1&1&0\\2&2&0&-2\\10&4&5&9\end{vmatrix}=\)？<span class="tiny muted">（习题 1.3 第 3(1) 题）</span></div><ol class="opts"><li>0</li><li>2</li><li>−10</li><li>18</li></ol><div class="explain">第三行是第一行的 2 倍（性质 5）。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">\(\begin{vmatrix}1&0&0&0\\2&1&-2&1\\5&0&1&3\\7&-1&2&1\end{vmatrix}=\)？<span class="tiny muted">（习题 1.3 第 3(2) 题）</span></div><div class="explain">按定义沿第一列展开时，\(M_{21},M_{31},M_{41}\) 都保留了第一行剩下的 \((0,0,0)\)，是零行，等于 0（性质 2）。所以 \(|A|=M_{11}=\begin{vmatrix}1&-2&1\\0&1&3\\-1&2&1\end{vmatrix}=2\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">设四阶行列式 \(|A|=3\)，则 \(|-2A|=\)？</div><ol class="opts"><li>−6</li><li>6</li><li>48</li><li>−48</li></ol><div class="explain">\((-2)^4\times3=48\)。</div></div>
+</div>
+<details class="more"><summary>思考题（习题 1.3 第 4 题）</summary><div class="dbody">
+  <p>(1) \(\begin{vmatrix}a&0&0&e\\0&b&f&0\\0&g&c&0\\h&0&0&d\end{vmatrix}=(ad-eh)(bc-fg)\)。提示：按第一列展开，或学完 §1.7 用 Laplace 定理取第 1、4 行。</p>
+  <p>(2) \(\begin{vmatrix}0&a&b&c\\-a&0&d&e\\-b&-d&0&f\\-c&-e&-f&0\end{vmatrix}=(af-be+cd)^2\)。这是四阶反对称行列式，结果是一个完全平方。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>递归定义：\(|A|=\sum_{i=1}^n a_{i1}A_{i1}\)，其中 \(A_{ij}=(-1)^{i+j}M_{ij}\)。</li>
+  <li>8 条性质中的 1–7 对行、对列都已用归纳法证明；性质 8 在 §1.4。</li>
+  <li>倍加不变 = 可加性 + 两行相同为 0。</li>
+  <li>“定义 → 性质 → 计算”：定义只用来证明性质，实际计算靠性质。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>讲完行的性质后可以先问学生：“为什么不先证转置不变，省掉一半工作？”让他们自己发现循环论证，再引出 4′–7′ 的单独证明。</li>
+  <li>证明不必全部在课上推导：性质 1、4、5、7 讲透即可，6 和列的版本让学生课后读教材。</li>
+  <li>“余子式”组件打开符号棋盘，让学生先说出 \(A_{34}\) 的符号再点击验证。</li>
+  <li>性质实验室可两人一组：一人操作，一人先口头预测新值。</li>
+  <li>课后作业建议：习题 1.3 第 1–4 题。</li>
+</ul></div></details>
+</template>

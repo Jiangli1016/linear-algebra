@@ -1,0 +1,66 @@
+<header class="topbar">
+  <button id="navToggle" class="tb-btn" type="button" aria-label="打开目录"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="lbl">目录</span></button>
+  <a class="brand" href="#home" aria-label="课程主页"><span class="brand-mark"><span class="bar"></span>高等代数<span class="bar"></span></span><span class="brand-sub" id="brandSub">交互课件</span></a>
+  <button id="slidesBtn" class="tb-btn pri" type="button" aria-label="放映模式"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="12" rx="1.5"/><path d="M12 16.5V20M8.5 20h7M10.5 8.2v4.6l3.8-2.3z"/></svg><span class="lbl">放映</span></button>
+  <div class="menu-wrap">
+    <button id="menuBtn" class="tb-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="显示设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg><span class="lbl">设置</span></button>
+    <div class="menu" id="menu" hidden>
+      <div class="menu-row"><span>字号</span><span class="seg"><button id="fsDown" type="button" aria-label="减小字号">A−</button><b id="fsVal">100%</b><button id="fsUp" type="button" aria-label="增大字号">A+</button></span></div>
+      <div class="menu-row"><span>外观</span><button id="themeBtn" class="btn sm" type="button">切换深色 / 浅色</button></div>
+      <label class="menu-row"><span>学生视图（隐藏教学提示）</span><input type="checkbox" id="studentView"></label>
+      <label class="menu-row wide-only"><span>显示左侧目录</span><input type="checkbox" id="sideView" checked></label>
+      <button class="menu-item" id="slidesBtn2" type="button">放映当前小节（PPT 模式）<span class="kbd">P</span></button>
+      <button class="menu-item print-only-site" id="printBtn" type="button">打印本章讲义 / 另存为 PDF</button>
+      <p class="menu-note print-note">打印功能请在课件的独立网址或离线版中使用。</p>
+    </div>
+  </div>
+  <div class="read-prog" id="readProg"></div>
+</header>
+<div class="layout">
+  <aside class="sidenav" id="sidenav" aria-label="课程目录">
+    <nav id="navlist"></nav>
+    <div class="side-foot">
+      教材：谢启鸿、姚慕生、吴泉水《高等代数学（第四版）》<br>键盘 ← → 切换小节，P 进入放映
+    </div>
+  </aside>
+  <main id="main"></main>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<div class="deck" id="deck" hidden role="dialog" aria-label="放映模式">
+  <div class="deck-stage" id="deckStage"><div class="deck-slide" id="deckSlide"><div class="deck-kicker" id="deckKicker"></div><div class="deck-body" id="deckBody"></div></div></div>
+  <div class="deck-body deck-measure" id="deckMeasure" aria-hidden="true"></div>
+  <div class="deck-lens" id="deckLens" hidden><div class="lens-inner"></div><p class="lens-tip">点击任意处关闭</p></div>
+  <div class="deck-toast" id="deckToast" hidden></div>
+  <aside class="deck-notes" id="deckNotes" hidden></aside>
+  <div class="deck-bar">
+    <span class="deck-where" id="deckWhere"></span>
+    <button type="button" class="dk" id="dkPrev" aria-label="上一页">‹</button>
+    <span class="deck-count" id="deckCount"></span>
+    <button type="button" class="dk" id="dkNext" aria-label="下一页">›</button>
+    <span class="deck-nexthint" id="deckNextHint"></span>
+    <span class="deck-tools">
+      <button type="button" class="dk sm" id="dkSmaller" aria-label="缩小">A−</button>
+      <button type="button" class="dk sm" id="dkBigger" aria-label="放大">A+</button>
+      <button type="button" class="dk sm" id="dkNotes">备注</button>
+      <button type="button" class="dk sm" id="dkFull">全屏</button>
+      <button type="button" class="dk sm" id="dkExit">退出</button>
+    </span>
+  </div>
+  <div class="deck-prog"><div id="deckProg"></div></div>
+</div>
+
+<script type="application/json" id="chapterData">
+[
+ {"no":1,"cn":"一","title":"行列式","route":"c1","ready":true,"topics":"二阶与三阶行列式 · n 阶递归定义 · 8 条性质 · 展开定理 · Cramer 法则 · 排列定义 · Laplace 定理","stat":"广义方差、回归正规方程的可解性"},
+ {"no":2,"cn":"二","title":"矩阵","ready":false,"topics":"矩阵运算 · 逆矩阵 · 初等变换 · 分块矩阵 · 矩阵的秩 · |AB| = |A||B|","stat":"数据矩阵、XᵀX、协方差矩阵的计算"},
+ {"no":3,"cn":"三","title":"线性空间","ready":false,"topics":"线性相关 · 基与维数 · 子空间 · 交与和 · 直和","stat":"多重共线性、设计矩阵的列空间"},
+ {"no":4,"cn":"四","title":"线性映射","ready":false,"topics":"线性映射与矩阵 · 核与像 · 维数公式 · 不变子空间","stat":"最小二乘的投影几何、帽子矩阵"},
+ {"no":5,"cn":"五","title":"多项式","ready":false,"topics":"整除与最大公因式 · 因式分解 · 重因式 · 实系数与有理系数多项式","stat":"特征多项式、AR 模型平稳性的特征根"},
+ {"no":6,"cn":"六","title":"特征值","ready":false,"topics":"特征值与特征向量 · 对角化 · Cayley–Hamilton 定理 · 极小多项式","stat":"主成分分析、马尔可夫链的平稳分布"},
+ {"no":7,"cn":"七","title":"相似标准型","ready":false,"topics":"λ-矩阵 · 不变因子与初等因子 · Jordan 标准型","stat":"矩阵幂与动态系统"},
+ {"no":8,"cn":"八","title":"二次型","ready":false,"topics":"二次型的标准形 · 惯性定理 · 正定型与正定矩阵","stat":"协方差矩阵正定性、χ² 分布与二次型"},
+ {"no":9,"cn":"九","title":"内积空间","ready":false,"topics":"内积与正交 · Gram–Schmidt 正交化 · 正交矩阵 · 实对称矩阵的正交相似","stat":"QR 分解、回归、正交变换"},
+ {"no":10,"cn":"十","title":"双线性型","ready":false,"topics":"双线性函数 · 对称与交错双线性型","stat":"马氏距离与一般内积"}
+]
+</script>

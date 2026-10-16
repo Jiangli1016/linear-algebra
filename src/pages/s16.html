@@ -1,0 +1,181 @@
+<template data-chapter="1" data-route="s1-6" data-num="§1.6" data-short="等价定义" data-group="第三阶段 · 从操作到结构">
+<header class="page-head">
+  <span class="det-eyebrow">§1.6</span>
+  <h1>行列式的等价定义</h1>
+  <p class="lede">递归定义告诉我们怎么一层层算，却没有直接说出行列式“长什么样”。本节回答：一个 \(n\) 阶行列式完全展开后有多少项？每一项是什么？正负号由什么决定？</p>
+  <div class="meta-row"><span class="pill acc">建议 1.5 学时</span><span class="pill">教材第 38–44 页</span><span class="pill">关键词：显式结构</span></div>
+  <ul class="goals">
+    <li>理解为什么已有递归定义，还要寻找等价定义</li>
+    <li>理解“对每一列的线性性”如何产生所有展开项</li>
+    <li>掌握排列、逆序、逆序数</li>
+    <li>掌握奇排列、偶排列</li>
+    <li>理解对换改变排列的奇偶性</li>
+    <li>掌握行列式的排列求和公式</li>
+    <li>理解递归定义与排列定义等价</li>
+  </ul>
+</header>
+
+<h2>为什么还需要一个定义</h2>
+<p>§1.3 的定义是递归的：\(n\) 阶 → \(n-1\) 阶 → ……。它能算，但我们仍想直接知道：</p>
+<ul>
+  <li>一个 \(n\) 阶行列式展开以后到底有<b>多少项</b>？</li>
+  <li>每一项<b>长什么样</b>？</li>
+  <li>每一项的<b>正负号</b>由什么决定？</li>
+</ul>
+<p>思路：利用性质把 \(|A|\) 拆成许多“非常简单”的行列式之和，算出每一个，再求和。</p>
+
+<h2>从三阶看起</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">推导 把三阶行列式的每一列都拆开 <span class="src">教材第 38–40 页</span></div></div>
+  <div class="sol" data-steps data-label="推导">
+    <div class="st">由性质 6′，把第一列拆成三列之和，得 3 个行列式；再把每个行列式的第二列、第三列也拆开，共 \(3\times3\times3=27\) 个行列式，每一列只有一个非零元。</div>
+    <div class="st">由性质 3，把每一列的那个非零元提出来，剩下的行列式每列只有一个 1、其余为 0，例如 \(a_{11}a_{12}a_{13}\begin{vmatrix}1&1&1\\0&0&0\\0&0&0\end{vmatrix}\)。</div>
+    <div class="st">如果有两个 1 在同一行，就有两列相同，值为 0（性质 5）。27 个中只剩 1 在不同行的那些：它们正好对应 1, 2, 3 的 \(3!=6\) 个排列。</div>
+    <div class="st">每个剩下的行列式可以通过列对换变成单位行列式，值为 \(1\) 或 \(-1\)。于是 \(|A|=a_{11}a_{22}a_{33}+a_{21}a_{32}a_{13}+a_{31}a_{12}a_{23}-a_{11}a_{32}a_{23}-a_{21}a_{12}a_{33}-a_{31}a_{22}a_{13}\)。</div>
+  </div>
+</div>
+<div class="widget" data-widget="colsplit" data-t="27 个行列式，只有 6 个不为零" data-d="每张卡片是一种选法 \((k_1,k_2,k_3)\)：第 \(j\) 列取第 \(k_j\) 行的元素。下标重复的卡片（变灰）值为 0。"></div>
+
+<h2>推广到 \(n\) 阶</h2>
+<p>记 \(\boldsymbol e_i\) 为第 \(i\) 个分量为 1、其余为 0 的列：</p>
+\[\boldsymbol e_1=\begin{pmatrix}1\\0\\\vdots\\0\end{pmatrix},\quad\boldsymbol e_2=\begin{pmatrix}0\\1\\\vdots\\0\end{pmatrix},\quad\dots,\quad\boldsymbol e_n=\begin{pmatrix}0\\0\\\vdots\\1\end{pmatrix}.\]
+<p>把 \(|A|\) 的第 \(j\) 列记为 \(\boldsymbol\alpha_j\)，则 \(\boldsymbol\alpha_j=a_{1j}\boldsymbol e_1+a_{2j}\boldsymbol e_2+\cdots+a_{nj}\boldsymbol e_n=\sum_i a_{ij}\boldsymbol e_i\)，\(|A|=|\boldsymbol\alpha_1,\boldsymbol\alpha_2,\dots,\boldsymbol\alpha_n|\)。</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">推导 逐列展开</div></div>
+  <div class="sol" data-steps data-label="推导">
+    <div class="st">由性质 6 与性质 3，先展开第一列：\(|A|=\sum_{i}a_{i1}|\boldsymbol e_i,\boldsymbol\alpha_2,\dots,\boldsymbol\alpha_n|\)。</div>
+    <div class="st">再展开第二列：\(|A|=\sum_{i,k}a_{i1}a_{k2}|\boldsymbol e_i,\boldsymbol e_k,\boldsymbol\alpha_3,\dots,\boldsymbol\alpha_n|\)。</div>
+    <div class="st">一直做下去：\[|A|=\sum_{k_1,k_2,\dots,k_n}a_{k_11}a_{k_22}\cdots a_{k_nn}\,|\boldsymbol e_{k_1},\boldsymbol e_{k_2},\dots,\boldsymbol e_{k_n}|.\]</div>
+    <div class="st">若有 \(k_i=k_j\)，两列相同，\(|\boldsymbol e_{k_1},\dots,\boldsymbol e_{k_n}|=0\)。所以非零项中 \(\boldsymbol e_1,\dots,\boldsymbol e_n\) <b>恰好各出现一次</b>：\((k_1,\dots,k_n)\) 是 \(1,2,\dots,n\) 的一个排列。</div>
+    <div class="st">这样的行列式每行每列恰有一个 1，经过若干次列对换可变成单位行列式，值为 \(\pm1\)。所以 \(|A|\) 共 \(n!\) 项，每项为 \((-1)^{\varepsilon}a_{k_11}a_{k_22}\cdots a_{k_nn}\)，\(\varepsilon\) 只与排列有关。为了确定符号，引入逆序数。</div>
+  </div>
+</div>
+
+<h2>排列与逆序数</h2>
+<div class="box def"><span class="tag">定义 1.6.1<em>逆序与逆序数</em></span>
+  <p>称 \(1,2,\dots,n\) 的排列 \((1,2,\dots,n)\) 为<b>常序排列</b>。在一个排列中，若较大的数 \(j\) 排在较小的数 \(i\) 前面，则称这一对构成一个<b>逆序</b>。排列中逆序的总数称为它的<b>逆序数</b>，记为 \(N(k_1,k_2,\dots,k_n)\)。</p>
+</div>
+<p><b>求法</b>：设 \(m_1\) 为 \(k_1\) 后面比 \(k_1\) 小的数的个数，\(m_2\) 为 \(k_2\) 后面比 \(k_2\) 小的数的个数……则 \(N=m_1+m_2+\cdots+m_{n-1}\)。常序排列的逆序数为 0。</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.6.1 <span class="src">教材第 42 页</span></div><p>求 \((4,1,3,2)\) 的逆序数。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">4 后面比它小的有 1、3、2，\(m_1=3\)；1 后面没有比它小的，\(m_2=0\)；3 后面有 2，\(m_3=1\)。</div>
+    <div class="st">\(N(4,1,3,2)=3+0+1=4\)。</div>
+  </div>
+</div>
+<div class="box def"><span class="tag">定义 1.6.2<em>奇排列与偶排列</em></span>
+  <p>逆序数为偶数（包括 0）的排列称为<b>偶排列</b>，为奇数的称为<b>奇排列</b>。记 \(S_n\) 为 \(1,2,\dots,n\) 的全体排列构成的集合，\(|S_n|=n!\)。</p>
+</div>
+
+<div class="box lem"><span class="tag">引理 1.6.1<em>对换改变奇偶性</em></span>
+  <p>在一个排列中交换任意两个数 \(k_i\) 与 \(k_j\)，其余数不动，则排列的奇偶性改变。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p><b>相邻对换</b>：交换 \(k_i,k_{i+1}\) 只影响这一对的相对次序，逆序数恰好加 1 或减 1，奇偶性改变。</p>
+  <p><b>一般对换</b>（\(i\lt j\)）：把 \(k_i\) 依次与 \(k_{i+1},\dots,k_j\) 相邻对换（\(j-i\) 次），再把 \(k_j\) 依次与 \(k_{j-1},\dots,k_{i+1}\) 相邻对换（\(j-i-1\) 次），共 \(2(j-i)-1\) 次，是奇数次，所以奇偶性改变。</p>
+</div></details>
+<div class="box lem"><span class="tag">引理 1.6.2<em>奇偶各半</em></span>
+  <p>设 \(n\ge2\)，则 \(S_n\) 中奇排列与偶排列各占一半，各 \(\dfrac{n!}{2}\) 个。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>设奇排列有 \(p\) 个，偶排列有 \(q\) 个。把每个奇排列的前两个数对换，由引理 1.6.1，它们都变成偶排列，且互不相同，所以 \(p\le q\)。同理 \(q\le p\)，故 \(p=q\)。</p>
+</div></details>
+<div class="box lem"><span class="tag">引理 1.6.3<em>逆序数的实际意义</em></span>
+  <p>排列 \((k_1,\dots,k_n)\) 可以通过<b>恰好 \(N(k_1,\dots,k_n)\) 次相邻对换</b>变成常序排列 \((1,2,\dots,n)\)。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>对 \(n\) 归纳。设 \(n\) 在第 \(i\) 位，它后面有 \(m_i=n-i\) 个数，都比它小。把 \(n\) 依次与后面的数相邻对换 \(m_i\) 次，\(n\) 就到了最后一位，而 \(N(k_1,\dots,k_n)=m_i+N(\text{其余 }n-1\text{ 个数的排列})\)。对剩下的 \(n-1\) 个数用归纳假设即可。</p>
+</div></details>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.6.2 <span class="src">教材第 43 页</span></div><p>通过相邻对换把 \((4,1,3,2)\) 变为 \((1,2,3,4)\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">把 4 向右相邻对换 3 次：\((4,1,3,2)\to(1,3,2,4)\)。</div>
+    <div class="st">把 3 向右相邻对换 1 次：\((1,3,2,4)\to(1,2,3,4)\)。</div>
+    <div class="st">共 \(3+1=4\) 次，恰好等于 \(N(4,1,3,2)=4\)。</div>
+  </div>
+</div>
+<div class="widget" data-widget="perm" data-t="逆序数计算与相邻对换" data-d="输入排列，看每个数的 \(m_i\)。“相邻对换一步”每次消掉一个逆序；“任意对换前两数”演示引理 1.6.2 证明里的配对。"></div>
+
+<div class="box stat"><span class="tag">统计视角 · Kendall 秩相关系数</span>
+  <p>两位评委给 \(n\) 件作品排名。把作品按评委甲的名次排好，写下评委乙给的名次，得到一个排列；它的逆序数 \(N\) 就是两人意见<b>不一致的作品对数</b>。Kendall 秩相关系数</p>
+  \[\tau=1-\frac{2N}{\binom n2}=1-\frac{4N}{n(n-1)}.\]
+  <p>完全一致时 \(N=0,\ \tau=1\)；完全相反时 \(N=\binom n2,\ \tau=-1\)。例如乙的名次为 \((4,1,3,2)\)，\(N=4\)，\(\tau=1-\frac{16}{12}=-\frac13\)。非参数统计课上会再次见到它。</p>
+</div>
+
+<h2>定理 1.6.1：行列式的等价定义</h2>
+<p>由引理 1.6.3，\(|\boldsymbol e_{k_1},\dots,\boldsymbol e_{k_n}|\) 经过 \(N(k_1,\dots,k_n)\) 次相邻列对换变成 \(|\boldsymbol e_1,\dots,\boldsymbol e_n|=1\)，每次变号，所以它等于 \((-1)^{N(k_1,\dots,k_n)}\)。于是：</p>
+<div class="box thm"><span class="tag">定理 1.6.1</span>
+  <div class="boxed-eq">\[|A|=\sum_{(k_1,\dots,k_n)\in S_n}(-1)^{N(k_1,k_2,\dots,k_n)}\,a_{k_11}a_{k_22}\cdots a_{k_nn}.\]</div>
+  <p>等价地（习题 1.6 第 1 题，按行下标固定的写法）：</p>
+  \[|A|=\sum_{\sigma\in S_n}\operatorname{sgn}(\sigma)\,a_{1\sigma(1)}a_{2\sigma(2)}\cdots a_{n\sigma(n)},\qquad\operatorname{sgn}(\sigma)=(-1)^{N(\sigma)}.\]
+</div>
+<h3>如何理解这个定义</h3>
+<ul>
+  <li><b>每一行恰取一个元素</b>，<b>每一列恰取一个元素</b>，相乘；</li>
+  <li><b>符号由相应排列的奇偶性决定</b>：偶排列取正，奇排列取负；</li>
+  <li>总项数为 \(n!\)，正负项各一半（引理 1.6.2）。</li>
+</ul>
+<div class="widget" data-widget="rook" data-t="放车游戏：亲手挑出一项" data-d="像国际象棋里放“车”一样，每列放一个、互不同行，选出的 \(n\) 个元素之积就是展开式中的一项。看它的排列、逆序数和符号。"></div>
+<div class="widget" data-widget="fullexp" data-t="完全展开：列出全部 n! 项" data-d="三阶 6 项、四阶 24 项，逐项列出并求和，与直接计算比较。"></div>
+
+<h2>§1.3 与 §1.6 的关系</h2>
+<div class="w-grid">
+  <div class="box idea"><span class="tag">§1.3 递归定义</span><p>\(n\) 阶 \(\to\) \((n-1)\) 阶。适合证明性质、按行列展开。</p></div>
+  <div class="box idea"><span class="tag">§1.6 显式定义</span><p>一次性给出全部 \(n!\) 项。适合分析结构：项数、每项的形状、符号。</p></div>
+</div>
+<p>二者等价。教材注明：也可以把定理 1.6.1 的公式作为行列式的定义，再从它推出全部性质——不少教材正是这样做的（习题 1.6 第 2 题）。</p>
+<div class="widget" data-widget="complexity" data-t="为什么不按完全展开式计算" data-d="项数随 n 阶乘增长，而消元法只是三次方增长。"></div>
+
+<h2>等价定义的几个直接应用</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">应用 1 零元素太多必为零 <span class="src">习题 1.6 第 4 题</span></div><p>若 \(n\) 阶行列式中零元素的个数超过 \(n^2-n\)，则行列式等于零。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">非零元素少于 \(n^2-(n^2-n)=n\) 个。</div>
+    <div class="st">展开式的每一项都是 \(n\) 个元素之积，这 \(n\) 个元素至少有一个是 0，所以每一项都是 0，\(|A|=0\)。</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">应用 2 副对角线项的符号 <span class="src">习题 1.6 第 3 题</span></div><p>求项 \(a_{1n}a_{2,n-1}\cdots a_{n1}\) 所带的符号。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">按列下标看：第 1 列取第 \(n\) 行，第 2 列取第 \(n-1\) 行……排列为 \((n,n-1,\dots,1)\)。</div>
+    <div class="st">逆序数 \(N=(n-1)+(n-2)+\cdots+1=\dfrac{n(n-1)}{2}\)，符号为 \((-1)^{n(n-1)/2}\)。这与习题 1.4 第 4 题一致。</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">应用 3 特征多项式的两个系数 <span class="src">习题 1.6 第 6 题</span></div><p>\(f(x)=\begin{vmatrix}x-a_{11}&-a_{12}&\cdots&-a_{1n}\\-a_{21}&x-a_{22}&\cdots&-a_{2n}\\\vdots&&&\vdots\\-a_{n1}&-a_{n2}&\cdots&x-a_{nn}\end{vmatrix}\)，证明 \(f(x)\) 是首项系数为 1 的 \(n\) 次多项式，且 \(x^{n-1}\) 的系数为 \(-(a_{11}+\cdots+a_{nn})\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">\(x\) 只出现在主对角线上。展开式中，只要有一个因子不在主对角线上，这一项就至少有两个因子不在主对角线上（每行每列各取一个），\(x\) 的次数不超过 \(n-2\)。</div>
+    <div class="st">所以 \(x^n\) 与 \(x^{n-1}\) 只能来自主对角线项 \((x-a_{11})(x-a_{22})\cdots(x-a_{nn})\)，它是偶排列（常序），符号为正。</div>
+    <div class="st">展开得 \(x^n-(a_{11}+\cdots+a_{nn})x^{n-1}+\cdots\)。得证。</div>
+  </div>
+</div>
+<div class="box stat"><span class="tag">统计视角 · 迹与总方差</span>
+  <p>\(a_{11}+\cdots+a_{nn}\) 称为矩阵的<b>迹</b>。对协方差矩阵 \(\Sigma\)，迹 \(=\sigma_1^2+\cdots+\sigma_p^2\) 是各变量方差之和，称为<b>总方差</b>，主成分分析就是把总方差分配到各个主成分上。它和 \(|\Sigma|\)（广义方差）一起，出现在 \(|xI-\Sigma|\) 这个多项式的系数里。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>数逆序时漏数：固定方法——<b>每个数只统计它右边比它小的数</b>。</li>
+    <li>\(a_{k_11}a_{k_22}\cdots a_{k_nn}\)（列下标按顺序，看行下标的排列）与 \(a_{1\sigma(1)}\cdots a_{n\sigma(n)}\)（行下标按顺序，看列下标的排列）两种写法不要混在一起数。</li>
+    <li>§1.3 的递归定义与 §1.6 的排列定义是同一个东西，不要以为是两种不同的“行列式”。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="3"><div class="qt">\(N(2,4,1,3)=\)？</div><div class="explain">逆序对：(2,1)、(4,1)、(4,3)，共 3 个，奇排列。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">四阶行列式中项 \(a_{11}a_{22}a_{34}a_{43}\) 的符号是：</div><ol class="opts"><li>正</li><li>负</li><li>它不是展开式中的项</li><li>不确定</li></ol><div class="explain">行下标按顺序，列下标排列为 \((1,2,4,3)\)，逆序数 1，取负号。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">下列哪个乘积<b>不是</b>四阶行列式展开式中的项？</div><ol class="opts"><li>\(a_{12}a_{23}a_{34}a_{41}\)</li><li>\(a_{14}a_{23}a_{32}a_{41}\)</li><li>\(a_{11}a_{23}a_{32}a_{43}\)</li><li>\(a_{13}a_{21}a_{34}a_{42}\)</li></ol><div class="explain">C 中列下标 3 出现了两次（\(a_{23},a_{43}\)），第 4 列没有取到。</div></div>
+  <div class="fill" data-ans="10"><div class="qt">\(N(5,4,3,2,1)=\)？</div><div class="explain">\(4+3+2+1=10=\frac{5\times4}{2}\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">五阶行列式的完全展开式中，带负号的项有多少个？</div><ol class="opts"><li>60</li><li>120</li><li>24</li><li>12</li></ol><div class="explain">共 \(5!=120\) 项，奇排列占一半，60 个。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">两位评委给 5 件作品打分排名，Kendall \(\tau=0.6\)，则意见不一致的作品对有几对？</div><ol class="opts"><li>4</li><li>3</li><li>1</li><li>2</li></ol><div class="explain">\(\tau=1-\frac{2N}{10}=0.6\Rightarrow N=2\)。</div></div>
+</div>
+
+<h2>本节小结</h2>
+<ul>
+  <li>行列式对每一列线性 + 两列相同为零 ⇒ 只剩 \(n!\) 个“排列项”。</li>
+  <li>逆序数 \(N\) 决定符号：\(|\boldsymbol e_{k_1},\dots,\boldsymbol e_{k_n}|=(-1)^{N}\)。</li>
+  <li>对换改变奇偶性；奇偶排列各半；\(N\) 次相邻对换可还原为常序。</li>
+  <li>\(|A|=\sum_{S_n}(-1)^{N}a_{k_11}\cdots a_{k_nn}\)：每行每列各取一个。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>先用“27 张卡片”让学生直观看到“大部分项都是零”，再讲 \(\boldsymbol e_i\) 的一般推导。</li>
+  <li>放车游戏适合让学生上台操作：每人选一项，全班一起判断符号。</li>
+  <li>Kendall τ 是统计专业学生最容易记住逆序数的钩子。</li>
+  <li>课后作业建议：习题 1.6 第 1、3、4、6 题。</li>
+</ul></div></details>
+</template>

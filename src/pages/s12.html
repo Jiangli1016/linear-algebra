@@ -1,0 +1,180 @@
+<template data-chapter="1" data-route="s1-2" data-num="§1.2" data-short="三阶行列式" data-group="第一阶段 · 从具体到一般">
+<header class="page-head">
+  <span class="det-eyebrow">§1.2</span>
+  <h1>三阶行列式</h1>
+  <p class="lede">教材没有先给出六项公式，而是反过来问：如果三阶行列式也要满足 §1.1 的 8 条性质，它的值<b>只能</b>等于什么？答案自然地引出了余子式和“沿第一列展开”的递归定义。</p>
+  <div class="meta-row"><span class="pill acc">建议 1 学时</span><span class="pill">教材第 7–12 页</span><span class="pill">关键词：递归</span></div>
+  <ul class="goals">
+    <li>理解三阶行列式由二阶行列式递归构造的思想</li>
+    <li>掌握三阶行列式的定义</li>
+    <li>理解余子式为什么会自然出现</li>
+    <li>熟练计算三阶行列式</li>
+    <li>知道 8 条性质对三阶仍然成立，并理解三阶行列式是有向体积</li>
+    <li>为一般 \(n\) 阶行列式的递归定义做准备</li>
+  </ul>
+</header>
+
+<h2>倒过来想：性质决定定义</h2>
+<p>设三阶行列式</p>
+\[|A|=\begin{vmatrix}a_{11}&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}\end{vmatrix}.\]
+<p>我们还不知道它“等于什么”。不妨<b>假设它已经有定义，并且满足 8 条性质</b>，看看它的值被迫是什么。</p>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">推导 三阶行列式的值只能是什么 <span class="src">教材第 8–9 页</span></div></div>
+  <div class="sol" data-steps data-label="推导">
+    <div class="st">由性质 6，把第一列拆开，\(|A|\) 等于三个行列式之和：
+      \[|A|=\begin{vmatrix}a_{11}&a_{12}&a_{13}\\0&a_{22}&a_{23}\\0&a_{32}&a_{33}\end{vmatrix}+\begin{vmatrix}0&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\0&a_{32}&a_{33}\end{vmatrix}+\begin{vmatrix}0&a_{12}&a_{13}\\0&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}\end{vmatrix}.\]</div>
+    <div class="st">先看第一个。（设 \(a_{22}\ne0\)）把第二行乘 \(-a_{22}^{-1}a_{32}\) 加到第三行<span class="why">性质 7</span>，化成上三角：
+      \[\begin{vmatrix}a_{11}&a_{12}&a_{13}\\0&a_{22}&a_{23}\\0&0&a_{33}-a_{22}^{-1}a_{32}a_{23}\end{vmatrix}.\]</div>
+    <div class="st">由性质 1，它等于对角线之积：
+      \[a_{11}a_{22}\bigl(a_{33}-a_{22}^{-1}a_{32}a_{23}\bigr)=a_{11}(a_{22}a_{33}-a_{32}a_{23})=a_{11}\begin{vmatrix}a_{22}&a_{23}\\a_{32}&a_{33}\end{vmatrix}.\]</div>
+    <div class="st">第二个：交换第一、二行<span class="why">性质 4，变号</span>，就化成与第一个同类型：
+      \[\begin{vmatrix}0&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\0&a_{32}&a_{33}\end{vmatrix}=-a_{21}\begin{vmatrix}a_{12}&a_{13}\\a_{32}&a_{33}\end{vmatrix}.\]</div>
+    <div class="st">第三个：把第三行依次与第二、第一行交换（两次，符号不变）：
+      \[\begin{vmatrix}0&a_{12}&a_{13}\\0&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}\end{vmatrix}=a_{31}\begin{vmatrix}a_{12}&a_{13}\\a_{22}&a_{23}\end{vmatrix}.\]</div>
+    <div class="st">三项相加。注意每个二阶行列式恰好是<b>划去 \(a_{i1}\) 所在的行和列后剩下的部分</b>——这就是余子式。</div>
+  </div>
+</div>
+<details class="more"><summary>如果 \(a_{22}=0\) 怎么办？</summary><div class="dbody">
+  <p>推导第一步用了 \(a_{22}^{-1}\)。若 \(a_{22}=0\) 而 \(a_{32}\ne0\)，先交换第二、三行（变号）再做；若两者都为 0，则第二列除第一个元素外全为零，二阶部分 \(\begin{vmatrix}0&a_{23}\\0&a_{33}\end{vmatrix}=0\)，同时三角化后对角线上出现 0，结论仍然成立。所以“假设 \(a_{22}\ne0\)”不影响最终公式。</p>
+</div></details>
+
+<h2>余子式的初步出现</h2>
+<div class="box def"><span class="tag">定义<em>余子式（三阶）</em></span>
+  <p>在三阶行列式中划去元素 \(a_{ij}\) 所在的第 \(i\) 行和第 \(j\) 列，剩下的四个元素按原来的相对位置组成一个二阶行列式，称为 \(a_{ij}\) 的<b>余子式</b>，记为 \(M_{ij}\)。</p>
+</div>
+<p>例如</p>
+\[M_{11}=\begin{vmatrix}a_{22}&a_{23}\\a_{32}&a_{33}\end{vmatrix},\quad M_{12}=\begin{vmatrix}a_{21}&a_{23}\\a_{31}&a_{33}\end{vmatrix},\quad M_{23}=\begin{vmatrix}a_{11}&a_{12}\\a_{31}&a_{32}\end{vmatrix}.\]
+
+<h2>三阶行列式的定义</h2>
+<div class="box def"><span class="tag">定义<em>三阶行列式</em></span>
+  <div class="boxed-eq">\[|A|=a_{11}M_{11}-a_{21}M_{21}+a_{31}M_{31}.\]</div>
+  <p>即<b>沿第一列</b>递归到二阶行列式，符号正负交替。</p>
+</div>
+<p>把三个二阶行列式写开：</p>
+\[\begin{aligned}|A|={}&a_{11}(a_{22}a_{33}-a_{23}a_{32})-a_{21}(a_{12}a_{33}-a_{13}a_{32})+a_{31}(a_{12}a_{23}-a_{13}a_{22})\\={}&a_{11}a_{22}a_{33}+a_{12}a_{23}a_{31}+a_{13}a_{21}a_{32}-a_{13}a_{22}a_{31}-a_{12}a_{21}a_{33}-a_{11}a_{23}a_{32}.\end{aligned}\]
+<p>六项中，每一项都是<b>来自不同行、不同列</b>的三个元素之积，三正三负。这个观察到 §1.6 会成为一般定义。</p>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.2.1 <span class="src">教材第 9 页</span></div>
+  <p>计算 \(\begin{vmatrix}1&-1&2\\2&0&3\\-1&-3&2\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">按定义沿第一列展开：\[1\times\begin{vmatrix}0&3\\-3&2\end{vmatrix}-2\times\begin{vmatrix}-1&2\\-3&2\end{vmatrix}+(-1)\times\begin{vmatrix}-1&2\\0&3\end{vmatrix}.\]</div>
+    <div class="st">三个二阶行列式分别为 \(0+9=9\)，\(-2+6=4\)，\(-3-0=-3\)。</div>
+    <div class="st">\[|A|=1\times9-2\times4+(-1)\times(-3)=9-8+3=4.\]</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.2.2 <span class="src">教材第 9–10 页</span></div>
+  <p>计算 \(\begin{vmatrix}a&a^2+a+1&1\\0&-a&a-1\\1&0&0\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">沿第一列展开，中间一项系数为 0：\[a\begin{vmatrix}-a&a-1\\0&0\end{vmatrix}-0\cdot M_{21}+1\cdot\begin{vmatrix}a^2+a+1&1\\-a&a-1\end{vmatrix}.\]</div>
+    <div class="st">第一个二阶行列式有零行，为 0<span class="why">性质 2</span>。</div>
+    <div class="st">\[\begin{vmatrix}a^2+a+1&1\\-a&a-1\end{vmatrix}=(a^2+a+1)(a-1)+a=a^3-1+a.\]</div>
+    <div class="st">所以 \(|A|=a^3+a-1\)。<span class="small muted">（文字行列式同样可以用定义计算；以后会用性质让它更快。）</span></div>
+  </div>
+</div>
+
+<h2>对角线法则（只适用于三阶）</h2>
+<p>六项展开式可以用“对角线法则”（Sarrus 法则）帮助记忆：主对角线方向的三条连线乘积取正号，副对角线方向的三条连线乘积取负号。</p>
+<div class="widget" data-widget="sarrus" data-t="对角线法则：六项逐一看" data-d="点右侧任一项，左边会标出它取的三个元素：每行一个、每列一个。绿色为正项，红色为负项。"></div>
+<div class="box warn"><span class="tag">必须强调</span>
+  <p><b>对角线法则只适用于三阶行列式</b>，不能推广到四阶及更高阶。四阶行列式有 \(4!=24\) 项，而“对角线”只能凑出 8 项，符号规律也不同（展开上面组件底部的“四阶也能画对角线吗？”看具体反例）。</p>
+</div>
+
+<h2>基本性质的继承</h2>
+<p>从定义出发可以验证：三阶行列式仍满足 §1.1 中的 8 条性质（教材留给读者完成）。验证的依据是六项公式：<b>每一项都从每一行、每一列各取一个元素</b>。</p>
+<div class="tw"><table class="t l small">
+<tr><th>性质</th><th>为什么对三阶成立（看六项公式）</th><th>几何意义（下一小节）</th></tr>
+<tr><td>1 三角形</td><td>上三角时，六项中只有 \(a_{11}a_{22}a_{33}\) 不含 0</td><td>底面积 × 高</td></tr>
+<tr><td>2 零行（列）</td><td>每一项都含该行的一个元素，全为 0</td><td>一条棱退化为零向量，体积 0</td></tr>
+<tr><td>3 倍乘</td><td>每一项恰含该行一个元素，都多出因子 \(c\)</td><td>一条棱伸缩 \(c\) 倍</td></tr>
+<tr><td>4 交换</td><td>交换两行，三个正项与三个负项互换</td><td>右手系变左手系</td></tr>
+<tr><td>5 成比例</td><td>由 3、4 推出（提出因子后 \(x=-x\)）</td><td>三棱共面，被压扁</td></tr>
+<tr><td>6 可加性</td><td>每一项对该行元素是一次的，可以拆开</td><td>沿一条棱方向“拼接”体积</td></tr>
+<tr><td>7 倍加</td><td>由 6、5 推出</td><td>剪切：同底等高，体积不变</td></tr>
+<tr><td>8 转置</td><td>六项逐一比对完全相同（见下）</td><td>行向量与列向量张成的体积相等</td></tr>
+</table></div>
+<details class="proof"><summary>验证示例：性质 8 对三阶成立</summary><div class="dbody">
+  <p>转置后 \(|A'|\) 的 \((i,j)\) 元是 \(a_{ji}\)。把六项公式里每个 \(a_{ij}\) 换成 \(a_{ji}\)：</p>
+  \[a_{11}a_{22}a_{33}+a_{21}a_{32}a_{13}+a_{31}a_{12}a_{23}-a_{31}a_{22}a_{13}-a_{21}a_{12}a_{33}-a_{11}a_{32}a_{23}.\]
+  <p>逐项比对：正项仍是 \(a_{11}a_{22}a_{33},\ a_{13}a_{21}a_{32},\ a_{12}a_{23}a_{31}\)，负项仍是 \(a_{13}a_{22}a_{31},\ a_{12}a_{21}a_{33},\ a_{11}a_{23}a_{32}\)。六项完全相同，所以 \(|A'|=|A|\)。</p>
+</div></details>
+
+<h2>几何意义：有向体积</h2>
+<p>§1.1 中二阶行列式是平行四边形的有向面积。三阶行列式的三列 \(\boldsymbol u,\boldsymbol v,\boldsymbol w\) 是三个空间向量，它们张成一个<b>平行六面体</b>，三阶行列式就是它的<b>有向体积</b>：</p>
+\[|A|=\pm\,(\text{底面积})\times(\text{高}),\qquad \text{正号：}\boldsymbol u,\boldsymbol v,\boldsymbol w\ \text{构成右手系；负号：左手系}.\]
+<div class="ex"><div class="ex-q"><div class="ex-h">示例 用“底 × 高”算体积，再和行列式对照</div>
+  <p>\(\boldsymbol u=(2,0,0)^{\top},\ \boldsymbol v=(1,2,0)^{\top},\ \boldsymbol w=(0,1,3)^{\top}\)，以它们为列：\(|A|=\begin{vmatrix}2&1&0\\0&2&1\\0&0&3\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st"><b>底面</b>：\(\boldsymbol u,\boldsymbol v\) 都在 \(xy\) 平面内，张成的平行四边形面积是二阶行列式 \(\begin{vmatrix}2&1\\0&2\end{vmatrix}=4\)。</div>
+    <div class="st"><b>高</b>：底面在 \(xy\) 平面上，\(\boldsymbol w\) 的竖直分量 3 就是高。</div>
+    <div class="st"><b>体积</b>：\(4\times3=12\)。行列式是上三角，\(|A|=2\times2\times3=12\)<span class="why">性质 1</span>，两者一致；\(|A|\gt0\) 说明 \(\boldsymbol u,\boldsymbol v,\boldsymbol w\) 是右手系。</div>
+    <div class="st"><b>变一变</b>：把 \(\boldsymbol w\) 换成 \(\boldsymbol w+\boldsymbol u=(2,1,3)^{\top}\)，顶面只是沿底面方向滑动，高仍为 3，体积仍为 12<span class="why">性质 7</span>；交换 \(\boldsymbol u,\boldsymbol v\)，形状不变但变成左手系，值为 \(-12\)<span class="why">性质 4</span>；把 \(\boldsymbol w\) 换成 \(\boldsymbol u+\boldsymbol v=(3,2,0)^{\top}\)，三个向量都在 \(xy\) 平面内，体积为 0，此时第三行全为 0<span class="why">性质 2</span>。</div>
+  </div>
+</div>
+<div class="widget" data-widget="vol3" data-t="三阶行列式 = 平行六面体的有向体积" data-d="拖动图形旋转视角；编辑三列，或点按钮看倍乘、倍加（剪切）、交换、共面时体积和符号怎样变化。虚线 h 是 w 到底面的高。"></div>
+<div class="box stat"><span class="tag">统计视角 · 三个变量的“体积”</span>
+  <p>三阶行列式是三个列向量张成的平行六面体的有向体积。三个变量的协方差矩阵 \(\Sigma\) 的行列式（广义方差）衡量数据云在三维空间中“撑开”的程度。若第三个变量恰好是前两个的线性组合，例如“总分 = 语文 + 数学”，那么数据全部落在一个平面上，体积为 0，\(|\Sigma|=0\)——这就是回归分析里要避免的<b>完全多重共线性</b>。</p>
+</div>
+
+<h2>三元一次方程组</h2>
+<p>和 §1.1 完全一样，只用性质 3 和 7 就能写出三元方程组的公式解。</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">推导 三元方程组的公式解 <span class="src">教材第 10–11 页</span></div>
+  \[\begin{cases}a_{11}x_1+a_{12}x_2+a_{13}x_3=b_1,\\a_{21}x_1+a_{22}x_2+a_{23}x_3=b_2,\\a_{31}x_1+a_{32}x_2+a_{33}x_3=b_3.\end{cases}\]</div>
+  <div class="sol" data-steps data-label="推导">
+    <div class="st">把 \(b_i\) 用方程左边代入：\[\begin{vmatrix}b_1&a_{12}&a_{13}\\b_2&a_{22}&a_{23}\\b_3&a_{32}&a_{33}\end{vmatrix}=\begin{vmatrix}a_{11}x_1+a_{12}x_2+a_{13}x_3&a_{12}&a_{13}\\a_{21}x_1+a_{22}x_2+a_{23}x_3&a_{22}&a_{23}\\a_{31}x_1+a_{32}x_2+a_{33}x_3&a_{32}&a_{33}\end{vmatrix}.\]</div>
+    <div class="st">第 2 列乘 \(-x_2\)、第 3 列乘 \(-x_3\) 加到第 1 列<span class="why">性质 7</span>，再提出 \(x_1\)<span class="why">性质 3</span>：\[=x_1\begin{vmatrix}a_{11}&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}\end{vmatrix}.\]</div>
+    <div class="st">于是（系数行列式不为 0 时）\[x_1=\frac{\begin{vmatrix}b_1&a_{12}&a_{13}\\b_2&a_{22}&a_{23}\\b_3&a_{32}&a_{33}\end{vmatrix}}{|A|},\quad x_2=\frac{\begin{vmatrix}a_{11}&b_1&a_{13}\\a_{21}&b_2&a_{23}\\a_{31}&b_3&a_{33}\end{vmatrix}}{|A|},\quad x_3=\frac{\begin{vmatrix}a_{11}&a_{12}&b_1\\a_{21}&a_{22}&b_2\\a_{31}&a_{32}&b_3\end{vmatrix}}{|A|}.\]</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 用行列式解三元方程组 <span class="src">习题 1.2 第 5(1) 题</span></div>
+  <p>\(\begin{cases}x_1-x_2+x_3=2,\\x_1+2x_2=1,\\x_1-x_3=4.\end{cases}\)</p></div>
+  <div class="sol" data-steps>
+    <div class="st">系数行列式 \(|A|=\begin{vmatrix}1&-1&1\\1&2&0\\1&0&-1\end{vmatrix}=1\cdot(-2)-1\cdot(1-0)+1\cdot(0-2)=-5\ne0\)。</div>
+    <div class="st">\(|A_1|=\begin{vmatrix}2&-1&1\\1&2&0\\4&0&-1\end{vmatrix}=-13,\quad |A_2|=\begin{vmatrix}1&2&1\\1&1&0\\1&4&-1\end{vmatrix}=4,\quad |A_3|=\begin{vmatrix}1&-1&2\\1&2&1\\1&0&4\end{vmatrix}=7.\)</div>
+    <div class="st">\(x_1=\dfrac{13}{5},\ x_2=-\dfrac{4}{5},\ x_3=-\dfrac{7}{5}\)。代入第三个方程检验：\(\tfrac{13}{5}+\tfrac{7}{5}=4\)。✓</div>
+  </div>
+</div>
+<p>系数行列式 \(|A|\) 称为方程组的<b>系数行列式</b>。可以在 <a href="#s1-4">§1.4 的 Cramer 法则组件</a>里自己改系数试试。</p>
+
+<div class="box idea"><span class="tag">自然的问题</span>
+  <ol class="flow"><li>2 元方程组</li><li class="arr">→</li><li>2 阶行列式</li></ol>
+  <ol class="flow"><li>3 元方程组</li><li class="arr">→</li><li>3 阶行列式</li></ol>
+  <p>两者的结构完全相同。那么 <b>\(n\) 元线性方程组是不是对应一个 \(n\) 阶行列式？</b>这就是下一节的入口。</p>
+</div>
+
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>定义里的符号是 \(+,-,+\)：\(|A|=a_{11}M_{11}\,{\color{red}-}\,a_{21}M_{21}+a_{31}M_{31}\)，中间一项最容易漏掉负号。</li>
+    <li>\(M_{ij}\) 是划去第 \(i\) 行、第 \(j\) 列——不要把行列下标弄反。</li>
+    <li>对角线法则只在三阶有效。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="-8"><div class="qt">\(\begin{vmatrix}2&3&-5\\0&2&-1\\0&0&-2\end{vmatrix}=\)？<span class="tiny muted">（习题 1.2 第 1(1) 题）</span></div><div class="explain">上三角，等于 \(2\times2\times(-2)=-8\)（性质 1）。</div></div>
+  <div class="fill" data-ans="11"><div class="qt">\(\begin{vmatrix}0&1&2\\2&1&1\\-1&3&1\end{vmatrix}=\)？<span class="tiny muted">（习题 1.2 第 1(2) 题）</span></div><div class="explain">沿第一列：\(0\cdot M_{11}-2\begin{vmatrix}1&2\\3&1\end{vmatrix}+(-1)\begin{vmatrix}1&2\\1&1\end{vmatrix}=-2(-5)-(-1)=11\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">利用上一题结果，\(\begin{vmatrix}0&2&4\\2&1&1\\-1&3&1\end{vmatrix}=\)？<span class="tiny muted">（习题 1.2 第 2(2) 题）</span></div><ol class="opts"><li>11</li><li>13</li><li>22</li><li>44</li></ol><div class="explain">第一行是上一题第一行的 2 倍，值为 \(2\times11=22\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(\begin{vmatrix}1&2&3\\2&4&6\\-3&7&-2\end{vmatrix}=\)？<span class="tiny muted">（习题 1.2 第 2(1) 题）</span></div><ol class="opts"><li>0</li><li>−7</li><li>14</li><li>−49</li></ol><div class="explain">第二行是第一行的 2 倍，两行成比例，值为 0（性质 5）。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">解方程 \(\begin{vmatrix}1&2&3\\1&x&3\\1&5&-2\end{vmatrix}=0\)，\(x=\)？<span class="tiny muted">（习题 1.2 第 4(1) 题）</span></div><div class="explain">第二、三行减去第一行：\(\begin{vmatrix}1&2&3\\0&x-2&0\\0&3&-5\end{vmatrix}=-5(x-2)=0\)，得 \(x=2\)。</div></div>
+  <div class="fill" data-ans="13"><div class="qt">解方程 \(\begin{vmatrix}x-2&1&-2\\2&2&1\\-1&1&1\end{vmatrix}=0\)，\(x=\)？<span class="tiny muted">（习题 1.2 第 4(2) 题）</span></div><div class="explain">按第一行展开：\((x-2)\cdot1-1\cdot3+(-2)\cdot4=x-13\)，所以 \(x=13\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">\(\begin{vmatrix}x&y&z\\z&x&y\\y&z&x\end{vmatrix}=\)？<span class="tiny muted">（习题 1.2 第 3(1) 题）</span></div><ol class="opts"><li>\(x^3+y^3+z^3\)</li><li>\(x^3+y^3+z^3-3xyz\)</li><li>\(3xyz-x^3-y^3-z^3\)</li><li>\((x+y+z)^3\)</li></ol><div class="explain">六项：正项 \(x^3,y^3,z^3\)，负项都是 \(xyz\)。也可以写成 \((x+y+z)(x^2+y^2+z^2-xy-yz-zx)\)。</div></div>
+</div>
+
+<h2>本节小结</h2>
+<ul>
+  <li>三阶行列式的定义 \(|A|=a_{11}M_{11}-a_{21}M_{21}+a_{31}M_{31}\) 不是凭空规定的：要让 8 条性质成立，就只能这样定义。</li>
+  <li>余子式 \(M_{ij}\)：划去第 \(i\) 行第 \(j\) 列剩下的行列式。</li>
+  <li>六项展开式中每项取自不同行、不同列，三正三负；对角线法只适用于三阶。</li>
+  <li>三元方程组的公式解与二元完全同构，引出“\(n\) 元 ↔ \(n\) 阶”。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>“倒过来想”是本节的灵魂：先问学生“如果三阶行列式满足 8 条性质，它会等于多少？”，再一步一步展开推导。</li>
+  <li>对角线法：先演示三阶六项，再展开“四阶陷阱”，让学生自己发现 8 项凑不出 24 项。</li>
+  <li>例 1.2.2 可以留作课堂小练习，答案 \(a^3+a-1\)，再让学生代 \(a=2\) 得 9 检验。</li>
+  <li>课后作业建议：习题 1.2 第 1–5 题。</li>
+</ul></div></details>
+</template>

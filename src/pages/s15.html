@@ -1,0 +1,209 @@
+<template data-chapter="1" data-route="s1-5" data-num="§1.5" data-short="行列式的计算" data-group="第二阶段 · 从定义到操作">
+<header class="page-head">
+  <span class="det-eyebrow">§1.5</span>
+  <h1>行列式的计算</h1>
+  <p class="lede">这一节没有新的核心定义，而是把前面的性质和展开定理组合成真正好用的计算策略。原则只有一句话：<b>尽可能多地化出零，尽快降阶</b>。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 28–38 页</span><span class="pill">关键词：结构</span></div>
+  <ul class="goals">
+    <li>根据结构选择计算方法</li>
+    <li>会用倍加变换制造零</li>
+    <li>会选择零最多的行或列展开</li>
+    <li>会提取公因子</li>
+    <li>会把行列式化成三角形</li>
+    <li>会识别并建立递推关系</li>
+    <li>掌握 Vandermonde 行列式</li>
+  </ul>
+</header>
+
+<h2>计算的统一原则</h2>
+<p>不要养成“看到行列式就直接展开”的习惯。正确的顺序是：</p>
+<ol class="flow"><li>先观察</li><li class="arr">→</li><li>再变换</li><li class="arr">→</li><li class="key">制造零</li><li class="arr">→</li><li>选最优行/列</li><li class="arr">→</li><li>展开降阶</li></ol>
+<p>为什么不直接用定义？\(n\) 阶行列式按定义完全展开有 \(n!\) 项（§1.6），\(n=10\) 时已有 362 万项。而消元法只需要大约 \(\tfrac23n^3\) 次乘法。</p>
+
+<h2>方法一：利用已有的零</h2>
+<div class="box prop"><span class="tag">例 1.5.1</span>
+  <p>若第一列除 \(a_{11}\) 外全为零，则 \(|A|=a_{11}M_{11}\)：</p>
+  \[\begin{vmatrix}a_{11}&a_{12}&\cdots&a_{1n}\\0&a_{22}&\cdots&a_{2n}\\\vdots&\vdots&&\vdots\\0&a_{n2}&\cdots&a_{nn}\end{vmatrix}=a_{11}\begin{vmatrix}a_{22}&\cdots&a_{2n}\\\vdots&&\vdots\\a_{n2}&\cdots&a_{nn}\end{vmatrix}.\]
+  <p>更一般地，某一行或列只有一个非零元素时，沿它展开，一步降阶。</p>
+</div>
+
+<h2>方法二：主动制造零</h2>
+<p>最常用的工具是倍加变换 \(R_i\leftarrow R_i+cR_j\) 或 \(C_i\leftarrow C_i+cC_j\)，它们不改变行列式的值。目标是把某一行（列）变出很多零，或者把行列式化成三角形。</p>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.5.2 <span class="src">教材第 29–30 页</span></div>
+  <p>计算 \(|A|=\begin{vmatrix}1&0&2&1\\2&-1&1&0\\1&0&0&3\\-1&0&2&1\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">目标：把第一列除第一行外的元素都变成 0。第一行乘 \(-2\) 加到第二行、乘 \(-1\) 加到第三行、乘 \(1\) 加到第四行<span class="why">性质 7</span>：
+      \[\begin{vmatrix}1&0&2&1\\2&-1&1&0\\1&0&0&3\\-1&0&2&1\end{vmatrix}=\begin{vmatrix}1&0&2&1\\0&-1&-3&-2\\0&0&-2&2\\0&0&4&2\end{vmatrix}.\]</div>
+    <div class="st">按第一列降阶：\(|A|=1\cdot\begin{vmatrix}-1&-3&-2\\0&-2&2\\0&4&2\end{vmatrix}\)。</div>
+    <div class="st">三阶行列式第一列除 \(-1\) 外都是 0，再降阶：\(|A|=(-1)\cdot\begin{vmatrix}-2&2\\4&2\end{vmatrix}\)。</div>
+    <div class="st">\(|A|=(-1)(-4-8)=12\)。</div>
+    <div class="st"><b>另一种做法：列消去法。</b>第一列乘 \(-2\)、\(-1\) 分别加到第三、四列，第一行变成 \((1,0,0,0)\)，按第一行展开得同一个三阶行列式。行消去法和列消去法可以交替使用，看哪种更方便。</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.5.3 左上角是 0 怎么办 <span class="src">教材第 31 页</span></div>
+  <p>计算 \(\begin{vmatrix}0&-2&4\\2&5&-1\\6&1&7\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(a_{11}=0\)，就用其他非零元素去消。第二行乘 \(-3\) 加到第三行：\(\begin{vmatrix}0&-2&4\\2&5&-1\\0&-14&10\end{vmatrix}\)。</div>
+    <div class="st">第一列只剩 \(a_{21}=2\)，按第一列展开：\((-1)^{2+1}\cdot2\cdot\begin{vmatrix}-2&4\\-14&10\end{vmatrix}\)。</div>
+    <div class="st">\(=-2(-20+56)=-72\)。</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.5.4 选一个“好消”的列 <span class="src">教材第 31 页</span></div>
+  <p>计算 \(\begin{vmatrix}7&3&1&-5\\2&6&-3&0\\3&11&-1&4\\-6&5&2&-9\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">如果消第一列，要用 7 去除，会出现分数。第三列有 \(1\) 和 \(-1\)，更好消：第一行乘 \(3\) 加到第二行、乘 \(1\) 加到第三行、乘 \(-2\) 加到第四行：
+      \[\begin{vmatrix}7&3&1&-5\\23&15&0&-15\\10&14&0&-1\\-20&-1&0&1\end{vmatrix}.\]</div>
+    <div class="st">按第三列展开（只有 \(a_{13}=1\)）：\(=(-1)^{1+3}\begin{vmatrix}23&15&-15\\10&14&-1\\-20&-1&1\end{vmatrix}\)。</div>
+    <div class="st">第三行加到第二行：\(\begin{vmatrix}23&15&-15\\-10&13&0\\-20&-1&1\end{vmatrix}\)。再把第三行乘 15 加到第一行：\(\begin{vmatrix}-277&0&0\\-10&13&0\\-20&-1&1\end{vmatrix}\)。<span class="small muted">（教材的做法：把第 2 列加到第 3 列，第三列变为 \((0,13,0)^{\top}\)，再按第三列展开得 \((-1)^{2+3}\cdot13\cdot\begin{vmatrix}23&15\\-20&-1\end{vmatrix}=-13(-23+300)\)。）</span></div>
+    <div class="st">下三角，值为 \((-277)\times13\times1=-3601\)。</div>
+  </div>
+</div>
+
+<div class="widget" data-widget="elim" data-t="消元降阶，一步一步看" data-d="橙色框是主元，黄色是刚改动的行，灰色是已化为 0 的位置，蓝色块是降阶后剩下的行列式。右侧“符号 × 当前值”在每一步都等于原行列式。"></div>
+
+<h2>方法三：提取公因子</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.5.5 <span class="src">教材第 32 页</span></div><p>计算 \(\begin{vmatrix}3&6&12\\2&-3&0\\5&1&2\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">第一行有公因子 3，先提出<span class="why">性质 3</span>：\(|A|=3\begin{vmatrix}1&2&4\\2&-3&0\\5&1&2\end{vmatrix}\)。</div>
+    <div class="st">第一行乘 \(-2\)、\(-5\) 分别加到第二、三行：\(\begin{vmatrix}1&2&4\\0&-7&-8\\0&-9&-18\end{vmatrix}=\begin{vmatrix}-7&-8\\-9&-18\end{vmatrix}=126-72=54\)。</div>
+    <div class="st">\(|A|=3\times54=162\)。</div>
+  </div>
+</div>
+<p>参数型行列式中，提取公因子尤其重要：往往一提出来，剩下的就是熟悉的结构。</p>
+
+<h2>方法四：化为三角形</h2>
+<p>如果经过行列变换得到上（下）三角形，则 \(D=d_1d_2\cdots d_n\)。上面的“消元降阶”组件做的正是这件事：一列一列地把主对角线下方化为 0。</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 各行之和相等 <span class="src">习题 1.5 第 1(3) 题</span></div><p>计算五阶行列式 \(\begin{vmatrix}0&1&1&1&1\\1&0&1&1&1\\1&1&0&1&1\\1&1&1&0&1\\1&1&1&1&0\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">每一行的和都是 4。把第 2–5 列都加到第 1 列，第一列全变成 4，提出 4：\(4\begin{vmatrix}1&1&1&1&1\\1&0&1&1&1\\1&1&0&1&1\\1&1&1&0&1\\1&1&1&1&0\end{vmatrix}\)。</div>
+    <div class="st">每一行减去第一行：\(4\begin{vmatrix}1&1&1&1&1\\0&-1&0&0&0\\0&0&-1&0&0\\0&0&0&-1&0\\0&0&0&0&-1\end{vmatrix}\)。</div>
+    <div class="st">上三角：\(4\times(-1)^4=4\)。</div>
+  </div>
+</div>
+
+<h2>结构诊断：先看，再算</h2>
+<p>下面的工具会替你“观察”一个行列式：有没有零行、成比例的行、公因子、三角形、相等的行和、Vandermonde 形式、分块三角，以及零最多的展开位置。</p>
+<div class="widget" data-widget="diagnose" data-t="结构诊断器" data-d="换几个预设，先自己说出看到的结构，再看诊断结果。也可以输入自己的行列式（2–5 阶）。"></div>
+
+<h2>Vandermonde 行列式</h2>
+<div class="box def"><span class="tag">例 1.5.6<em>Vandermonde 行列式</em></span>
+  \[V_n=\begin{vmatrix}1&x_1&x_1^2&\cdots&x_1^{n-1}\\1&x_2&x_2^2&\cdots&x_2^{n-1}\\\vdots&\vdots&\vdots&&\vdots\\1&x_n&x_n^2&\cdots&x_n^{n-1}\end{vmatrix}\]
+  <div class="boxed-eq">\[V_n=\prod_{1\le i\lt j\le n}(x_j-x_i).\]</div>
+  <p>即 \(V_n=(x_2-x_1)(x_3-x_1)(x_3-x_2)\cdots(x_n-x_1)\cdots(x_n-x_{n-1})\)，共 \(\binom n2\) 个因子，每个都是“后减前”。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">证明 列变换 → 提因子 → 递推 <span class="src">教材第 32–33 页</span></div></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">从右往左做列变换：第 \(n-1\) 列乘 \(-x_n\) 加到第 \(n\) 列，第 \(n-2\) 列乘 \(-x_n\) 加到第 \(n-1\) 列……直到第 1 列乘 \(-x_n\) 加到第 2 列。每一步值不变，第 \(i\) 行变成 \(\bigl(1,\ x_i-x_n,\ x_i(x_i-x_n),\ \dots,\ x_i^{n-2}(x_i-x_n)\bigr)\)，最后一行变成 \((1,0,\dots,0)\)。</div>
+    <div class="st">按最后一行展开：\[V_n=(-1)^{n+1}\begin{vmatrix}x_1-x_n&x_1(x_1-x_n)&\cdots&x_1^{n-2}(x_1-x_n)\\\vdots&&&\vdots\\x_{n-1}-x_n&x_{n-1}(x_{n-1}-x_n)&\cdots&x_{n-1}^{n-2}(x_{n-1}-x_n)\end{vmatrix}.\]</div>
+    <div class="st">每一行提出公因子 \(x_i-x_n\)，剩下的恰好是 \(x_1,\dots,x_{n-1}\) 的 \(n-1\) 阶 Vandermonde 行列式：
+      \[V_n=(-1)^{n+1}(x_1-x_n)\cdots(x_{n-1}-x_n)V_{n-1}=(x_n-x_1)(x_n-x_2)\cdots(x_n-x_{n-1})V_{n-1}.\]</div>
+    <div class="st">反复使用这个递推（\(V_1=1\)），即得 \(V_n=\prod_{i\lt j}(x_j-x_i)\)。例如 \(V_5=(x_5-x_1)(x_5-x_2)(x_5-x_3)(x_5-x_4)V_4\)。</div>
+  </div>
+</div>
+<div class="box idea"><span class="tag">必须掌握的思想</span>
+  <p>不是死记公式，而是理解：\(V_n\ \to\) 列变换 \(\to\) 提出 \(x_i-x_n\) \(\to\ V_{n-1}\)。由公式立即看出：\(V_n\ne0\iff x_1,\dots,x_n\) 两两不同。</p>
+</div>
+<div class="widget" data-widget="vander" data-t="Vandermonde 计算器" data-d="输入几个数，比较直接计算与连乘公式，并看递推的每一步。试试让两个数相同。"></div>
+<div class="box stat"><span class="tag">统计视角 · 多项式拟合</span>
+  <p>用 \(n\) 个数据点 \((x_i,y_i)\) 恰好拟合一条 \(n-1\) 次多项式 \(y=\beta_0+\beta_1x+\cdots+\beta_{n-1}x^{n-1}\)，方程组的系数行列式正是 \(V_n\)。所以只要 \(n\) 个 \(x\) 值<b>互不相同</b>，拟合多项式就唯一存在。多项式回归中自变量取值重复太多（例如只在两三个点上取样），就会让高次项无法估计。</p>
+</div>
+
+<h2>递推型行列式</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.5.7 <span class="src">教材第 34 页</span></div>
+  \[F_n=\begin{vmatrix}\lambda&0&0&\cdots&0&a_n\\-1&\lambda&0&\cdots&0&a_{n-1}\\0&-1&\lambda&\cdots&0&a_{n-2}\\\vdots&\vdots&\vdots&&\vdots&\vdots\\0&0&0&\cdots&\lambda&a_2\\0&0&0&\cdots&-1&\lambda+a_1\end{vmatrix}.\]</div>
+  <div class="sol" data-steps>
+    <div class="st">按第一行展开。\(\lambda\) 的余子式是与 \(F_n\) 同型的 \(n-1\) 阶行列式，记为 \(F_{n-1}\)。</div>
+    <div class="st">\(a_n\) 在 \((1,n)\) 位置，它的余子式是主对角线全为 \(-1\) 的上三角行列式，等于 \((-1)^{n-1}\)。</div>
+    <div class="st">\(F_n=\lambda F_{n-1}+(-1)^{1+n}(-1)^{n-1}a_n=\lambda F_{n-1}+a_n\)。</div>
+    <div class="st">由 \(F_1=\lambda+a_1\) 反复递推：\(F_n=\lambda^n+a_1\lambda^{n-1}+a_2\lambda^{n-2}+\cdots+a_{n-1}\lambda+a_n\)。<span class="small muted">（任何首一多项式都能写成这样一个行列式，以后学特征多项式时还会见到它。）</span></div>
+  </div>
+</div>
+<p>更常见的是<b>三对角</b>（带状）行列式：主对角线为 \(a\)，上下各一条对角线分别为 \(b,c\)，其余为 0。按第一行展开两次，得到</p>
+<div class="boxed-eq">\[D_n=aD_{n-1}-bc\,D_{n-2},\qquad D_0=1,\ D_1=a.\]</div>
+<p>行列式计算就转化成了递推数列问题。</p>
+<div class="widget" data-widget="recur" data-t="三对角行列式与递推" data-d="改变 a、b、c，对比递推结果和直接计算。试试 Fibonacci 预设：\(D_n=D_{n-1}+D_{n-2}\)。"></div>
+<div class="widget" data-widget="ar1" data-k="统计视角" data-t="AR(1) 相关矩阵的行列式" data-d="时间序列中一阶自回归过程的相关矩阵 \(R_{ij}=\rho^{|i-j|}\)。用消元可以证明 \(|R|=(1-\rho^2)^{n-1}\)：第 \(k\) 行减去第 \(k-1\) 行的 \(\rho\) 倍，就化成三角形。"></div>
+
+<h2>其他文字行列式</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.5.8 按列拆开 <span class="src">教材第 34 页</span></div>
+  <p>求证 \(\begin{vmatrix}ax+by&ay+bz&az+bx\\ay+bz&az+bx&ax+by\\az+bx&ax+by&ay+bz\end{vmatrix}=(a^3+b^3)\begin{vmatrix}x&y&z\\y&z&x\\z&x&y\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">每个元素都是两项之和。依次把第一、二、三列拆开<span class="why">性质 6′</span>，得到 \(2^3=8\) 个行列式之和。</div>
+    <div class="st">把三列记为 \(a\boldsymbol u+b\boldsymbol v,\ a\boldsymbol v+b\boldsymbol w,\ a\boldsymbol w+b\boldsymbol u\)，其中 \(\boldsymbol u=(x,y,z)^{\top},\ \boldsymbol v=(y,z,x)^{\top},\ \boldsymbol w=(z,x,y)^{\top}\)。8 个行列式中，凡是各列“有的取 \(a\) 部分、有的取 \(b\) 部分”的 6 个，都会出现两列是同一个向量的倍数（如第一列取 \(b\boldsymbol v\)、第二列取 \(a\boldsymbol v\)），值为 0<span class="why">性质 5′</span>。</div>
+    <div class="st">剩下两个：\(\begin{vmatrix}ax&ay&az\\ay&az&ax\\az&ax&ay\end{vmatrix}+\begin{vmatrix}by&bz&bx\\bz&bx&by\\bx&by&bz\end{vmatrix}=a^3\begin{vmatrix}x&y&z\\y&z&x\\z&x&y\end{vmatrix}+b^3\begin{vmatrix}y&z&x\\z&x&y\\x&y&z\end{vmatrix}\)。</div>
+    <div class="st">最后一个行列式是把 \(\begin{vmatrix}x&y&z\\y&z&x\\z&x&y\end{vmatrix}\) 的列循环移动一位，相当于两次列对换，符号不变。得证。</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.5.9 对角为 \(x\)、其余为 \(a\) <span class="src">教材第 34–35 页</span></div>
+  \[|A|=\begin{vmatrix}x&a&a&\cdots&a\\a&x&a&\cdots&a\\a&a&x&\cdots&a\\\vdots&\vdots&\vdots&&\vdots\\a&a&a&\cdots&x\end{vmatrix}.\]</div>
+  <div class="sol" data-steps>
+    <div class="st">每一列的和都是 \(x+(n-1)a\)。把第 2 至第 \(n\) 行都加到第一行，值不变，第一行全变成 \(x+(n-1)a\)。</div>
+    <div class="st">提出公因子：\(|A|=\bigl(x+(n-1)a\bigr)\begin{vmatrix}1&1&1&\cdots&1\\a&x&a&\cdots&a\\a&a&x&\cdots&a\\\vdots&&&&\vdots\\a&a&a&\cdots&x\end{vmatrix}\)。</div>
+    <div class="st">第一行乘 \(-a\) 加到第 2 至 \(n\) 行：\(\bigl(x+(n-1)a\bigr)\begin{vmatrix}1&1&\cdots&1\\0&x-a&\cdots&0\\\vdots&&\ddots&\vdots\\0&0&\cdots&x-a\end{vmatrix}\)。</div>
+    <div class="st">上三角：\(|A|=\bigl(x+(n-1)a\bigr)(x-a)^{n-1}\)。</div>
+  </div>
+</div>
+<p>这一题非常适合训练三件事：行列变换、提取公因子、观察结构（各行或各列之和相等）。</p>
+<div class="widget" data-widget="xa" data-t="验证 (x+(n−1)a)(x−a)ⁿ⁻¹" data-d="输入 n、x、a，比较直接计算与公式。"></div>
+<div class="widget" data-widget="equicorr" data-k="统计视角" data-t="等相关矩阵：相关系数能不能都是负的？" data-d="取 \(x=1,\ a=\rho\)，例 1.5.9 就是 \(n\) 个变量两两相关系数都为 \(\rho\) 的相关系数矩阵：\(|R|=(1+(n-1)\rho)(1-\rho)^{n-1}\)。相关系数矩阵的行列式不能为负，由此得到 \(\rho\ge-\frac{1}{n-1}\)。"></div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.5.10 <span class="src">教材第 35–36 页</span></div><p>计算 \(\begin{vmatrix}x&y&z&w\\y&x&w&z\\z&w&x&y\\w&z&y&x\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">各行之和都是 \(x+y+z+w\)。把第 2、3、4 列加到第一列，提出公因子 \(x+y+z+w\)，第一列变成全 1。</div>
+    <div class="st">第一行乘 \(-1\) 加到其余各行，再按第一列展开，得到三阶行列式 \(\begin{vmatrix}x-y&w-z&z-w\\w-y&x-z&y-w\\z-y&y-z&x-w\end{vmatrix}\)。</div>
+    <div class="st">第二列分别加到第一列和第三列，再提出公因子 \(x+y-z-w\) 与 \(x+w-y-z\)，剩下的三阶行列式可直接算出。</div>
+    <div class="st">\(|A|=(x+y+z+w)(x+y-z-w)(x+z-y-w)(x+w-y-z)\)。</div>
+  </div>
+</div>
+<div class="box note"><span class="tag">注</span>
+  <p>文字行列式往往需要较高技巧；实际问题中更多遇到的是数字行列式，可以交给计算机。但懂得计算原理和性质，才能正确地使用计算机，也才能看懂统计软件报出的“矩阵奇异”之类的警告。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>“第 \(j\) 行乘 \(k\) 再加上第 \(i\) 行”≠ 倍加：前者先用了性质 3，值乘 \(k\)。写变换时让<b>被改动的行</b>系数为 1。</li>
+    <li>交换两行忘记变号；交换后又交换回来时符号要再变一次。</li>
+    <li>同一步里同时做 \(R_1\leftarrow R_1+R_2\) 与 \(R_2\leftarrow R_2+R_1\)：第二个用到的 \(R_1\) 已经变了，容易出错。一步只改一行。</li>
+    <li>提公因子时只对<b>一行（列）</b>提，不是对整个行列式。</li>
+    <li>Vandermonde 公式是“后减前”\((x_j-x_i),\ i\lt j\)，写反会差一个符号 \((-1)^{\binom n2}\)。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="90"><div class="qt">\(\begin{vmatrix}1&2&-1&2\\3&0&1&5\\1&-2&0&3\\-2&-4&1&6\end{vmatrix}=\)？<span class="tiny muted">（习题 1.5 第 1(1) 题）</span></div><div class="explain">以第三列为突破口：第 1 行加到第 2 行和第 4 行，第三列只剩 \(a_{13}=-1\)；按第三列展开后算三阶行列式，结果 90。可以把它输入上面的“消元降阶”组件核对。</div></div>
+  <div class="fill" data-ans="154"><div class="qt">\(\begin{vmatrix}1&-1&2&-1\\-3&4&1&-1\\2&-5&-3&8\\-2&6&-4&1\end{vmatrix}=\)？<span class="tiny muted">（习题 1.5 第 1(2) 题）</span></div><div class="explain">用 \(a_{11}=1\) 消去第一列，降为三阶后再消元，结果 154。</div></div>
+  <div class="fill" data-ans="52"><div class="qt">\(\begin{vmatrix}1&2&3&4&5\\2&3&7&10&13\\3&5&11&16&21\\2&-7&7&7&2\\1&4&5&3&10\end{vmatrix}=\)？<span class="tiny muted">（习题 1.5 第 1(4) 题）</span></div><div class="explain">用第一行消去第一列后降为四阶，继续消元，结果 52。</div></div>
+  <div class="fill" data-ans="48"><div class="qt">四阶行列式，对角元都是 3，其余元素都是 1，值为？</div><div class="explain">\((x+(n-1)a)(x-a)^{n-1}=(3+3)\cdot2^3=48\)。</div></div>
+  <div class="fill" data-ans="6"><div class="qt">\(\begin{vmatrix}1&1&1\\1&2&4\\1&4&16\end{vmatrix}=\)？</div><div class="explain">第一列全为 1，第三列是第二列的平方：Vandermonde 型，\(x=1,2,4\)。值为 \((2-1)(4-1)(4-2)=6\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">计算 \(\begin{vmatrix}2&0&0&5\\1&3&0&0\\0&0&4&0\\7&1&2&1\end{vmatrix}\)，最省事的第一步是：</div><ol class="opts"><li>按第一行展开</li><li>按第三行展开</li><li>化为上三角</li><li>用对角线法则</li></ol><div class="explain">第三行只有 \(a_{33}=4\) 非零，一步降为三阶。对角线法则不能用于四阶。</div></div>
+</div>
+<details class="more"><summary>挑战题（习题 1.5 第 2、6 题选讲）</summary><div class="dbody">
+  <p><b>2(4)</b> \(\begin{vmatrix}a&0&\cdots&0&1\\0&a&\cdots&0&0\\\vdots&&\ddots&&\vdots\\0&0&\cdots&a&0\\1&0&\cdots&0&a\end{vmatrix}=a^n-a^{n-2}\)。提示：按第一行展开，两项都是对角或三角结构。</p>
+  <p><b>2(3)</b> 第 \((i,j)\) 元为 \(a_{\min(i,j)}b_{\max(i,j)}\) 的行列式：提示用相邻两行做倍加消元，结果为 \(a_1b_n\prod_{k=1}^{n-1}(a_{k+1}b_k-a_kb_{k+1})\)。</p>
+  <p><b>6</b> 每个元素都加上 \(t\)：\(|A(t)|=|A(0)|+t\sum_{i,j}A_{ij}\)。提示：把每一列拆成“原列 + \(t\) 列”，含两个及以上 \(t\) 列的项都为 0。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<div class="tw"><table class="t l"><tr><th>看到什么</th><th>怎么做</th></tr>
+  <tr><td>某行（列）只有一个非零元</td><td>沿它展开，一步降阶</td></tr>
+  <tr><td>某行（列）有 ±1</td><td>用它作主元消元，避免分数</td></tr>
+  <tr><td>行（列）有公因子</td><td>先提出来</td></tr>
+  <tr><td>各行（列）之和相等</td><td>全部加到一列（行），提公因子</td></tr>
+  <tr><td>\(1,x,x^2,\dots\) 的形式</td><td>Vandermonde：\(\prod_{i\lt j}(x_j-x_i)\)</td></tr>
+  <tr><td>带状、降阶后同型</td><td>按第一行（列）展开，建立递推</td></tr>
+  <tr><td>元素都是两项之和</td><td>按列（行）拆开，扔掉成比例的项</td></tr>
+</table></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>例 1.5.4 可以先让学生按第一列消，体验分数之痛，再展示教材消第三列的做法。</li>
+  <li>“结构诊断器”适合课堂抢答：投影一个预设，先让学生说结构，再点诊断。</li>
+  <li>等相关矩阵组件：把 n 拖到 10、ρ 往负方向拖，问“为什么 10 个变量不可能两两都是 −0.2 相关？”</li>
+  <li>严格说 \(|R|\ge0\) 只是必要条件；对等相关矩阵，\(-\frac1{n-1}\le\rho\le1\) 恰好是充要条件（第五章学特征值后可证）。</li>
+  <li>课后作业建议：习题 1.5 第 1、2、4、6 题。</li>
+</ul></div></details>
+</template>

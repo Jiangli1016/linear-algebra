@@ -1,0 +1,44 @@
+<template data-route="home" data-chapter="0" data-num="主页" data-short="课程主页" data-group="">
+<section class="hero course-hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <span class="det-eyebrow">高等代数学 · 交互课件</span>
+      <h1><span class="bars">高等代数</span></h1>
+      <p class="lede">从行列式、矩阵到线性空间、特征值与二次型。配合谢启鸿、姚慕生、吴泉水《高等代数学（第四版）》，每一章都能在课堂上<b>放映</b>、课后<b>阅读</b>、复习时<b>打印</b>成讲义。</p>
+      <div class="meta-row"><span class="pill acc">已上线：第一章 行列式</span><span class="pill">共 10 章</span><span class="pill">手机 · 平板 · 电脑</span></div>
+      <div class="btns hero-btns"><a class="btn pri" href="#c1">进入第一章</a><button class="btn" type="button" data-slides-go="s1-1">从 §1.1 开始放映</button></div>
+    </div>
+    <figure class="hero-fig" data-widget="lintrans" aria-label="线性变换示意图"></figure>
+  </div>
+</section>
+
+<h2>课程章节</h2>
+<p class="muted small">章节名称按教材目录排列。已上线的章节可直接进入；其余章节建设中，结构已经预留。</p>
+<div class="chapters" data-widget="chapters"></div>
+
+<h2>三种使用方式</h2>
+<div class="stage-grid">
+  <div class="stage"><span class="sk">课堂 · 投影</span><h3>放映模式（PPT）</h3><p>点右上角“放映”，当前小节自动切成一页页幻灯片，16:9 全屏。<b>← →</b> 翻页，<b>+ −</b> 放大缩小字号，点公式、矩阵或表格可单独放大，<b>N</b> 打开教师备注，<b>Esc</b> 退出。每页标出所属部分与“下一页”预告，到一节末尾自动接上下一节。</p></div>
+  <div class="stage"><span class="sk">课后 · 自学</span><h3>讲义模式</h3><p>默认的阅读视图。手机上点左上角“目录”切换小节；例题解答逐步展开；练习题即时判分。勾选“学生视图”可隐藏教学提示。</p></div>
+  <div class="stage"><span class="sk">复习 · 存档</span><h3>打印讲义 / PDF</h3><p>在独立网址或离线版中，打开“设置 → 打印本章讲义”，整章连同全部解答排成一份讲义，可直接打印或“另存为 PDF”。</p></div>
+</div>
+
+<h2>高等代数与统计学</h2>
+<div class="box stat"><span class="tag">统计视角</span>
+  <p>统计学的很多核心对象本身就是矩阵：数据矩阵 \(X\)、协方差矩阵 \(\Sigma\)、投影矩阵 \(H=X(X^{\top}X)^{-1}X^{\top}\)。线性回归、主成分分析、多元正态分布、时间序列，全都建立在这门课的语言之上。课件每一节都放了一个这样的联系，帮助你提前看到“学了以后用在哪”。</p>
+</div>
+
+<h2>键盘与手势</h2>
+<div class="tw"><table class="t l">
+  <tr><th>操作</th><th>讲义模式</th><th>放映模式</th></tr>
+  <tr><td>上一页 / 下一页</td><td>← →（切换小节）</td><td>← → 、PageUp/PageDown、手机左右滑动</td></tr>
+  <tr><td>进入放映</td><td>右上角“放映”或按 P</td><td>—</td></tr>
+  <tr><td>教师备注</td><td>页面中的“教学提示”</td><td>N 或底栏“备注”</td></tr>
+  <tr><td>字号</td><td>设置 → A− / A+</td><td>+ / − 键，或底栏 A− / A+</td></tr>
+  <tr><td>放大公式</td><td>—</td><td>点击公式、矩阵或表格；再点一下关闭</td></tr>
+  <tr><td>退出</td><td>—</td><td>Esc 或底栏“退出”</td></tr>
+</table></div>
+<details class="tnote"><summary>教学提示 · 分享给学生</summary><div class="dbody">
+  <p>把课件的公开网址发给学生即可，手机、电脑浏览器都能打开。教室电脑不能上网时，用离线版 HTML 文件（双击即可在浏览器中打开）。</p>
+</div></details>
+</template>

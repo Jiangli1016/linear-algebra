@@ -1,0 +1,13 @@
+{
+  "name": "linear-algebra-courseware",
+  "private": true,
+  "description": "高等代数交互课件：修改 src/ 后运行 npm run build 生成 index.html",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node --watch-path=src --watch-path=build.js build.js",
+    "deploy": "npm run build && git add -A && git commit -m \"更新课件\" && git push origin main && git push origin main:gh-pages"
+  },
+  "devDependencies": {
+    "katex": "0.16.47"
+  }
+}

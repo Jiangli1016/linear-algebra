@@ -1,0 +1,136 @@
+<template data-chapter="1" data-route="c1-summary" data-num="小结" data-short="知识结构与思维方式" data-group="收束">
+<header class="page-head">
+  <span class="det-eyebrow">本章小结</span>
+  <h1>知识结构与思维方式</h1>
+  <p class="lede">把整章压缩成一张表、两份清单和一个流程。最后值得带走的，不是几十个计算技巧，而是<b>发现结构</b>和<b>利用结构降低复杂度</b>。</p>
+</header>
+
+<h2>知识结构总表</h2>
+<div class="tw"><table class="t l">
+  <tr><th>小节</th><th>核心问题</th><th>主要内容</th><th>关键词</th></tr>
+  <tr><td><a href="#s1-1">§1.1</a></td><td>行列式为什么出现？</td><td>二元方程组、二阶行列式、8 条性质</td><td>来源</td></tr>
+  <tr><td><a href="#s1-2">§1.2</a></td><td>如何进入更高阶？</td><td>由性质反推三阶定义，余子式初现</td><td>递归</td></tr>
+  <tr><td><a href="#s1-3">§1.3</a></td><td>什么是一般 \(n\) 阶行列式？</td><td>余子式、代数余子式、递归定义、性质 1–7 的证明</td><td>定义与性质</td></tr>
+  <tr><td><a href="#s1-4">§1.4</a></td><td>能否按任意行列展开？</td><td>展开定理、异乘变零、转置、Cramer 法则</td><td>降阶与对称</td></tr>
+  <tr><td><a href="#s1-5">§1.5</a></td><td>如何高效计算？</td><td>制造零、三角化、提公因子、Vandermonde、递推</td><td>结构</td></tr>
+  <tr><td><a href="#s1-6">§1.6</a></td><td>定义背后的统一形式？</td><td>排列、逆序数、奇偶性、\(n!\) 项展开</td><td>显式结构</td></tr>
+  <tr><td><a href="#s1-7">*§1.7</a></td><td>展开能否进一步推广？</td><td>\(k\) 阶子式、Laplace 定理、分块三角</td><td>高阶展开</td></tr>
+</table></div>
+
+<h2>必须掌握的定义清单</h2>
+<p class="small muted">学完后应能准确说出下面每一个定义。勾选的记录只保存在你这台设备的浏览器里。</p>
+<ul class="checklist" data-widget="checklist" data-key="defs">
+  <li><label><input type="checkbox"> 二阶行列式</label></li>
+  <li><label><input type="checkbox"> 三阶行列式（沿第一列）</label></li>
+  <li><label><input type="checkbox"> \(n\) 阶行列式（递归定义）</label></li>
+  <li><label><input type="checkbox"> 元素 \(a_{ij}\) 的余子式 \(M_{ij}\)</label></li>
+  <li><label><input type="checkbox"> 元素 \(a_{ij}\) 的代数余子式 \(A_{ij}\)</label></li>
+  <li><label><input type="checkbox"> 转置行列式</label></li>
+  <li><label><input type="checkbox"> 逆序、逆序数</label></li>
+  <li><label><input type="checkbox"> 奇排列、偶排列</label></li>
+  <li><label><input type="checkbox"> 排列集合 \(S_n\)</label></li>
+  <li><label><input type="checkbox"> \(k\) 阶子式</label></li>
+  <li><label><input type="checkbox"> \(k\) 阶子式的余子式</label></li>
+  <li><label><input type="checkbox"> \(k\) 阶子式的代数余子式</label></li>
+</ul>
+
+<h2>定理与性质清单</h2>
+<div class="box board"><span class="tag">基本性质</span>
+  \[\text{三角形行列式}=\text{主对角线乘积}\qquad\text{某行（列）全零}\Rightarrow D=0\]
+  \[R_i\leftarrow cR_i\Rightarrow cD\qquad R_i\leftrightarrow R_j\Rightarrow -D\qquad R_i\leftarrow R_i+cR_j\Rightarrow D\]
+  \[\text{两行（列）相同或成比例}\Rightarrow D=0\qquad\text{对每一行（列）线性}\qquad|A'|=|A|\]
+</div>
+<div class="w-grid">
+  <div class="box thm"><span class="tag">展开定理</span>
+    \[\sum_{j=1}^n a_{rj}A_{sj}=\begin{cases}|A|,&r=s\\0,&r\ne s\end{cases}\]
+    \[\sum_{i=1}^n a_{ir}A_{is}=\begin{cases}|A|,&r=s\\0,&r\ne s\end{cases}\]
+  </div>
+  <div class="box thm"><span class="tag">Cramer 法则</span>
+    \[|A|\ne0\Rightarrow x_j=\frac{|A_j|}{|A|}\]
+    <p class="small">方程数 = 未知数个数；\(|A_j|\)：第 \(j\) 列换成常数列。</p>
+  </div>
+  <div class="box thm"><span class="tag">等价定义</span>
+    \[|A|=\sum_{\sigma\in S_n}\operatorname{sgn}(\sigma)\,a_{1\sigma(1)}\cdots a_{n\sigma(n)}\]
+  </div>
+  <div class="box thm"><span class="tag">Laplace 定理</span>
+    \[|A|=\sum(k\text{ 阶子式})\times(\text{对应代数余子式})\]
+    \[\begin{vmatrix}A_1&O\\ *&A_2\end{vmatrix}=|A_1||A_2|\]
+  </div>
+</div>
+<div class="box prop"><span class="tag">常用结论</span>
+  <ul>
+    <li>\(|cA|=c^n|A|\)，\(|-A|=(-1)^n|A|\)。</li>
+    <li>Vandermonde：\(V_n=\prod_{1\le i\lt j\le n}(x_j-x_i)\)。</li>
+    <li>对角为 \(x\)、其余为 \(a\)：\(\bigl(x+(n-1)a\bigr)(x-a)^{n-1}\)。</li>
+    <li>副对角线：\(\begin{vmatrix}0&\cdots&0&b_1\\0&\cdots&b_2&0\\\vdots&&&\vdots\\b_n&\cdots&0&0\end{vmatrix}=(-1)^{\frac{n(n-1)}{2}}b_1\cdots b_n\)。</li>
+    <li>奇数阶反对称行列式等于 0（习题 1.4 第 3 题）。</li>
+  </ul>
+</div>
+
+<h2>最容易出错的地方</h2>
+<div class="tw"><table class="t l">
+  <tr><th>#</th><th>错误</th><th>正确做法</th></tr>
+  <tr><td>1</td><td>余子式与代数余子式混淆</td><td>\(A_{ij}=(-1)^{i+j}M_{ij}\)，符号只看位置</td></tr>
+  <tr><td>2</td><td>交换行与倍加行混淆</td><td>\(R_i\leftrightarrow R_j\) 变号；\(R_i\leftarrow R_i+cR_j\) 不变</td></tr>
+  <tr><td>3</td><td>整行乘常数与全部元素乘常数混淆</td><td>全部元素乘 \(c\)：\(|cA|=c^n|A|\)</td></tr>
+  <tr><td>4</td><td>默认按第一行展开</td><td>选零最多的行或列，必要时先制造零</td></tr>
+  <tr><td>5</td><td>四阶以上用对角线法</td><td>对角线法只适用于三阶</td></tr>
+  <tr><td>6</td><td>§1.3 与 §1.6 的定义混淆</td><td>先用递归定义，§1.6 证明排列定义与之等价</td></tr>
+  <tr><td>7</td><td>逆序数漏数</td><td>每个元素只统计它<b>右边比它小</b>的数</td></tr>
+  <tr><td>8</td><td>以为 \(|A+B|=|A|+|B|\)</td><td>可加性每次只对一行（列）</td></tr>
+  <tr><td>9</td><td>“第 \(j\) 行乘 \(k\) 再加第 \(i\) 行”当成倍加</td><td>被改动的那一行系数必须是 1</td></tr>
+</table></div>
+
+<h2>面对一个新行列式时的思维流程</h2>
+<ol class="flow v">
+  <li class="key">第一步：观察结构</li><li class="arr">↓</li>
+  <li>有无零、相同或成比例的行列、公因子、对称、三角形？</li><li class="arr">↓</li>
+  <li class="key">第二步：选择合适的行列变换</li><li class="arr">↓</li>
+  <li class="key">第三步：制造尽可能多的零</li><li class="arr">↓</li>
+  <li class="key">第四步：选择零最多的行或列展开</li><li class="arr">↓</li>
+  <li class="key">第五步：逐步降阶</li><li class="arr">↓</li>
+  <li>第六步：识别 Vandermonde、递推或 Laplace（分块）结构</li>
+</ol>
+<div class="widget" data-widget="diagnose" data-t="结构诊断器" data-d="输入任意 2–5 阶行列式，按上面的流程自动“观察”。先自己判断，再看结果。"></div>
+
+<h2>与后续课程的联系</h2>
+<div class="w-grid">
+  <div class="box idea"><span class="tag">高等代数后续章节</span>
+    <ul>
+      <li><b>矩阵</b>：\(|AB|=|A||B|\)；\(A\) 可逆 \(\iff|A|\ne0\)；\(A^{-1}=\dfrac{1}{|A|}A^*\)（伴随矩阵来自“异乘变零”）。</li>
+      <li><b>线性方程组</b>：\(|A|=0\) 时解的结构；秩用子式定义。</li>
+      <li><b>特征值</b>：\(|\lambda I-A|=0\)（例 1.5.7、习题 1.6 第 6 题的形式）。</li>
+      <li><b>二次型</b>：顺序主子式全正 \(\iff\) 正定。</li>
+    </ul>
+  </div>
+  <div class="box stat"><span class="tag">统计学</span>
+    <ul>
+      <li><b>回归分析</b>：\(|X^{\top}X|\ne0\) 时最小二乘解唯一；接近 0 时多重共线性严重。</li>
+      <li><b>多元正态分布</b>：密度中的 \(|\Sigma|^{-1/2}\)；分块公式用于条件分布。</li>
+      <li><b>多元统计</b>：广义方差 \(|\Sigma|\)、Wilks Λ 统计量都是行列式之比。</li>
+      <li><b>概率论</b>：多元变量变换的 Jacobian 行列式。</li>
+      <li><b>非参数统计</b>：Kendall τ 用逆序数定义。</li>
+    </ul>
+  </div>
+</div>
+
+<h2>历史与展望</h2>
+<ol class="timeline">
+  <li><span class="y">约 4000 年前</span>古巴比伦人已知道如何求解二元线性方程组。</li>
+  <li><span class="y">公元前 200 年</span>《九章算术》“方程”章记载了求解三元线性方程组的方法，与后来 Gauss 的消元法有着类似之处。</li>
+  <li><span class="y">1674 年</span>日本数学家关孝和在《解伏题元法》中提出了行列式的概念与算法。</li>
+  <li><span class="y">1693 年</span>Leibniz 给出行列式的概念，并用于线性方程组的求解。</li>
+  <li><span class="y">1750 年</span>Cramer 给出 \(n\) 个未知元 \(n\) 个方程的线性方程组的求解法则，即 Cramer 法则；稍后 Bezout 将确定每一项符号的方法系统化。</li>
+  <li><span class="y">1772 年</span>Vandermonde 第一个把行列式理论与线性方程组求解分离，对行列式作出连贯的逻辑阐述；Laplace 证明并推广了他的展开方法。</li>
+  <li><span class="y">1815 年</span>Cauchy 给出行列式第一个系统的、几乎近代的处理，包括行列式的乘法定理。</li>
+  <li><span class="y">1841 年</span>Jacobi 的《论行列式的形成和性质》标志着行列式理论系统的建成；他引进的函数行列式（Jacobi 行列式）用于多重积分的变量代换。</li>
+  <li><span class="y">1843 / 1870</span>Cayley 以行列式为工具发展 \(n\) 维解析几何；Dedekind 用行列式证明代数整数的和与积仍为代数整数。</li>
+  <li><span class="y">19 世纪</span>Sylvester 改进消去未定元的方法（配析法）；19 世纪 60 年代 Weierstrass 与 Kronecker 分别给出行列式的公理化定义。</li>
+</ol>
+<p class="small muted">行列式理论已十分成熟。它的价值在于：矩阵非异性的判定、秩与特征值的计算、二次型的化简、实对称矩阵正定性的判定……以及统计学中的大量应用。（据教材“历史与展望”整理）</p>
+<details class="tnote"><summary>教学提示 · 复习课建议</summary><div class="dbody"><ul>
+  <li>先用“知识结构总表”串一遍，再让学生对照定义清单自查。</li>
+  <li>“结构诊断器”可做成抢答：教师输入一个行列式，学生说出第一步该做什么。</li>
+  <li>综合练习页的“随机出题”适合课堂最后 10 分钟的限时练习。</li>
+</ul></div></details>
+</template>

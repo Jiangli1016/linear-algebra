@@ -1,0 +1,192 @@
+<template data-chapter="1" data-route="s1-1" data-num="§1.1" data-short="二阶行列式" data-group="第一阶段 · 从具体到一般">
+<header class="page-head">
+  <span class="det-eyebrow">§1.1</span>
+  <h1>二阶行列式</h1>
+  <p class="lede">在解二元一次方程组时，一个只由系数决定的量反复出现。给它一个名字和记号，就得到了二阶行列式；它的 8 条性质，是后面定义一切 \(n\) 阶行列式的出发点。</p>
+  <div class="meta-row"><span class="pill acc">建议 1 学时</span><span class="pill">教材第 1–7 页</span><span class="pill">关键词：来源</span></div>
+  <ul class="goals">
+    <li>理解二阶行列式从二元一次方程组中自然出现</li>
+    <li>掌握二阶行列式的定义，会计算</li>
+    <li>理解行列式是<b>一个数</b>，不是一张表格</li>
+    <li>掌握二阶情形的 8 条基本性质及其验证</li>
+    <li>会用二阶行列式表示二元方程组的解</li>
+    <li>为三阶及 \(n\) 阶行列式建立直观</li>
+  </ul>
+</header>
+
+<h2>从二元一次方程组出发</h2>
+<p>形如下式的方程组称为 \(n\) 元线性方程组，其中 \(a_{ij},b_i\) 是常数，\(x_j\) 是未知数。本章主要讨论方程个数等于未知数个数（\(m=n\)）的情形。</p>
+\[\begin{cases}a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n=b_1,\\ a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n=b_2,\\ \qquad\cdots\cdots\\ a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n=b_m.\end{cases}\]
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.1.1 <span class="src">教材第 1 页</span></div>
+  <p>求解二元一次方程组 \(\begin{cases}2x-y=5,\\3x+2y=11.\end{cases}\)</p></div>
+  <div class="sol" data-steps>
+    <div class="st">用代入消去法，由第一个方程得 \(y=2x-5\)。</div>
+    <div class="st">代入第二个方程：\(3x+2(2x-5)=11\)，整理得 \(7x=21\)。</div>
+    <div class="st">于是 \(x=3\)，再代回得 \(y=1\)。方程组有唯一解 \((x,y)=(3,1)\)。</div>
+  </div>
+</div>
+<p>同样的办法原则上也能解 10 个、1000 个未知数的方程组：用一个方程把一个未知数表示出来，代入其余方程，未知数就少了一个，如此反复。但这样做有两个问题：</p>
+<ul>
+  <li>未知数很多时（实际问题里成千上万很常见），<b>运算量</b>大得难以想象；</li>
+  <li>代入法给不出一个<b>规范化的公式</b>，无法从理论上分析解的情况。</li>
+</ul>
+<p>我们希望找到线性方程组解的<b>公式</b>。先看最简单的二元情形。</p>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">推导 二元一次方程组的公式解 <span class="src">教材 (1.1.3)</span></div>
+  \[\begin{cases}a_{11}x_1+a_{12}x_2=b_1,\\ a_{21}x_1+a_{22}x_2=b_2.\end{cases}\]</div>
+  <div class="sol" data-steps data-label="推导">
+    <div class="st">用 \(a_{22}\) 乘第一式两边，用 \(-a_{12}\) 乘第二式两边：
+      \[\begin{cases}a_{11}a_{22}x_1+a_{12}a_{22}x_2=b_1a_{22},\\ -a_{12}a_{21}x_1-a_{12}a_{22}x_2=-b_2a_{12}.\end{cases}\]</div>
+    <div class="st">两式相加，\(x_2\) 被消去：\[(a_{11}a_{22}-a_{12}a_{21})\,x_1=b_1a_{22}-b_2a_{12}.\]</div>
+    <div class="st">当 \(a_{11}a_{22}-a_{12}a_{21}\ne0\) 时，\[x_1=\frac{b_1a_{22}-b_2a_{12}}{a_{11}a_{22}-a_{12}a_{21}}.\]</div>
+    <div class="st">用同样的办法消去 \(x_1\)，得 \[x_2=\frac{a_{11}b_2-a_{21}b_1}{a_{11}a_{22}-a_{12}a_{21}}.\]</div>
+    <div class="st">观察：两个解的<b>分母相同</b>，都是 \(a_{11}a_{22}-a_{12}a_{21}\)，<span class="hl">只由未知数的系数决定</span>。为了统一表示，引入二阶行列式。</div>
+  </div>
+</div>
+
+<h2>二阶行列式的定义</h2>
+<div class="box def"><span class="tag">定义<em>二阶行列式</em></span>
+  <div class="boxed-eq">\[\begin{vmatrix}a&b\\c&d\end{vmatrix}=ad-bc.\]</div>
+  <p>特别地，\(\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}=a_{11}a_{22}-a_{12}a_{21}\)。常记作 \(|A|\) 或 \(D\)。\(a_{11},a_{22}\) 称为<b>主对角线</b>元素。</p>
+</div>
+<div class="box warn"><span class="tag">课堂强调</span>
+  <p>行列式的结果是<b>一个数</b>，不是一个二维数组。两条竖线是一个“算符”：它把四个数变成一个数。以后学矩阵时要分清：矩阵 \(\begin{pmatrix}a&b\\c&d\end{pmatrix}\) 是一张表，行列式 \(\begin{vmatrix}a&b\\c&d\end{vmatrix}\) 是一个数。</p>
+</div>
+<p>记忆方法：<b>主对角线乘积减去副对角线乘积</b>。例如</p>
+\[\begin{vmatrix}1&2\\3&4\end{vmatrix}=1\times4-2\times3=-2,\qquad \begin{vmatrix}0&1\\-1&0\end{vmatrix}=0-(-1)=1.\]
+
+<h3>用行列式写出公式解</h3>
+<p>有了这个记号，前面的公式解可以写成</p>
+<div class="boxed-eq">\[x_1=\frac{\begin{vmatrix}b_1&a_{12}\\b_2&a_{22}\end{vmatrix}}{\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}},\qquad x_2=\frac{\begin{vmatrix}a_{11}&b_1\\a_{21}&b_2\end{vmatrix}}{\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}}.\]</div>
+<p>这个公式有很好记的规律：</p>
+<ol>
+  <li>\(x_1\) 与 \(x_2\) 的分母相同，都是把系数按原来的位置排成的行列式 \(D\)，称为<b>系数行列式</b>；</li>
+  <li>\(x_1\) 的分子：把 \(D\) 的<b>第 1 列</b>换成常数列 \(b_1,b_2\)；\(x_2\) 的分子：把 \(D\) 的<b>第 2 列</b>换成常数列。</li>
+</ol>
+<p>这一形式为 §1.4 的 Cramer 法则埋下了伏笔。</p>
+
+<div class="widget" data-widget="lines2" data-t="方程组、行列式与两条直线" data-d="改动系数，观察 \(D\)、\(D_1\)、\(D_2\) 与两条直线如何同步变化。试试“平行”和“重合”：此时 \(D=0\)，公式失效。"></div>
+
+<h2>二阶行列式的基本性质</h2>
+<p>我们希望把公式推广到三元、\(n\) 元方程组。为此先研究二阶行列式的性质，它们将启发我们如何定义一般的 \(n\) 阶行列式。每条性质都可以直接按定义验证。</p>
+
+<div class="box prop"><span class="tag">性质 1<em>三角形</em></span>
+  <p>上三角行列式的值等于主对角线元素之积：\(\begin{vmatrix}a_{11}&a_{12}\\0&a_{22}\end{vmatrix}=a_{11}a_{22}\)。下三角同理。</p>
+</div>
+<div class="box prop"><span class="tag">性质 2<em>零行（列）</em></span>
+  <p>行列式某行或某列全为零，则行列式值为零。例如 \(\begin{vmatrix}0&0\\a_{21}&a_{22}\end{vmatrix}=0\)。</p>
+</div>
+<div class="box prop"><span class="tag">性质 3<em>倍乘</em></span>
+  <p>用常数 \(c\) 乘行列式的某一行或某一列，所得行列式的值等于原来的 \(c\) 倍：</p>
+  \[\begin{vmatrix}ca_{11}&ca_{12}\\a_{21}&a_{22}\end{vmatrix}=(ca_{11})a_{22}-(ca_{12})a_{21}=c\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}.\]
+</div>
+<div class="box prop"><span class="tag">性质 4<em>交换</em></span>
+  <p>交换行列式不同的两行（列），行列式的值改变符号：</p>
+  \[\begin{vmatrix}a_{21}&a_{22}\\a_{11}&a_{12}\end{vmatrix}=a_{21}a_{12}-a_{11}a_{22}=-\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}.\]
+</div>
+<div class="box prop"><span class="tag">性质 5<em>成比例</em></span>
+  <p>若两行或两列成比例，则行列式的值为零；特别地，两行（列）相同时值为零：</p>
+  \[\begin{vmatrix}a_{11}&ka_{11}\\a_{21}&ka_{21}\end{vmatrix}=a_{11}ka_{21}-ka_{11}a_{21}=0.\]
+</div>
+<div class="box prop"><span class="tag">性质 6<em>可加性</em></span>
+  <p>若某行（列）的元素都是两项之和，则行列式可以拆成两个行列式之和：</p>
+  \[\begin{vmatrix}a_{11}&a_{12}\\b_{21}+c_{21}&b_{22}+c_{22}\end{vmatrix}=\begin{vmatrix}a_{11}&a_{12}\\b_{21}&b_{22}\end{vmatrix}+\begin{vmatrix}a_{11}&a_{12}\\c_{21}&c_{22}\end{vmatrix}.\]
+  <p class="small">注意：<b>每次只拆一行（列）</b>，其余行保持不变。</p>
+</div>
+<div class="box prop"><span class="tag">性质 7<em>倍加</em></span>
+  <p>把某一行（列）乘一个数加到另一行（列）上，行列式的值不变：</p>
+  \[\begin{vmatrix}a_{11}&a_{12}+ka_{11}\\a_{21}&a_{22}+ka_{21}\end{vmatrix}=a_{11}(a_{22}+ka_{21})-a_{21}(a_{12}+ka_{11})=\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}.\]
+</div>
+<div class="box prop"><span class="tag">性质 8<em>转置</em></span>
+  <p>把行列式的行变成列得到的行列式称为它的<b>转置</b>，记作 \(|A'|\)。行列式与它的转置值相同：\(\begin{vmatrix}a_{11}&a_{21}\\a_{12}&a_{22}\end{vmatrix}=a_{11}a_{22}-a_{21}a_{12}=|A|\)。</p>
+</div>
+<div class="box note"><span class="tag">注</span>
+  <p>性质 1–7 对行和对列都成立，原因正是性质 8：转置把行变成了列，而值不变，所以关于行的结论对列也成立。行和列在行列式中地位完全对称。</p>
+</div>
+
+<div class="box warn"><span class="tag">易错 · 习题 1.1 第 6 题</span>
+  <p>下面的等式<b>一般不成立</b>：</p>
+  \[\begin{vmatrix}a_{11}+b_{11}&a_{12}+b_{12}\\a_{21}+b_{21}&a_{22}+b_{22}\end{vmatrix}\ne\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}+\begin{vmatrix}b_{11}&b_{12}\\b_{21}&b_{22}\end{vmatrix}.\]
+  <p>两行都是“和”，按性质 6 要拆两次，得到 \(2^2=4\) 个行列式：</p>
+  \[\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}+\begin{vmatrix}a_{11}&a_{12}\\b_{21}&b_{22}\end{vmatrix}+\begin{vmatrix}b_{11}&b_{12}\\a_{21}&a_{22}\end{vmatrix}+\begin{vmatrix}b_{11}&b_{12}\\b_{21}&b_{22}\end{vmatrix}.\]
+  <p class="small">反例：取 \(a\) 为 \(\begin{vmatrix}1&0\\0&0\end{vmatrix}\)、\(b\) 为 \(\begin{vmatrix}0&0\\0&1\end{vmatrix}\)，两者都是 0，但和的行列式 \(\begin{vmatrix}1&0\\0&1\end{vmatrix}=1\)。</p>
+</div>
+
+<div class="widget" data-widget="props2" data-t="二阶性质验证器" data-d="选一条性质，随机生成数字，看等式两边是否真的相等。多点几次“换一组数”。"></div>
+
+<h2>三种最重要的行（列）变换</h2>
+<p>后面的计算会反复用到下面三种变换。记号：\(R_i\) 表示第 \(i\) 行，\(C_j\) 表示第 \(j\) 列。</p>
+<div class="box board"><span class="tag">要点 · 三种变换必须熟记</span>
+  \[R_i\leftrightarrow R_j\ \Longrightarrow\ D\to -D\qquad(\text{性质 4})\]
+  \[R_i\leftarrow cR_i\ \Longrightarrow\ D\to cD\qquad(\text{性质 3})\]
+  \[R_i\leftarrow R_i+cR_j\ (i\ne j)\ \Longrightarrow\ D\ \text{不变}\qquad(\text{性质 7})\]
+  <p class="small">列变换 \(C_i\leftrightarrow C_j,\ C_i\leftarrow cC_i,\ C_i\leftarrow C_i+cC_j\) 完全类似。</p>
+</div>
+
+<h2>只用性质就能解方程组</h2>
+<p>下面这段推导是整章的思想源头：<b>不用代入消元，只用行列式的性质</b>，就能得到二元方程组的公式解。</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">推导 用性质 3、7 求 \(x_1\) <span class="src">教材第 6 页</span></div>
+  <p>设 \((x_1,x_2)\) 是方程组 (1.1.3) 的解，把 \(b_1,b_2\) 代入行列式 \(\begin{vmatrix}b_1&a_{12}\\b_2&a_{22}\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps data-label="推导">
+    <div class="st">\[\begin{vmatrix}b_1&a_{12}\\b_2&a_{22}\end{vmatrix}=\begin{vmatrix}a_{11}x_1+a_{12}x_2&a_{12}\\a_{21}x_1+a_{22}x_2&a_{22}\end{vmatrix}.\]</div>
+    <div class="st">把第 2 列乘 \(-x_2\) 加到第 1 列<span class="why">性质 7，值不变</span>：\[=\begin{vmatrix}a_{11}x_1&a_{12}\\a_{21}x_1&a_{22}\end{vmatrix}.\]</div>
+    <div class="st">第 1 列提出公因子 \(x_1\)<span class="why">性质 3</span>：\[=x_1\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}.\]</div>
+    <div class="st">于是 \(x_1\cdot D=D_1\)，当 \(D\ne0\) 时 \(x_1=D_1/D\)。同理 \(x_2=D_2/D\)。</div>
+    <div class="st"><b>启发</b>：这里只用到了性质 3 和 7（没有用性质 8）。所以只要能从性质出发定义出一般的 \(n\) 阶行列式，就能用同样的方法求出 \(n\) 元线性方程组的解。这正是 §1.2、§1.3 的路线。</div>
+  </div>
+</div>
+
+<h2>几何意义：有向面积</h2>
+<p>教材没有展开这一点，但它能让 8 条性质变得一目了然。把两列看成平面向量 \(\boldsymbol u=(a_{11},a_{21})^{\top}\)、\(\boldsymbol v=(a_{12},a_{22})^{\top}\)，则</p>
+\[\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}=\text{以 }\boldsymbol u,\boldsymbol v\text{ 为邻边的平行四边形的有向面积}.\]
+<p>从 \(\boldsymbol u\) 逆时针转到 \(\boldsymbol v\) 时取正号，顺时针时取负号。</p>
+<div class="widget" data-widget="area2" data-t="拖动向量，观察有向面积" data-d="上排按钮以动画演示性质 3、4、5、7；下排“易错对照”把本节的常见错误画出来，虚线框是变换前的图形，可以直接比较面积。"></div>
+<div class="box stat"><span class="tag">统计视角 · 广义方差</span>
+  <p>两个随机变量的协方差矩阵 \(\Sigma=\begin{pmatrix}\sigma_1^2&\sigma_{12}\\\sigma_{12}&\sigma_2^2\end{pmatrix}\)，其行列式</p>
+  \[|\Sigma|=\sigma_1^2\sigma_2^2-\sigma_{12}^2=\sigma_1^2\sigma_2^2(1-\rho^2)\]
+  <p>称为<b>广义方差</b>（\(\rho\) 为相关系数）。两个变量完全线性相关（\(|\rho|=1\)）时，散点全部落在一条直线上，“面积”塌缩为 0，\(|\Sigma|=0\)——这正是性质 5 的统计版本。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错 1</span>
+  <p>把 \(R_i\leftarrow cR_i\)（值乘 \(c\)）与 \(R_i\leftarrow R_i+cR_j\)（值不变）混淆。前者改变了一整行的“长度”，后者只是“剪切”。</p>
+</div>
+<div class="box warn"><span class="tag">易错 2</span>
+  <p>以为“所有元素都乘 \(c\)”，行列式只乘 \(c\)。实际上每一行都提出一个 \(c\)，二阶时得到 \(c^2\)；以后会看到一般地 \(|cA|=c^n|A|\)。</p>
+  \[\begin{vmatrix}3&6\\9&3\end{vmatrix}=3\cdot3\begin{vmatrix}1&2\\3&1\end{vmatrix}=9\times(-5)=-45.\]
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="-2"><div class="qt">计算 \(\begin{vmatrix}1&2\\3&4\end{vmatrix}\)。<span class="tiny muted">（习题 1.1 第 1(1) 题）</span></div><div class="explain">\(1\times4-2\times3=-2\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">\(\begin{vmatrix}2&1\\-1&1\end{vmatrix}=3\)，那么 \(\begin{vmatrix}2&1\\-4&4\end{vmatrix}=\)？<span class="tiny muted">（习题 1.1 第 2(1) 题）</span></div>
+    <ol class="opts"><li>3</li><li>7</li><li>12</li><li>−12</li></ol>
+    <div class="explain">第二行是原来第二行的 4 倍，由性质 3，值为 \(4\times3=12\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">已知 \(\begin{vmatrix}3&2\\3&1\end{vmatrix}=-3\)，\(\begin{vmatrix}3&2\\1&2\end{vmatrix}=4\)，则 \(\begin{vmatrix}3&2\\4&3\end{vmatrix}=\)？<span class="tiny muted">（习题 1.1 第 3 题）</span></div>
+    <ol class="opts"><li>−12</li><li>1</li><li>7</li><li>无法确定</li></ol>
+    <div class="explain">第二行 \((4,3)=(3,1)+(1,2)\)，由性质 6，值为 \(-3+4=1\)。直接算也是 \(9-8=1\)。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">用行列式解方程组 \(\begin{cases}3x+4y=10,\\x-2y=0,\end{cases}\) 则 \(x=\)？</div><div class="explain">\(D=\begin{vmatrix}3&4\\1&-2\end{vmatrix}=-10\)，\(D_1=\begin{vmatrix}10&4\\0&-2\end{vmatrix}=-20\)，\(x=D_1/D=2\)；同理 \(D_2=-10\)，\(y=1\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">二阶行列式 \(|A|=5\)。把它的四个元素都乘 3，新行列式等于：</div>
+    <ol class="opts"><li>15</li><li>8</li><li>125</li><li>45</li></ol>
+    <div class="explain">两行各提出一个 3，得 \(3^2\times5=45\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">下列哪个变换<b>一定不改变</b>行列式的值？</div>
+    <ol class="opts"><li>把第 1 行的 \(-3\) 倍加到第 2 行</li><li>把第 2 行乘 \(-3\) 再加上第 1 行</li><li>交换两列</li><li>第 1 行乘 \(-1\)，第 2 列乘 2</li></ol>
+    <div class="explain">只有倍加（性质 7）不改变值。B 先把第 2 行乘了 \(-3\)，值变为 \(-3\) 倍；C 变号；D 变为 \(-2\) 倍。</div></div>
+</div>
+
+<h2>本节小结</h2>
+<ul>
+  <li>二阶行列式 \(\begin{vmatrix}a&b\\c&d\end{vmatrix}=ad-bc\) 是一个数，来自二元方程组公式解的分母。</li>
+  <li>二元方程组：\(D\ne0\) 时 \(x_1=D_1/D,\ x_2=D_2/D\)；\(D_j\) 把第 \(j\) 列换成常数列。</li>
+  <li>8 条性质：三角形、零行、倍乘、交换、成比例、可加、倍加、转置。</li>
+  <li>只用性质 3 和 7 就能推出公式解 —— 这启发我们“从性质出发定义 \(n\) 阶行列式”。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>开场问：“回归课要解一个 20 个未知数的方程组，代入法还行吗？”引出“需要一个公式”的动机。</li>
+  <li>“方程组与直线”组件：让学生先预测“平行”时 \(D\) 是多少，再点按钮验证。</li>
+  <li>性质 7 的几何解释（剪切不改变面积）比代数验证更容易记住，可以先演示动画再写证明。</li>
+  <li>“只用性质解方程组”这段推导务必讲透，它是 §1.2 定义三阶行列式的思路来源。</li>
+  <li>课后作业建议：习题 1.1 第 1–6 题。</li>
+</ul></div></details>
+</template>

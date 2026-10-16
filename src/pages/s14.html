@@ -1,0 +1,190 @@
+<template data-chapter="1" data-route="s1-4" data-num="§1.4" data-short="展开与转置" data-group="第二阶段 · 从定义到操作">
+<header class="page-head">
+  <span class="det-eyebrow">§1.4</span>
+  <h1>行列式的展开和转置</h1>
+  <p class="lede">定义只说了“按第一列展开”。本节证明行列式可以按<b>任意一列、任意一行</b>展开，证明转置不改变行列式的值，并由此得到 \(n\) 元线性方程组的公式解——Cramer 法则。</p>
+  <div class="meta-row"><span class="pill acc">建议 1.5 学时</span><span class="pill">教材第 21–28 页</span><span class="pill">关键词：降阶与对称</span></div>
+  <ul class="goals">
+    <li>理解为什么要把“按第一列”推广到任意行、列</li>
+    <li>掌握按任意一列展开（定理 1.4.1）</li>
+    <li>掌握按任意一行展开（定理 1.4.2）</li>
+    <li>掌握“异乘变零”公式</li>
+    <li>掌握转置的定义，理解转置不变的意义</li>
+    <li>掌握 Cramer 法则及其前提</li>
+    <li>知道 Cramer 法则的理论地位与计算局限</li>
+  </ul>
+</header>
+
+<h2>为什么需要展开定理</h2>
+<p>§1.3 的定义本质上是按第一列展开：\(|A|=a_{11}A_{11}+\cdots+a_{n1}A_{n1}\)。自然要问：</p>
+<ul><li>能不能按第 \(r\) 列展开？</li><li>能不能按第 \(r\) 行展开？</li></ul>
+<p>如果可以，我们就能挑<b>零最多</b>的那一行或列展开，大大减少计算。答案是肯定的。</p>
+<div class="box idea"><span class="tag">本节在全章中的作用</span>
+  <ol>
+    <li><b>说明“第一列”并不特殊</b>：定义选第一列展开只是随手的选择；定理 1.4.1、1.4.2 证明按任何一行、一列展开结果都一样——这是计算时“选零最多的行或列”的依据。</li>
+    <li><b>建立行列对称</b>：性质 8 证明 \(|A'|=|A|\)。从此关于行的结论证一次就够，列的版本自动成立；§1.3 那样行、列各证一遍的情况到此结束。</li>
+    <li><b>得到“异乘变零”</b>：一行的元素乘另一行的代数余子式，和为 0。它是 Cramer 法则存在性证明的关键，也是第二章伴随矩阵 \(AA^*=|A|I\) 的来源。</li>
+    <li><b>回答本章的出发点</b>：§1.1 从解二元方程组出发，本节的 Cramer 法则给出 \(n\) 元方程组的公式解。</li>
+  </ol>
+  <p class="small">注意顺序：本节的证明要用到 §1.3 中<b>列的</b>性质 4′–7′（把第 \(r\) 列搬到第一列要做列交换），所以那些性质不能等到转置不变之后再“顺便得到”。</p>
+</div>
+
+<h2>按任意一列展开</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">推导 把第 \(r\) 列换到第一列 <span class="src">教材第 21–22 页</span></div></div>
+  <div class="sol" data-steps data-label="推导">
+    <div class="st">把第 \(r\) 列与第 \(r-1\) 列交换，再与第 \(r-2\) 列交换……经过 \(r-1\) 次相邻交换，第 \(r\) 列被换到第一列，其余列的相对次序不变。记新行列式为 \(|B|\)，由性质 4′：\(|B|=(-1)^{r-1}|A|\)。</div>
+    <div class="st">按定义把 \(|B|\) 沿第一列展开。\(|B|\) 的第一列就是 \(|A|\) 的第 \(r\) 列，而 \(|B|\) 中 \((i,1)\) 元的余子式 \(N_{i1}\) 恰好等于 \(|A|\) 中 \((i,r)\) 元的余子式 \(M_{ir}\)：
+      \[(-1)^{r-1}|A|=a_{1r}M_{1r}-a_{2r}M_{2r}+\cdots+(-1)^{n+1}a_{nr}M_{nr}.\]</div>
+    <div class="st">两边乘 \((-1)^{r-1}\)：\(|A|=\sum_{i}(-1)^{i+r}a_{ir}M_{ir}=\sum_i a_{ir}A_{ir}\)。</div>
+  </div>
+</div>
+<div class="box thm"><span class="tag">定理 1.4.1<em>按任意一列展开</em></span>
+  <p>设 \(|A|\) 是 \(n\) 阶行列式，\(a_{ij}\) 的代数余子式为 \(A_{ij}\)。对任意 \(r=1,2,\dots,n\)，</p>
+  <div class="boxed-eq">\[|A|=a_{1r}A_{1r}+a_{2r}A_{2r}+\cdots+a_{nr}A_{nr}=\sum_{i=1}^n a_{ir}A_{ir}.\]</div>
+  <p>又对任意 \(s\ne r\)，有</p>
+  <div class="boxed-eq">\[a_{1r}A_{1s}+a_{2r}A_{2s}+\cdots+a_{nr}A_{ns}=0.\]</div>
+</div>
+<details class="proof"><summary>证明第二个等式（异乘变零）</summary><div class="dbody">
+  <p>考虑把 \(|A|\) 的第 \(s\) 列换成第 \(r\) 列所得的行列式。它的第 \(r\) 列与第 \(s\) 列相同，值为 0。把它按第 \(s\) 列展开：第 \(s\) 列的元素是 \(a_{1r},\dots,a_{nr}\)，而第 \(s\) 列各元素的代数余子式与 \(|A|\) 中的 \(A_{1s},\dots,A_{ns}\) 完全相同（划掉第 \(s\) 列后剩下的部分没变）。所以 \(\sum_i a_{ir}A_{is}=0\)。</p>
+</div></details>
+
+<h2>展开定理的本质：降阶</h2>
+<div class="box board"><span class="tag">核心结论</span>
+  \[n\text{ 阶行列式}\longrightarrow n\text{ 个 }(n-1)\text{ 阶行列式}\]
+  <p>展开的本质是降阶。</p>
+</div>
+<p>一个重要的特殊情形：如果某一列只有一个非零元素，例如第 \(s\) 列只有 \(a_{rs}\ne0\)，则展开式只剩一项：</p>
+<div class="boxed-eq">\[|A|=a_{rs}A_{rs}.\]</div>
+<p>这就是实际计算时要尽量“<b>制造零</b>”的原因。教材例 1.4.1 说的是行的版本：若第一行只有 \(a_{1s}\) 非零，按第 \(s\) 列展开，除 \(A_{1s}\) 外每个 \(A_{is}\ (i\gt1)\) 都含有零行，所以 \(|A|=a_{1s}A_{1s}\)。</p>
+
+<h2>按任意一行展开</h2>
+<div class="box lem"><span class="tag">引理 1.4.1<em>按第一行展开</em></span>
+  \[|A|=a_{11}A_{11}+a_{12}A_{12}+\cdots+a_{1n}A_{1n}.\]
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>由性质 6，把第一行拆成 \(n\) 个只有一个非零元的行：</p>
+  \[|A|=\begin{vmatrix}a_{11}&0&\cdots&0\\a_{21}&a_{22}&\cdots&a_{2n}\\\vdots&&&\vdots\\a_{n1}&a_{n2}&\cdots&a_{nn}\end{vmatrix}+\begin{vmatrix}0&a_{12}&\cdots&0\\a_{21}&a_{22}&\cdots&a_{2n}\\\vdots&&&\vdots\\a_{n1}&a_{n2}&\cdots&a_{nn}\end{vmatrix}+\cdots\]
+  <p>由例 1.4.1，第 \(j\) 个行列式等于 \(a_{1j}A_{1j}\)。</p>
+</div></details>
+<div class="box thm"><span class="tag">定理 1.4.2<em>按任意一行展开</em></span>
+  <p>对任意 \(r=1,2,\dots,n\)：</p>
+  <div class="boxed-eq">\[|A|=a_{r1}A_{r1}+a_{r2}A_{r2}+\cdots+a_{rn}A_{rn}=\sum_{j=1}^n a_{rj}A_{rj}.\]</div>
+  <p>又对任意 \(s\ne r\)：\(\;a_{r1}A_{s1}+a_{r2}A_{s2}+\cdots+a_{rn}A_{sn}=0.\)</p>
+</div>
+<p class="small muted">证明：由引理 1.4.1 及性质 4，与定理 1.4.1 的证明类似（把第 \(r\) 行逐次换到第一行）。</p>
+
+<h3>两组公式的统一写法</h3>
+\[\sum_{i=1}^n a_{ir}A_{is}=\begin{cases}|A|,&r=s,\\0,&r\ne s,\end{cases}\qquad\sum_{j=1}^n a_{rj}A_{sj}=\begin{cases}|A|,&r=s,\\0,&r\ne s.\end{cases}\]
+<p>一句话：<b>同行（列）相乘得 \(|A|\)，异行（列）相乘得 0</b>。这组公式以后会直接进入伴随矩阵理论：\(AA^*=|A|I\)。</p>
+
+<div class="widget" data-widget="expand" data-t="按任意行、列展开" data-d="选一行或一列展开，所有方式得到同一个值。括号里的数字是这一行（列）的零的个数——零越多，要算的余子式越少。右侧演示“异乘变零”。"></div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 按第二行及第三列展开 <span class="src">习题 1.4 第 2(1) 题</span></div>
+  <p>计算 \(\begin{vmatrix}2&3&5\\1&2&0\\0&3&8\end{vmatrix}\)，分别按第二行、第三列展开并比较。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">按第二行：\(1\cdot(-1)^{2+1}\begin{vmatrix}3&5\\3&8\end{vmatrix}+2\cdot(-1)^{2+2}\begin{vmatrix}2&5\\0&8\end{vmatrix}+0=-9+32=23\)。</div>
+    <div class="st">按第三列：\(5\cdot(-1)^{1+3}\begin{vmatrix}1&2\\0&3\end{vmatrix}+0+8\cdot(-1)^{3+3}\begin{vmatrix}2&3\\1&2\end{vmatrix}=15+8=23\)。</div>
+    <div class="st">两者相同。两种展开都只需算两个二阶行列式，因为各有一个零。</div>
+  </div>
+</div>
+
+<h2>转置与性质 8</h2>
+<div class="box def"><span class="tag">定义 1.4.1<em>转置</em></span>
+  <p>把 \(|A|\) 的行与列互换得到的行列式称为 \(|A|\) 的<b>转置</b>：</p>
+  \[|A|=\begin{vmatrix}a_{11}&a_{12}&\cdots&a_{1n}\\a_{21}&a_{22}&\cdots&a_{2n}\\\vdots&&&\vdots\\a_{n1}&a_{n2}&\cdots&a_{nn}\end{vmatrix},\qquad|A'|=\begin{vmatrix}a_{11}&a_{21}&\cdots&a_{n1}\\a_{12}&a_{22}&\cdots&a_{n2}\\\vdots&&&\vdots\\a_{1n}&a_{2n}&\cdots&a_{nn}\end{vmatrix}.\]
+  <p>\(|A'|\) 的第 \(i\) 行就是 \(|A|\) 的第 \(i\) 列。</p>
+</div>
+<div class="box prop"><span class="tag">性质 8<em>转置不变</em></span><div class="boxed-eq">\[|A'|=|A|.\]</div></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>对阶数归纳。设 \(M_{ij}\) 与 \(N_{ij}\) 分别是 \(|A|\) 与 \(|A'|\) 的余子式，则 \(N_{ij}\) 是 \(M_{ji}\) 的转置，由归纳假设 \(N_{ij}=M_{ji}\)。把 \(|A'|\) 按第一行展开：</p>
+  \[|A'|=a_{11}N_{11}-a_{21}N_{12}+\cdots+(-1)^{n+1}a_{n1}N_{1n}=a_{11}M_{11}-a_{21}M_{21}+\cdots+(-1)^{n+1}a_{n1}M_{n1}=|A|.\]
+</div></details>
+<div class="widget" data-widget="transpose" data-t="转置前后" data-d="\(|A'|\) 按第一行展开，与 \(|A|\) 按第一列展开，是同一串数。"></div>
+<div class="box idea"><span class="tag">教学意义</span>
+  <p>性质 8 最重要的不是“又多了一条公式”，而是说明<b>行和列在行列式中的地位完全对称</b>。以后关于行的结论只需证明一次，列的版本由转置立即得到。</p>
+  <p>回头看整条逻辑链：</p>
+  <ol class="flow"><li>递归定义（按第一列，不对称）</li><li class="arr">→</li><li>§1.3 行、列分别证性质 1–7</li><li class="arr">→</li><li>§1.4 任意行列展开、转置不变</li><li class="arr">→</li><li>行列对称，以后只需讨论行</li></ol>
+</div>
+
+<h2>Cramer 法则</h2>
+<p>现在我们可以完成本章的最初目标：给出 \(n\) 元线性方程组的公式解。设</p>
+\[\begin{cases}a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n=b_1,\\a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n=b_2,\\\qquad\cdots\cdots\\a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n=b_n,\end{cases}\qquad |A|=\begin{vmatrix}a_{11}&\cdots&a_{1n}\\\vdots&&\vdots\\a_{n1}&\cdots&a_{nn}\end{vmatrix}.\]
+<div class="box thm"><span class="tag">定理 1.4.3<em>Cramer 法则</em></span>
+  <p>若系数行列式 \(|A|\ne0\)，则方程组<b>有且仅有一组解</b>：</p>
+  <div class="boxed-eq">\[x_j=\frac{|A_j|}{|A|},\qquad j=1,2,\dots,n,\]</div>
+  <p>其中 \(|A_j|\) 是把 \(|A|\) 的第 \(j\) 列换成常数列 \((b_1,b_2,\dots,b_n)^{\top}\) 所得的 \(n\) 阶行列式。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">证明 分两步：唯一性与存在性 <span class="src">教材第 24–27 页</span></div></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st"><b>若有解，必是这个解。</b>把 \(b_i=\sum_k a_{ik}x_k\) 代入 \(|A_1|\) 的第一列，用 \(-x_2,\dots,-x_n\) 分别乘第 \(2,\dots,n\) 列加到第一列<span class="why">性质 7′</span>，得 \(|A_1|=\begin{vmatrix}a_{11}x_1&a_{12}&\cdots\\\vdots&&\\a_{n1}x_1&a_{n2}&\cdots\end{vmatrix}=x_1|A|\)<span class="why">性质 3</span>。同理 \(|A_j|=x_j|A|\)。</div>
+    <div class="st"><b>它确实是解。</b>把 \(|A_j|\) 按第 \(j\) 列展开：\(|A_j|=b_1A_{1j}+b_2A_{2j}+\cdots+b_nA_{nj}\)，所以 \(x_j=\dfrac{1}{|A|}\sum_k b_kA_{kj}\)。</div>
+    <div class="st">代入第 \(i\) 个方程左边，交换求和次序：
+      \[\sum_j a_{ij}x_j=\frac{1}{|A|}\sum_k b_k\Bigl(\sum_j a_{ij}A_{kj}\Bigr).\]</div>
+    <div class="st">由“同行得 \(|A|\)、异行得 0”（定理 1.4.2），括号里只有 \(k=i\) 时为 \(|A|\)，其余为 0。所以左边 \(=\dfrac{1}{|A|}\,b_i|A|=b_i\)。</div>
+  </div>
+</div>
+<div class="widget" data-widget="cramer" data-n="3" data-t="Cramer 法则计算器" data-d="支持 2–4 元方程组。青色列是被换进来的常数项。切换到“|A| = 0”的例子，看法则在什么时候失效。"></div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 用 Cramer 法则解四元方程组 <span class="src">习题 1.4 第 6 题</span></div>
+  \[\begin{cases}x_1+2x_2+3x_4=1,\\2x_1+5x_2-x_3+4x_4=2,\\3x_1+6x_2+x_3+10x_4=3,\\-x_1-2x_2-2x_4=4.\end{cases}\]</div>
+  <div class="sol" data-steps>
+    <div class="st">系数行列式：第 2、3、4 行分别减去第 1 行的 2、3、−1 倍，再按第一列展开，得 \(|A|=\begin{vmatrix}1&-1&-2\\0&1&1\\0&0&1\end{vmatrix}=1\ne0\)。</div>
+    <div class="st">依次把第 \(j\) 列换成常数列 \((1,2,3,4)^{\top}\) 计算：\(|A_1|=-24,\ |A_2|=5,\ |A_3|=-5,\ |A_4|=5\)。</div>
+    <div class="st">\(x_1=-24,\ x_2=5,\ x_3=-5,\ x_4=5\)。代入第四个方程检验：\(24-10-10=4\)。✓</div>
+  </div>
+</div>
+
+<div class="box cor"><span class="tag">推论<em>齐次方程组（拓展）</em></span>
+  <p>若常数项全为 0（齐次方程组）且 \(|A|\ne0\)，则每个 \(|A_j|\) 都有一列全为 0，所以方程组<b>只有零解</b>。反过来，齐次方程组有非零解时必有 \(|A|=0\)——这一结论将在第三章得到完整的证明。</p>
+</div>
+
+<h3>Cramer 法则的定位</h3>
+<ul>
+  <li><b>理论意义最重要</b>：\(|A|\ne0\Rightarrow\) 方程组唯一可解，而且解是系数的“显式公式”。</li>
+  <li><b>不适合实际大规模计算</b>：要算 \(n+1\) 个 \(n\) 阶行列式；计算机解方程组用消元法。</li>
+  <li>\(|A|=0\) 时，方程组的解比较复杂（无解或无穷多解），第三章讨论。</li>
+</ul>
+
+<div class="box stat"><span class="tag">统计视角 · 一元线性回归的系数公式</span>
+  <p>用最小二乘法拟合 \(y=\beta_0+\beta_1x\)，得到正规方程</p>
+  \[\begin{cases}n\beta_0+\bigl(\sum x_i\bigr)\beta_1=\sum y_i,\\\bigl(\sum x_i\bigr)\beta_0+\bigl(\sum x_i^2\bigr)\beta_1=\sum x_iy_i.\end{cases}\]
+  <p>系数行列式 \(D=n\sum x_i^2-\bigl(\sum x_i\bigr)^2=n\sum(x_i-\bar x)^2\)。只要 \(x_i\) 不全相等，\(D\gt0\)，由 Cramer 法则：</p>
+  \[\hat\beta_1=\frac{\begin{vmatrix}n&\sum y_i\\\sum x_i&\sum x_iy_i\end{vmatrix}}{D}=\frac{n\sum x_iy_i-\sum x_i\sum y_i}{n\sum x_i^2-\bigl(\sum x_i\bigr)^2}.\]
+  <p>这正是统计课上那个熟悉的斜率公式。例如数据 \(x=1,2,3,4\)，\(y=2,3,5,6\)：\(D=4\cdot30-10^2=20\)，\(\hat\beta_0=\frac{16\cdot30-10\cdot47}{20}=0.5\)，\(\hat\beta_1=\frac{4\cdot47-10\cdot16}{20}=1.4\)。</p>
+  <p class="small">若所有 \(x_i\) 都相等，\(D=0\)：你无法从“只有一个 x 值”的数据估计斜率——这就是多重共线性最简单的样子。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>默认按第一行展开：应选择<b>零最多</b>的行或列。</li>
+    <li>“异乘”时把结果写成 \(|A|\)：一行元素乘<b>另一行</b>的代数余子式之和恒为 0。</li>
+    <li>Cramer 法则只适用于<b>方程个数 = 未知数个数</b>且 \(|A|\ne0\)。</li>
+    <li>\(|A_j|\) 是替换第 \(j\) <b>列</b>，不是第 \(j\) 行。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="381"><div class="qt">分别按第一行、第一列展开计算 \(\begin{vmatrix}1&0&-5\\6&2&-1\\5&-11&6\end{vmatrix}\)。<span class="tiny muted">（习题 1.4 第 1(2) 题）</span></div><div class="explain">按第一行：\(1\cdot(12-11)+(-5)\cdot(-66-10)=1+380=381\)。</div></div>
+  <div class="fill" data-ans="7"><div class="qt">\(\begin{vmatrix}3&2&-2\\2&-1&3\\9&6&-7\end{vmatrix}=\)？<span class="tiny muted">（习题 1.4 第 2(2) 题）</span></div><div class="explain">例如 \(R_3\leftarrow R_3-3R_1\) 得第三行 \((0,0,-1)\)，按第三行展开：\(-1\cdot\begin{vmatrix}3&2\\2&-1\end{vmatrix}=-1\cdot(-7)=7\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">三阶行列式中 \(a_{11}A_{21}+a_{12}A_{22}+a_{13}A_{23}=\)？</div><ol class="opts"><li>\(|A|\)</li><li>\(-|A|\)</li><li>0</li><li>不确定</li></ol><div class="explain">第 1 行元素乘第 2 行的代数余子式，异乘变零。</div></div>
+  <div class="fill" data-ans="-1"><div class="qt">\(f(x)=\begin{vmatrix}2&x&-5&3\\1&2&3&4\\-1&0&-2&-3\\-1&7&-2&-2\end{vmatrix}\) 中一次项的系数是？<span class="tiny muted">（习题 1.4 第 5 题）</span></div><div class="explain">\(x\) 只出现在 \((1,2)\) 位置，按第一行展开知一次项系数是 \(A_{12}=-M_{12}=-\begin{vmatrix}1&3&4\\-1&-2&-3\\-1&-2&-2\end{vmatrix}=-1\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(\begin{vmatrix}0&0&0&b_1\\0&0&b_2&0\\0&b_3&0&0\\b_4&0&0&0\end{vmatrix}=\)？<span class="tiny muted">（习题 1.4 第 4 题，\(n=4\)）</span></div><ol class="opts"><li>\(b_1b_2b_3b_4\)</li><li>\(-b_1b_2b_3b_4\)</li><li>0</li><li>\(b_1b_4-b_2b_3\)</li></ol><div class="explain">一般结论 \((-1)^{\frac12n(n-1)}b_1\cdots b_n\)，\(n=4\) 时指数为 6，取正号。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">关于 Cramer 法则，下列说法正确的是：</div><ol class="opts"><li>任何线性方程组都可以用它求解</li><li>\(|A|=0\) 时方程组一定无解</li><li>它是计算机解大型方程组的标准方法</li><li>\(|A|\ne0\) 时，齐次方程组只有零解</li></ol><div class="explain">A 要求方程数等于未知数个数且 \(|A|\ne0\)；B 也可能有无穷多解；C 实际用消元法；D 正确。</div></div>
+</div>
+
+<h2>本节小结</h2>
+<ul>
+  <li>可以按任意一行或一列展开：\(\sum_j a_{rj}A_{sj}=\delta_{rs}|A|\)，\(\sum_i a_{ir}A_{is}=\delta_{rs}|A|\)。</li>
+  <li>展开的本质是降阶；某行（列）只有一个非零元时一步降阶。</li>
+  <li>\(|A'|=|A|\)：行与列地位对称；本节的证明用到 §1.3 列的性质 4′–7′，之后列的结论不必再单独证明。</li>
+  <li>Cramer 法则：\(|A|\ne0\Rightarrow x_j=|A_j|/|A|\)，理论意义大于计算意义。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>证明性质 8 后回头点明：从现在起，列的结论不用再单独证明了；再让学生指出本节哪几步用到了列交换（定理 1.4.1、引理 1.4.1）。</li>
+  <li>“异乘变零”的理由一定要讲：把第 \(s\) 行换成第 \(r\) 行，得到两行相同的行列式，再按第 \(s\) 行展开。它是 Cramer 法则存在性证明的关键。</li>
+  <li>回归斜率公式的例子很受统计专业学生欢迎，可以作为 Cramer 法则的应用压轴。</li>
+  <li>课后作业建议：习题 1.4 第 1–6 题。</li>
+</ul></div></details>
+</template>

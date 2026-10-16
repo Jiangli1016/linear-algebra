@@ -1,0 +1,7 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "构建课件", "type": "npm", "script": "build", "group": { "kind": "build", "isDefault": true }, "problemMatcher": [] },
+    { "label": "自动构建（保存即更新）", "type": "npm", "script": "watch", "isBackground": true, "problemMatcher": [] }
+  ]
+}

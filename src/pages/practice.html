@@ -1,0 +1,83 @@
+<template data-chapter="1" data-route="c1-practice" data-num="练习" data-short="综合练习" data-group="收束">
+<header class="page-head">
+  <span class="det-eyebrow">综合练习</span>
+  <h1>第一章综合练习</h1>
+  <p class="lede">五组练习：概念辨析、计算、随机出题、证明与思考、统计应用。选择题点一下就判分；填空题支持整数、小数和 a/b 形式的分数。</p>
+</header>
+
+<h2>一、概念辨析</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">把一个 3 阶行列式的每个元素都乘 2，值变为原来的几倍？</div><ol class="opts"><li>2 倍</li><li>6 倍</li><li>8 倍</li><li>9 倍</li></ol><div class="explain">每一行各提出一个 2：\(2^3=8\)。一般地 \(|kA|=k^n|A|\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">交换行列式的第 1、3 行，再把第 2 列乘 \(-1\)，行列式的值：</div><ol class="opts"><li>不变</li><li>变号</li><li>变为 2 倍</li><li>变为 0</li></ol><div class="explain">交换两行变号，一列乘 \(-1\) 再变号，\((-1)(-1)=1\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">排列 \((3,1,4,2)\) 的逆序数及奇偶性是：</div><ol class="opts"><li>2，偶排列</li><li>3，奇排列</li><li>4，偶排列</li><li>5，奇排列</li></ol><div class="explain">逆序对 (3,1)、(3,2)、(4,2)，共 3 个。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">3 阶行列式中 \(a_{21}A_{31}+a_{22}A_{32}+a_{23}A_{33}=\)？</div><ol class="opts"><li>\(|A|\)</li><li>\(-|A|\)</li><li>0</li><li>无法确定</li></ol><div class="explain">第 2 行元素乘第 3 行的代数余子式——异乘变零（定理 1.4.2）。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">线性方程组的系数行列式等于 0 时：</div><ol class="opts"><li>方程组一定无解</li><li>方程组一定有唯一解</li><li>Cramer 法则不能用，可能无解也可能有无穷多解</li><li>只要常数项不全为 0 就有解</li></ol><div class="explain">平行（无解）与重合（无穷多解）都对应 \(D=0\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">若 \(\begin{vmatrix}a&b\\c&d\end{vmatrix}=5\)，则 \(\begin{vmatrix}a&b\\c+2a&d+2b\end{vmatrix}=\)？</div><ol class="opts"><li>5</li><li>10</li><li>15</li><li>7</li></ol><div class="explain">第 1 行的 2 倍加到第 2 行，值不变（性质 7）。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(n\) 阶行列式 \(|A|\) 中零元素的个数超过 \(n^2-n\)，则：</div><ol class="opts"><li>\(|A|\gt0\)</li><li>\(|A|\lt0\)</li><li>无法判断</li><li>\(|A|=0\)</li></ol><div class="explain">非零元不足 \(n\) 个，完全展开式的每一项都含 0（习题 1.6 第 4 题）。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">关于 \(A_{ij}\)，下列说法正确的是：</div><ol class="opts"><li>\(A_{ij}\) 的值与 \(a_{ij}\) 有关</li><li>改变第 \(i\) 行的元素，不影响 \(A_{i1},\dots,A_{in}\)</li><li>\(A_{ij}\) 总与 \(M_{ij}\) 同号</li><li>\(A_{ij}=a_{ij}M_{ij}\)</li></ol><div class="explain">\(A_{ij}\) 划掉了第 \(i\) 行，所以第 \(i\) 行的代数余子式与第 \(i\) 行元素无关。这也是“异乘变零”和 Cramer 法则证明的关键。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">奇数阶反对称行列式（\(a_{ij}=-a_{ji}\)）的值：</div><ol class="opts"><li>总是正数</li><li>总是负数</li><li>等于主对角线之积</li><li>等于 0</li></ol><div class="explain">\(|A|=|A'|=|-A|=(-1)^n|A|=-|A|\)，所以 \(|A|=0\)（习题 1.4 第 3 题）。</div></div>
+</div>
+
+<h2>二、计算</h2>
+<div class="quiz">
+  <div class="fill" data-ans="-19"><div class="qt">\(\begin{vmatrix}2&1&3\\0&-1&4\\1&2&5\end{vmatrix}=\)？</div><div class="explain">沿第一列：\(2(-5-8)-0+1(4+3)=-26+7=-19\)。</div></div>
+  <div class="fill" data-ans="-72"><div class="qt">\(\begin{vmatrix}0&-2&4\\2&5&-1\\6&1&7\end{vmatrix}=\)？<span class="tiny muted">（例 1.5.3）</span></div><div class="explain">\(R_3-3R_2\) 后按第一列展开：\(-2(-20+56)=-72\)。</div></div>
+  <div class="fill" data-ans="12"><div class="qt">\(\begin{vmatrix}1&0&2&1\\2&-1&1&0\\1&0&0&3\\-1&0&2&1\end{vmatrix}=\)？<span class="tiny muted">（例 1.5.2）</span></div><div class="explain">第二列只有 \(a_{22}=-1\) 非零，按第二列展开：\(-1\cdot\begin{vmatrix}1&2&1\\1&0&3\\-1&2&1\end{vmatrix}=-1\cdot(-12)=12\)。</div></div>
+  <div class="fill" data-ans="-3601"><div class="qt">\(\begin{vmatrix}7&3&1&-5\\2&6&-3&0\\3&11&-1&4\\-6&5&2&-9\end{vmatrix}=\)？<span class="tiny muted">（例 1.5.4）</span></div><div class="explain">以第三列的 1 为主元消元，见 §1.5。</div></div>
+  <div class="fill" data-ans="162"><div class="qt">\(\begin{vmatrix}3&6&12\\2&-3&0\\5&1&2\end{vmatrix}=\)？<span class="tiny muted">（例 1.5.5）</span></div><div class="explain">先提出第一行的公因子 3，再消元：\(3\times54=162\)。</div></div>
+  <div class="fill" data-ans="12"><div class="qt">\(\begin{vmatrix}1&1&1&1\\1&2&4&8\\1&3&9&27\\1&4&16&64\end{vmatrix}=\)？</div><div class="explain">Vandermonde，\(x=1,2,3,4\)：\((2-1)(3-1)(4-1)(3-2)(4-2)(4-3)=1\cdot2\cdot3\cdot1\cdot2\cdot1=12\)。</div></div>
+  <div class="fill" data-ans="24"><div class="qt">\(\begin{vmatrix}1&2&3&4\\-1&0&3&4\\-1&-2&0&4\\-1&-2&-3&0\end{vmatrix}=\)？<span class="tiny muted">（习题 1.5 第 2(2) 题，\(n=4\)）</span></div><div class="explain">把第一行加到其余各行，得到上三角，对角线为 \(1,2,3,4\)，值为 \(4!=24\)。一般地为 \(n!\)。</div></div>
+  <div class="fill" data-ans="-35"><div class="qt">\(\begin{vmatrix}2&1&0&0\\1&3&0&0\\4&-1&1&2\\5&2&3&-1\end{vmatrix}=\)？</div><div class="explain">分块下三角：\(5\times(-7)=-35\)。</div></div>
+</div>
+
+<h2>三、随机出题</h2>
+<div class="widget" data-widget="drill" data-t="无限练习" data-d="每次随机生成一个整数行列式。先自己算，再检查；做错了点“看解答”，会给出逐步的消元过程。"></div>
+
+<h2>四、证明与思考</h2>
+<details class="more"><summary>1. 奇数阶反对称行列式等于零（习题 1.4 第 3 题）</summary><div class="dbody">
+  <p>反对称：\(a_{ij}=-a_{ji}\)，于是 \(|A'|\) 的每个元素都是 \(|A|\) 对应元素的相反数，\(|A'|=|-A|\)。由性质 8 与性质 3：</p>
+  \[|A|=|A'|=(-1)^n|A|.\]
+  <p>\(n\) 为奇数时 \(|A|=-|A|\)，所以 \(|A|=0\)。</p>
+</div></details>
+<details class="more"><summary>2. “爪形”行列式（复习题一 第 1 题）</summary><div class="dbody">
+  <p>\(|A|=\begin{vmatrix}a_1&b_2&b_3&\cdots&b_n\\c_2&a_2&0&\cdots&0\\c_3&0&a_3&\cdots&0\\\vdots&&&\ddots&\vdots\\c_n&0&0&\cdots&a_n\end{vmatrix}\)，\(a_i\ne0\ (2\le i\le n)\)。</p>
+  <p><b>思路</b>：把第 \(i\) 列乘 \(-\dfrac{c_i}{a_i}\) 加到第 1 列（\(i=2,\dots,n\)），第一列除第一个元素外都化为 0，得到上三角：</p>
+  \[|A|=a_2a_3\cdots a_n\Bigl(a_1-\sum_{i=2}^n\frac{b_ic_i}{a_i}\Bigr).\]
+</div></details>
+<details class="more"><summary>3. 秩一修正（复习题一 第 2 题）</summary><div class="dbody">
+  <p>\(|A|=\begin{vmatrix}x_1-a_1&x_2&\cdots&x_n\\x_1&x_2-a_2&\cdots&x_n\\\vdots&&\ddots&\vdots\\x_1&x_2&\cdots&x_n-a_n\end{vmatrix}\)，\(a_i\ne0\)。</p>
+  <p><b>思路</b>：第 \(i\) 行减去第 1 行（\(i\ge2\)），再把第 \(j\) 列乘 \(\dfrac{a_1}{a_j}\) 加到第一列，化为三角形。结果：</p>
+  \[|A|=(-1)^na_1a_2\cdots a_n\Bigl(1-\sum_{i=1}^n\frac{x_i}{a_i}\Bigr).\]
+  <p class="small muted">统计中“协方差矩阵 = 对角阵 + 秩一矩阵”（单因子模型）的行列式就是这种形式。</p>
+</div></details>
+<details class="more"><summary>4. 每个元素加 t（习题 1.5 第 6 题）</summary><div class="dbody">
+  <p>证明 \(|A(t)|=|A(0)|+t\sum_{i,j}A_{ij}\)。把每一列 \(\boldsymbol\alpha_j+t\boldsymbol 1\) 拆开，含两个及以上 \(t\boldsymbol1\) 列的行列式两列成比例为 0；只含一个 \(t\boldsymbol 1\)（在第 \(j\) 列）的行列式按第 \(j\) 列展开等于 \(t\sum_iA_{ij}\)。</p>
+</div></details>
+<details class="more"><summary>5. 恒等式（习题 1.7 第 4 题）</summary><div class="dbody">
+  <p>证明 \((ab'-a'b)(cd'-c'd)-(ac'-a'c)(bd'-b'd)+(ad'-a'd)(bc'-b'c)=0\)。</p>
+  <p><b>思路</b>：考虑四阶行列式 \(\begin{vmatrix}a&b&c&d\\a'&b'&c'&d'\\a&b&c&d\\a'&b'&c'&d'\end{vmatrix}\)，它有两行相同，等于 0。按前两行作 Laplace 展开，6 项两两成对，恰好得到 2 倍的左边。</p>
+</div></details>
+
+<h2>五、统计应用</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="1"><div class="qt">矩阵 \(\begin{pmatrix}4&2&0\\2&9&3\\0&3&1\end{pmatrix}\) 能否作为三个随机变量的协方差矩阵？</div><ol class="opts"><li>能，因为它对称且对角元为正</li><li>不能，因为它的行列式为 −4</li><li>不能，因为有元素为 0</li><li>能，因为每个 2×2 子式都为正</li></ol><div class="explain">按第一列展开：\(4(9-9)-2(2-0)=-4\lt0\)。协方差矩阵的行列式（广义方差）不能为负。</div></div>
+  <div class="fill" data-ans="28"><div class="qt">协方差矩阵 \(\Sigma=\begin{pmatrix}4&2&0\\2&9&3\\0&3&2\end{pmatrix}\) 的广义方差 \(|\Sigma|=\)？</div><div class="explain">\(4(18-9)-2(4-0)=36-8=28\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">6 个变量，两两之间的相关系数都等于 \(\rho\)。\(\rho\) 的最小可能值是：</div><ol class="opts"><li>\(-0.2\)</li><li>\(-1\)</li><li>\(-0.5\)</li><li>0</li></ol><div class="explain">\(|R|=(1+5\rho)(1-\rho)^5\ge0\Rightarrow\rho\ge-\frac15\)。</div></div>
+  <div class="fill" data-ans="1.4|7/5"><div class="qt">数据 \(x=1,2,3,4\)，\(y=2,3,5,6\)。用 Cramer 法则解正规方程，斜率 \(\hat\beta_1=\)？</div><div class="explain">\(D=4\cdot30-10^2=20\)，\(\hat\beta_1=\dfrac{4\cdot47-10\cdot16}{20}=\dfrac{28}{20}=1.4\)。</div></div>
+  <div class="fill" data-ans="0.4096|256/625"><div class="qt">AR(1) 相关矩阵 \(R_{ij}=0.6^{|i-j|}\)，\(n=3\)。\(|R|=\)？</div><div class="explain">\((1-0.6^2)^{2}=0.64^2=0.4096\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">两位评委对 6 件作品排名完全相反，Kendall \(\tau\) 和逆序数 \(N\) 分别是：</div><ol class="opts"><li>\(\tau=0,\ N=6\)</li><li>\(\tau=-1,\ N=6\)</li><li>\(\tau=-1,\ N=15\)</li><li>\(\tau=1,\ N=0\)</li></ol><div class="explain">完全相反即 \((6,5,4,3,2,1)\)，\(N=\binom62=15\)，\(\tau=1-\frac{2\cdot15}{15}=-1\)。</div></div>
+</div>
+
+<h2>课后作业汇总</h2>
+<div class="tw"><table class="t l">
+  <tr><th>小节</th><th>建议题目（教材习题）</th><th>侧重点</th></tr>
+  <tr><td>§1.1</td><td>习题 1.1 第 1–6 题</td><td>二阶计算、性质验证、\(|A+B|\) 反例</td></tr>
+  <tr><td>§1.2</td><td>习题 1.2 第 1–5 题</td><td>三阶计算、解方程、三元方程组</td></tr>
+  <tr><td>§1.3</td><td>习题 1.3 第 1–4 题</td><td>余子式、三角形、性质判断</td></tr>
+  <tr><td>§1.4</td><td>习题 1.4 第 1–6 题</td><td>展开、反对称、Cramer 法则</td></tr>
+  <tr><td>§1.5</td><td>习题 1.5 第 1、2、4、6 题</td><td>消元降阶、文字行列式、Vandermonde</td></tr>
+  <tr><td>§1.6</td><td>习题 1.6 第 1、3、4、6 题</td><td>排列定义的应用</td></tr>
+  <tr><td>*§1.7</td><td>习题 1.7 第 1、4、5 题</td><td>Laplace 展开</td></tr>
+  <tr><td>复习</td><td>复习题一 第 1、2 题</td><td>综合技巧</td></tr>
+</table></div>
+</template>

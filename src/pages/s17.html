@@ -1,0 +1,123 @@
+<template data-chapter="1" data-route="s1-7" data-num="*§1.7" data-short="Laplace 定理" data-group="第三阶段 · 从操作到结构">
+<header class="page-head">
+  <span class="det-eyebrow">*§1.7</span>
+  <h1>Laplace 定理</h1>
+  <p class="lede">按一行展开，是用 1 阶子式（单个元素）乘它的代数余子式。Laplace 定理把它推广为：取定 \(k\) 行，用所有 \(k\) 阶子式乘各自的代数余子式。本节带 *，可只讲结论与应用。</p>
+  <div class="meta-row"><span class="pill acc">建议 1 学时</span><span class="pill">教材第 44–51 页</span><span class="pill">关键词：高阶展开</span></div>
+  <ul class="goals">
+    <li>理解 Laplace 定理是“按一个元素展开”的推广</li>
+    <li>掌握 \(k\) 阶子式的定义</li>
+    <li>掌握 \(k\) 阶子式的余子式、代数余子式</li>
+    <li>掌握 Laplace 展开公式</li>
+    <li>会根据多行（列）上的零选择 Laplace 展开</li>
+    <li>理解普通按行、列展开是 \(k=1\) 的特殊情形</li>
+  </ul>
+</header>
+
+<h2>\(k\) 阶子式及其代数余子式</h2>
+<div class="box def"><span class="tag">定义 1.7.1<em>\(k\) 阶子式</em></span>
+  <p>设 \(|A|\) 是 \(n\) 阶行列式，\(k\lt n\)。取两组严格递增的指标 \(1\le i_1\lt i_2\lt\cdots\lt i_k\le n\)，\(1\le j_1\lt j_2\lt\cdots\lt j_k\le n\)。第 \(i_1,\dots,i_k\) 行与第 \(j_1,\dots,j_k\) 列交点上的元素按原来的相对位置组成的 \(k\) 阶行列式，称为 \(|A|\) 的一个 <b>\(k\) 阶子式</b>，记为</p>
+  \[A\begin{pmatrix}i_1&i_2&\cdots&i_k\\j_1&j_2&\cdots&j_k\end{pmatrix}=\begin{vmatrix}a_{i_1j_1}&a_{i_1j_2}&\cdots&a_{i_1j_k}\\\vdots&&&\vdots\\a_{i_kj_1}&a_{i_kj_2}&\cdots&a_{i_kj_k}\end{vmatrix}.\]
+</div>
+<div class="box def"><span class="tag">余子式与代数余子式</span>
+  <p>划去第 \(i_1,\dots,i_k\) 行与第 \(j_1,\dots,j_k\) 列，剩下的元素按原相对位置组成的 \(n-k\) 阶行列式称为该子式的<b>余子式</b>，记为 \(M\begin{pmatrix}i_1&\cdots&i_k\\j_1&\cdots&j_k\end{pmatrix}\)。令 \(p=i_1+\cdots+i_k,\ q=j_1+\cdots+j_k\)，</p>
+  <div class="boxed-eq">\[\widehat A\begin{pmatrix}i_1&\cdots&i_k\\j_1&\cdots&j_k\end{pmatrix}=(-1)^{p+q}M\begin{pmatrix}i_1&\cdots&i_k\\j_1&\cdots&j_k\end{pmatrix}\]</div>
+  <p>称为该子式的<b>代数余子式</b>。\(k=1\) 时，这就是 \(A_{ij}=(-1)^{i+j}M_{ij}\)。</p>
+</div>
+
+<h2>定理 1.7.1（Laplace 定理）</h2>
+<div class="box thm"><span class="tag">定理 1.7.1<em>Laplace 定理</em></span>
+  <p>在 \(|A|\) 中任取 \(k\) 行（列），含于这 \(k\) 行（列）的全部 \(k\) 阶子式与它们各自代数余子式的乘积之和等于 \(|A|\)。即取定 \(k\) 行 \(i_1\lt\cdots\lt i_k\) 时，</p>
+  \[|A|=\sum_{1\le j_1\lt\cdots\lt j_k\le n}A\begin{pmatrix}i_1&\cdots&i_k\\j_1&\cdots&j_k\end{pmatrix}\widehat A\begin{pmatrix}i_1&\cdots&i_k\\j_1&\cdots&j_k\end{pmatrix};\]
+  <p>取定 \(k\) 列 \(j_1\lt\cdots\lt j_k\) 时，</p>
+  \[|A|=\sum_{1\le i_1\lt\cdots\lt i_k\le n}A\begin{pmatrix}i_1&\cdots&i_k\\j_1&\cdots&j_k\end{pmatrix}\widehat A\begin{pmatrix}i_1&\cdots&i_k\\j_1&\cdots&j_k\end{pmatrix}.\]
+  <p>求和共有 \(\binom nk\) 项。</p>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 取定第二、三行展开 <span class="src">教材第 45–46 页</span></div>
+  <p>\(|A|=\begin{vmatrix}1&2&-1&3\\7&0&5&2\\-2&4&6&1\\2&3&1&4\end{vmatrix}\)，取定第 2、3 行，共 \(\binom42=6\) 个二阶子式。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">6 个二阶子式：\(A\binom{2\,3}{1\,2}=\begin{vmatrix}7&0\\-2&4\end{vmatrix}=28\)，\(A\binom{2\,3}{1\,3}=\begin{vmatrix}7&5\\-2&6\end{vmatrix}=52\)，\(A\binom{2\,3}{1\,4}=\begin{vmatrix}7&2\\-2&1\end{vmatrix}=11\)，\(A\binom{2\,3}{2\,3}=\begin{vmatrix}0&5\\4&6\end{vmatrix}=-20\)，\(A\binom{2\,3}{2\,4}=\begin{vmatrix}0&2\\4&1\end{vmatrix}=-8\)，\(A\binom{2\,3}{3\,4}=\begin{vmatrix}5&2\\6&1\end{vmatrix}=-7\)。</div>
+    <div class="st">对应的代数余子式（\(p=2+3=5\)）：例如 \(\widehat A\binom{2\,3}{1\,2}=(-1)^{5+3}\begin{vmatrix}-1&3\\1&4\end{vmatrix}=-7\)，\(\widehat A\binom{2\,3}{1\,3}=(-1)^{5+4}\begin{vmatrix}2&3\\3&4\end{vmatrix}=1\)……</div>
+    <div class="st">\[|A|=28\times(-7)-52\times(-1)+11\times5+(-20)\times(-2)-(-8)\times3+(-7)\times(-1)=-18.\]</div>
+    <div class="st">直接计算也得 \(-18\)。读者还可以取定第 3、4 列验证。</div>
+  </div>
+</div>
+<div class="widget" data-widget="laplace" data-t="Laplace 展开逐项表" data-d="勾选要取定的行（或列），表格列出全部 \(k\) 阶子式、符号与余子式。灰色行是子式为 0 的项——选零多的行（列），这些项就可以跳过。"></div>
+
+<h2>普通展开是 \(k=1\) 的特殊情形</h2>
+<p>令 \(k=1\)，1 阶子式就是一个元素 \(a_{ij}\)，它的代数余子式就是 \(A_{ij}\)，Laplace 定理立即退化成 \(|A|=\sum_j a_{ij}A_{ij}\) 或 \(|A|=\sum_i a_{ij}A_{ij}\)。</p>
+<div class="box board"><span class="tag">核心结论</span>
+  \[\text{按行（列）展开}=\text{Laplace 定理在 }k=1\text{ 时的特殊情况}\]
+</div>
+
+<h2>为什么定理成立（证明思路）</h2>
+<ol>
+  <li><b>项数对得上</b>：\(|A|\) 有 \(n!\) 项。取定 \(k\) 行，共有 \(\binom nk\) 个 \(k\) 阶子式；每个子式展开有 \(k!\) 项，余子式有 \((n-k)!\) 项。右边总项数 \(\binom nk\cdot k!\,(n-k)!=n!\)。</li>
+  <li><b>每一项都是 \(|A|\) 的项，且符号正确</b>（引理 1.7.1）：先看 \(i_1,\dots,i_k=1,\dots,k\)，\(j_1,\dots,j_k=1,\dots,k\) 的特殊情形，此时子式与余子式中各取一项相乘，恰好是 \(|A|\) 中的一项，且 \(N(j_1,\dots,j_n)=N(j_1,\dots,j_k)+N(j_{k+1},\dots,j_n)\)。一般情形经过 \((i_1+\cdots+i_k)+(j_1+\cdots+j_k)-k(k+1)\) 次相邻行列对换化为特殊情形，符号因子正好是 \((-1)^{p+q}\)。</li>
+  <li><b>不重复</b>：不同的 \(j_1\lt\cdots\lt j_k\) 得到的项互不相同，又恰好 \(n!\) 项，所以等于 \(|A|\)。</li>
+</ol>
+<div class="box lem"><span class="tag">引理 1.7.1</span>
+  <p>\(n\) 阶行列式 \(|A|\) 的任一 \(k\) 阶子式与其代数余子式之积，完全展开后的每一项都属于 \(|A|\) 的展开式。</p>
+  <p class="small muted">这个引理解释了 Laplace 定理为什么不会“产生额外的项”。</p>
+</div>
+
+<h2>典型应用：分块三角结构</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.7.2 <span class="src">教材第 50 页</span></div>
+  <p>设 \(n\) 阶行列式前 \(k\) 行和后 \(n-k\) 列交点上的元素都是零：</p>
+  \[|A|=\begin{vmatrix}a_{11}&\cdots&a_{1k}&0&\cdots&0\\\vdots&&\vdots&\vdots&&\vdots\\a_{k1}&\cdots&a_{kk}&0&\cdots&0\\a_{k+1,1}&\cdots&a_{k+1,k}&a_{k+1,k+1}&\cdots&a_{k+1,n}\\\vdots&&\vdots&\vdots&&\vdots\\a_{n1}&\cdots&a_{nk}&a_{n,k+1}&\cdots&a_{nn}\end{vmatrix}.\]</div>
+  <div class="sol" data-steps>
+    <div class="st">按前 \(k\) 行作 Laplace 展开。含于前 \(k\) 行的 \(k\) 阶子式中，只要取到第 \(k+1\) 列以后的任一列，就含有一列全 0，值为 0。</div>
+    <div class="st">只剩 \(j=(1,\dots,k)\) 一项，符号 \((-1)^{(1+\cdots+k)+(1+\cdots+k)}=+1\)：
+      \[|A|=\begin{vmatrix}a_{11}&\cdots&a_{1k}\\\vdots&&\vdots\\a_{k1}&\cdots&a_{kk}\end{vmatrix}\cdot\begin{vmatrix}a_{k+1,k+1}&\cdots&a_{k+1,n}\\\vdots&&\vdots\\a_{n,k+1}&\cdots&a_{nn}\end{vmatrix}.\]</div>
+  </div>
+</div>
+<div class="box prop"><span class="tag">结论<em>分块三角</em></span>
+  <div class="boxed-eq">\[\begin{vmatrix}A_1&O\\ *&A_2\end{vmatrix}=|A_1|\,|A_2|,\qquad\begin{vmatrix}A_1&*\\O&A_2\end{vmatrix}=|A_1|\,|A_2|.\]</div>
+  <p>其中 \(A_1\) 为 \(k\) 阶方块，\(A_2\) 为 \(n-k\) 阶方块。这是以后分块矩阵理论中的重要结构。</p>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 1.7.1 选零多的两列 <span class="src">教材第 49 页</span></div>
+  <p>计算 \(\begin{vmatrix}-1&1&1&2&-1\\0&-1&0&1&2\\2&1&1&3&-1\\1&2&2&1&0\\0&3&0&1&3\end{vmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">第 1、3 列含有较多的零：取定这两列。它们的二阶子式里，凡是用到第 2 行或第 5 行的，都含零行，为 0。</div>
+    <div class="st">只剩行 \((1,3)\)、\((1,4)\)、\((3,4)\) 三项：\(\begin{vmatrix}-1&1\\2&1\end{vmatrix}=-3\)，\(\begin{vmatrix}-1&1\\1&2\end{vmatrix}=-3\)，\(\begin{vmatrix}2&1\\1&2\end{vmatrix}=3\)。</div>
+    <div class="st">对应代数余子式（剩下第 2、4、5 列）：\((-1)^{1+3+1+3}\begin{vmatrix}-1&1&2\\2&1&0\\3&1&3\end{vmatrix}=-11\)，\((-1)^{1+4+1+3}\begin{vmatrix}-1&1&2\\1&3&-1\\3&1&3\end{vmatrix}=-(-32)=32\)，\((-1)^{3+4+1+3}\begin{vmatrix}1&2&-1\\-1&1&2\\3&1&3\end{vmatrix}=-23\)。</div>
+    <div class="st">\(|A|=(-3)\times(-11)+(-3)\times32+3\times(-23)=33-96-69=-132\)。</div>
+  </div>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 独立的变量组</span>
+  <p>若随机向量分成两组 \((\boldsymbol X_1,\boldsymbol X_2)\)，两组之间互不相关，则协方差矩阵是分块对角的：\(\Sigma=\begin{pmatrix}\Sigma_{11}&O\\O&\Sigma_{22}\end{pmatrix}\)，于是 \(|\Sigma|=|\Sigma_{11}|\,|\Sigma_{22}|\)。多元正态分布的密度因此分解成两个密度的乘积——两组变量相互独立。以后学多元正态的条件分布时，还会用到 \(|\Sigma|=|\Sigma_{11}|\cdot|\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}|\)。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>符号是 \((-1)^{p+q}\)，\(p\) 是所选<b>行号之和</b>，\(q\) 是所选<b>列号之和</b>，两者都要加。</li>
+    <li>取定 \(k\) 行时，要遍历<b>所有</b> \(\binom nk\) 种列的选法，不能只取“看起来相关”的几项——除非能确定其余子式为 0。</li>
+    <li>\(\begin{vmatrix}O&A_1\\A_2&*\end{vmatrix}\) 这种“反分块”不是简单的乘积，需要额外的符号 \((-1)^{k(n-k)}\)。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="0"><div class="qt">用 Laplace 定理按第 1、3 行计算 \(\begin{vmatrix}1&2&0&1\\-1&0&2&1\\3&1&-1&-1\\1&-1&1&-1\end{vmatrix}\)。<span class="tiny muted">（习题 1.7 第 1(1) 题）</span></div><div class="explain">6 个二阶子式乘代数余子式之和为 0。可在上面组件里选“习题 1.7 第 1(1) 题”逐项查看。</div></div>
+  <div class="fill" data-ans="-276"><div class="qt">按第 1、3 行计算 \(\begin{vmatrix}3&-1&0&-3\\0&2&7&-2\\5&0&2&1\\1&-1&2&3\end{vmatrix}\)。<span class="tiny muted">（习题 1.7 第 1(2) 题）</span></div><div class="explain">结果 −276，可在组件中核对每一项。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">\(\begin{vmatrix}2&1&0&0\\1&3&0&0\\4&-1&1&2\\5&2&3&-1\end{vmatrix}=\)？</div><ol class="opts"><li>−7</li><li>5</li><li>−35</li><li>35</li></ol><div class="explain">分块三角：\(\begin{vmatrix}2&1\\1&3\end{vmatrix}\cdot\begin{vmatrix}1&2\\3&-1\end{vmatrix}=5\times(-7)=-35\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">五阶行列式取定 2 行作 Laplace 展开，和式共有几项？</div><ol class="opts"><li>5</li><li>10</li><li>20</li><li>120</li></ol><div class="explain">\(\binom52=10\)。</div></div>
+</div>
+
+<h2>本节小结</h2>
+<ul>
+  <li>\(k\) 阶子式、余子式、代数余子式 \(\widehat A=(-1)^{p+q}M\)。</li>
+  <li>Laplace：取定 \(k\) 行（列），\(\binom nk\) 个“子式 × 代数余子式”之和等于 \(|A|\)。</li>
+  <li>按行（列）展开是 \(k=1\) 的特例。</li>
+  <li>分块三角：\(\begin{vmatrix}A_1&O\\ *&A_2\end{vmatrix}=|A_1||A_2|\)。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>本节带 *，可以只讲定义、定理叙述、例 1.7.2 和分块三角结论，证明留给有兴趣的学生。</li>
+  <li>在组件里先选“分块三角”，让学生看到 6 项中只有 1 项非零，体会 Laplace 定理的威力。</li>
+  <li>课后作业建议：习题 1.7 第 1、4、5 题。</li>
+</ul></div></details>
+</template>

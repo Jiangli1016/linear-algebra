@@ -1,0 +1,5 @@
+{
+  "files.associations": { "*.html": "html" },
+  "liveServer.settings.root": "/",
+  "liveServer.settings.ignoreFiles": ["src/**", "node_modules/**", "dist/**"]
+}
