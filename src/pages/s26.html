@@ -12,6 +12,7 @@
     <li>分块三角矩阵的行列式；Schur 补公式与降阶公式</li>
   </ul>
 </header>
+<div class="bridge in"><span class="bk">承上启下</span><p>其实我们已经多次用到“分块”：增广矩阵 \((A\mid\beta)\)、求逆用的 \((A\mid I)\)、相抵标准型 \(\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\)，还有 §2.4 证明中把矩阵按行写成 \(\alpha_1,\dots,\alpha_m\)。</p><p class="bq">本节把这种看法系统化：分块后，块能不能像数一样运算？初等变换能不能按块做？最终目标是第一章“三角化”思想的升级版——用分块初等变换把大矩阵化成分块三角形，从而降阶计算行列式。</p></div>
 
 <h2>一、分块矩阵的概念</h2>
 <p>对一个矩阵作若干条水平线和垂直线，把矩阵分成若干子矩阵：</p>
@@ -28,6 +29,7 @@
 </div>
 
 <h2>二、分块矩阵的运算</h2>
+<p class="trans">分块的意义在于：分块以后，能否把每一块当作一个“数”来运算？加法与数乘显然可以；乘法需要块与块“对得上”。</p>
 <div class="stage-grid">
   <div class="box prop"><span class="tag">相等</span><p>两个分块矩阵采用完全相同的分块方式时，\(A=B\iff A_{ij}=B_{ij}\)（每个对应块都相等）。</p></div>
   <div class="box prop"><span class="tag">加减法</span><p>\(A,B\) 采用相同的分块方式时，\(A\pm B=(A_{ij}\pm B_{ij})\)。</p></div>
@@ -70,6 +72,7 @@
   <div class="boxed-eq">\[AB=\begin{pmatrix}\alpha_1B\\\alpha_2B\\\vdots\\\alpha_mB\end{pmatrix}.\]</div>
 </div>
 <p>即：<b>\(AB\) 的第 \(j\) 列是 \(A\) 乘 \(B\) 的第 \(j\) 列；\(AB\) 的第 \(i\) 行是 \(A\) 的第 \(i\) 行乘 \(B\)</b>。§2.4 定理 2.4.3（行左列右）的证明用的就是这种看法。另外，若把 \(A\) 按列分块 \(A=(a_1,\dots,a_n)\)，则 \(Ax=x_1a_1+\cdots+x_na_n\)：方程组 \(Ax=\beta\) 就是问 \(\beta\) 能否写成 \(A\) 的各列的组合（第三章的出发点）。</p>
+<div class="widget" data-widget="colview" data-t="按列看、按行看矩阵乘积" data-d="按列：AB 的每一列是 A 的列的组合；按行：AB 的每一行是 B 的行的组合。点结果中的一列（行）。"></div>
 
 <h3>分块矩阵的转置与共轭</h3>
 <div class="w-grid">
@@ -83,6 +86,7 @@
 </div>
 
 <h2>三、分块初等变换</h2>
+<p class="trans">§2.4 的初等变换作用在“行”上；把一整个分块行看作一个“大行”，初等变换就可以按块进行。</p>
 <p>以 \(2\times2\) 分块为例。分块矩阵也有与普通矩阵类似的三类初等变换：</p>
 <div class="stage-grid">
   <div class="box def"><span class="tag">第一类</span><p>对调两个分块行（或两个分块列）。</p></div>
@@ -98,6 +102,7 @@
 </div>
 
 <h2>四、分块三角矩阵的行列式</h2>
+<p class="trans">分块初等变换的目的和第一章一样——化成三角形。那么，分块三角矩阵的行列式等于什么？</p>
 <div class="box thm"><span class="tag">引理 2.6.1</span>
   <p>设 \(A\) 为 \(m\) 阶方阵，\(C\) 为 \(n\) 阶方阵，则</p>
   <div class="boxed-eq">\[\begin{vmatrix}A&B\\O&C\end{vmatrix}=|A||C|=\begin{vmatrix}A&O\\B&C\end{vmatrix}.\]</div>
@@ -111,6 +116,7 @@
 </div>
 
 <h2>五、Schur 补与降阶公式</h2>
+<p class="trans">有了分块三角形的公式，一般的 \(\begin{pmatrix}A&B\\C&D\end{pmatrix}\) 只要能用第三类分块初等变换消去 \(C\)（或 \(B\)），行列式就能算。消去 \(C\) 需要用到 \(A^{-1}\)——这就是 Schur 补的来历。</p>
 <div class="box thm"><span class="tag">定理 2.6.1<em>Schur 补行列式公式</em></span>
   <p>设 \(A\) 为 \(m\) 阶方阵，\(D\) 为 \(n\) 阶方阵，\(B\) 为 \(m\times n\) 矩阵，\(C\) 为 \(n\times m\) 矩阵。</p>
   <ol>
@@ -217,6 +223,7 @@
   <li>分块初等变换 = 乘分块初等矩阵；第三类不改变行列式。</li>
   <li>\(\begin{vmatrix}A&B\\O&C\end{vmatrix}=|A||C|\)；\(\begin{vmatrix}A&B\\C&D\end{vmatrix}=|A|\,|D-CA^{-1}B|\)；\(|I_m+BC|=|I_n+CB|\)。</li>
 </ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>分块初等变换把 \(|AB|=|A||B|\) 等结论推广到了“块”的层次。最后还剩一个问题：若 \(A\) 是 \(m\times n\)、\(B\) 是 \(n\times m\)，\(AB\) 是方阵，可 \(A,B\) 本身没有行列式，\(|AB|\) 怎么算？答案恰好要用本节的工具：构造分块矩阵 \(\begin{pmatrix}A&O\\-I_n&B\end{pmatrix}\)，做一次第三类分块初等变换。</p><a class="bn" href="#s2-7">→ *§2.7 Cauchy–Binet 公式</a></div>
 <details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
   <li>先用例 2.6.1 让学生体会“分块不是新运算”：分块算出的结果与直接相乘完全一样。</li>
   <li>Schur 补公式用二阶 \(\begin{vmatrix}a&b\\c&d\end{vmatrix}=a(d-ca^{-1}b)\) 类比引入，学生很容易接受。</li>

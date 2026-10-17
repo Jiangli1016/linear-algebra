@@ -349,9 +349,12 @@ function buildSlides(art){
   function height(nodes){meas.innerHTML='';nodes.forEach(function(n){meas.appendChild(n)});return meas.scrollHeight}
   var slides=[],named=sections.filter(function(s){return s.h2});
   if(head) slides.push({nodes:[head],title:true,label:pageTitle,sec:''});
+  // 标题之后、第一个小标题之前的“承上启下”放在目录页之前
+  var pre=sections.length&&!sections[0].h2&&sections[0].blocks.every(function(x){return x.matches&&x.matches('.bridge')})?sections.shift():null;
+  var preN=pre?pre.blocks.slice():[];
   if(named.length>=3&&pageOf(current).chapter>0){
-    slides.push({nodes:[mkGen('deck-agenda','<h2>本节内容</h2><ol>'+named.map(function(s){return '<li>'+esc(s.title)+'</li>'}).join('')+'</ol>')],label:'本节内容',sec:'',agenda:true});
-  }
+    slides.push({nodes:preN.concat([mkGen('deck-agenda','<h2>本节内容</h2><ol>'+named.map(function(s){return '<li>'+esc(s.title)+'</li>'}).join('')+'</ol>')]),label:'本节内容',sec:'',agenda:true});
+  }else if(preN.length) slides.push({nodes:preN,sec:'',label:'承上启下'});
   function sticky(n){return n.tagName==='H3'||(n.tagName==='P'&&/[：:则]\s*$/.test(n.textContent.trim()))}
   function lim(nodes){return nodes.some(function(n){return n.matches&&n.matches('.ex,.sol')})?limit*1.35:limit}
   function cont(t){return mkGen('deck-cont','<span>'+esc(t)+'</span><em>（续）</em>')}

@@ -14,6 +14,7 @@
     <li>复矩阵的共轭</li>
   </ul>
 </header>
+<div class="bridge in"><span class="bk">承上启下</span><p>上一节只给数表起了名字。数学对象的意义来自运算：数之所以有用，是因为能加减乘除。本节为矩阵定义运算，并逐一检查：<b>数的哪些运算规律还成立，哪些不成立</b>。</p><ol><li>加法、数乘：逐个元素进行，规律与数相同；</li><li>乘法：从变量代换（变换的复合）中产生，满足结合律，却不满足交换律、消去律；</li><li>幂、转置、共轭：乘法的连用，以及乘法与“行列互换”的配合。</li></ol></div>
 
 <h2>一、矩阵的加减法</h2>
 <div class="box def"><span class="tag">定义 2.2.1<em>矩阵加法</em></span>
@@ -36,6 +37,7 @@
 </div>
 
 <h2>二、矩阵的数乘</h2>
+<p class="trans">加法是两个同型矩阵之间的运算。另一种同样自然的运算，是用一个数去“放大”整张表——例如把所有成绩乘 1.2 换算成新的分制。这就是数乘。</p>
 <div class="box def"><span class="tag">定义 2.2.2<em>数乘</em></span>
   <p>设 \(A=(a_{ij})_{m\times n}\)，\(c\) 是一个数，定义 \(cA=(ca_{ij})_{m\times n}\)：<b>每一个元素</b>都乘 \(c\)。</p>
 </div>
@@ -55,7 +57,14 @@
 </div>
 
 <h2>三、矩阵的乘法</h2>
-<p>矩阵乘法是矩阵运算中最复杂、也最重要的一种运算。它的定义是从实际需要中产生的。</p>
+<p class="trans">加法与数乘都是逐个元素进行的，规律和数完全一样，合起来可以作线性组合 \(aA+bB\)。但如果只有这些运算，矩阵不过是“一组数的简写”。矩阵真正的力量来自乘法，而乘法<b>不是</b>对应元素相乘——它从下面这个问题中产生。</p>
+<div class="box idea"><span class="tag">乘法从哪里来 · 变量代换</span>
+  <p>设变量 \(y\) 由 \(x\) 线性表示，而 \(x\) 又由 \(t\) 线性表示：</p>
+  <div class="w-grid"><div>\[\begin{cases}y_1=x_1+2x_2\\y_2=3x_1+4x_2\end{cases}\quad A=\begin{pmatrix}1&2\\3&4\end{pmatrix}\]</div><div>\[\begin{cases}x_1=t_1-t_2\\x_2=2t_1+t_2\end{cases}\quad B=\begin{pmatrix}1&-1\\2&1\end{pmatrix}\]</div></div>
+  <p>代入得 \(y_1=(t_1-t_2)+2(2t_1+t_2)=5t_1+t_2\)，\(y_2=3(t_1-t_2)+4(2t_1+t_2)=11t_1+t_2\)。新系数矩阵是 \(\begin{pmatrix}5&1\\11&1\end{pmatrix}\)，它的 \((i,j)\) 元恰好是“\(A\) 的第 \(i\) 行与 \(B\) 的第 \(j\) 列对应相乘再相加”：\(5=1\cdot1+2\cdot2\)，\(1=1\cdot(-1)+2\cdot1\)，\(11=3\cdot1+4\cdot2\)，\(1=3\cdot(-1)+4\cdot1\)。</p>
+  <p>把“两次代换合成一次代换”的系数规则规定为乘法 \(AB\)，就得到下面的定义。所以矩阵乘法不是人为的规定，而是<b>复合</b>的记录。</p>
+</div>
+<p>矩阵乘法是矩阵运算中最复杂、也最重要的一种运算。一般地：</p>
 <div class="box def"><span class="tag">定义 2.2.3<em>矩阵乘法</em></span>
   <p>设 \(A=(a_{ij})_{m\times k}\)，\(B=(b_{ij})_{k\times n}\)。定义 \(A\) 与 \(B\) 的乘积 \(AB\) 是一个 \(m\times n\) 矩阵，它的 \((i,j)\) 元素为</p>
   <div class="boxed-eq">\[c_{ij}=a_{i1}b_{1j}+a_{i2}b_{2j}+\cdots+a_{ik}b_{kj}=\sum_{r=1}^{k}a_{ir}b_{rj}.\]</div>
@@ -114,7 +123,10 @@
   </div>
 </div>
 
+<p>从几何上看，二阶方阵 \(A\) 把平面上的点 \(x\) 变到 \(Ax\)。变量代换的复合，就是“先做一个变换、再做另一个变换”：</p>
+<div class="widget" data-widget="compose" data-t="二阶矩阵 = 平面变换；乘法 = 变换的复合" data-d="给 A、B 选不同的变换（也可以直接改数字），比较“先 B 后 A”与“先 A 后 B”。"></div>
 <h2>矩阵乘法的运算规则</h2>
+<p class="trans">乘法的定义有了，接下来按“数的规律”逐条检查。先看<b>仍然成立</b>的：</p>
 <div class="box prop"><span class="tag">乘法运算规则</span>
   <p>只要有关运算有意义：</p>
   <ol>
@@ -133,12 +145,14 @@
 <p>由结合律，\((AB)C\) 与 \(A(BC)\) 直接写成 \(ABC\)；若干个矩阵的乘积写成 \(A_1A_2\cdots A_m\)，中间不需要括号。但<b>顺序不能换</b>。</p>
 
 <h2>方阵的幂</h2>
+<p class="trans">结合律保证了连乘时括号可以随便放、甚至不写。于是同一个方阵连乘多次就有确定的意义——这就是方阵的幂。几何上，\(A^k\) 就是把变换 \(A\) 连续做 \(k\) 次。</p>
 <p>当 \(A\) 是方阵时，定义 \(A^2=AA\)，\(A^3=AAA\)，一般地</p>
 \[A^k=\underbrace{A\cdot A\cdots A}_{k\text{ 个}}.\]
 <p>要使 \(A\) 的乘方有意义，\(A\) 必须是方阵（行数等于列数）。</p>
 <div class="box prop"><span class="tag">方阵幂的运算规则</span>
   <p>\(A^rA^s=A^{r+s}\)，\((A^r)^s=A^{rs}\)。但一般 \((AB)^r\ne A^rB^r\)（\(r\gt1\)）；只有当 \(AB=BA\) 时才有 \((AB)^r=A^rB^r\)。</p>
 </div>
+<div class="widget" data-widget="compose" data-mode="pow" data-t="方阵的幂：同一个变换连续做 k 次" data-d="旋转 90° 做 4 次回到原样；错切越做越斜；投影做一次和做多次一样。"></div>
 <div class="ex"><div class="ex-q"><div class="ex-h">例 计算 \(A^k\) <span class="src">习题 2.2 第 4 题</span></div>
   <p>(1) \(A=\begin{pmatrix}1&2&4\\2&4&8\\3&6&12\end{pmatrix}\)；(2) \(A=\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}\)。</p></div>
   <div class="sol" data-steps>
@@ -149,6 +163,7 @@
 </div>
 
 <h2>不交换带来的后果</h2>
+<p class="trans">前面的规则都和数一样。下面集中看<b>不一样</b>的地方——它们几乎都源于 \(AB\ne BA\)。上面“变换的复合”实验已经显示：先旋转再反射，与先反射再旋转，结果不同。</p>
 <div class="w-grid">
   <div class="box warn"><span class="tag">消去律不成立</span>
     <p>对数：\(ab=ac,\ a\ne0\Rightarrow b=c\)。对矩阵：即使 \(AB=AC\) 且 \(A\ne O\)，也未必有 \(B=C\)。例如</p>
@@ -172,6 +187,7 @@
 </div>
 
 <h2>四、矩阵的转置</h2>
+<p class="trans">到目前为止，所有运算都保持矩阵的“横竖方向”不变。可是在统计中常常需要把数据矩阵的行与列互换（观测 ↔ 变量），在 \(x'Ax\) 这样的式子里也需要把列向量“放倒”成行向量——这就是转置。</p>
 <div class="box def"><span class="tag">定义 2.2.4<em>转置</em></span>
   <p>设 \(A=(a_{ij})\) 是 \(m\times n\) 矩阵，\(A\) 的转置 \(A'\) 是一个 \(n\times m\) 矩阵：它的第 \(k\) 行正好是 \(A\) 的第 \(k\) 列，第 \(r\) 列是 \(A\) 的第 \(r\) 行。即 \(A'\) 的 \((i,j)\) 元为 \(a_{ji}\)。</p>
 </div>
@@ -204,7 +220,9 @@
   </div>
 </div>
 
+<div class="widget" data-widget="symdec" data-t="对称 + 反对称分解" data-d="任意改 A，看 S = ½(A + A′) 与 K = ½(A − A′) 怎样分别继承 A 的“对称部分”和“反对称部分”。"></div>
 <h2>五、矩阵的共轭</h2>
+<p class="trans">对实矩阵，转置已经够用；复矩阵还需要把每个元素换成共轭复数。共轭与转置结合起来（共轭转置），是以后学习 Hermite 矩阵、酉矩阵的基础。</p>
 <div class="box def"><span class="tag">定义 2.2.5<em>共轭矩阵</em></span>
   <p>设 \(A=(a_{ij})_{m\times n}\) 是复矩阵，\(A\) 的共轭矩阵 \(\overline A=(\overline{a_{ij}})_{m\times n}\)：每个元素取共轭复数（\(z=a+b\mathrm i\) 的共轭 \(\overline z=a-b\mathrm i\)）。</p>
 </div>
@@ -257,6 +275,7 @@
   <li>幂只对方阵定义；\(AB=BA\) 时才能用二项式定理。</li>
   <li>转置：\((AB)'=B'A'\)；对称 \(A'=A\)，反对称 \(A'=-A\)；共轭：逐元素取共轭，不换顺序。</li>
 </ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>本节有两个“坏消息”：\(AB=AC\) 推不出 \(B=C\)；\(AB=O\) 推不出 \(A=O\) 或 \(B=O\)。它们都是“不能随便约去”的问题。对数而言，\(ab=ac\) 能约去 \(a\)，是因为 \(a\ne0\) 时有倒数 \(a^{-1}\)。于是自然要问：<b>哪些矩阵有“倒数”？怎样求？</b></p><a class="bn" href="#s2-3">→ §2.3 方阵的逆阵</a></div>
 <details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
   <li>本节必须讲透：乘法的定义、乘法的尺寸条件、\(AB\ne BA\) 是常态，以及 \((AB)'=B'A'\)。</li>
   <li>“为什么这样定义乘法”可以用例 2.2.4（方程组）和马尔可夫链两步转移概率 \(P^2\) 来回答，后者让统计专业学生印象很深。</li>

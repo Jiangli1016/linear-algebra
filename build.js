@@ -32,7 +32,7 @@ const pages=order.filter(n=>fs.existsSync(path.join(SRC,'pages',n+'.html'))).map
   return renderMath(fs.readFileSync(f,'utf8'),n);
 }).join('\n');
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
-const js=['core.js','widgets-a.js','widgets-b.js','widgets-c.js'].map(f=>fs.readFileSync(path.join(SRC,f),'utf8')).join('\n;\n');
+const js=['core.js','widgets-a.js','widgets-b.js','widgets-c.js','widgets-d.js'].map(f=>fs.readFileSync(path.join(SRC,f),'utf8')).join('\n;\n');
 const kjs=fs.readFileSync(path.join(KROOT,'dist/katex.min.js'),'utf8');
 const title='<title>高等代数交互课件</title>';
 const mk=(print)=>shell+'\n'+pages+'\n<script>'+kjs+'</script>\n<script>window.SITE={print:'+print+'};'+js+'\ndocument.documentElement.lang="zh-CN";D._initShell();</script>\n';

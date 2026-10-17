@@ -688,3 +688,37 @@ svg .vol-face{stroke-width:1.2;fill-opacity:.2}
 .widget .dm.sm .c{min-width:2em;padding:1px 4px}
 .pl-stage .dm{font-size:1.15rem}
 .pl-stage .dm .c{min-width:2.4em}
+/* 第二章：承上启下 */
+.bridge{position:relative;margin:1.1rem 0 1.3rem;padding:.75rem 1rem .8rem 1.1rem;border-radius:10px;background:var(--tint);border-left:4px solid var(--accent)}
+.bridge .bk{display:inline-block;font:700 .74rem/1 var(--sans);letter-spacing:.06em;color:var(--accent);background:var(--accent-soft);padding:.28rem .55rem;border-radius:99px;margin-bottom:.45rem}
+.bridge p{margin:.35rem 0}
+.bridge .bq{font-weight:650}
+.bridge.out{border-left-color:var(--stat)}
+.bridge.out .bk{color:var(--stat);background:var(--stat-soft)}
+.bridge .bn{display:inline-block;margin-top:.35rem;font-weight:650;text-decoration:none;color:var(--accent)}
+.bridge ol{margin:.3rem 0 .2rem;padding-left:1.3rem}
+.trans{margin:.9rem 0 .6rem;padding-left:.8rem;border-left:2px dashed var(--rule-2);color:var(--ink-2)}
+/* 第二章新增实验 */
+.chip-b{border:1px solid var(--rule-2);background:var(--sheet);border-radius:99px;padding:.22rem .7rem;font:500 .86rem/1.4 var(--sans);cursor:pointer;color:var(--ink-3);margin:2px}
+.chip-b.ok{background:var(--pos-soft);border-color:transparent;color:var(--pos)}
+.chip-b.sel{outline:2px solid var(--accent);outline-offset:1px;color:var(--ink)}
+.chip-b.ok.sel{color:var(--pos)}
+.mt-chips{display:flex;flex-wrap:wrap;gap:.25rem;margin:.6rem 0 .3rem}
+.mt-why{min-height:1.6em}
+.pf-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.3rem .4rem;margin:.3rem 0 .5rem}
+.pf{margin:0;text-align:center;width:150px}
+.pf svg{width:150px;height:150px}
+svg .pl-ghost{fill:none;stroke:var(--ink-3);stroke-width:1.2;stroke-dasharray:3 3}
+.ig-h{margin:1rem 0 .3rem;font-size:1rem}
+.fa-row{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:.4rem 0}
+.fa-e{text-align:center;padding:.25rem .35rem;border:1px solid var(--rule);border-radius:8px;background:var(--sheet)}
+.fa-log{margin:.2rem 0 .4rem;padding-left:1.4rem}
+.el-ops{gap:.4rem .8rem}
+.el-log{margin:.3rem 0;padding-left:1.4rem}
+.el-view>div{min-width:0}
+@media (max-width:520px){
+  .pf-row{flex-wrap:nowrap;gap:.15rem}
+  .pf{flex:1 1 0;min-width:0;width:auto}
+  .pf svg{width:100%;height:auto}
+  .pf-row .dp-ar{font-size:.78rem;white-space:nowrap}
+}
