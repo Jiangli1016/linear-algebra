@@ -1,0 +1,225 @@
+<template data-chapter="2" data-route="s2-6" data-num="§2.6" data-short="分块矩阵" data-group="第四阶段 · 更高层次的结构">
+<header class="page-head">
+  <span class="det-eyebrow">§2.6</span>
+  <h1>分块矩阵</h1>
+  <p class="lede">这一节的目标是：<b>把一个大的矩阵看成由“小矩阵”组成的矩阵</b>。分块不是一种新的运算，而是一种看矩阵的方式：它能简化运算、显示结构，并且把“数的运算规则”提升为“块的运算规则”。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 95–105 页</span><span class="pill">关键词：Schur 补</span></div>
+  <ul class="goals">
+    <li>分块矩阵的概念；分块矩阵的加法、数乘、乘法</li>
+    <li>分块对角矩阵；按行分块与按列分块</li>
+    <li>分块矩阵的转置、共轭</li>
+    <li>分块初等变换与分块初等矩阵</li>
+    <li>分块三角矩阵的行列式；Schur 补公式与降阶公式</li>
+  </ul>
+</header>
+
+<h2>一、分块矩阵的概念</h2>
+<p>对一个矩阵作若干条水平线和垂直线，把矩阵分成若干子矩阵：</p>
+\[A=\begin{pmatrix}A_{11}&A_{12}&\cdots&A_{1s}\\A_{21}&A_{22}&\cdots&A_{2s}\\\vdots&\vdots&&\vdots\\A_{r1}&A_{r2}&\cdots&A_{rs}\end{pmatrix}.\]
+<p>称这种形式为<b>分块矩阵</b>，每个 \(A_{ij}\) 本身都是一个矩阵，称为 \(A\) 的一个<b>子块</b>（第 \((i,j)\) 块）。例如</p>
+\[A=\left(\begin{array}{ccc|c}1&2&-1&0\\2&5&0&-2\\\hline3&1&-1&3\end{array}\right),\]
+<div class="eqs"><span>\(A_{11}=\begin{pmatrix}1&2&-1\\2&5&0\end{pmatrix},\)</span><span>\(A_{12}=\begin{pmatrix}0\\-2\end{pmatrix},\)</span><span>\(A_{21}=(3,1,-1),\)</span><span>\(A_{22}=(3).\)</span></div>
+<div class="box idea"><span class="tag">分块的核心要求</span>
+  <p>分割线必须贯穿整个矩阵，所以：<b>同一块行中的各块具有相同的行数；同一块列中的各块具有相同的列数</b>。</p>
+</div>
+<div class="box def"><span class="tag">分块对角矩阵</span>
+  <p>形如 \(A=\begin{pmatrix}A_1&O&\cdots&O\\O&A_2&\cdots&O\\\vdots&\vdots&\ddots&\vdots\\O&O&\cdots&A_k\end{pmatrix}=\mathrm{diag}\{A_1,A_2,\dots,A_k\}\)（\(A_i\) 都是方阵）的矩阵称为<b>分块对角矩阵</b>。例如</p>
+  \[\left(\begin{array}{cc|cc|c}1&1&0&0&0\\-1&1&0&0&0\\\hline0&0&1&0&0\\0&0&1&1&0\\\hline0&0&0&0&1\end{array}\right)=\mathrm{diag}\Bigl\{\begin{pmatrix}1&1\\-1&1\end{pmatrix},\begin{pmatrix}1&0\\1&1\end{pmatrix},(1)\Bigr\}.\]
+</div>
+
+<h2>二、分块矩阵的运算</h2>
+<div class="stage-grid">
+  <div class="box prop"><span class="tag">相等</span><p>两个分块矩阵采用完全相同的分块方式时，\(A=B\iff A_{ij}=B_{ij}\)（每个对应块都相等）。</p></div>
+  <div class="box prop"><span class="tag">加减法</span><p>\(A,B\) 采用相同的分块方式时，\(A\pm B=(A_{ij}\pm B_{ij})\)。</p></div>
+  <div class="box prop"><span class="tag">数乘</span><p>\(cA=(cA_{ij})\)：每一块都乘 \(c\)。</p></div>
+</div>
+
+<h3>分块乘法</h3>
+<div class="box thm"><span class="tag">分块乘法规则</span>
+  <p>设 \(A\) 为 \(m\times n\) 矩阵，\(B\) 为 \(n\times p\) 矩阵。把 \(A\) 的<b>列</b>分成 \(s\) 组、\(B\) 的<b>行</b>按<b>同样的方式</b>分成 \(s\) 组：\(A_{ik}\) 为 \(m_i\times n_k\)，\(B_{kj}\) 为 \(n_k\times p_j\)。则 \(C=AB\) 按 \(A\) 的行分法与 \(B\) 的列分法分块，且</p>
+  <div class="boxed-eq">\[C_{ij}=A_{i1}B_{1j}+A_{i2}B_{2j}+\cdots+A_{is}B_{sj}=\sum_{k=1}^sA_{ik}B_{kj}.\]</div>
+  <p>这和普通矩阵乘法的规则完全相同，只是“数”变成了“矩阵块”。<b>注意块的乘积 \(A_{ik}B_{kj}\) 的顺序不能交换。</b></p>
+</div>
+<details class="proof"><summary>为什么成立（习题 2.6 第 5 题）</summary><div class="dbody">
+  <p>\(C\) 的某个元素 \(c_{uv}=\sum_{t=1}^na_{ut}b_{tv}\)。把求和指标 \(t=1,\dots,n\) 按 \(A\) 的列分组（\(n=n_1+\cdots+n_s\)）拆成 \(s\) 段，第 \(k\) 段的和恰好是 \(A_{ik}B_{kj}\) 的相应元素。所以分块乘法只是把普通乘法的求和“分段进行”。</p>
+</div></details>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.6.1 <span class="src">教材第 97–98 页</span></div>
+  <p>\(A=\left(\begin{array}{cc|c|cc}1&0&2&-1&0\\0&1&1&-2&1\\\hline0&0&3&1&0\\1&0&-2&0&1\end{array}\right)\)，\(B=\left(\begin{array}{cc|c}1&0&2\\0&1&0\\\hline-1&1&3\\\hline0&1&-1\\2&0&1\end{array}\right)\)，用分块乘法求 \(AB\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(A\) 的列分法 \(2+1+2\) 与 \(B\) 的行分法 \(2+1+2\) 一致，可以分块相乘。\(A_{11}=I_2\)，\(B_{11}=I_2\)。</div>
+    <div class="st">\(C_{11}=A_{11}B_{11}+A_{12}B_{21}+A_{13}B_{31}=I_2+\begin{pmatrix}2\\1\end{pmatrix}(-1,1)+\begin{pmatrix}-1&0\\-2&1\end{pmatrix}\begin{pmatrix}0&1\\2&0\end{pmatrix}\)<br>\(=\begin{pmatrix}1&0\\0&1\end{pmatrix}+\begin{pmatrix}-2&2\\-1&1\end{pmatrix}+\begin{pmatrix}0&-1\\2&-2\end{pmatrix}=\begin{pmatrix}-1&1\\1&0\end{pmatrix}\)。</div>
+    <div class="st">同理 \(C_{12}=\begin{pmatrix}9\\6\end{pmatrix}\)，\(C_{21}=\begin{pmatrix}-3&4\\5&-2\end{pmatrix}\)，\(C_{22}=\begin{pmatrix}8\\-3\end{pmatrix}\)。</div>
+    <div class="st">\[AB=\left(\begin{array}{cc|c}-1&1&9\\1&0&6\\\hline-3&4&8\\5&-2&-3\end{array}\right).\]利用 \(I_2\) 这样的特殊块，计算量明显减少。</div>
+  </div>
+</div>
+<div class="widget" data-widget="blockmul" data-t="分块乘法：块对块，和数一样乘" data-d="点 AB 的任一块：A 中对应的块行（蓝）与 B 中对应的块列（黄）被标出，下方写出这一块的计算式。“分块对角相乘”预设对应例 2.6.2。"></div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.6.2、例 2.6.3 分块对角矩阵 <span class="src">教材第 98–99 页</span></div>
+  <p>设 \(A=\mathrm{diag}\{A_1,\dots,A_k\}\)，\(B=\mathrm{diag}\{B_1,\dots,B_k\}\)，\(A_i\) 与 \(B_i\) 同阶。求 \(AB\)；若每个 \(A_i\) 可逆，求 \(A^{-1}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">由分块乘法，非对角块都是若干个 \(O\) 之和，所以 \[AB=\mathrm{diag}\{A_1B_1,A_2B_2,\dots,A_kB_k\}.\]</div>
+    <div class="st">取 \(B=\mathrm{diag}\{A_1^{-1},\dots,A_k^{-1}\}\)，则 \(AB=\mathrm{diag}\{I,\dots,I\}=I\)，所以 \[A^{-1}=\mathrm{diag}\{A_1^{-1},A_2^{-1},\dots,A_k^{-1}\}.\]</div>
+    <div class="st">同理 \(A^m=\mathrm{diag}\{A_1^m,\dots,A_k^m\}\)，\(|A|=|A_1||A_2|\cdots|A_k|\)（由下面的引理 2.6.1）。分块对角矩阵的运算可以“各块分别进行”。</div>
+  </div>
+</div>
+
+<h3>按列分块与按行分块</h3>
+<p>最常用的分块是把矩阵按列（或按行）分开。设 \(B=(\beta_1,\beta_2,\dots,\beta_p)\) 按列分块，\(A=\begin{pmatrix}\alpha_1\\\vdots\\\alpha_m\end{pmatrix}\) 按行分块，则</p>
+<div class="w-grid">
+  <div class="boxed-eq">\[AB=(A\beta_1,A\beta_2,\dots,A\beta_p),\]</div>
+  <div class="boxed-eq">\[AB=\begin{pmatrix}\alpha_1B\\\alpha_2B\\\vdots\\\alpha_mB\end{pmatrix}.\]</div>
+</div>
+<p>即：<b>\(AB\) 的第 \(j\) 列是 \(A\) 乘 \(B\) 的第 \(j\) 列；\(AB\) 的第 \(i\) 行是 \(A\) 的第 \(i\) 行乘 \(B\)</b>。§2.4 定理 2.4.3（行左列右）的证明用的就是这种看法。另外，若把 \(A\) 按列分块 \(A=(a_1,\dots,a_n)\)，则 \(Ax=x_1a_1+\cdots+x_na_n\)：方程组 \(Ax=\beta\) 就是问 \(\beta\) 能否写成 \(A\) 的各列的组合（第三章的出发点）。</p>
+
+<h3>分块矩阵的转置与共轭</h3>
+<div class="w-grid">
+  <div class="box prop"><span class="tag">转置</span>
+    <p>若 \(A=(A_{ij})_{r\times s}\)，则 \(A'=(A_{ji}')_{s\times r}\)：<b>块的位置转置，同时每个块自身也转置</b>。例如</p>
+    \[\begin{pmatrix}A_{11}&A_{12}\\A_{21}&A_{22}\end{pmatrix}'=\begin{pmatrix}A_{11}'&A_{21}'\\A_{12}'&A_{22}'\end{pmatrix}.\]
+  </div>
+  <div class="box prop"><span class="tag">共轭</span>
+    <p>若 \(A=(A_{ij})\) 为复分块矩阵，则 \(\overline A=(\overline{A_{ij}})\)：每一块取共轭，位置不变。</p>
+  </div>
+</div>
+
+<h2>三、分块初等变换</h2>
+<p>以 \(2\times2\) 分块为例。分块矩阵也有与普通矩阵类似的三类初等变换：</p>
+<div class="stage-grid">
+  <div class="box def"><span class="tag">第一类</span><p>对调两个分块行（或两个分块列）。</p></div>
+  <div class="box def"><span class="tag">第二类</span><p>用一个<b>可逆矩阵</b>左乘某一分块行（或右乘某一分块列）。</p></div>
+  <div class="box def"><span class="tag">第三类</span><p>把某个分块行<b>左乘</b>一个矩阵后加到另一分块行（或把某个分块列<b>右乘</b>一个矩阵后加到另一分块列）。</p></div>
+</div>
+<p>对分块单位阵 \(I=\mathrm{diag}\{I_m,I_n\}\) 做一次分块初等变换，得到<b>分块初等矩阵</b>：</p>
+\[\begin{pmatrix}O&I_n\\I_m&O\end{pmatrix},\qquad\begin{pmatrix}M&O\\O&I_n\end{pmatrix}\ (M\text{ 可逆}),\qquad\begin{pmatrix}I_m&O\\M&I_n\end{pmatrix},\ \begin{pmatrix}I_m&M\\O&I_n\end{pmatrix}.\]
+<p>它们都可逆。与普通情形一样，<b>分块初等行（列）变换相当于左（右）乘相应的分块初等矩阵</b>。例如</p>
+\[\begin{pmatrix}I_m&O\\M&I_n\end{pmatrix}\begin{pmatrix}A&B\\C&D\end{pmatrix}=\begin{pmatrix}A&B\\C+MA&D+MB\end{pmatrix}.\]
+<div class="box note"><span class="tag">注</span>
+  <p>第三类分块初等矩阵的行列式等于 1（它是三角阵，主对角线全为 1）。所以<b>第三类分块初等变换不改变行列式的值</b>——这是下面所有行列式公式的出发点。（第三类分块初等变换其实是若干次普通第三类初等变换的复合，习题 2.6 第 6 题。）</p>
+</div>
+
+<h2>四、分块三角矩阵的行列式</h2>
+<div class="box thm"><span class="tag">引理 2.6.1</span>
+  <p>设 \(A\) 为 \(m\) 阶方阵，\(C\) 为 \(n\) 阶方阵，则</p>
+  <div class="boxed-eq">\[\begin{vmatrix}A&B\\O&C\end{vmatrix}=|A||C|=\begin{vmatrix}A&O\\B&C\end{vmatrix}.\]</div>
+  <p>这推广了三角行列式“对角线元素相乘”的结论。</p>
+</div>
+<details class="proof"><summary>证明（对 \(m\) 归纳，按第一列展开）</summary><div class="dbody">
+  <p>\(m=1\) 时按第一列展开，第一列只有 \(a_{11}\) 可能非零，结论成立。设 \(m-1\) 时成立。对 \(G=\begin{pmatrix}A&B\\O&C\end{pmatrix}\) 按第一列展开：第一列只有前 \(m\) 个元素 \(a_{11},\dots,a_{m1}\) 可能非零，所以 \(|G|=\sum_{i=1}^ma_{i1}G_{i1}\)。划去第 \(i\) 行、第 1 列后，剩下的仍是分块上三角形，左上块恰为 \(A\) 中 \(a_{i1}\) 的余子式对应的 \(m-1\) 阶阵。由归纳假设 \(G_{i1}=A_{i1}|C|\)，于是 \(|G|=\bigl(\sum_ia_{i1}A_{i1}\bigr)|C|=|A||C|\)。第二个等式取转置即得。（也可以用第一章的 Laplace 定理直接得到。）</p>
+</div></details>
+<div class="box warn"><span class="tag">注意副对角分块</span>
+  <p>\(\begin{vmatrix}O&A\\C&O\end{vmatrix}\ne|A||C|\) 一般。\(A\) 为 \(m\) 阶、\(C\) 为 \(n\) 阶时，把 \(A\) 所在的 \(m\) 行依次换到下面要做 \(mn\) 次相邻对换：\(\begin{vmatrix}O&A\\C&O\end{vmatrix}=(-1)^{mn}|A||C|\)。</p>
+</div>
+
+<h2>五、Schur 补与降阶公式</h2>
+<div class="box thm"><span class="tag">定理 2.6.1<em>Schur 补行列式公式</em></span>
+  <p>设 \(A\) 为 \(m\) 阶方阵，\(D\) 为 \(n\) 阶方阵，\(B\) 为 \(m\times n\) 矩阵，\(C\) 为 \(n\times m\) 矩阵。</p>
+  <ol>
+    <li>若 \(A\) 可逆，则 \(\begin{vmatrix}A&B\\C&D\end{vmatrix}=|A|\,|D-CA^{-1}B|\)；</li>
+    <li>若 \(D\) 可逆，则 \(\begin{vmatrix}A&B\\C&D\end{vmatrix}=|D|\,|A-BD^{-1}C|\)。</li>
+  </ol>
+  <p>\(D-CA^{-1}B\) 称为 \(A\) 的 <b>Schur 补</b>（\(A-BD^{-1}C\) 称为 \(D\) 的 Schur 补）。</p>
+</div>
+<details class="proof" open><summary>证明（一次第三类分块初等变换）</summary><div class="dbody">
+  <p>用 \(-CA^{-1}\) 左乘第一分块行加到第二分块行，即左乘 \(\begin{pmatrix}I_m&O\\-CA^{-1}&I_n\end{pmatrix}\)：</p>
+  \[\begin{pmatrix}I_m&O\\-CA^{-1}&I_n\end{pmatrix}\begin{pmatrix}A&B\\C&D\end{pmatrix}=\begin{pmatrix}A&B\\O&D-CA^{-1}B\end{pmatrix}.\]
+  <p>左边第一个矩阵的行列式为 1，由乘积定理与引理 2.6.1，\(\begin{vmatrix}A&B\\C&D\end{vmatrix}=|A|\,|D-CA^{-1}B|\)。(2) 同理：用 \(-BD^{-1}\) 左乘第二分块行加到第一分块行，消去 \(B\)。</p>
+  <p>这完全是二阶情形 \(\begin{vmatrix}a&b\\c&d\end{vmatrix}=a\bigl(d-\frac{cb}a\bigr)\) 的推广。</p>
+</div></details>
+<div class="widget" data-widget="schur" data-t="Schur 补：把高阶行列式化成两个低阶行列式" data-d="选阶数和左上角块 A 的大小，看 Schur 补 D − CA⁻¹B 与 |M| = |A| · |D − CA⁻¹B|。“(aᵢaⱼ+1) 型”按钮对应例 2.6.4 的矩阵。"></div>
+
+<div class="box prop"><span class="tag">降阶公式</span>
+  <p>当 \(A,D\) 都可逆时，比较定理 2.6.1 的两个结果：</p>
+  <div class="boxed-eq">\[|D|\,|A-BD^{-1}C|=|A|\,|D-CA^{-1}B|.\]</div>
+  <p>特别地，对 \(\begin{pmatrix}I_m&-B\\C&I_n\end{pmatrix}\) 分别以 \(I_m\) 和 \(I_n\) 为主块：一方面等于 \(|I_n-C(-B)|=|I_n+CB|\)，另一方面等于 \(|I_m-(-B)C|=|I_m+BC|\)，得</p>
+  <div class="boxed-eq">\[|I_m+BC|=|I_n+CB|\]</div><p class="small" style="text-align:center">（\(B\) 为 \(m\times n\)，\(C\) 为 \(n\times m\)）</p>
+  <p class="small">左边是 \(m\) 阶行列式，右边是 \(n\) 阶行列式：当 \(n\) 远小于 \(m\) 时，可以把大行列式“降阶”成小行列式。例如 \(|I_n+\alpha\beta'|=1+\beta'\alpha\)（右边是 1 阶！）。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.6.4 <span class="src">教材第 102–103 页</span></div>
+  <p>计算 \(n\) 阶行列式 \(|M|\)，其中 \(M\) 的 \((i,i)\) 元为 \(a_i^2\)，\((i,j)\) 元（\(i\ne j\)）为 \(a_ia_j+1\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">观察：\(a_ia_j+1\) 是 \((a_i,1)\) 与 \((a_j,1)'\) 的乘积，而对角元比 \(a_i^2+1\) 少 1。所以 \[M=-I_n+UV,\quad U=\begin{pmatrix}a_1&1\\\vdots&\vdots\\a_n&1\end{pmatrix}_{n\times2},\quad V=U'=\begin{pmatrix}a_1&\cdots&a_n\\1&\cdots&1\end{pmatrix}.\]</div>
+    <div class="st">构造 \(n+2\) 阶分块矩阵 \(G=\begin{pmatrix}I_2&V\\-U&-I_n\end{pmatrix}\)。以 \(I_2\) 为主块：\(|G|=|I_2|\,\bigl|-I_n-(-U)I_2^{-1}V\bigr|=|-I_n+UV|=|M|\)。</div>
+    <div class="st">以 \(-I_n\) 为主块：\(|G|=|-I_n|\,\bigl|I_2-V(-I_n)^{-1}(-U)\bigr|=(-1)^n|I_2-VU|\)。\(n\) 阶行列式化成了 2 阶！</div>
+    <div class="st">\(VU=\begin{pmatrix}\sum a_i^2&\sum a_i\\\sum a_i&n\end{pmatrix}\)，所以 \[|M|=(-1)^n\begin{vmatrix}1-\sum a_i^2&-\sum a_i\\-\sum a_i&1-n\end{vmatrix}=(-1)^n\Bigl[(1-n)\bigl(1-\textstyle\sum a_i^2\bigr)-\bigl(\textstyle\sum a_i\bigr)^2\Bigr].\]</div>
+    <div class="st">验算：\(n=4\)，\(a=(1,2,-1,3)\)，\(\sum a_i^2=15\)，\(\sum a_i=5\)，\(|M|=(-3)(-14)-25=17\)（与上面实验中按钮“(aᵢaⱼ+1) 型”的结果一致）。</div>
+  </div>
+</div>
+
+<h3>分块三角矩阵的逆</h3>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.6.5 <span class="src">教材第 103 页</span></div>
+  <p>设 \(A,D\) 可逆，求 \(M=\begin{pmatrix}A&B\\O&D\end{pmatrix}\) 的逆。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(|M|=|A||D|\ne0\)，\(M\) 可逆。对 \(\left(\begin{array}{cc|cc}A&B&I&O\\O&D&O&I\end{array}\right)\) 做分块初等行变换。</div>
+    <div class="st">第二分块行左乘 \(D^{-1}\)：\(\left(\begin{array}{cc|cc}A&B&I&O\\O&I&O&D^{-1}\end{array}\right)\)；用 \(-B\) 左乘第二分块行加到第一分块行：\(\left(\begin{array}{cc|cc}A&O&I&-BD^{-1}\\O&I&O&D^{-1}\end{array}\right)\)。</div>
+    <div class="st">第一分块行左乘 \(A^{-1}\)：\[M^{-1}=\begin{pmatrix}A^{-1}&-A^{-1}BD^{-1}\\O&D^{-1}\end{pmatrix}.\]可以直接验证 \(MM^{-1}=I\)。</div>
+  </div>
+</div>
+
+<h2>六、分块方法计算行列式举例</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 <span class="src">习题 2.6 第 8 题</span></div>
+  <p>\(A,B\) 为 \(n\) 阶方阵，证明 \(\begin{vmatrix}A&B\\B&A\end{vmatrix}=|A+B|\,|A-B|\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">第二分块行加到第一分块行（第三类，行列式不变）：\(\begin{vmatrix}A+B&B+A\\B&A\end{vmatrix}\)。</div>
+    <div class="st">第二分块列减去第一分块列（第三类，右乘 \(-I\) 后加）：\(\begin{vmatrix}A+B&O\\B&A-B\end{vmatrix}\)。</div>
+    <div class="st">由引理 2.6.1 得 \(|A+B||A-B|\)。注意不能写成 \(|A^2-B^2|\)：\((A+B)(A-B)=A^2-AB+BA-B^2\)。</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 用降阶公式 <span class="src">习题 2.6 第 12 题</span></div>
+  <p>(1) \(\begin{vmatrix}0&2&3&\cdots&n\\1&0&3&\cdots&n\\1&2&0&\cdots&n\\\vdots&\vdots&\vdots&&\vdots\\1&2&3&\cdots&0\end{vmatrix}\)；(2) \(\bigl|\delta_{ij}+a_ia_j\bigr|_{n\times n}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">(2) 矩阵为 \(I_n+\alpha\alpha'\)，\(\alpha=(a_1,\dots,a_n)'\)。由 \(|I_n+\alpha\beta'|=1+\beta'\alpha\)，行列式为 \(1+a_1^2+\cdots+a_n^2\)。</div>
+    <div class="st">(1) \((i,j)\) 元：\(i\ne j\) 时为 \(j\)，\(i=j\) 时为 0。所以矩阵为 \(-\Lambda+\mathbf 1c'\)，\(\Lambda=\mathrm{diag}\{1,\dots,n\}\)，\(c=(1,2,\dots,n)'\)。</div>
+    <div class="st">\(|-\Lambda+\mathbf 1c'|=|-\Lambda|\,\bigl|I_n+(-\Lambda)^{-1}\mathbf 1c'\bigr|=(-1)^nn!\,\bigl(1-c'\Lambda^{-1}\mathbf 1\bigr)=(-1)^nn!\,(1-n)\)。（\(c'\Lambda^{-1}\mathbf 1=\sum_j j/j=n\)；\(n=2\) 时 \(\begin{vmatrix}0&2\\1&0\end{vmatrix}=-2\) ✓。）</div>
+  </div>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 分块协方差矩阵与 Schur 补</span>
+  <p>把随机向量分成两部分 \(X=\begin{pmatrix}X_1\\X_2\end{pmatrix}\)，协方差矩阵相应分块 \(\Sigma=\begin{pmatrix}\Sigma_{11}&\Sigma_{12}\\\Sigma_{21}&\Sigma_{22}\end{pmatrix}\)，其中 \(\Sigma_{21}=\Sigma_{12}'\)。</p>
+  <ul>
+    <li><b>条件协方差</b>：若 \(X\) 服从多元正态分布，给定 \(X_1\) 后 \(X_2\) 的条件协方差是 Schur 补 \[\Sigma_{22\cdot1}=\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12},\] 条件均值是 \(\mu_2+\Sigma_{21}\Sigma_{11}^{-1}(x_1-\mu_1)\)——\(\Sigma_{21}\Sigma_{11}^{-1}\) 正是回归系数。</li>
+    <li><b>广义方差的分解</b>：\(|\Sigma|=|\Sigma_{11}|\,|\Sigma_{22\cdot1}|\)，就是定理 2.6.1。</li>
+    <li><b>偏相关</b>：由 \(\Sigma_{22\cdot1}\) 标准化得到的相关系数叫偏相关系数，表示“扣除 \(X_1\) 的影响后”的相关性。</li>
+  </ul>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>分块乘法也要检查块尺寸：\(A\) 的列分法必须与 \(B\) 的行分法相同，每个块乘积都要有意义。不能只看大矩阵整体尺寸。</li>
+    <li>块乘积 \(A_{ik}B_{kj}\) 的顺序不能交换。</li>
+    <li>分块转置时，块的位置要转置，<b>每个块自身也要转置</b>。</li>
+    <li>\(\begin{vmatrix}A&B\\C&D\end{vmatrix}\ne|A||D|-|B||C|\)（一般）；正确的是 Schur 补公式。</li>
+    <li>\(|D-CA^{-1}B|\) 中的顺序 \(C\,A^{-1}B\) 不能乱：尺寸 \((n\times m)(m\times m)(m\times n)\)。</li>
+    <li>\(\begin{vmatrix}O&A\\C&O\end{vmatrix}=(-1)^{mn}|A||C|\)，不要漏掉符号。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">\(A=\begin{pmatrix}A_1&O\\O&A_2\end{pmatrix}\)，\(A_1=\begin{pmatrix}2&5\\1&3\end{pmatrix}\)，\(A_2=(4)\)。则 \(A^{-1}\) 的 \((3,3)\) 元与 \((1,2)\) 元分别为：</div><ol class="opts"><li>\(4,\ 5\)</li><li>\(\frac14,\ 5\)</li><li>\(\frac14,\ -5\)</li><li>\(-\frac14,\ -5\)</li></ol><div class="explain">\(A^{-1}=\mathrm{diag}\{A_1^{-1},A_2^{-1}\}\)，\(A_1^{-1}=\begin{pmatrix}3&-5\\-1&2\end{pmatrix}\)，\(A_2^{-1}=\frac14\)。</div></div>
+  <div class="fill" data-ans="-12"><div class="qt">\(A\) 为 2 阶、\(C\) 为 3 阶方阵，\(|A|=2\)，\(|C|=-6\)。则 \(\begin{vmatrix}O&A\\C&O\end{vmatrix}=\)？</div><div class="explain">\((-1)^{2\times3}|A||C|=2\times(-6)=-12\)。</div></div>
+  <div class="fill" data-ans="16"><div class="qt">\(\bigl|I_4+\alpha\alpha'\bigr|\)，\(\alpha=(1,2,-1,3)'\)，等于？</div><div class="explain">\(|I_n+\alpha\alpha'|=1+\alpha'\alpha=1+(1+4+1+9)=16\)：4 阶行列式降成了 1 阶。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(A\) 为 \(m\) 阶可逆阵，则 \(\begin{pmatrix}A&B\\C&D\end{pmatrix}\) 经第三类分块初等行变换可化为：</div><ol class="opts"><li>\(\begin{pmatrix}A&B\\O&D-CA^{-1}B\end{pmatrix}\)</li><li>\(\begin{pmatrix}A&B\\O&D-BA^{-1}C\end{pmatrix}\)</li><li>\(\begin{pmatrix}A&B\\O&D-A^{-1}BC\end{pmatrix}\)</li><li>\(\begin{pmatrix}A&O\\C&D-CA^{-1}B\end{pmatrix}\)</li></ol><div class="explain">左乘 \(\begin{pmatrix}I&O\\-CA^{-1}&I\end{pmatrix}\)。只有 \(CA^{-1}B\) 的尺寸是对的。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">按列分块 \(B=(\beta_1,\beta_2,\beta_3)\)，则 \(AB\) 的第 2 列是：</div><ol class="opts"><li>\(\beta_2A\)</li><li>\(A\beta_2\)</li><li>\(A\) 的第 2 列乘 \(\beta_2\)</li><li>\(\beta_2'A\)</li></ol><div class="explain">\(AB=(A\beta_1,A\beta_2,A\beta_3)\)。</div></div>
+</div>
+<details class="more"><summary>更多练习答案（习题 2.6 第 1、7、9、10 题）</summary><div class="dbody">
+  <p><b>1(1)</b>　\(\begin{pmatrix}5&-1&2&3\\5&0&9&1\\-2&-5&0&0\\0&-4&0&0\end{pmatrix}\)；<b>1(2)</b>　\(\begin{pmatrix}1&1&0&0\\0&0&-1&1\\0&0&1&1\\1&-1&0&2\end{pmatrix}\)。</p>
+  <p><b>7</b>　\(A,B\) 可逆时 \(\begin{pmatrix}O&A\\B&O\end{pmatrix}^{-1}=\begin{pmatrix}O&B^{-1}\\A^{-1}&O\end{pmatrix}\)（直接相乘验证）。</p>
+  <p><b>9</b>　\(\begin{vmatrix}A&-B\\B&A\end{vmatrix}=|A+\mathrm iB|\,|A-\mathrm iB|\)：第二分块行乘 \(\mathrm i\) 加到第一分块行，再第一分块列乘 \(-\mathrm i\) 加到第二分块列。</p>
+  <p><b>10</b>　\(AB=BA\) 且 \(A\) 可逆时，\(\begin{vmatrix}A&-B\\B&A\end{vmatrix}=|A|\,|A+BA^{-1}B|=|A(A+BA^{-1}B)|=|A^2+ABA^{-1}B|=|A^2+B^2|\)（用了 \(AB=BA\)）；\(A\) 不可逆时用摄动法（第五章）。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>分块：同一块行行数相同，同一块列列数相同；加法、数乘、乘法都“把块当作数”，但块乘积不交换。</li>
+  <li>分块对角阵各块分别运算；\(AB=(A\beta_1,\dots,A\beta_p)\)。</li>
+  <li>转置：块位置与块本身都转置。</li>
+  <li>分块初等变换 = 乘分块初等矩阵；第三类不改变行列式。</li>
+  <li>\(\begin{vmatrix}A&B\\O&C\end{vmatrix}=|A||C|\)；\(\begin{vmatrix}A&B\\C&D\end{vmatrix}=|A|\,|D-CA^{-1}B|\)；\(|I_m+BC|=|I_n+CB|\)。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>先用例 2.6.1 让学生体会“分块不是新运算”：分块算出的结果与直接相乘完全一样。</li>
+  <li>Schur 补公式用二阶 \(\begin{vmatrix}a&b\\c&d\end{vmatrix}=a(d-ca^{-1}b)\) 类比引入，学生很容易接受。</li>
+  <li>对统计专业，条件协方差 \(\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}\) 是 Schur 补最好的应用实例，后续多元统计课程会反复出现。</li>
+</ul></div></details>
+</template>

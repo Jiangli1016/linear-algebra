@@ -1,0 +1,125 @@
+<template data-chapter="2" data-route="s2-1" data-num="§2.1" data-short="矩阵的概念" data-group="第一阶段 · 建立矩阵语言">
+<header class="page-head">
+  <span class="det-eyebrow">§2.1</span>
+  <h1>矩阵的概念</h1>
+  <p class="lede">一个 \(n\) 阶行列式从形式上看，是把 \(n^2\) 个数排成 \(n\) 行 \(n\) 列。在许多实际问题中，我们还会遇到排成若干行、若干列的<b>长方形数表</b>，并且需要把它作为<b>一个整体</b>来处理——这就是矩阵。</p>
+  <div class="meta-row"><span class="pill acc">建议 0.5 学时</span><span class="pill">教材第 57–60 页</span><span class="pill">关键词：对象与尺寸</span></div>
+  <ul class="goals">
+    <li>掌握矩阵的正式定义</li>
+    <li>理解矩阵的行数、列数和元素下标</li>
+    <li>掌握方阵、零矩阵、对角矩阵、数量矩阵、单位矩阵</li>
+    <li>掌握上三角矩阵、下三角矩阵</li>
+    <li>掌握行矩阵、列矩阵及行向量、列向量</li>
+    <li>理解两个矩阵相等的条件</li>
+    <li>理解只有方阵才能谈行列式</li>
+  </ul>
+</header>
+
+<h2>矩阵的定义</h2>
+<div class="box def"><span class="tag">定义 2.1.1<em>矩阵</em></span>
+  <p>由 \(mn\) 个数 \(a_{ij}\ (i=1,\dots,m;\ j=1,\dots,n)\) 排成 \(m\) 行、\(n\) 列的矩形阵列</p>
+  <div class="boxed-eq">\[A=\begin{pmatrix}a_{11}&a_{12}&\cdots&a_{1n}\\a_{21}&a_{22}&\cdots&a_{2n}\\\vdots&\vdots&&\vdots\\a_{m1}&a_{m2}&\cdots&a_{mn}\end{pmatrix}\]</div>
+  <p>称为一个 <b>\(m\) 行 \(n\) 列矩阵</b>，简称 \(m\times n\) 矩阵，简记为 \(A=(a_{ij})_{m\times n}\)。</p>
+</div>
+<ul>
+  <li>\(m\) 写在前面表示共有 \(m\) 行，\(n\) 写在后面表示共有 \(n\) 列：<b>先行后列</b>。</li>
+  <li>\(a_{ij}\) 称为 \(A\) 的第 \(i\) 行第 \(j\) 列元素，或 \((i,j)\) 元素：第一个下标 \(i\) 指行，第二个下标 \(j\) 指列。</li>
+  <li>矩阵常用大写字母表示，用圆括号（或方括号）把整个数表括起来；行列式用竖线。</li>
+</ul>
+<div class="box note"><span class="tag">实矩阵与复矩阵</span>
+  <p>元素全是实数的矩阵称为<b>实矩阵</b>；允许元素为复数的称为<b>复矩阵</b>。本课程的统计应用主要用实矩阵，但复矩阵在 §2.2 的共轭运算和以后的特征值理论中都会出现。</p>
+</div>
+
+<h2>方阵与特殊矩阵</h2>
+<p>行数等于列数（\(m=n\)）的矩阵称为 <b>\(n\) 阶方阵</b>；行列数不相等的称为<b>长方阵</b>。方阵中 \(a_{11},a_{22},\dots,a_{nn}\) 称为<b>主对角线</b>元素。方阵在矩阵理论中占有特别重要的地位。</p>
+<div class="tw"><table class="t l">
+  <tr><th>名称</th><th>条件</th><th>形状</th><th>记号</th></tr>
+  <tr><td>零矩阵</td><td>所有元素为 0（任意尺寸）</td><td>\(\begin{pmatrix}0&0&0\\0&0&0\end{pmatrix}\)</td><td>\(O_{m\times n}\) 或 \(O\)</td></tr>
+  <tr><td>对角矩阵</td><td>方阵，\(a_{ij}=0\ (i\ne j)\)</td><td>\(\begin{pmatrix}a_{11}&&\\&\ddots&\\&&a_{nn}\end{pmatrix}\)</td><td>\(\operatorname{diag}(a_{11},\dots,a_{nn})\)</td></tr>
+  <tr><td>数量矩阵</td><td>对角阵且 \(a_{11}=\cdots=a_{nn}=c\)</td><td>\(\begin{pmatrix}c&&\\&\ddots&\\&&c\end{pmatrix}\)</td><td>\(cI_n\)</td></tr>
+  <tr><td>单位矩阵</td><td>数量矩阵且 \(c=1\)</td><td>\(\begin{pmatrix}1&&\\&\ddots&\\&&1\end{pmatrix}\)</td><td>\(I_n\)</td></tr>
+  <tr><td>上三角矩阵</td><td>方阵，\(a_{ij}=0\ (i\gt j)\)</td><td>\(\begin{pmatrix}a_{11}&\cdots&a_{1n}\\&\ddots&\vdots\\0&&a_{nn}\end{pmatrix}\)</td><td>主对角线<b>以下</b>全为 0</td></tr>
+  <tr><td>下三角矩阵</td><td>方阵，\(a_{ij}=0\ (i\lt j)\)</td><td>\(\begin{pmatrix}a_{11}&&0\\\vdots&\ddots&\\a_{n1}&\cdots&a_{nn}\end{pmatrix}\)</td><td>主对角线<b>以上</b>全为 0</td></tr>
+</table></div>
+<div class="box warn"><span class="tag">注意</span>
+  <p>零矩阵 \(O\) <b>不是一个数</b>，而是一个矩阵。不同尺寸的零矩阵不是同一个矩阵：\(O_{2\times2}\ne O_{2\times3}\)。同样，单位矩阵 \(I_n\) 也有阶数，\(I_2\) 和 \(I_3\) 不同。</p>
+</div>
+<p>这些名称之间有包含关系：</p>
+<ol class="flow"><li>单位矩阵</li><li class="arr">⊂</li><li>数量矩阵</li><li class="arr">⊂</li><li>对角矩阵</li><li class="arr">⊂</li><li>上（下）三角矩阵</li><li class="arr">⊂</li><li>方阵</li></ol>
+<p>对角矩阵既是上三角矩阵，也是下三角矩阵；反过来，既上三角又下三角的方阵一定是对角矩阵。</p>
+
+<h2>矩阵相等</h2>
+<div class="box def"><span class="tag">定义<em>矩阵相等</em></span>
+  <p>设 \(A=(a_{ij})_{m\times n}\)，\(B=(b_{ij})_{s\times t}\)。\(A=B\) 当且仅当</p>
+  <ol><li>\(m=s,\ n=t\)（<b>同型</b>）；</li><li>对所有 \(i,j\) 都有 \(a_{ij}=b_{ij}\)。</li></ol>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 矩阵相等的“陷阱” <span class="src">教材第 59 页</span></div>
+  <p>判断下列两组矩阵是否相等：(1) \(\begin{pmatrix}0&0\\0&0\end{pmatrix}\) 与 \(\begin{pmatrix}0&0&0\\0&0&0\end{pmatrix}\)；(2) \(\begin{pmatrix}1&1\\0&0\end{pmatrix}\) 与 \(\begin{pmatrix}1&0\\0&1\end{pmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">(1) 都是零矩阵，也常用同一个符号 \(O\) 表示，但一个是 \(2\times2\)、一个是 \(2\times3\)，不同型，<b>不相等</b>。</div>
+    <div class="st">(2) 都是二阶方阵，都含两个 0 与两个 1，但 \((1,2)\) 元一个是 1、一个是 0，<b>不相等</b>。矩阵相等要求“完全一样”：位置也算数。</div>
+  </div>
+</div>
+
+<h2>行向量与列向量</h2>
+<p>矩阵的每一行称为它的一个<b>行向量</b>，每一列称为它的一个<b>列向量</b>。</p>
+<div class="w-grid">
+  <div class="box def"><span class="tag">\(n\) 维行向量</span><p>\(1\times n\) 矩阵 \((a_1,a_2,\dots,a_n)\)。</p></div>
+  <div class="box def"><span class="tag">\(n\) 维列向量</span><p>\(n\times1\) 矩阵 \(\begin{pmatrix}a_1\\a_2\\\vdots\\a_n\end{pmatrix}\)，常写成 \((a_1,\dots,a_n)'\)。</p></div>
+</div>
+<p>行向量与列向量<b>不是同一个矩阵</b>（一个 \(1\times n\)，一个 \(n\times1\)），后面会看到，它们一个乘另一个，按顺序不同会得到一个数或一个 \(n\) 阶方阵。</p>
+<p>一个 \(m\times n\) 矩阵可以看成 \(m\) 个 \(n\) 维行向量叠起来，也可以看成 \(n\) 个 \(m\) 维列向量并排放着：</p>
+\[A=\begin{pmatrix}\alpha_1\\\alpha_2\\\vdots\\\alpha_m\end{pmatrix}=(\beta_1,\beta_2,\dots,\beta_n).\]
+<p>这两种看法在 §2.6 的分块乘法和第三章的向量组理论中都非常有用。</p>
+
+<h2>矩阵与行列式</h2>
+<div class="box warn"><span class="tag">特别强调</span>
+  <p>矩阵就是一张矩形数表；而行列式（只对方阵而言）是这个方阵所对应的<b>一个数值</b>。若 \(A\) 是 \(n\) 阶方阵，用 \(|A|\) 或 \(\det A\) 表示它的行列式；对长方阵 (\(m\ne n\)) 而言，谈论其行列式<b>没有意义</b>。</p>
+</div>
+<div class="tw"><table class="t l">
+  <tr><th></th><th>矩阵 \(A\)</th><th>行列式 \(|A|\)</th></tr>
+  <tr><td>是什么</td><td>一张 \(m\times n\) 的数表（对象）</td><td>一个数</td></tr>
+  <tr><td>尺寸</td><td>任意 \(m\times n\)</td><td>只对方阵定义</td></tr>
+  <tr><td>括号</td><td>\(\begin{pmatrix}1&2\\3&4\end{pmatrix}\)</td><td>\(\begin{vmatrix}1&2\\3&4\end{vmatrix}=-2\)</td></tr>
+  <tr><td>乘一个数 \(c\)</td><td>每个元素都乘 \(c\)（§2.2）</td><td>只有一行乘 \(c\) 才得 \(c|A|\)；\(|cA|=c^n|A|\)</td></tr>
+  <tr><td>相等</td><td>同型且元素逐个相等</td><td>两个数相等即可（不同矩阵可以有相同行列式）</td></tr>
+</table></div>
+
+<div class="box stat"><span class="tag">统计视角 · 数据矩阵</span>
+  <p>调查 \(n\) 名学生的 \(p\) 门课程成绩，排成 \(n\times p\) 的<b>数据矩阵</b> \(X=(x_{ij})\)：第 \(i\) 行是第 \(i\) 名学生（一个观测），第 \(j\) 列是第 \(j\) 门课（一个变量）。例如 4 名学生、3 门课：</p>
+  \[X=\begin{pmatrix}82&75&90\\68&80&72\\91&88&95\\74&69&81\end{pmatrix}_{4\times3}.\]
+  <p>统计软件（R、Python 的 pandas）里的数据框就是这样的矩阵；后面的样本均值、协方差矩阵、回归系数，都是对它做矩阵运算得到的。“先行后列”在这里就是“先观测、后变量”。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ol>
+    <li>零矩阵的尺寸不能忽略：\(O_{2\times2}\ne O_{2\times3}\)。</li>
+    <li>单位矩阵也有阶数：\(I_2\ne I_3\)。</li>
+    <li>“矩阵相等”首先要求同型，然后才比较元素。</li>
+    <li>行向量与列向量不是同一个矩阵。</li>
+    <li>行列式只对方阵定义；\(2\times3\) 矩阵没有行列式。</li>
+    <li>不要把矩阵写成竖线（那是行列式）。</li>
+  </ol>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">矩阵 \(\begin{pmatrix}1&0&2\\-1&3&5\end{pmatrix}\) 的 \((2,3)\) 元素是：</div><ol class="opts"><li>2</li><li>3</li><li>5</li><li>0</li></ol><div class="explain">\((2,3)\) 元：第 2 行第 3 列，是 5。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">下列说法正确的是：</div><ol class="opts"><li>任何矩阵都有行列式</li><li>对角矩阵一定是上三角矩阵</li><li>上三角矩阵一定是对角矩阵</li><li>\(O_{2\times2}=O_{3\times3}\)</li></ol><div class="explain">对角矩阵主对角线以下全为 0，所以是上三角矩阵；反过来不对。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(\begin{pmatrix}x&2\\y&x+y\end{pmatrix}=\begin{pmatrix}1&z\\3&w\end{pmatrix}\)，则 \(w=\)？</div><ol class="opts"><li>1</li><li>2</li><li>3</li><li>4</li></ol><div class="explain">逐个元素相等：\(x=1,\ z=2,\ y=3,\ w=x+y=4\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">一个 \(30\times5\) 的数据矩阵表示：</div><ol class="opts"><li>30 个观测、5 个变量</li><li>5 个观测、30 个变量</li><li>一个 5 阶方阵</li><li>它的行列式为 150</li></ol><div class="explain">先行后列：行是观测，列是变量。长方阵没有行列式。</div></div>
+</div>
+
+<h2>本节小结</h2>
+<ul>
+  <li>矩阵是 \(m\times n\) 的数表，整体作为一个对象；\(a_{ij}\) 先行后列。</li>
+  <li>特殊矩阵：零矩阵、方阵、对角阵、数量阵 \(cI_n\)、单位阵 \(I_n\)、上（下）三角阵；行（列）向量。</li>
+  <li>矩阵相等 = 同型 + 对应元素相等。</li>
+  <li>行列式只对方阵定义，是一个数；矩阵是对象。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>本节内容不难，重点是“尺寸意识”。可以让学生给出几组“看起来一样但不相等”的矩阵。</li>
+  <li>用数据矩阵的例子说明“为什么需要把数表当作整体”：统计软件的一次运算就是对整张表的运算。</li>
+</ul></div></details>
+</template>

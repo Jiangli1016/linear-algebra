@@ -1,0 +1,184 @@
+<template data-chapter="2" data-route="c2-summary" data-num="小结" data-short="知识结构与易错点" data-group="收束">
+<header class="page-head">
+  <span class="det-eyebrow">本章小结</span>
+  <h1>知识结构与易错点</h1>
+  <p class="lede">完成第二章以后，对“矩阵”不应该只停留在“一个数表”。最重要的不是孤立记住几十条公式，而是建立三个观念：<b>矩阵是一种代数对象</b>；<b>初等变换是矩阵化简的基本工具</b>；<b>可逆性把矩阵运算、行列式与线性方程组连接起来</b>。</p>
+</header>
+
+<h2>第二章知识结构总表</h2>
+<div class="tw"><table class="t l">
+  <tr><th>小节</th><th>核心问题</th><th>主要内容</th><th>核心关键词</th></tr>
+  <tr><td><a href="#s2-1">§2.1</a></td><td>矩阵是什么？</td><td>矩阵、方阵、特殊矩阵、向量</td><td>对象与尺寸</td></tr>
+  <tr><td><a href="#s2-2">§2.2</a></td><td>矩阵怎样运算？</td><td>加法、数乘、乘法、转置、共轭</td><td>运算规则</td></tr>
+  <tr><td><a href="#s2-3">§2.3</a></td><td>矩阵什么时候有“倒数”？</td><td>逆矩阵、伴随矩阵、可逆判定</td><td>可逆性</td></tr>
+  <tr><td><a href="#s2-4">§2.4</a></td><td>矩阵怎样系统化简？</td><td>初等变换、阶梯形、初等矩阵、相抵（等价）</td><td>变换与等价</td></tr>
+  <tr><td><a href="#s2-5">§2.5</a></td><td>初等变换怎样连接逆矩阵和行列式？</td><td>乘积行列式、初等变换法求逆、矩阵方程</td><td>运算与算法</td></tr>
+  <tr><td><a href="#s2-6">§2.6</a></td><td>大矩阵怎样按结构拆开？</td><td>分块矩阵、分块初等变换、Schur 补</td><td>分块结构</td></tr>
+  <tr><td><a href="#s2-7">*§2.7</a></td><td>\(|AB|=|A||B|\) 怎样推广？</td><td>Cauchy–Binet、主子式、不等式</td><td>子式与推广</td></tr>
+</table></div>
+
+<h2>必须掌握的定义清单</h2>
+<p class="small muted">学生至少应能准确叙述下面每一个定义。</p>
+<ul class="checklist" data-widget="checklist" data-key="defs2">
+  <li><label><input type="checkbox"> \(m\times n\) 矩阵</label></li>
+  <li><label><input type="checkbox"> 方阵</label></li>
+  <li><label><input type="checkbox"> 对角矩阵</label></li>
+  <li><label><input type="checkbox"> 数量矩阵</label></li>
+  <li><label><input type="checkbox"> 单位矩阵</label></li>
+  <li><label><input type="checkbox"> 上三角、下三角矩阵</label></li>
+  <li><label><input type="checkbox"> 零矩阵</label></li>
+  <li><label><input type="checkbox"> 行向量、列向量</label></li>
+  <li><label><input type="checkbox"> 矩阵加法</label></li>
+  <li><label><input type="checkbox"> 矩阵数乘</label></li>
+  <li><label><input type="checkbox"> 矩阵乘法</label></li>
+  <li><label><input type="checkbox"> 转置矩阵</label></li>
+  <li><label><input type="checkbox"> 对称矩阵</label></li>
+  <li><label><input type="checkbox"> 反对称矩阵</label></li>
+  <li><label><input type="checkbox"> 共轭矩阵</label></li>
+  <li><label><input type="checkbox"> 逆矩阵</label></li>
+  <li><label><input type="checkbox"> 可逆矩阵（非异阵）与奇异矩阵</label></li>
+  <li><label><input type="checkbox"> 伴随矩阵</label></li>
+  <li><label><input type="checkbox"> 初等行（列）变换</label></li>
+  <li><label><input type="checkbox"> 矩阵相抵（等价）</label></li>
+  <li><label><input type="checkbox"> 阶梯形矩阵（阶梯点）</label></li>
+  <li><label><input type="checkbox"> 初等矩阵 \(P_{ij},\ P_i(c),\ T_{ij}(c)\)</label></li>
+  <li><label><input type="checkbox"> 分块矩阵</label></li>
+  <li><label><input type="checkbox"> 分块对角矩阵</label></li>
+  <li><label><input type="checkbox"> \(k\) 阶子式（沿用第一章）</label></li>
+  <li><label><input type="checkbox"> Cauchy–Binet 公式中的子式记号</label></li>
+</ul>
+
+<h2>必须掌握的定理与公式清单</h2>
+<div class="w-grid">
+  <div class="box thm"><span class="tag">矩阵运算</span>
+    \[(m\times k)(k\times n)\rightarrow m\times n\]
+    \[c_{ij}=\sum_{r=1}^k a_{ir}b_{rj}\]
+    \[(AB)'=B'A'\]
+    <p class="small">结合律、分配律成立；交换律、消去律不成立。</p>
+  </div>
+  <div class="box thm"><span class="tag">逆矩阵</span>
+    \[(AB)^{-1}=B^{-1}A^{-1}\]
+    \[AA^*=A^*A=|A|I_n\]
+    \[A\text{ 可逆}\iff|A|\ne0\]\[A^{-1}=\frac1{|A|}A^*\]
+  </div>
+  <div class="box thm"><span class="tag">初等变换</span>
+    \[A\sim\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\]
+    <p>一次初等<b>行</b>变换 \(\iff\) <b>左</b>乘一个初等矩阵；一次初等<b>列</b>变换 \(\iff\) <b>右</b>乘一个初等矩阵。</p>
+    <p class="small">\(|P_{ij}|=-1,\ |P_i(c)|=c,\ |T_{ij}(c)|=1\)；逆仍是同类初等矩阵。</p>
+  </div>
+  <div class="box thm"><span class="tag">乘积行列式</span>
+    \[|AB|=|A||B|,\qquad|A^{-1}|=|A|^{-1}\]
+    <p class="small">非异阵 = 初等矩阵之积；方阵 \(AB=I\Rightarrow BA=I\)。</p>
+  </div>
+  <div class="box thm"><span class="tag">初等变换法求逆</span>
+    <div class="eqs"><span>\((A\mid I)\rightarrow(I\mid A^{-1})\)</span><span>\((A\mid B)\rightarrow(I\mid A^{-1}B)\)</span></div>
+    <p class="small">只做初等行变换。</p>
+  </div>
+  <div class="box thm"><span class="tag">分块矩阵</span>
+    \[\begin{vmatrix}A&B\\O&C\end{vmatrix}=|A||C|\]
+    \[\begin{vmatrix}A&B\\C&D\end{vmatrix}=|A|\,|D-CA^{-1}B|\]
+    \[|I_m+BC|=|I_n+CB|\]
+  </div>
+  <div class="box thm"><span class="tag">Cauchy–Binet</span>
+    \[|AB|=\sum_{j_1\lt\cdots\lt j_m}A\begin{pmatrix}1\cdots m\\j_1\cdots j_m\end{pmatrix}B\begin{pmatrix}j_1\cdots j_m\\1\cdots m\end{pmatrix}\]
+    <p class="small">即 \(\sum(A\text{ 的相应子式})(B\text{ 的相应子式})\)；\(m\gt n\) 时 \(|AB|=0\)。</p>
+  </div>
+  <div class="box thm"><span class="tag">常用结论</span>
+    <ul class="small">
+      <li>\(|cA|=c^n|A|\)，\(|A'|=|A|\)，\(|A^*|=|A|^{n-1}\)</li>
+      <li>\(\begin{pmatrix}a&b\\c&d\end{pmatrix}^{-1}=\dfrac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}\)</li>
+      <li>\(\mathrm{diag}\{A_1,\dots,A_k\}^{-1}=\mathrm{diag}\{A_1^{-1},\dots,A_k^{-1}\}\)</li>
+      <li>\(\begin{pmatrix}A&B\\O&D\end{pmatrix}^{-1}=\begin{pmatrix}A^{-1}&-A^{-1}BD^{-1}\\O&D^{-1}\end{pmatrix}\)</li>
+      <li>\(\alpha\beta'\) 型矩阵：\((\alpha\beta')^k=(\beta'\alpha)^{k-1}\alpha\beta'\)</li>
+    </ul>
+  </div>
+</div>
+
+<h2>最需要反复强调的易错点</h2>
+<div class="tw"><table class="t l">
+  <tr><th>#</th><th>易错点</th><th>正确认识</th></tr>
+  <tr><td>1</td><td>矩阵加法与乘法的尺寸条件不同</td><td>相加：<b>必须同型</b>；相乘：<b>内维相等</b></td></tr>
+  <tr><td>2</td><td>把数的代数习惯搬到矩阵上</td><td>\(AB\ne BA\)；\((A+B)^2\ne A^2+2AB+B^2\)；\(AB=O\not\Rightarrow A=O\text{ 或 }B=O\)</td></tr>
+  <tr><td>3</td><td>乘积的转置与逆不反序</td><td>\((AB)'=B'A'\)，\((AB)^{-1}=B^{-1}A^{-1}\)</td></tr>
+  <tr><td>4</td><td>“非零矩阵”当作“可逆矩阵”</td><td>即使 \(A\ne O\)，也可能 \(|A|=0\)。可逆的正确条件是 \(|A|\ne0\)</td></tr>
+  <tr><td>5</td><td>初等变换与左右乘混淆</td><td>行变换 ↔ 左乘；列变换 ↔ 右乘。这是 §2.4 最容易混淆的地方</td></tr>
+  <tr><td>6</td><td>求逆时行列变换混用</td><td>只对 \((A\mid I)\) 做相同的行变换，不能一边行变换，一边列变换</td></tr>
+  <tr><td>7</td><td>分块乘法只看整体尺寸</td><td>每个块乘积也必须有意义：\(A\) 的列分法 = \(B\) 的行分法</td></tr>
+  <tr><td>8</td><td>伴随矩阵忘记转置</td><td>\(A^*\) 的 \((i,j)\) 元是 \(A_{ji}\)</td></tr>
+  <tr><td>9</td><td>\(|2A|=2|A|\)</td><td>\(|2A|=2^n|A|\)：矩阵数乘是每个元素都乘</td></tr>
+  <tr><td>10</td><td>\(|A+B|=|A|+|B|\)</td><td>行列式对乘法是“乘性”的，对加法没有简单公式</td></tr>
+  <tr><td>11</td><td>\(XA=B\) 解成 \(X=A^{-1}B\)</td><td>\(X=BA^{-1}\)：从哪边乘，就从哪边消</td></tr>
+</table></div>
+
+<h2>第二章最后应形成的整体认识</h2>
+<ol class="flow v">
+  <li class="key">矩阵</li><li class="arr">↓</li>
+  <li>具有尺寸的代数对象</li><li class="arr">↓</li>
+  <li>可以加、数乘、相乘</li><li class="arr">↓</li>
+  <li>乘法一般不交换</li><li class="arr">↓</li>
+  <li>方阵中有一部分矩阵可逆</li><li class="arr">↓</li>
+  <li class="key">可逆性 ⇔ 行列式非零</li><li class="arr">↓</li>
+  <li>初等变换可以系统地化简矩阵</li><li class="arr">↓</li>
+  <li class="key">初等变换 = 初等矩阵乘法</li><li class="arr">↓</li>
+  <li>可逆矩阵 = 初等矩阵乘积</li><li class="arr">↓</li>
+  <li>初等变换可用于求逆、解方程</li><li class="arr">↓</li>
+  <li>分块矩阵进一步利用内部结构</li><li class="arr">↓</li>
+  <li class="key">Cauchy–Binet 将乘积行列式推广到一般子式</li>
+</ol>
+<div class="stage-grid">
+  <div class="box idea"><span class="tag">观念一</span><p class="eq-txt">矩阵是一种代数对象</p></div>
+  <div class="box idea"><span class="tag">观念二</span><p class="eq-txt">初等变换是矩阵化简的基本工具</p></div>
+  <div class="box idea"><span class="tag">观念三</span><p class="eq-txt">可逆性连接矩阵运算、行列式与方程组</p></div>
+</div>
+<p>这三个观念会直接进入后面的矩阵秩、线性空间、线性映射、特征值以及二次型理论。</p>
+
+<h2>“\(A\) 可逆”的等价说法（到目前为止）</h2>
+<div class="box prop"><span class="tag">对 \(n\) 阶方阵 \(A\)，下列说法等价</span>
+  <ol>
+    <li>\(A\) 可逆（存在 \(B\) 使 \(AB=BA=I\)）；</li>
+    <li>存在 \(B\) 使 \(AB=I\)（或 \(BA=I\)）——只需一边；</li>
+    <li>\(|A|\ne0\)；</li>
+    <li>\(A\) 与 \(I_n\) 相抵（相抵标准型中 \(r=n\)）；</li>
+    <li>\(A\) 只用初等行变换就能化成 \(I_n\)；</li>
+    <li>\(A\) 可以写成有限个初等矩阵的乘积；</li>
+    <li>对任意 \(\beta\)，方程组 \(Ax=\beta\) 有唯一解。</li>
+  </ol>
+  <p class="small">第三章会继续添加：\(A\) 的秩为 \(n\)；\(A\) 的列向量线性无关；\(Ax=0\) 只有零解……</p>
+</div>
+
+<h2>与后续课程的联系</h2>
+<div class="w-grid">
+  <div class="box idea"><span class="tag">高等代数后续章节</span>
+    <ul>
+      <li><b>第三章 线性空间</b>：相抵标准型中的 \(r\) 就是秩；\(PAQ=\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\) 反复使用。</li>
+      <li><b>线性映射</b>：矩阵乘法 = 线性映射的复合，这正是乘法“这样定义”的根本原因。</li>
+      <li><b>特征值</b>：\(P^{-1}AP\)（相似）、\(A^k\) 的计算、马尔可夫链的平稳分布。</li>
+      <li><b>二次型</b>：\(x'Ax\)、\(C'AC\)（合同）；\(AA'\) 主子式非负 → 半正定。</li>
+    </ul>
+  </div>
+  <div class="box stat"><span class="tag">统计学</span>
+    <ul>
+      <li><b>回归分析</b>：\(\hat\beta=(X'X)^{-1}X'y\)，\(\operatorname{Cov}(\hat\beta)=\sigma^2(X'X)^{-1}\)；帽子矩阵 \(H=X(X'X)^{-1}X'\) 满足 \(H^2=H\)（幂等阵，习题 2.3 第 10 题）。</li>
+      <li><b>多元统计</b>：协方差矩阵 \(S=\frac1{n-1}X_c'X_c\) 对称；条件协方差是 Schur 补；广义方差 \(|S|\)。</li>
+      <li><b>随机过程</b>：马尔可夫链的 \(k\) 步转移矩阵 \(P^k\)。</li>
+      <li><b>相关分析</b>：Cauchy–Schwarz 不等式 ⇒ \(|r|\le1\)。</li>
+    </ul>
+  </div>
+</div>
+
+<h2>历史小记</h2>
+<ol class="timeline">
+  <li><span class="y">公元前后</span>《九章算术》“方程”章用算筹排成的数表求解线性方程组，做法与今天对增广矩阵做初等行变换相同。</li>
+  <li><span class="y">1812 年</span>Binet 与 Cauchy 分别给出长方阵乘积的行列式公式，即今天的 Cauchy–Binet 公式。</li>
+  <li><span class="y">19 世纪初</span>Gauss 在天文与测地计算中系统使用消去法（Gauss 消去法）和最小二乘法。</li>
+  <li><span class="y">1850 年</span>Sylvester 首先使用 “matrix”（矩阵）一词，指“产生”各阶子式的数表。</li>
+  <li><span class="y">1858 年</span>Cayley 发表《矩阵论的研究报告》，把矩阵作为独立对象，定义了加法、数乘、乘法与逆矩阵，并指出乘法不满足交换律。</li>
+  <li><span class="y">1917 年</span>Schur 研究分块矩阵的行列式；“Schur 补”这个名称由 Haynsworth 于 1968 年提出。</li>
+</ol>
+<p class="small muted">（据数学史资料整理）矩阵从行列式的“附属品”逐渐成为独立的研究对象，这正是本章“从数到对象”的视角转变。</p>
+<details class="tnote"><summary>教学提示 · 复习课建议</summary><div class="dbody"><ul>
+  <li>先用“知识结构总表”串一遍，再让学生对照定义清单自查。</li>
+  <li>“\(A\) 可逆的等价说法”可以让学生自己补充每两条之间的推导，是很好的综合复习题。</li>
+  <li>易错点表格可以改编成判断题，在课堂上限时作答。</li>
+</ul></div></details>
+</template>

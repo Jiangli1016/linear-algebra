@@ -1,0 +1,213 @@
+<template data-chapter="2" data-route="s2-3" data-num="§2.3" data-short="方阵的逆阵" data-group="第二阶段 · 可逆性理论">
+<header class="page-head">
+  <span class="det-eyebrow">§2.3</span>
+  <h1>方阵的逆阵</h1>
+  <p class="lede">矩阵有加法、减法和乘法，那么有没有除法呢？对数来说，\(a\ne0\) 时 \(b\div a=a^{-1}b\)，关键是 \(a^{-1}\) 满足 \(aa^{-1}=a^{-1}a=1\)。把 1 换成单位阵 \(I_n\)，就得到“逆矩阵”的概念。</p>
+  <div class="meta-row"><span class="pill acc">建议 1–2 学时</span><span class="pill">教材第 71–76 页</span><span class="pill">关键词：A 可逆 ⇔ |A| ≠ 0</span></div>
+  <ul class="goals">
+    <li>掌握逆矩阵的定义；理解逆矩阵只对方阵讨论</li>
+    <li>掌握逆矩阵的唯一性与运算规则</li>
+    <li>掌握伴随矩阵的定义与 \(AA^*=A^*A=|A|I_n\)</li>
+    <li>掌握方阵可逆的判定条件，会用伴随矩阵求逆</li>
+    <li>理解逆矩阵与 Cramer 法则的联系</li>
+  </ul>
+</header>
+
+<h2>一、逆矩阵的定义</h2>
+<div class="box def"><span class="tag">定义 2.3.1<em>逆矩阵</em></span>
+  <p>设 \(A\) 是 \(n\) 阶方阵。若存在一个 \(n\) 阶方阵 \(B\)，使</p>
+  <div class="boxed-eq">\[AB=BA=I_n,\]</div>
+  <p>则称 \(B\) 为 \(A\) 的<b>逆矩阵</b>（简称逆阵），记作 \(B=A^{-1}\)。此时称 \(A\) 为<b>可逆矩阵</b>，或<b>非奇异矩阵</b>（非异阵）；若不存在逆矩阵，则称 \(A\) 为<b>奇异矩阵</b>（奇异阵）。</p>
+</div>
+<p>定义中的 \(A\) 与 \(B\) 地位对称：\(B\) 是 \(A\) 的逆，\(A\) 也是 \(B\) 的逆。关于这个定义，教材提醒了三点：</p>
+<div class="stage-grid">
+  <div class="box note"><span class="tag">注意 (1) · 只有方阵</span>
+    <p>只有方阵才讨论逆矩阵。长方阵不按上述定义讨论逆矩阵（\(AB\) 和 \(BA\) 尺寸不同，不可能都等于同一个 \(I_n\)）。</p>
+  </div>
+  <div class="box note"><span class="tag">注意 (2) · 非零 ≠ 可逆</span>
+    <p>与数不同，<b>非零方阵未必可逆</b>。例如 \(A=\begin{pmatrix}1&1\\0&0\end{pmatrix}\)：对任意二阶方阵 \(B\)，\(AB\) 的第二行总是零，不可能等于 \(I_2\)。</p>
+    <p class="small">一般地，有一行或一列全为零的方阵不可逆（习题 2.3 第 3 题）。</p>
+  </div>
+  <div class="box note"><span class="tag">注意 (3) · 左除 ≠ 右除</span>
+    <p>由于乘法不交换，\(AB^{-1}\) 与 \(B^{-1}A\) 一般不相等，所以不能写 \(\dfrac AB\) 这样的记号：“除以 \(B\)”必须说清楚是左乘还是右乘 \(B^{-1}\)。</p>
+  </div>
+</div>
+
+<h2>二、逆矩阵的基本事实</h2>
+<div class="box prop"><span class="tag">逆矩阵是唯一的</span>
+  <p>若 \(B,C\) 都是 \(A\) 的逆矩阵，则</p>
+  <div class="boxed-eq">\[B=BI_n=B(AC)=(BA)C=I_nC=C.\]</div>
+  <p class="small">证明只用了结合律。因此逆矩阵若存在，必唯一，记号 \(A^{-1}\) 才有意义。</p>
+</div>
+<div class="box prop"><span class="tag">逆矩阵运算规则</span>
+  <p>设 \(A,B\) 为 \(n\) 阶可逆矩阵，\(c\ne0\)，则</p>
+  <ol>
+    <li>\((A^{-1})^{-1}=A\)；</li>
+    <li>\((AB)^{-1}=B^{-1}A^{-1}\)；</li>
+    <li>\((cA)^{-1}=c^{-1}A^{-1}\)；</li>
+    <li>\((A')^{-1}=(A^{-1})'\)。</li>
+  </ol>
+  <p>更一般地，\((A_1A_2\cdots A_k)^{-1}=A_k^{-1}\cdots A_2^{-1}A_1^{-1}\)。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>每一条都只要按定义验证“乘起来等于 \(I\)”，再由唯一性得结论。</p>
+  <p>(1) \(AA^{-1}=A^{-1}A=I\) 说明 \(A\) 就是 \(A^{-1}\) 的逆。</p>
+  <p>(2) \((AB)(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=AIA^{-1}=AA^{-1}=I\)；同理 \((B^{-1}A^{-1})(AB)=I\)。</p>
+  <p>(3) \((cA)(c^{-1}A^{-1})=(cc^{-1})AA^{-1}=I\)，另一边同理。</p>
+  <p>(4) 对 \(AA^{-1}=I\) 两边转置，由 \((AB)'=B'A'\) 得 \((A^{-1})'A'=I'=I\)；同理 \(A'(A^{-1})'=I\)。</p>
+  <p>一般情形对 \(k\) 用数学归纳法。</p>
+</div></details>
+<div class="box warn"><span class="tag">课堂强调 · 乘积求逆，顺序反过来</span>
+  <div class="eqs boxed"><span>\((AB)^{-1}=B^{-1}A^{-1}\)</span><span>\((AB)'=B'A'\)</span></div>
+  <p>两者具有相同的“反序”结构：先穿袜子再穿鞋，脱的时候要先脱鞋。一般 \((AB)^{-1}\ne A^{-1}B^{-1}\)。另外 \((A+B)^{-1}\) 没有类似的公式，\(A,B\) 可逆时 \(A+B\) 甚至可能不可逆（取 \(B=-A\)）。</p>
+</div>
+
+<h2>三、伴随矩阵</h2>
+<p>怎样判断一个方阵是否可逆？可逆时怎样求逆？第一章的展开定理给出了答案。</p>
+<div class="box def"><span class="tag">定义 2.3.2<em>伴随矩阵</em></span>
+  <p>设 \(A=(a_{ij})_{n\times n}\)，\(A_{ij}\) 是 \(a_{ij}\) 在行列式 \(|A|\) 中的代数余子式。称</p>
+  <div class="boxed-eq">\[A^*=\begin{pmatrix}A_{11}&A_{21}&\cdots&A_{n1}\\A_{12}&A_{22}&\cdots&A_{n2}\\\vdots&\vdots&&\vdots\\A_{1n}&A_{2n}&\cdots&A_{nn}\end{pmatrix}\]</div>
+  <p>为 \(A\) 的<b>伴随矩阵</b>。注意：<b>先把代数余子式按原位置排成矩阵，再转置</b>——\(A^*\) 的第 \(i\) 行是 \(A\) 的第 \(i\) <b>列</b>元素的代数余子式。</p>
+</div>
+<div class="box prop"><span class="tag">引理 2.3.1</span>
+  <p>对任意 \(n\) 阶方阵 \(A\)，</p>
+  <div class="boxed-eq">\[AA^*=A^*A=|A|I_n.\]</div>
+</div>
+<details class="proof" open><summary>证明（第一章展开定理的直接应用）</summary><div class="dbody">
+  <p>\(AA^*\) 的 \((i,j)\) 元等于 \(A\) 的第 \(i\) 行乘 \(A^*\) 的第 \(j\) 列，而 \(A^*\) 的第 \(j\) 列是 \((A_{j1},A_{j2},\dots,A_{jn})'\)，所以</p>
+  \[(AA^*)_{ij}=a_{i1}A_{j1}+a_{i2}A_{j2}+\cdots+a_{in}A_{jn}=\begin{cases}|A|,&i=j,\\0,&i\ne j.\end{cases}\]
+  <p>对角线位置：按第 \(i\) 行展开（定理 1.4.1）；非对角位置：第 \(i\) 行元素乘第 \(j\) 行的代数余子式，相当于第 \(j\) 行换成第 \(i\) 行的行列式，有两行相同，等于 0（定理 1.4.2）。故 \(AA^*=|A|I_n\)。用按列展开同理得 \(A^*A=|A|I_n\)。</p>
+</div></details>
+<div class="widget" data-widget="adjinv" data-t="伴随矩阵：先排余子式，再转置" data-d="① 代数余子式按原位置排好；② 转置得 A*。点 A* 的任一元素，看它是哪一个代数余子式——下标是反过来的。③ 验证 AA* = |A|I；④ |A| ≠ 0 时得到 A⁻¹。也试试“奇异阵”。"></div>
+
+<h2>四、可逆的判定与求逆公式</h2>
+<div class="box thm"><span class="tag">定理 2.3.1</span>
+  <p>若 \(|A|\ne0\)，则 \(A\) 是非异阵，并且</p>
+  <div class="boxed-eq">\[A^{-1}=\frac1{|A|}A^*.\]</div>
+</div>
+<details class="proof" open><summary>证明</summary><div class="dbody">
+  <p>由引理 2.3.1，\(A\Bigl(\dfrac1{|A|}A^*\Bigr)=\dfrac1{|A|}AA^*=I_n\)，同理 \(\Bigl(\dfrac1{|A|}A^*\Bigr)A=I_n\)。由定义即得。</p>
+</div></details>
+<p>反过来，如果 \(A\) 可逆，则必有 \(|A|\ne0\)：这一点要用到 §2.5 的乘积行列式定理 \(|AB|=|A||B|\)——由 \(AA^{-1}=I\) 得 \(|A||A^{-1}|=1\)。于是得到非常重要的等价关系：</p>
+<div class="boxed-eq">\[A\text{ 可逆}\iff|A|\ne0.\]</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 二阶方阵的逆</div>
+  <p>设 \(A=\begin{pmatrix}a&b\\c&d\end{pmatrix}\)，\(ad-bc\ne0\)，求 \(A^{-1}\)；并求 \(\begin{pmatrix}2&5\\1&3\end{pmatrix}^{-1}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">代数余子式：\(A_{11}=d\)，\(A_{12}=-c\)，\(A_{21}=-b\)，\(A_{22}=a\)。</div>
+    <div class="st">转置排列：\(A^*=\begin{pmatrix}d&-b\\-c&a\end{pmatrix}\)，所以 \[A^{-1}=\frac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}.\]口诀：<b>主对角线互换，副对角线变号，再除以行列式</b>。</div>
+    <div class="st">\(|A|=6-5=1\)，\(\begin{pmatrix}2&5\\1&3\end{pmatrix}^{-1}=\begin{pmatrix}3&-5\\-1&2\end{pmatrix}\)。验算：\(\begin{pmatrix}2&5\\1&3\end{pmatrix}\begin{pmatrix}3&-5\\-1&2\end{pmatrix}=I_2\)。</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 用伴随矩阵求逆 <span class="src">习题 2.3 第 1(1) 题</span></div>
+  <p>\(A=\begin{pmatrix}1&1&-1\\1&2&-3\\0&1&1\end{pmatrix}\)，求 \(A^{-1}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(|A|=1\cdot(2+3)-1\cdot(1-0)+(-1)\cdot(1-0)=5-1-1=3\ne0\)，所以 \(A\) 可逆。</div>
+    <div class="st">九个代数余子式：\(A_{11}=5,\ A_{12}=-1,\ A_{13}=1\)；\(A_{21}=-2,\ A_{22}=1,\ A_{23}=-1\)；\(A_{31}=-1,\ A_{32}=2,\ A_{33}=1\)。</div>
+    <div class="st">转置排列：\(A^*=\begin{pmatrix}5&-2&-1\\-1&1&2\\1&-1&1\end{pmatrix}\)，\(A^{-1}=\dfrac13\begin{pmatrix}5&-2&-1\\-1&1&2\\1&-1&1\end{pmatrix}\)。</div>
+    <div class="st">验算 \(AA^*\)：第一行 \((1,1,-1)\) 乘第一列 \((5,-1,1)'\) 得 \(3\)，乘第二列 \((-2,1,-1)'\) 得 \(0\)……确实 \(AA^*=3I\)。</div>
+  </div>
+</div>
+<div class="box note"><span class="tag">计算量</span>
+  <p>用伴随矩阵求 \(n\) 阶方阵的逆要算 \(n^2\) 个 \(n-1\) 阶行列式，阶数稍大时计算量很大。它的价值主要在<b>理论</b>上（给出显式公式、可逆判定）。§2.5 会给出实际计算中常用的初等变换法。</p>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 对角阵与 \(|A^*|\)</div>
+  <p>(1) 求 \(\mathrm{diag}\{a_1,\dots,a_n\}^{-1}\)（\(a_i\ne0\)）（习题 2.3 第 1(2) 题）；(2) \(A\) 为 \(n\) 阶方阵，\(|A|\ne0\)，求 \(|A^*|\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">(1) \(\mathrm{diag}\{a_1,\dots,a_n\}\cdot\mathrm{diag}\{a_1^{-1},\dots,a_n^{-1}\}=I_n\)，所以逆就是 \(\mathrm{diag}\{a_1^{-1},\dots,a_n^{-1}\}\)。若某个 \(a_i=0\)，行列式为 0，不可逆。</div>
+    <div class="st">(2) 对 \(AA^*=|A|I_n\) 两边取行列式（用 §2.5 的 \(|AB|=|A||B|\)）：\(|A|\,|A^*|=\bigl||A|I_n\bigr|=|A|^n\)，所以 \[|A^*|=|A|^{n-1}.\]</div>
+  </div>
+</div>
+
+<h2>五、逆矩阵法解线性方程组与 Cramer 法则</h2>
+<p>线性方程组写成 \(Ax=\beta\)（例 2.2.4）。若 \(|A|\ne0\)，则 \(A^{-1}\) 存在，两边左乘 \(A^{-1}\)：</p>
+\[A^{-1}Ax=A^{-1}\beta\ \Longrightarrow\ x=A^{-1}\beta.\]
+<p>反过来 \(x=A^{-1}\beta\) 代入确实满足 \(Ax=\beta\)，所以这是唯一解。把 \(A^{-1}=\frac1{|A|}A^*\) 代入：</p>
+\[x_i=\frac1{|A|}\bigl(b_1A_{1i}+b_2A_{2i}+\cdots+b_nA_{ni}\bigr)=\frac{|A_i|}{|A|},\]
+<p>其中 \(|A_i|\) 是把 \(|A|\) 的第 \(i\) 列换成 \(\beta\) 所得行列式（按第 \(i\) 列展开）。这就<b>重新得到了 Cramer 法则</b>（§1.6），而且推导更简洁。</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 用求逆矩阵的方法解方程组 <span class="src">习题 2.3 第 2 题</span></div>
+  <p>\(\begin{cases}x_1-x_2+3x_3=8,\\2x_1-x_2+4x_3=11,\\-x_1+2x_2-4x_3=-11.\end{cases}\)</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(A=\begin{pmatrix}1&-1&3\\2&-1&4\\-1&2&-4\end{pmatrix}\)，\(|A|=1\cdot(4-8)+1\cdot(-8+4)+3\cdot(4-1)=-4-4+9=1\)。</div>
+    <div class="st">求伴随矩阵得 \(A^{-1}=A^*=\begin{pmatrix}-4&2&-1\\4&-1&2\\3&-1&1\end{pmatrix}\)。</div>
+    <div class="st">\(x=A^{-1}\beta=\begin{pmatrix}-4&2&-1\\4&-1&2\\3&-1&1\end{pmatrix}\begin{pmatrix}8\\11\\-11\end{pmatrix}=\begin{pmatrix}1\\-1\\2\end{pmatrix}\)，即 \(x_1=1,\ x_2=-1,\ x_3=2\)。代回原方程验证。</div>
+  </div>
+</div>
+
+<h2>六、可逆矩阵的典型论证</h2>
+<p>要证明“\(A\) 可逆”，常用办法之一是<b>凑出</b>一个 \(B\) 使 \(AB=I\)（由 §2.5 推论 2.5.4，方阵只要一边乘积为 \(I\) 就够了）。下面几个习题都是这个思路。</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 非异阵满足消去律 <span class="src">习题 2.3 第 5 题</span></div>
+  <p>若 \(A\) 非异，\(AB=AC\)，证明 \(B=C\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">两边左乘 \(A^{-1}\)：\(A^{-1}(AB)=A^{-1}(AC)\)，由结合律 \((A^{-1}A)B=(A^{-1}A)C\)，即 \(B=C\)。</div>
+    <div class="st">这说明 §2.2 中“消去律不成立”的根源是 \(A\) 不可逆：§2.2 例子中的 \(A=\begin{pmatrix}1&1\\1&1\end{pmatrix}\) 正好 \(|A|=0\)。</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 由矩阵多项式凑逆 <span class="src">习题 2.3 第 9、10、11 题</span></div>
+  <p>(1) \(A^m=O\)，证明 \(I-A\) 可逆；(2) \(A^2=A\)，证明 \(A+I\) 可逆；(3) \(A^2-A-3I=O\)，证明 \(A-2I\) 可逆。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">(1) \((I-A)(I+A+\cdots+A^{m-1})=I-A^m=I\)，所以 \((I-A)^{-1}=I+A+\cdots+A^{m-1}\)。</div>
+    <div class="st">(2) 试 \((A+I)(I+kA)=A+kA^2+I+kA=I+(1+2k)A\)，取 \(k=-\frac12\)：\((A+I)^{-1}=I-\frac12A\)。</div>
+    <div class="st">(3) 用多项式除法：\(x^2-x-3=(x-2)(x+1)-1\)，所以 \((A-2I)(A+I)=A^2-A-2I=3I-2I=I\)，\((A-2I)^{-1}=A+I\)。</div>
+    <div class="st">这些运算能像多项式一样做，是因为 \(A\) 与 \(I\) 以及 \(A\) 的各次幂都可交换。</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 <span class="src">习题 2.3 第 12 题</span></div>
+  <p>\(A,B\) 为 \(n\) 阶方阵，\(A+B=AB\)。证明 \(I-A\) 可逆，且 \(AB=BA\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">\((I-A)(I-B)=I-A-B+AB=I\)，所以 \(I-A\) 可逆，且 \((I-A)^{-1}=I-B\)。</div>
+    <div class="st">逆矩阵两边都成立：\((I-B)(I-A)=I\)，即 \(I-B-A+BA=I\)，于是 \(BA=A+B=AB\)。</div>
+  </div>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 逆矩阵与回归</span>
+  <ul>
+    <li>线性回归模型 \(y=X\beta+\varepsilon\) 的最小二乘估计是 \(\hat\beta=(X'X)^{-1}X'y\)。它要求 \(X'X\) 可逆，即 \(|X'X|\ne0\)。</li>
+    <li>若某个解释变量是其他变量的线性组合（例如同时放入“身高（厘米）”和“身高（米）”），\(|X'X|=0\)，\(X'X\) 奇异，回归系数无法唯一确定——这就是<b>完全多重共线性</b>。</li>
+    <li>估计量的协方差矩阵 \(\operatorname{Cov}(\hat\beta)=\sigma^2(X'X)^{-1}\)；协方差矩阵 \(\Sigma\) 的逆 \(\Sigma^{-1}\) 叫<b>精度矩阵</b>，出现在多元正态密度里。§2.5 有一个可以拖动数据点的回归实验。</li>
+  </ul>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>\((AB)^{-1}=B^{-1}A^{-1}\)，不是 \(A^{-1}B^{-1}\)。</li>
+    <li>伴随矩阵要<b>转置</b>代数余子式矩阵：\(A^*\) 的 \((i,j)\) 元是 \(A_{ji}\)。</li>
+    <li>\(|A|=0\) 时绝对不能使用 \(\dfrac1{|A|}A^*\)；但 \(AA^*=|A|I\) 对任何方阵都成立。</li>
+    <li>“非零矩阵”不等于“可逆矩阵”。</li>
+    <li>不能写 \(\dfrac BA\)：\(A^{-1}B\) 与 \(BA^{-1}\) 一般不同。</li>
+    <li>代数余子式带符号 \((-1)^{i+j}\)，不要和余子式混淆。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">\(\begin{pmatrix}2&5\\1&3\end{pmatrix}^{-1}=\)？</div><ol class="opts"><li>\(\begin{pmatrix}3&5\\1&2\end{pmatrix}\)</li><li>\(\begin{pmatrix}3&-1\\-5&2\end{pmatrix}\)</li><li>\(\begin{pmatrix}3&-5\\-1&2\end{pmatrix}\)</li><li>\(\begin{pmatrix}1/2&1/5\\1&1/3\end{pmatrix}\)</li></ol><div class="explain">主对角线互换、副对角线变号，再除以 \(|A|=1\)。选项 B 忘了转置；选项 D 是逐元素取倒数，毫无意义。</div></div>
+  <div class="fill" data-ans="-1"><div class="qt">\(A=\begin{pmatrix}1&1&-1\\1&2&-3\\0&1&1\end{pmatrix}\)，\(A^*\) 的 \((2,1)\) 元是多少？</div><div class="explain">\(A^*\) 的 \((2,1)\) 元是 \(A_{12}=(-1)^{1+2}\begin{vmatrix}1&-3\\0&1\end{vmatrix}=-1\)。下标要反过来。</div></div>
+  <div class="fill" data-ans="9"><div class="qt">\(A\) 为 3 阶方阵，\(|A|=3\)，则 \(|A^*|=\)？</div><div class="explain">\(|A^*|=|A|^{n-1}=3^2=9\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(A,B\) 为同阶可逆阵，下列一定成立的是：</div><ol class="opts"><li>\(\bigl((AB)'\bigr)^{-1}=(A^{-1})'(B^{-1})'\)</li><li>\((A+B)^{-1}=A^{-1}+B^{-1}\)</li><li>\((AB)^{-1}=A^{-1}B^{-1}\)</li><li>\((2A)^{-1}=2A^{-1}\)</li></ol><div class="explain">\(\bigl((AB)'\bigr)^{-1}=(B'A')^{-1}=(A')^{-1}(B')^{-1}=(A^{-1})'(B^{-1})'\)。D 应为 \(\frac12A^{-1}\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">方阵 \(A\) 满足 \(A^2-A-3I=O\)，则 \((A-2I)^{-1}=\)？</div><ol class="opts"><li>\(A-I\)</li><li>\(\frac13A\)</li><li>\(A+2I\)</li><li>\(A+I\)</li></ol><div class="explain">\((A-2I)(A+I)=A^2-A-2I=3I-2I=I\)。</div></div>
+</div>
+<details class="more"><summary>更多证明题思路（习题 2.3 第 3、4、6、7、8 题）</summary><div class="dbody">
+  <p><b>3</b>　若第 \(i\) 行全零，则对任意 \(B\)，\(AB\) 的第 \(i\) 行全零，不可能等于 \(I\)；列的情形看 \(BA\)。（或直接 \(|A|=0\)。）</p>
+  <p><b>4</b>　\(A^k(A^{-1})^k=A^{k-1}(AA^{-1})(A^{-1})^{k-1}=\cdots=I\)，所以 \((A^k)^{-1}=(A^{-1})^k\)。</p>
+  <p><b>6</b>　\(A^2=I\)，即 \((I+A)(I-A)=I-A^2=O\)；\(I+A\) 非异，左乘其逆得 \(I-A=O\)。</p>
+  <p><b>7</b>　\(A^*=A'\) 时 \(AA'=AA^*=|A|I\)。\(AA'\) 的 \((i,i)\) 元是第 \(i\) 行元素的平方和，\(A\ne O\) 时总有一个为正，所以 \(|A|\ne0\)。</p>
+  <p><b>8</b>　\(A^{-1}+B^{-1}=A^{-1}(B+A)B^{-1}\)，是三个非异阵的乘积，所以非异，且 \((A^{-1}+B^{-1})^{-1}=B(A+B)^{-1}A\)。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>\(AB=BA=I_n\) 定义逆矩阵；逆矩阵若存在则唯一；只对方阵讨论。</li>
+  <li>四条规则，其中 \((AB)^{-1}=B^{-1}A^{-1}\) 与 \((AB)'=B'A'\) 都要“反序”。</li>
+  <li>伴随矩阵：代数余子式矩阵的转置；\(AA^*=A^*A=|A|I_n\)（来自展开定理）。</li>
+  <li>重点：\(A\) 可逆 \(\iff|A|\ne0\)，此时 \(A^{-1}=\dfrac1{|A|}A^*\)；\(x=A^{-1}\beta\) 就是 Cramer 法则。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>先问：“矩阵能做除法吗？”再从 \(aa^{-1}=1\) 类比引出定义，学生会觉得自然。</li>
+  <li>引理 2.3.1 的证明是第一章两个展开定理的“合体”，可以在这里回顾 §1.4，体现章节之间的联系。</li>
+  <li>“\(A\) 可逆 \(\Rightarrow|A|\ne0\)”的证明留到 §2.5，课上明确说明这个逻辑缺口，学生会更期待 §2.5。</li>
+</ul></div></details>
+</template>

@@ -638,3 +638,53 @@ svg .vol-face{stroke-width:1.2;fill-opacity:.2}
 .rc-t td .chip{font-family:inherit;font-size:.72rem;white-space:normal;text-align:left}
 .rc-t tr.rc-bad td{background:var(--neg-soft)}
 .rc-quick{margin:.2rem 0 .4rem;align-items:center}
+
+/* ===== 第二章组件 ===== */
+.dm .c.on{background:var(--accent);color:var(--accent-ink)}
+.dm .c.h2-dim{opacity:.35}
+.dm .c.bl{box-shadow:inset 2px 0 0 0 color-mix(in srgb,var(--accent) 70%,transparent)}
+.dm .c.bt{box-shadow:inset 0 2px 0 0 color-mix(in srgb,var(--accent) 70%,transparent)}
+.dm .c.bl.bt{box-shadow:inset 2px 0 0 0 color-mix(in srgb,var(--accent) 70%,transparent),inset 0 2px 0 0 color-mix(in srgb,var(--accent) 70%,transparent)}
+.dm .c.divl{border-left:1.5px dashed var(--ink-3);border-radius:0 5px 5px 0}
+.dm .c.pvt{outline:2px solid var(--accent);outline-offset:-2px}
+.dm.ed input.blk-l{box-shadow:inset 2px 0 0 0 var(--accent)}
+.dm.ed input.blk-t{box-shadow:inset 0 2px 0 0 var(--accent)}
+.dm.ed input.blk-l.blk-t{box-shadow:inset 2px 0 0 0 var(--accent),inset 0 2px 0 0 var(--accent)}
+.h2-wrap{display:flex;flex-direction:column;gap:.4rem;align-items:center;padding:.6rem;background:var(--sheet);border:1px solid var(--rule);border-radius:16px}
+.h2-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.4rem}
+.h2-lab{font:600 .9rem var(--sans);color:var(--ink-2)}
+.h2-f{min-height:1.8em;text-align:center}
+.mm-pre{gap:.3rem}
+.mm-dims{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .6rem;margin:.4rem 0;font-family:var(--mono)}
+.mm-d{padding:.15rem .5rem;border-radius:7px;background:var(--tint)}
+.mm-d.ok{background:var(--pos-soft);color:var(--pos)}.mm-d.no{background:var(--neg-soft);color:var(--neg)}
+.mm-arrow{color:var(--ink-3)}
+.mm-grid{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:flex-start}
+.mm-grid>div{min-width:0;max-width:100%;overflow-x:auto}
+.nc-in{gap:.4rem 1.2rem}
+.nc-grid{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;margin:.5rem 0}
+.nc-grid>div{min-width:0;overflow-x:auto}
+.mk-r{display:grid;grid-template-columns:2em 1fr 3.5em;align-items:center;gap:.5rem;margin:.25rem 0;font-size:.9rem}
+.mk-b{height:12px;border-radius:6px;background:var(--rule);overflow:hidden}
+.mk-b>i{display:block;height:100%;background:var(--stat);transition:width .2s}
+.el-eq{gap:.4rem;flex-wrap:wrap;padding:.3rem 0}
+.pl-stage{padding:.3rem 0;min-height:4rem}
+.pl-txt{min-height:1.6em;margin:.2rem 0}
+.pl-log{max-height:9rem;overflow:auto;margin:.3rem 0;padding-left:1.4rem;color:var(--ink-2)}
+.dp-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.3rem}
+.dp-f{margin:0;text-align:center;width:150px}
+.dp-f svg{width:150px;height:150px}
+.dp-ar{font-weight:600;color:var(--ink-2)}
+.dp-in,.cb-in,.gj-in{gap:.4rem 1rem}
+.bm-mats{gap:.4rem;flex-wrap:wrap}
+.ol-svg{touch-action:none}
+/* 多个并列公式：宽屏一行，窄屏自动换行 */
+.eqs{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem 2rem;margin:.7rem 0;font-size:1.06em}
+.eqs.boxed{border:1.5px solid var(--ink);border-radius:4px;padding:.5rem 1rem;width:fit-content;max-width:100%;margin:.8rem auto}
+.eq-txt{text-align:center;font-weight:650;margin:.7rem 0;font-size:1.05em}
+/* 第二章：矩阵显示放大，便于投影与手机阅读 */
+.widget .dm{font-size:1.02rem}
+.widget .dm.sm{font-size:.94rem}
+.widget .dm.sm .c{min-width:2em;padding:1px 4px}
+.pl-stage .dm{font-size:1.15rem}
+.pl-stage .dm .c{min-width:2.4em}

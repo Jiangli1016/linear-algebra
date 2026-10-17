@@ -1,0 +1,69 @@
+<template data-chapter="2" data-route="c2-practice" data-num="练习" data-short="综合练习" data-group="收束">
+<header class="page-head">
+  <span class="det-eyebrow">综合练习</span>
+  <h1>第二章综合练习</h1>
+  <p class="lede">五组练习：概念辨析、计算、随机出题、证明与思考、统计应用。选择题点一下就判分；填空题支持整数、小数和 a/b 形式的分数。</p>
+</header>
+
+<h2>一、概念辨析</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">\(A\) 为 \(2\times3\) 矩阵，\(B\) 为 \(3\times2\) 矩阵。下列说法正确的是：</div><ol class="opts"><li>\(AB=BA\)</li><li>\(A+B'\) 无意义</li><li>\(AB\) 是 2 阶方阵，\(BA\) 是 3 阶方阵</li><li>\(|AB|=|A||B|\)</li></ol><div class="explain">\(A\) 与 \(B'\) 都是 \(2\times3\)，可以相加；长方阵没有行列式；\(AB\) 与 \(BA\) 阶数不同，不可能相等。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">\(A,B\) 为 \(n\) 阶方阵，下列等式<b>一定</b>成立的是：</div><ol class="opts"><li>\((A+B)^2=A^2+2AB+B^2\)</li><li>\((AB)'=B'A'\)</li><li>\(|A+B|=|A|+|B|\)</li><li>\((AB)^2=A^2B^2\)</li></ol><div class="explain">只有转置的反序规则无条件成立；A、D 需要 \(AB=BA\)，C 一般不成立。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">关于 \(n\) 阶方阵 \(A\)，下列说法<b>错误</b>的是：</div><ol class="opts"><li>\(AA^*=|A|I_n\) 对任何方阵都成立</li><li>\(A\) 可逆 \(\iff|A|\ne0\)</li><li>若 \(AB=I_n\)，则 \(BA=I_n\)</li><li>若 \(A\ne O\)，则 \(A\) 可逆</li></ol><div class="explain">非零矩阵不一定可逆，例如 \(\begin{pmatrix}1&1\\0&0\end{pmatrix}\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">把 \(3\times4\) 矩阵 \(A\) 的第 2、3 列对调，相当于：</div><ol class="opts"><li>右乘 4 阶初等矩阵 \(P_{23}\)</li><li>左乘 3 阶初等矩阵 \(P_{23}\)</li><li>右乘 3 阶初等矩阵 \(P_{23}\)</li><li>左乘 4 阶初等矩阵 \(P_{23}\)</li></ol><div class="explain">列变换右乘，阶数等于列数 4。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">用 \((A\mid I)\) 求逆时，若左半部分出现一个零行，说明：</div><ol class="opts"><li>计算出错，必须重新开始</li><li>应改用列变换</li><li>\(|A|=0\)，\(A\) 不可逆</li><li>\(A^{-1}\) 有一行为零</li></ol><div class="explain">初等行变换不改变“是否奇异”（推论 2.4.2），出现零行说明 \(A\) 奇异。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">\(A\) 为 \(m\times n\)、\(B\) 为 \(n\times m\) 矩阵，\(m\gt n\)，则：</div><ol class="opts"><li>\(|AB|=|A||B|\)</li><li>\(|AB|=0\)</li><li>\(|BA|=0\)</li><li>\(|AB|=|BA|\)</li></ol><div class="explain">Cauchy–Binet 公式情形 1。\(|BA|\) 是 \(n\) 阶行列式，一般不为零。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">分块矩阵 \(\begin{pmatrix}A&B\\C&D\end{pmatrix}\) 的转置是：</div><ol class="opts"><li>\(\begin{pmatrix}A&C\\B&D\end{pmatrix}\)</li><li>\(\begin{pmatrix}A'&B'\\C'&D'\end{pmatrix}\)</li><li>\(\begin{pmatrix}D'&C'\\B'&A'\end{pmatrix}\)</li><li>\(\begin{pmatrix}A'&C'\\B'&D'\end{pmatrix}\)</li></ol><div class="explain">块的位置转置，每个块自身也转置。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(A\) 为 \(n\) 阶可逆阵，\(B\) 为 \(n\times p\) 矩阵。矩阵方程 \(AX=B\) 的解是：</div><ol class="opts"><li>\(X=A^{-1}B\)</li><li>\(X=BA^{-1}\)</li><li>\(X=B/A\)</li><li>\(X=A^*B\)</li></ol><div class="explain">两边左乘 \(A^{-1}\)。\(BA^{-1}\) 在 \(p\ne n\) 时没有意义；\(A^*B=|A|X\)。</div></div>
+</div>
+
+<h2>二、计算</h2>
+<div class="quiz">
+  <div class="fill" data-ans="7"><div class="qt">\(\begin{pmatrix}0&1&-1&3\\-1&2&1&0\end{pmatrix}\begin{pmatrix}1&1\\-1&4\\3&0\\1&2\end{pmatrix}\) 的 \((2,2)\) 元为？<span class="tiny muted">（习题 2.2 第 2(3) 题）</span></div><div class="explain">\((-1)\cdot1+2\cdot4+1\cdot0+0\cdot2=7\)。完整结果为 \(\begin{pmatrix}-1&10\\0&7\end{pmatrix}\)。</div></div>
+  <div class="fill" data-ans="-6"><div class="qt">\(A=\begin{pmatrix}1&2&3\\2&1&2\\1&3&4\end{pmatrix}\)，\(A^{-1}\) 的 \((2,1)\) 元为？<span class="tiny muted">（例 2.5.3）</span></div><div class="explain">\(|A|=1\)，\(A^{-1}\) 的 \((2,1)\) 元是 \(A_{12}/|A|=-\begin{vmatrix}2&2\\1&4\end{vmatrix}=-6\)。完整的 \(A^{-1}=\begin{pmatrix}-2&1&1\\-6&1&4\\5&-1&-3\end{pmatrix}\)。</div></div>
+  <div class="fill" data-ans="1/3"><div class="qt">\(A\) 为 3 阶方阵，\(|A|=3\)。则 \(|A^{-1}|=\)？</div><div class="explain">\(|A^{-1}|=|A|^{-1}=\frac13\)。</div></div>
+  <div class="fill" data-ans="-24"><div class="qt">\(A\) 为 3 阶方阵，\(|A|=3\)。则 \(|-2A|=\)？</div><div class="explain">\(|-2A|=(-2)^3|A|=-8\times3=-24\)。</div></div>
+  <div class="fill" data-ans="3"><div class="qt">\(\begin{pmatrix}1&0&-1&2&3\\2&2&1&3&8\\3&4&4&5&11\\1&2&4&3&1\end{pmatrix}\) 化为阶梯形后，非零行有几个？<span class="tiny muted">（习题 2.4 第 2(2) 题）</span></div><div class="explain">消元后第四行变为零行，剩下 3 个非零行。可以在 §2.4 的实验中选“习题 2.4 第 2(2) 题”逐步查看。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">方程组 \(x_1-x_2+3x_3=8,\ 2x_1-x_2+4x_3=11,\ -x_1+2x_2-4x_3=-11\) 中 \(x_3=\)？<span class="tiny muted">（习题 2.3 第 2 题）</span></div><div class="explain">\(x=A^{-1}\beta=(1,-1,2)'\)。</div></div>
+  <div class="fill" data-ans="8"><div class="qt">例 2.6.1 中 \(AB\) 的 \((3,3)\) 元为？</div><div class="explain">\(C_{22}=\begin{pmatrix}8\\-3\end{pmatrix}\)，所以 \((3,3)\) 元为 8。</div></div>
+  <div class="fill" data-ans="5"><div class="qt">\(\begin{vmatrix}1&2&2\\2&1&2\\2&2&1\end{vmatrix}=\)？（提示：这是例 2.6.4 中 \(n=3\)、\(a_1=a_2=a_3=1\) 的情形）</div><div class="explain">\((-1)^3\bigl[(1-3)(1-3)-3^2\bigr]=-(4-9)=5\)。直接展开：\(1\cdot(1-4)-2(2-4)+2(4-2)=5\) ✓。</div></div>
+  <div class="fill" data-ans="12"><div class="qt">\(\begin{vmatrix}0&2&3\\1&0&3\\1&2&0\end{vmatrix}=\)？（习题 2.6 第 12(1) 题 \(n=3\) 的情形，可用公式 \((-1)^nn!(1-n)\)）</div><div class="explain">\((-1)^3\cdot3!\cdot(1-3)=12\)。直接展开：\(0-2(0-3)+3(2-0)=12\) ✓。</div></div>
+  <div class="fill" data-ans="289"><div class="qt">\(A=\begin{pmatrix}1&2&4\\2&4&8\\3&6&12\end{pmatrix}\)，若 \(A^3=dA\)，则 \(d=\)？</div><div class="explain">\(A=\alpha\beta'\)，\(\beta'\alpha=17\)，\(A^k=17^{k-1}A\)，所以 \(d=17^2=289\)。</div></div>
+</div>
+
+<h2>三、随机出题</h2>
+<div class="widget" data-widget="drill2" data-t="无限练习" data-d="每次随机生成一道题：乘积的某个元素、逆矩阵的某个元素，或行列式综合计算。先自己算，再检查；做错了点“看解答”。"></div>
+<p>求逆、解矩阵方程、化阶梯形的分步练习，可以回到各节的实验中用“随机”按钮生成：<a href="#s2-4">§2.4 化简</a>、<a href="#s2-5">§2.5 求逆</a>、<a href="#s2-3">§2.3 伴随矩阵</a>。</p>
+
+<h2>四、证明与思考</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="1"><div class="qt">\(A\) 为奇数阶反对称矩阵，则 \(|A|=\)？</div><ol class="opts"><li>1</li><li>0</li><li>\(-1\)</li><li>无法确定</li></ol><div class="explain">\(|A|=|A'|=|-A|=(-1)^n|A|=-|A|\)，所以 \(|A|=0\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">\(A\) 为 \(n\) 阶可逆阵（\(n\ge2\)），则 \((A^*)^*=\)？</div><ol class="opts"><li>\(A\)</li><li>\(|A|A\)</li><li>\(|A|^{n-2}A\)</li><li>\(|A|^{n-1}A\)</li></ol><div class="explain">\(A^*=|A|A^{-1}\)，所以 \((A^*)^{-1}=\frac1{|A|}A\)；\((A^*)^*=|A^*|(A^*)^{-1}=|A|^{n-1}\cdot\frac1{|A|}A=|A|^{n-2}A\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(A\) 可逆且对称，则 \(A^{-1}\)：</div><ol class="opts"><li>一定对称</li><li>一定反对称</li><li>不一定对称</li><li>一定是对角阵</li></ol><div class="explain">\((A^{-1})'=(A')^{-1}=A^{-1}\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(A,B\) 为 \(n\) 阶方阵，\(AB=O\)，\(A\) 可逆。则：</div><ol class="opts"><li>\(B\) 可逆</li><li>\(BA\ne O\)</li><li>\(|B|\ne0\)</li><li>\(B=O\)</li></ol><div class="explain">左乘 \(A^{-1}\)：\(B=A^{-1}O=O\)。可逆矩阵可以“消去”。</div></div>
+</div>
+<details class="more"><summary>证明题 1：\(I-AB\) 可逆 \(\Rightarrow I-BA\) 可逆</summary><div class="dbody">
+  <p><b>方法一（凑逆）</b>：设 \(C=(I-AB)^{-1}\)。验证 \((I-BA)(I+BCA)=I-BA+BCA-BABCA=I-BA+B(I-AB)CA=I-BA+BA=I\)。由推论 2.5.4，\((I-BA)^{-1}=I+B(I-AB)^{-1}A\)。</p>
+  <p><b>方法二（降阶公式）</b>：\(|I_n-BA|=|I_m-AB|\ne0\)（§2.6）。这对 \(A\) 为 \(m\times n\)、\(B\) 为 \(n\times m\) 的长方阵也成立。</p>
+</div></details>
+<details class="more"><summary>证明题 2：两个上三角阵的乘积仍是上三角阵（习题 2.2 第 6 题）</summary><div class="dbody">
+  <p>设 \(A,B\) 为 \(n\) 阶上三角阵，即 \(i\gt j\) 时 \(a_{ij}=b_{ij}=0\)。当 \(i\gt j\) 时，\((AB)_{ij}=\sum_ka_{ik}b_{kj}\)：若 \(k\lt i\)，则 \(a_{ik}=0\)；若 \(k\ge i\gt j\)，则 \(b_{kj}=0\)。每一项都是 0。并且 \((AB)_{ii}=a_{ii}b_{ii}\)：对角元相乘。可逆上三角阵的逆仍是上三角阵（用 \((A\mid I)\) 的行变换只需“向上消”）。</p>
+</div></details>
+<details class="more"><summary>思考题：\(\begin{vmatrix}A&B\\C&D\end{vmatrix}=|AD-BC|\) 成立吗？</summary><div class="dbody">
+  <p>一般不成立。但若 \(A\) 可逆且 \(AC=CA\)，则 \(|A|\,|D-CA^{-1}B|=|AD-ACA^{-1}B|=|AD-CB|\)。注意结果是 \(|AD-CB|\) 而不是 \(|AD-BC|\)：块的乘法顺序不能随意交换。</p>
+</div></details>
+
+<h2>五、统计应用</h2>
+<div class="quiz">
+  <div class="fill" data-ans="50"><div class="qt">一元回归中 \(x=(1,2,3,4,5)'\)，设计矩阵 \(X=(\mathbf 1,x)\)。\(|X'X|=\)？</div><div class="explain">\(X'X=\begin{pmatrix}5&15\\15&55\end{pmatrix}\)，\(|X'X|=275-225=50=n\sum(x_i-\bar x)^2=5\times10\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">样本协方差矩阵 \(S=\frac1{n-1}X_c'X_c\) 一定是对称矩阵，依据是：</div><ol class="opts"><li>\((A+B)'=A'+B'\)</li><li>\((AB)'=B'A'\) 与 \((A')'=A\)</li><li>\((AB)^{-1}=B^{-1}A^{-1}\)</li><li>\(|AB|=|A||B|\)</li></ol><div class="explain">\(S'=\frac1{n-1}X_c'(X_c')'=\frac1{n-1}X_c'X_c=S\)。</div></div>
+  <div class="fill" data-ans="0.86"><div class="qt">两状态马尔可夫链的转移矩阵 \(P=\begin{pmatrix}0.9&0.1\\0.5&0.5\end{pmatrix}\)。今天处于状态 1，两天后仍处于状态 1 的概率（\(P^2\) 的 \((1,1)\) 元）是？</div><div class="explain">\(0.9\times0.9+0.1\times0.5=0.81+0.05=0.86\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">回归中同时放入“身高（cm）”和“身高（m）”两个解释变量，会导致：</div><ol class="opts"><li>\(X'X\) 变成对角阵</li><li>\(|X'X|\) 变大</li><li>\(|X'X|=0\)，\(X'X\) 不可逆</li><li>回归系数不变</li></ol><div class="explain">一列是另一列的 100 倍，对 \(X\) 做第三类列变换可得零列，\(X'X\) 奇异——完全多重共线性。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">\((X_1,X_2)\) 服从二元正态分布，协方差矩阵 \(\Sigma=\begin{pmatrix}4&2\\2&3\end{pmatrix}\)。给定 \(X_1\) 后 \(X_2\) 的条件方差（Schur 补）是？</div><div class="explain">\(\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}=3-2\cdot\frac14\cdot2=2\)。验证：\(|\Sigma|=12-4=8=|\Sigma_{11}|\times2\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">样本相关系数满足 \(|r|\le1\)，从本章的角度，最直接的依据是：</div><ol class="opts"><li>Cauchy–Schwarz 不等式（Lagrange 恒等式）</li><li>\(|AB|=|A||B|\)</li><li>\(AA^*=|A|I\)</li><li>相抵标准型</li></ol><div class="explain">中心化后 \((\sum a_ib_i)^2\le\sum a_i^2\sum b_i^2\)，见 *§2.7。</div></div>
+</div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>“概念辨析”适合课前 5 分钟的小测；“计算”与各节例题、习题对应，可布置为作业。</li>
+  <li>“随机出题”可在习题课上限时练习；“统计应用”一组可以作为与统计专业课程衔接的讨论题。</li>
+</ul></div></details>
+</template>

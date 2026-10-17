@@ -352,6 +352,7 @@ function buildSlides(art){
   if(named.length>=3&&pageOf(current).chapter>0){
     slides.push({nodes:[mkGen('deck-agenda','<h2>本节内容</h2><ol>'+named.map(function(s){return '<li>'+esc(s.title)+'</li>'}).join('')+'</ol>')],label:'本节内容',sec:'',agenda:true});
   }
+  function sticky(n){return n.tagName==='H3'||(n.tagName==='P'&&/[：:则]\s*$/.test(n.textContent.trim()))}
   function lim(nodes){return nodes.some(function(n){return n.matches&&n.matches('.ex,.sol')})?limit*1.35:limit}
   function cont(t){return mkGen('deck-cont','<span>'+esc(t)+'</span><em>（续）</em>')}
   sections.forEach(function(s){
@@ -361,7 +362,9 @@ function buildSlides(art){
       if(!cur.length){cur=[b];return}
       var trial=head.concat(cur,[b]);
       if(height(trial)<=lim(trial)){cur.push(b);return}
-      groups.push(cur);cur=[b];
+      // 小标题、以冒号结尾的引导句不留在页尾，随后面的内容一起换页
+      var carry=[];while(cur.length>1&&sticky(cur[cur.length-1]))carry.unshift(cur.pop());
+      groups.push(cur);cur=carry.concat([b]);
     });
     if(cur.length||!groups.length) groups.push(cur);
     // 合并过短的相邻页，保证每页内容充实、前后连贯

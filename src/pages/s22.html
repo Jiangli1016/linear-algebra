@@ -1,0 +1,265 @@
+<template data-chapter="2" data-route="s2-2" data-num="§2.2" data-short="矩阵的运算" data-group="第一阶段 · 建立矩阵语言">
+<header class="page-head">
+  <span class="det-eyebrow">§2.2</span>
+  <h1>矩阵的运算</h1>
+  <p class="lede">初等代数研究的不仅是数，还有数之间的运算。现在研究矩阵，也要定义矩阵之间的运算。矩阵的代数运算是<b>应实际需要</b>引入的，而不是随意的规定：有些运算与数的运算相似，有些则有很大差别——最大的差别是 \(AB\ne BA\)。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 60–71 页</span><span class="pill">关键词：运算规则</span></div>
+  <ul class="goals">
+    <li>矩阵的加法、减法与数乘</li>
+    <li>矩阵乘法的定义与尺寸条件</li>
+    <li>矩阵乘法不满足交换律、消去律</li>
+    <li>方阵的幂；何时能用二项式定理</li>
+    <li>转置及其运算规则，特别是 \((AB)'=B'A'\)</li>
+    <li>对称矩阵、反对称矩阵</li>
+    <li>复矩阵的共轭</li>
+  </ul>
+</header>
+
+<h2>一、矩阵的加减法</h2>
+<div class="box def"><span class="tag">定义 2.2.1<em>矩阵加法</em></span>
+  <p>设 \(A=(a_{ij})_{m\times n}\)，\(B=(b_{ij})_{m\times n}\)，定义</p>
+  <div class="boxed-eq">\[A+B=(a_{ij}+b_{ij})_{m\times n}.\]</div>
+  <p>只有<b>同型</b>矩阵才能相加：行数与列数必须分别对应相等。</p>
+</div>
+<p>例如 \(\begin{pmatrix}1&2&0\\-1&3&1\end{pmatrix}+\begin{pmatrix}1&-2&1\\-1&-3&0\end{pmatrix}=\begin{pmatrix}2&0&1\\-2&0&1\end{pmatrix}\)。</p>
+<p>定义负矩阵 \(-A=(-a_{ij})\)，减法 \(A-B=A+(-B)=(a_{ij}-b_{ij})\)。例如</p>
+\[\begin{pmatrix}1&3\\5&2\\-1&0\end{pmatrix}-\begin{pmatrix}1&1\\3&0\\0&1\end{pmatrix}=\begin{pmatrix}0&2\\2&2\\-1&-1\end{pmatrix}.\]
+<div class="box prop"><span class="tag">加减法运算规则</span>
+  <p>对同型矩阵 \(A,B,C\)：</p>
+  <ol>
+    <li>交换律：\(A+B=B+A\)；</li>
+    <li>结合律：\((A+B)+C=A+(B+C)\)；</li>
+    <li>\(O+A=A+O=A\)：零矩阵的作用与数 0 相同；</li>
+    <li>\(A+(-A)=O\)，\(A+(-B)=A-B\)。</li>
+  </ol>
+  <p class="small">验证只需逐个元素比较，因为加法就是对应元素相加。</p>
+</div>
+
+<h2>二、矩阵的数乘</h2>
+<div class="box def"><span class="tag">定义 2.2.2<em>数乘</em></span>
+  <p>设 \(A=(a_{ij})_{m\times n}\)，\(c\) 是一个数，定义 \(cA=(ca_{ij})_{m\times n}\)：<b>每一个元素</b>都乘 \(c\)。</p>
+</div>
+<p>例如 \(3\begin{pmatrix}1&1\\3&0\\0&1\end{pmatrix}=\begin{pmatrix}3&3\\9&0\\0&3\end{pmatrix}\)；负矩阵就是 \((-1)A\)。</p>
+<div class="box prop"><span class="tag">数乘运算规则</span>
+  <ol>
+    <li>\(c(A+B)=cA+cB\)；</li>
+    <li>\((c+d)A=cA+dA\)；</li>
+    <li>\((cd)A=c(dA)\)；</li>
+    <li>\(1\cdot A=A\)；</li>
+    <li>\(0\cdot A=O\)。</li>
+  </ol>
+</div>
+<div class="box warn"><span class="tag">与行列式区分</span>
+  <p>矩阵数乘是<b>每个元素</b>乘 \(c\)；行列式是<b>一行</b>乘 \(c\) 值才乘 \(c\)。所以对 \(n\) 阶方阵，</p>
+  <div class="boxed-eq">\[|cA|=c^n|A|,\qquad\text{而不是 }c|A|.\]</div>
+</div>
+
+<h2>三、矩阵的乘法</h2>
+<p>矩阵乘法是矩阵运算中最复杂、也最重要的一种运算。它的定义是从实际需要中产生的。</p>
+<div class="box def"><span class="tag">定义 2.2.3<em>矩阵乘法</em></span>
+  <p>设 \(A=(a_{ij})_{m\times k}\)，\(B=(b_{ij})_{k\times n}\)。定义 \(A\) 与 \(B\) 的乘积 \(AB\) 是一个 \(m\times n\) 矩阵，它的 \((i,j)\) 元素为</p>
+  <div class="boxed-eq">\[c_{ij}=a_{i1}b_{1j}+a_{i2}b_{2j}+\cdots+a_{ik}b_{kj}=\sum_{r=1}^{k}a_{ir}b_{rj}.\]</div>
+</div>
+<p>为了掌握这个定义，要注意两个要点：</p>
+<div class="w-grid">
+  <div class="box idea"><span class="tag">要点一 · 尺寸口诀</span>
+    <p>\(A\) 的<b>列数</b>等于 \(B\) 的<b>行数</b>时才能相乘（注意不能写成 \(BA\)）：</p>
+    <div class="boxed-eq">\[\underset{m\times k}{A}\ \underset{k\times n}{B}\ \longrightarrow\ \underset{m\times n}{AB}\]</div>
+    <p class="small">把两个尺寸合并，去掉中间的两个 \(k\)：<b>内维相等，外维保留</b>。</p>
+  </div>
+  <div class="box idea"><span class="tag">要点二 · 行乘列</span>
+    <p>\(c_{ij}\) 只涉及 \(A\) 的第 \(i\) 行与 \(B\) 的第 \(j\) 列：</p>
+    <div class="boxed-eq">\[c_{ij}=(A\text{ 的第 }i\text{ 行})\times(B\text{ 的第 }j\text{ 列}),\]</div>
+    <p class="small">即对应元素分别相乘以后再求和。</p>
+  </div>
+</div>
+<div class="widget" data-widget="matmul" data-t="矩阵乘法：先看尺寸，再行乘列" data-d="选尺寸、改数字，点结果中的任一元素，左边会标出它所用的 A 的那一行（黄色）和 B 的那一列。尺寸对不上时会提示“无意义”。"></div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.2.1 <span class="src">教材第 63 页</span></div>
+  <p>\(A=\begin{pmatrix}1&0&1\\2&1&0\end{pmatrix}\)，\(B=\begin{pmatrix}1&0&1&1\\1&1&2&-1\\-1&0&-1&0\end{pmatrix}\)，求 \(AB\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st"><b>先看尺寸</b>：\(A\) 是 \(2\times3\)，\(B\) 是 \(3\times4\)，所以 \(AB\) 是 \(2\times4\) 矩阵。</div>
+    <div class="st">第 1 行：\(c_{11}=1\cdot1+0\cdot1+1\cdot(-1)=0\)，\(c_{12}=0\)，\(c_{13}=1+0-1=0\)，\(c_{14}=1+0+0=1\)。</div>
+    <div class="st">第 2 行：\(c_{21}=2+1+0=3\)，\(c_{22}=0+1+0=1\)，\(c_{23}=2+2+0=4\)，\(c_{24}=2-1+0=1\)。</div>
+    <div class="st">\(AB=\begin{pmatrix}0&0&0&1\\3&1&4&1\end{pmatrix}\)。若把次序倒过来，\(B\) 的列数 4 不等于 \(A\) 的行数 2，\(BA\) <b>无意义</b>。</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.2.2 行向量 × 列向量 与 列向量 × 行向量 <span class="src">教材第 63–64 页</span></div>
+  <p>\(A=(1,0,4)\)，\(B=\begin{pmatrix}1\\1\\0\end{pmatrix}\)，求 \(AB\) 和 \(BA\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(AB\)：\((1\times3)(3\times1)\to1\times1\)，\(AB=1\cdot1+0\cdot1+4\cdot0=1\)。\(1\times1\) 矩阵通常就看成一个数。</div>
+    <div class="st">\(BA\)：\((3\times1)(1\times3)\to3\times3\)，\(BA=\begin{pmatrix}1\\1\\0\end{pmatrix}(1,0,4)=\begin{pmatrix}1&0&4\\1&0&4\\0&0&0\end{pmatrix}\)。</div>
+    <div class="st">两者连尺寸都不同，显然 \(AB\ne BA\)。“行乘列”得一个数（内积），“列乘行”得一个方阵（外积）。</div>
+  </div>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.2.3 同阶方阵也不交换 <span class="src">教材第 64 页</span></div>
+  <p>\(A=\begin{pmatrix}0&0\\0&1\end{pmatrix}\)，\(B=\begin{pmatrix}0&1\\0&0\end{pmatrix}\)，求 \(AB\) 和 \(BA\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(AB=\begin{pmatrix}0&0\\0&0\end{pmatrix}=O\)，\(BA=\begin{pmatrix}0&1\\0&0\end{pmatrix}\ne O\)。</div>
+    <div class="st">\(A,B\) 都是二阶方阵，但 \(AB\ne BA\)。更惊人的是：\(A\ne O\)，\(B\ne O\)，而 \(AB=O\)——<b>两个非零矩阵的乘积可以是零矩阵</b>。</div>
+  </div>
+</div>
+
+<div class="box note"><span class="tag">为什么要这样定义乘法？</span>
+  <p>也许会问：把 \(A\) 与 \(B\) 的积定义成对应元素相乘 \((a_{ij}b_{ij})\) 不是更简单吗？这种乘法历史上也出现过（今天叫 Hadamard 积），但用处比现在的定义小得多。下面的例子说明了现在这种定义的用途。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.2.4 线性方程组的矩阵形式 <span class="src">教材第 64–65 页</span></div>
+  <p>把 \(n\) 个未知数 \(m\) 个方程的线性方程组 \(\begin{cases}a_{11}x_1+\cdots+a_{1n}x_n=b_1,\\\cdots\cdots\\a_{m1}x_1+\cdots+a_{mn}x_n=b_m\end{cases}\) 写成矩阵形式。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">令 \(A=(a_{ij})_{m\times n}\)，\(x=\begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix}\)，\(\beta=\begin{pmatrix}b_1\\\vdots\\b_m\end{pmatrix}\)。\(A\) 是 \(m\times n\)，\(x\) 是 \(n\times1\)，所以 \(Ax\) 是 \(m\times1\) 矩阵。</div>
+    <div class="st">\(Ax\) 的第 \(i\) 个元素恰好是 \(a_{i1}x_1+\cdots+a_{in}x_n\)，于是方程组简写为 \[Ax=\beta.\]</div>
+    <div class="st">这种写法不仅节省篇幅，更重要的是可以用矩阵的方法来处理线性方程组：§2.3 中 \(A\) 可逆时 \(x=A^{-1}\beta\)。</div>
+  </div>
+</div>
+
+<h2>矩阵乘法的运算规则</h2>
+<div class="box prop"><span class="tag">乘法运算规则</span>
+  <p>只要有关运算有意义：</p>
+  <ol>
+    <li>结合律：\((AB)C=A(BC)\)；</li>
+    <li>分配律：\(A(B+C)=AB+AC\)，\((A+B)C=AC+BC\)；</li>
+    <li>\(c(AB)=(cA)B=A(cB)\)，\(c\) 是一个数；</li>
+    <li>对任意 \(m\times n\) 矩阵 \(A\)，\(I_mA=A=AI_n\)：单位阵的作用与数 1 类似。</li>
+  </ol>
+</div>
+<details class="proof"><summary>证明（结合律与分配律）</summary><div class="dbody">
+  <p><b>结合律</b>。\(A,B\) 可相乘、\(B,C\) 可相乘，设 \(A\) 为 \(m\times n\)、\(B\) 为 \(n\times p\)、\(C\) 为 \(p\times q\)。则 \((AB)C\) 与 \(A(BC)\) 都是 \(m\times q\) 矩阵，只需比较 \((i,j)\) 元。\(AB\) 的第 \(i\) 行元素为 \(\bigl(\sum_r a_{ir}b_{r1},\dots,\sum_r a_{ir}b_{rp}\bigr)\)，所以</p>
+  \[\bigl((AB)C\bigr)_{ij}=\sum_{k=1}^p\Bigl(\sum_{r=1}^n a_{ir}b_{rk}\Bigr)c_{kj}=\sum_{k=1}^p\sum_{r=1}^n a_{ir}b_{rk}c_{kj}.\]
+  <p>同样 \(\bigl(A(BC)\bigr)_{ij}=\sum_{r=1}^n a_{ir}\bigl(\sum_{k=1}^p b_{rk}c_{kj}\bigr)=\sum_{r=1}^n\sum_{k=1}^p a_{ir}b_{rk}c_{kj}\)。两个有限和交换求和次序相等，故 \((AB)C=A(BC)\)。</p>
+  <p><b>分配律</b>。\(A(B+C)\) 的 \((i,j)\) 元为 \(\sum_r a_{ir}(b_{rj}+c_{rj})=\sum_r a_{ir}b_{rj}+\sum_r a_{ir}c_{rj}\)，正是 \(AB+AC\) 的 \((i,j)\) 元。(3)(4) 直接验证。</p>
+</div></details>
+<p>由结合律，\((AB)C\) 与 \(A(BC)\) 直接写成 \(ABC\)；若干个矩阵的乘积写成 \(A_1A_2\cdots A_m\)，中间不需要括号。但<b>顺序不能换</b>。</p>
+
+<h2>方阵的幂</h2>
+<p>当 \(A\) 是方阵时，定义 \(A^2=AA\)，\(A^3=AAA\)，一般地</p>
+\[A^k=\underbrace{A\cdot A\cdots A}_{k\text{ 个}}.\]
+<p>要使 \(A\) 的乘方有意义，\(A\) 必须是方阵（行数等于列数）。</p>
+<div class="box prop"><span class="tag">方阵幂的运算规则</span>
+  <p>\(A^rA^s=A^{r+s}\)，\((A^r)^s=A^{rs}\)。但一般 \((AB)^r\ne A^rB^r\)（\(r\gt1\)）；只有当 \(AB=BA\) 时才有 \((AB)^r=A^rB^r\)。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 计算 \(A^k\) <span class="src">习题 2.2 第 4 题</span></div>
+  <p>(1) \(A=\begin{pmatrix}1&2&4\\2&4&8\\3&6&12\end{pmatrix}\)；(2) \(A=\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">(1) 观察：每一行都与 \((1,2,4)\) 成比例，\(A=\alpha\beta'\)，其中 \(\alpha=(1,2,3)'\)，\(\beta=(1,2,4)'\)。</div>
+    <div class="st">用结合律：\(A^2=\alpha(\beta'\alpha)\beta'\)，而 \(\beta'\alpha=1+4+12=17\) 是一个数，所以 \(A^2=17A\)，归纳得 \[A^k=17^{k-1}A.\]（\(17\) 恰是 \(A\) 的主对角线元素之和。）</div>
+    <div class="st">(2) 这是平面上逆时针旋转 \(\theta\) 角的矩阵，旋转 \(k\) 次就是旋转 \(k\theta\)：\(A^k=\begin{pmatrix}\cos k\theta&-\sin k\theta\\\sin k\theta&\cos k\theta\end{pmatrix}\)（用数学归纳法和和角公式验证）。</div>
+  </div>
+</div>
+
+<h2>不交换带来的后果</h2>
+<div class="w-grid">
+  <div class="box warn"><span class="tag">消去律不成立</span>
+    <p>对数：\(ab=ac,\ a\ne0\Rightarrow b=c\)。对矩阵：即使 \(AB=AC\) 且 \(A\ne O\)，也未必有 \(B=C\)。例如</p>
+    <p>\(A=\begin{pmatrix}1&1\\1&1\end{pmatrix}\)，\(B=\begin{pmatrix}1&0\\0&0\end{pmatrix}\)，\(C=\begin{pmatrix}0&0\\1&0\end{pmatrix}\)：\(AB=AC=\begin{pmatrix}1&0\\1&0\end{pmatrix}\)，但 \(B\ne C\)。</p>
+    <p class="small">同样，\(AB=O\) 推不出 \(A=O\) 或 \(B=O\)（例 2.2.3）。何时可以消去？§2.3：\(A\) 可逆时。</p>
+  </div>
+  <div class="box warn"><span class="tag">二项式公式要条件</span>
+    <p>\((A+B)^2=A^2+AB+BA+B^2\)，一般<b>不等于</b> \(A^2+2AB+B^2\)。只有当 \(AB=BA\) 时，二项式定理才成立：</p>
+    \[(A+B)^n=A^n+\mathrm C_n^1A^{n-1}B+\mathrm C_n^2A^{n-2}B^2+\cdots+B^n.\]
+    <p class="small">\(cI_n\) 与任一 \(n\) 阶方阵都可交换，所以 \((A+cI)^n\) 总能二项式展开。</p>
+  </div>
+</div>
+<div class="widget" data-widget="noncomm" data-t="AB 与 BA：交换、零因子、完全平方" data-d="试试几个预设：例 2.2.3 中 AB = O 而 BA ≠ O；“可交换的一对”中 AB = BA，此时完全平方公式成立。"></div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 用可交换性计算幂 <span class="src">习题 2.2 第 4(3) 题</span></div>
+  <p>\(A=\begin{pmatrix}a&1&0\\0&a&1\\0&0&a\end{pmatrix}\)，求 \(A^k\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">写成 \(A=aI+N\)，\(N=\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix}\)。\(aI\) 与 \(N\) 可交换，可以用二项式定理。</div>
+    <div class="st">\(N^2=\begin{pmatrix}0&0&1\\0&0&0\\0&0&0\end{pmatrix}\)，\(N^3=O\)。所以展开式只剩前三项：\(A^k=a^kI+ka^{k-1}N+\mathrm C_k^2a^{k-2}N^2\)。</div>
+    <div class="st">\[A^k=\begin{pmatrix}a^k&ka^{k-1}&\frac{k(k-1)}{2}a^{k-2}\\0&a^k&ka^{k-1}\\0&0&a^k\end{pmatrix}.\]</div>
+  </div>
+</div>
+
+<h2>四、矩阵的转置</h2>
+<div class="box def"><span class="tag">定义 2.2.4<em>转置</em></span>
+  <p>设 \(A=(a_{ij})\) 是 \(m\times n\) 矩阵，\(A\) 的转置 \(A'\) 是一个 \(n\times m\) 矩阵：它的第 \(k\) 行正好是 \(A\) 的第 \(k\) 列，第 \(r\) 列是 \(A\) 的第 \(r\) 行。即 \(A'\) 的 \((i,j)\) 元为 \(a_{ji}\)。</p>
+</div>
+<p>例如 \(A=\begin{pmatrix}1&2&1&0\\-1&3&0&5\\\sqrt2&1&-2&0\end{pmatrix}\)，则 \(A'=\begin{pmatrix}1&-1&\sqrt2\\2&3&1\\1&0&-2\\0&5&0\end{pmatrix}\)。（也常记为 \(A^{\mathsf T}\)，统计教材多用 \(A'\) 或 \(A^{\mathsf T}\)。）</p>
+<div class="box prop"><span class="tag">转置运算规则</span>
+  <ol>
+    <li>\((A')'=A\)；</li>
+    <li>\((A+B)'=A'+B'\)；</li>
+    <li>\((cA)'=cA'\)；</li>
+    <li>\((AB)'=B'A'\)——乘积转置时<b>顺序反过来</b>。</li>
+  </ol>
+</div>
+<details class="proof"><summary>证明 \((AB)'=B'A'\)</summary><div class="dbody">
+  <p>设 \(A=(a_{ij})_{m\times n}\)，\(B=(b_{ij})_{n\times p}\)，\(C=AB=(c_{ij})_{m\times p}\)，\(c_{ij}=\sum_{r=1}^n a_{ir}b_{rj}\)。</p>
+  <p>\(C'\) 的 \((j,i)\) 元为 \(c_{ij}\)。再看 \(B'A'\)：它的 \((j,i)\) 元等于 \(B'\) 的第 \(j\) 行与 \(A'\) 的第 \(i\) 列对应相乘之和；而 \(B'\) 的第 \(j\) 行就是 \(B\) 的第 \(j\) 列，\(A'\) 的第 \(i\) 列就是 \(A\) 的第 \(i\) 行，它们对应元素相乘之和恰为 \(a_{i1}b_{1j}+\cdots+a_{in}b_{nj}=c_{ij}\)。又 \(C'\) 与 \(B'A'\) 都是 \(p\times m\) 矩阵，故 \(C'=B'A'\)。</p>
+</div></details>
+<div class="widget" data-widget="transp" data-t="(AB)′ = B′A′，而不是 A′B′" data-d="A 为 2×3、B 为 3×2 时，A′B′ 甚至是 3×3，与 (AB)′ 尺寸都不同。勾选“用 2 阶方阵”再看数值。"></div>
+
+<h3>对称矩阵与反对称矩阵</h3>
+<div class="w-grid">
+  <div class="box def"><span class="tag">对称矩阵</span><p>方阵 \(A\) 满足 \(A'=A\)，即 \(a_{ij}=a_{ji}\)：元素以主对角线为对称轴。例如 \(\begin{pmatrix}1&1&0\\1&3&5\\0&5&-1\end{pmatrix}\)。</p></div>
+  <div class="box def"><span class="tag">反对称矩阵</span><p>方阵 \(A\) 满足 \(A'=-A\)，即 \(a_{ij}=-a_{ji}\)，主对角线元素全为 0。例如 \(\begin{pmatrix}0&2&1\\-2&0&-5\\-1&5&0\end{pmatrix}\)。</p></div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 任一方阵 = 对称阵 + 反对称阵 <span class="src">习题 2.2 第 9 题</span></div>
+  <p>证明：任一 \(n\) 阶方阵 \(A\) 都可以表示为一个对称阵与一个反对称阵之和。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">令 \(S=\frac12(A+A')\)，\(K=\frac12(A-A')\)，则 \(A=S+K\)。</div>
+    <div class="st">\(S'=\frac12(A'+A)=S\)，对称；\(K'=\frac12(A'-A)=-K\)，反对称。</div>
+    <div class="st">（唯一性）若 \(A=S_1+K_1\)，转置得 \(A'=S_1-K_1\)，两式相加、相减即得 \(S_1=S,\ K_1=K\)。</div>
+  </div>
+</div>
+
+<h2>五、矩阵的共轭</h2>
+<div class="box def"><span class="tag">定义 2.2.5<em>共轭矩阵</em></span>
+  <p>设 \(A=(a_{ij})_{m\times n}\) 是复矩阵，\(A\) 的共轭矩阵 \(\overline A=(\overline{a_{ij}})_{m\times n}\)：每个元素取共轭复数（\(z=a+b\mathrm i\) 的共轭 \(\overline z=a-b\mathrm i\)）。</p>
+</div>
+<p>例如 \(A=\begin{pmatrix}1+\mathrm i&0&1+\sqrt2\mathrm i\\2\mathrm i&-1&-4\mathrm i\\-4-\mathrm i&\sqrt3\mathrm i&\mathrm i\end{pmatrix}\)，则 \(\overline A=\begin{pmatrix}1-\mathrm i&0&1-\sqrt2\mathrm i\\-2\mathrm i&-1&4\mathrm i\\-4+\mathrm i&-\sqrt3\mathrm i&-\mathrm i\end{pmatrix}\)。</p>
+<div class="box prop"><span class="tag">共轭运算规则</span>
+  <p>\(\overline{A+B}=\overline A+\overline B\)，\(\overline{cA}=\overline c\,\overline A\)，\(\overline{AB}=\overline A\,\overline B\)，\(\overline{A'}=(\overline A)'\)。</p>
+  <p class="small">注意共轭<b>不</b>改变乘积的顺序，这与转置不同。共轭转置 \(\overline A'\) 满足 \(A=\overline A'\) 的方阵称为 Hermite 矩阵（习题 2.2 第 10 题），它是实对称矩阵在复数域上的推广。</p>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 矩阵乘法无处不在</span>
+  <ul>
+    <li><b>样本均值</b>：数据矩阵 \(X_{n\times p}\) 的列均值向量 \(\bar x'=\frac1n\mathbf 1'X\)，其中 \(\mathbf 1\) 是全 1 列向量。</li>
+    <li><b>协方差矩阵</b>：中心化后 \(X_c=X-\mathbf 1\bar x'\)，样本协方差矩阵 \(S=\frac1{n-1}X_c'X_c\)。由 \((AB)'=B'A'\)，\(S'=\frac1{n-1}X_c'(X_c')'=S\)：协方差矩阵总是对称的。</li>
+    <li><b>二次型</b>：\(A\) 对称、\(x\) 是列向量时，\(x'Ax=\sum_{i,j}a_{ij}x_ix_j\)（习题 2.2 第 5 题）是一个数。线性组合 \(w'x\) 的方差就是 \(w'\Sigma w\)。</li>
+  </ul>
+</div>
+<div class="widget" data-widget="markov" data-k="统计视角" data-t="马尔可夫链：转移矩阵的幂" data-d="P 的 (i, j) 元是“今天状态 i、明天状态 j”的概率。k 天后的转移概率就是 Pᵏ：方阵的幂在随机过程里的直接含义。"></div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>相加要<b>同型</b>，相乘要<b>内维相等</b>：两个条件不同。</li>
+    <li>\(AB\ne BA\) 是常态；\(AB\) 有意义时 \(BA\) 可能没有意义，或尺寸不同。</li>
+    <li>\((A+B)^2\ne A^2+2AB+B^2\)，\((A+B)(A-B)\ne A^2-B^2\)，除非 \(AB=BA\)。</li>
+    <li>\(AB=O\) 推不出 \(A=O\) 或 \(B=O\)；\(AB=AC\) 推不出 \(B=C\)。</li>
+    <li>\((AB)'=B'A'\)，不是 \(A'B'\)。</li>
+    <li>\(|cA|=c^n|A|\)，矩阵数乘是每个元素都乘。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="1"><div class="qt">\(\begin{pmatrix}1&2&0\\1&-1&1\end{pmatrix}\begin{pmatrix}1&3\\0&1\\1&-1\end{pmatrix}=\)？<span class="tiny muted">（习题 2.2 第 2(1) 题）</span></div><ol class="opts"><li>\(\begin{pmatrix}1&5\\1&2\end{pmatrix}\)</li><li>\(\begin{pmatrix}1&5\\2&1\end{pmatrix}\)</li><li>\(\begin{pmatrix}1&2\\5&1\end{pmatrix}\)</li><li>无意义</li></ol><div class="explain">\((2\times3)(3\times2)\to2\times2\)；\(c_{11}=1+0+0=1\)，\(c_{12}=3+2+0=5\)，\(c_{21}=1+0+1=2\)，\(c_{22}=3-1-1=1\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">\(A\) 为 \(3\times4\)，\(B\) 为 \(4\times2\)，\(C\) 为 \(3\times2\)。下列有意义的是：</div><ol class="opts"><li>\(BA\)</li><li>\(AB+C'\)</li><li>\(A'C\)</li><li>\(CA\)</li></ol><div class="explain">\(A'\) 是 \(4\times3\)，\(C\) 是 \(3\times2\)，\(A'C\) 是 \(4\times2\)。\(AB\) 是 \(3\times2\)，\(C'\) 是 \(2\times3\)，不同型不能相加。</div></div>
+  <div class="fill" data-ans="-5"><div class="qt">\(A=\begin{pmatrix}1&0&3\\2&-1&0\end{pmatrix}\)，\(B=\begin{pmatrix}1&-1\\2&3\\4&0\end{pmatrix}\)，\(AB\) 的 \((2,2)\) 元为？<span class="tiny muted">（习题 2.2 第 3 题）</span></div><div class="explain">\(A\) 的第 2 行 \((2,-1,0)\) 乘 \(B\) 的第 2 列 \((-1,3,0)'\)：\(-2-3+0=-5\)。完整地 \(AB=\begin{pmatrix}13&-1\\0&-5\end{pmatrix}\)，\(BA=\begin{pmatrix}-1&1&3\\8&-3&6\\4&0&12\end{pmatrix}\)。</div></div>
+  <div class="fill" data-ans="24"><div class="qt">\(A\) 是 3 阶方阵，\(|A|=3\)，则 \(|2A|=\)？</div><div class="explain">\(|2A|=2^3|A|=24\)：每一行都提出一个 2。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(A,B\) 为 \(n\) 阶对称阵，则 \(AB\) 为对称阵的充要条件是：<span class="tiny muted">（习题 2.2 第 12 题）</span></div><ol class="opts"><li>\(A=B\)</li><li>\(AB=O\)</li><li>\(AB=-BA\)</li><li>\(AB=BA\)</li></ol><div class="explain">\((AB)'=B'A'=BA\)。所以 \(AB\) 对称 \(\iff BA=AB\)。</div></div>
+  <div class="fill" data-ans="17"><div class="qt">\(A=\begin{pmatrix}1&2&4\\2&4&8\\3&6&12\end{pmatrix}\)，若 \(A^2=cA\)，则 \(c=\)？</div><div class="explain">\(A=\alpha\beta'\)，\(A^2=\alpha(\beta'\alpha)\beta'=17A\)。</div></div>
+</div>
+<details class="more"><summary>证明题思路（习题 2.2 第 7、8、14 题）</summary><div class="dbody">
+  <p><b>7</b>　\(A^n=O\)：\((I-A)(I+A+\cdots+A^{n-1})=I+A+\cdots+A^{n-1}-A-A^2-\cdots-A^n=I-A^n=I\)。这是“\(1-x^n=(1-x)(1+x+\cdots+x^{n-1})\)”的矩阵版，能用是因为 \(I\) 与 \(A\) 可交换。</p>
+  <p><b>8</b>　\(A\) 实对称且 \(A^2=O\)：\(A^2=AA'\) 的 \((i,i)\) 元是 \(\sum_j a_{ij}^2=0\)，实数平方和为 0 ⇒ 每个 \(a_{ij}=0\)。</p>
+  <p><b>14</b>　与所有 \(n\) 阶矩阵都可交换的矩阵是数量矩阵 \(cI_n\)：取 \(E_{ij}\)（只有 \((i,j)\) 元为 1）检验 \(AE_{ij}=E_{ij}A\)，比较两边即得 \(A\) 的非对角元为 0、对角元全相等。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>加法：同型，对应元素相加；数乘：每个元素都乘。</li>
+  <li>乘法：\((m\times k)(k\times n)\to m\times n\)，\(c_{ij}\) = 第 \(i\) 行 × 第 \(j\) 列；满足结合律、分配律，<b>不满足交换律、消去律</b>。</li>
+  <li>幂只对方阵定义；\(AB=BA\) 时才能用二项式定理。</li>
+  <li>转置：\((AB)'=B'A'\)；对称 \(A'=A\)，反对称 \(A'=-A\)；共轭：逐元素取共轭，不换顺序。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>本节必须讲透：乘法的定义、乘法的尺寸条件、\(AB\ne BA\) 是常态，以及 \((AB)'=B'A'\)。</li>
+  <li>“为什么这样定义乘法”可以用例 2.2.4（方程组）和马尔可夫链两步转移概率 \(P^2\) 来回答，后者让统计专业学生印象很深。</li>
+  <li>习题 2.2 第 4(4) 题（秩一矩阵的幂）是很好的结合律练习：\(\alpha\beta'\alpha\beta'=\alpha(\beta'\alpha)\beta'\)。</li>
+</ul></div></details>
+</template>

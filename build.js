@@ -3,7 +3,7 @@ const fs=require('fs'),path=require('path');
 let KROOT;try{KROOT=path.dirname(require.resolve('katex/package.json'))}catch(e){KROOT='/opt/npm-tools/node_modules/katex'}
 const katex=require(KROOT);
 const SRC=path.join(__dirname,'src'),OUT=path.join(__dirname,'dist');
-const order=['home','ch1','s11','s12','s13','s14','s15','s16','s17','summary','practice'];
+const order=['home','ch1','s11','s12','s13','s14','s15','s16','s17','summary','practice','ch2','s21','s22','s23','s24','s25','s26','s27','summary2','practice2'];
 const errors=[];
 function decode(s){return s.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&')}
 function renderMath(html,file){
@@ -32,7 +32,7 @@ const pages=order.filter(n=>fs.existsSync(path.join(SRC,'pages',n+'.html'))).map
   return renderMath(fs.readFileSync(f,'utf8'),n);
 }).join('\n');
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
-const js=['core.js','widgets-a.js','widgets-b.js'].map(f=>fs.readFileSync(path.join(SRC,f),'utf8')).join('\n;\n');
+const js=['core.js','widgets-a.js','widgets-b.js','widgets-c.js'].map(f=>fs.readFileSync(path.join(SRC,f),'utf8')).join('\n;\n');
 const kjs=fs.readFileSync(path.join(KROOT,'dist/katex.min.js'),'utf8');
 const title='<title>高等代数交互课件</title>';
 const mk=(print)=>shell+'\n'+pages+'\n<script>'+kjs+'</script>\n<script>window.SITE={print:'+print+'};'+js+'\ndocument.documentElement.lang="zh-CN";D._initShell();</script>\n';

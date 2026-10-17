@@ -1,0 +1,201 @@
+<template data-chapter="2" data-route="s2-5" data-num="§2.5" data-short="乘积的行列式与求逆" data-group="第三阶段 · 结构化计算">
+<header class="page-head">
+  <span class="det-eyebrow">§2.5</span>
+  <h1>矩阵乘积的行列式与初等变换法求逆阵</h1>
+  <p class="lede">本节把前三节的内容真正连起来：<b>可逆矩阵 + 初等变换 + 行列式</b>。我们要补上 §2.3 留下的缺口（“可逆 ⇒ \(|A|\ne0\)”），证明本章最重要的行列式定理 \(|AB|=|A||B|\)，并给出实际计算中最常用的求逆方法。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 88–94 页</span><span class="pill">关键词：|AB| = |A||B|、(A | I) → (I | A⁻¹)</span></div>
+  <ul class="goals">
+    <li>可逆矩阵可以只用初等行变换化成单位矩阵</li>
+    <li>非异矩阵可以表示成初等矩阵的乘积</li>
+    <li>掌握乘积行列式定理；掌握 \(|A^{-1}|\) 与 \(|A|\) 的关系</li>
+    <li>掌握用初等行变换求逆矩阵的方法；会解矩阵方程</li>
+  </ul>
+</header>
+
+<h2>一、矩阵乘积的行列式</h2>
+<h3>第一步：非异阵 = 初等矩阵之积</h3>
+<div class="box thm"><span class="tag">引理 2.5.1</span>
+  <p>设 \(A\) 为 \(n\) 阶非异阵，则<b>仅用初等行变换</b>（或仅用初等列变换）就可以把 \(A\) 化为单位矩阵 \(I_n\)。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>\(A\) 的第一列不全为零（否则 \(A\) 有零列，是奇异阵，见习题 2.3 第 3 题）。对调行把非零元换到 \((1,1)\) 位置，第一行乘 \(a_{11}^{-1}\)，再用第三类行变换把第一列其余元素消成 0：</p>
+  \[A\to\begin{pmatrix}1&a_{12}&\cdots&a_{1n}\\0&a_{22}&\cdots&a_{2n}\\\vdots&\vdots&&\vdots\\0&a_{n2}&\cdots&a_{nn}\end{pmatrix}\]
+  <p>（这里的 \(a_{ij}\) 已是变换后的元素）。若 \(a_{22},\dots,a_{n2}\) 全为零，则再用第一列乘 \(-a_{12}\) 加到第二列，得到第二列全为零的矩阵；由推论 2.4.2 它应是非异阵，但有零列的矩阵是奇异阵，矛盾。所以 \(a_{22},\dots,a_{n2}\) 中有非零元，可以把它换到 \((2,2)\) 位置、化为 1，再消去第二列的其余元素（包括上方的 \(a_{12}\)）。如此继续，最后得到 \(I_n\)。</p>
+</div></details>
+<div class="box prop"><span class="tag">推论 2.5.1</span>
+  <p>任一 \(n\) 阶非异阵都可以表示为有限个初等矩阵的乘积。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>由引理 2.5.1 和“行左”，存在初等矩阵 \(P_1,\dots,P_m\) 使 \(P_m\cdots P_2P_1A=I_n\)。依次左乘 \(P_m^{-1},\dots,P_1^{-1}\)，得 \[A=P_1^{-1}P_2^{-1}\cdots P_m^{-1},\] 而初等矩阵的逆仍是初等矩阵。</p>
+</div></details>
+
+<h3>第二步：初等矩阵的情形</h3>
+<div class="box thm"><span class="tag">引理 2.5.2</span>
+  <p>设 \(A\) 是 \(n\) 阶方阵，\(Q\) 是 \(n\) 阶初等矩阵，则 \(|QA|=|Q||A|=|AQ|\)。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>\(QA\) 就是对 \(A\) 做一次初等行变换。由第一章的行列式性质：</p>
+  <ul>
+    <li>\(Q=P_{ij}\)：对换两行，\(|QA|=-|A|=|P_{ij}||A|\)；</li>
+    <li>\(Q=P_i(c)\)：一行乘 \(c\)，\(|QA|=c|A|=|P_i(c)||A|\)；</li>
+    <li>\(Q=T_{ij}(c)\)：一行的倍数加到另一行，\(|QA|=|A|=|T_{ij}(c)||A|\)。</li>
+  </ul>
+  <p>其中用到了推论 2.4.3 的 \(|P_{ij}|=-1,\ |P_i(c)|=c,\ |T_{ij}(c)|=1\)。列的情形同理（行列式的列性质）。</p>
+</div></details>
+
+<h3>第三步：可逆的判定与乘积定理</h3>
+<div class="box thm"><span class="tag">定理 2.5.1</span>
+  <p>\(n\) 阶方阵 \(A\) 为非异阵的充要条件是 \(|A|\ne0\)。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>充分性就是定理 2.3.1。必要性：若 \(A\) 非异，由推论 2.5.1，\(A=P_1P_2\cdots P_t\)，每个 \(P_i\) 为初等矩阵。反复用引理 2.5.2：\[|A|=|P_1||P_2\cdots P_t|=\cdots=|P_1||P_2|\cdots|P_t|\ne0,\] 因为每个初等矩阵的行列式都不为零。</p>
+</div></details>
+<div class="box thm"><span class="tag">定理 2.5.2<em>乘积行列式定理</em></span>
+  <p>设 \(A,B\) 都是 \(n\) 阶方阵，则</p>
+  <div class="boxed-eq">\[|AB|=|A||B|.\]</div>
+  <p>这是本章最重要的行列式定理之一。</p>
+</div>
+<details class="proof" open><summary>证明（分 \(A\) 非异与奇异两种情形）</summary><div class="dbody">
+  <p><b>\(A\) 非异</b>：\(A=Q_1Q_2\cdots Q_m\)（初等矩阵之积），反复用引理 2.5.2：\[|AB|=|Q_1Q_2\cdots Q_mB|=|Q_1||Q_2|\cdots|Q_m||B|=|A||B|.\]</p>
+  <p><b>\(A\) 奇异</b>：此时 \(|A|=0\)，只需证 \(|AB|=0\)。由定理 2.4.1，存在初等矩阵使 \(P_s\cdots P_1\,A\,Q_1\cdots Q_r=D\) 为相抵标准型；因为 \(A\) 奇异，\(D\) 不是 \(I_n\)（推论 2.4.2），所以 \(D\) 的最后一行全为零。于是 \[P_s\cdots P_1AB=D\,(Q_1\cdots Q_r)^{-1}B\] 的最后一行也全为零，行列式为 0。由引理 2.5.2，\(|P_s|\cdots|P_1||AB|=0\)，而 \(|P_i|\ne0\)，故 \(|AB|=0=|A||B|\)。</p>
+</div></details>
+<div class="widget" data-widget="detprod" data-t="|AB| = |A||B| 的几何意义" data-d="二阶方阵把单位正方形变成平行四边形，有向面积就是行列式。先用 B、再用 A（即 AB），面积先放大 |B| 倍、再放大 |A| 倍。也对比一下 |A + B| 与 |A| + |B|。"></div>
+
+<h3>推论</h3>
+<div class="stage-grid">
+  <div class="box prop"><span class="tag">推论 2.5.2</span>
+    <p>奇异阵与任一同阶方阵之积仍是奇异阵；两个同阶非异阵之积仍是非异阵。</p>
+    <p class="small">因为 \(|A|=0\Rightarrow|AB|=0\)；\(|A|\ne0,|B|\ne0\Rightarrow|AB|\ne0\)。</p>
+  </div>
+  <div class="box prop"><span class="tag">推论 2.5.3</span>
+    <p>若 \(A\) 可逆，则 \(|A^{-1}|=|A|^{-1}\)。对正整数 \(k\)，\(|A^k|=|A|^k\)。</p>
+    <p class="small">由 \(AA^{-1}=I\) 得 \(|A||A^{-1}|=1\)。</p>
+  </div>
+  <div class="box prop"><span class="tag">推论 2.5.4</span>
+    <p>设 \(A,B\) 为 \(n\) 阶方阵。若 \(AB=I_n\)，则 \(BA=I_n\)，即 \(B=A^{-1}\)。</p>
+    <p class="small">意义：对方阵，只要验证一边是逆就够了。</p>
+  </div>
+</div>
+<details class="proof"><summary>推论 2.5.4 的证明</summary><div class="dbody">
+  <p>由 \(|A||B|=|AB|=1\) 知 \(|A|\ne0\)，所以 \(A\) 可逆，记 \(C=A^{-1}\)。则 \[B=IB=(CA)B=C(AB)=CI=C=A^{-1}.\]</p>
+  <p class="small">注意：对长方阵这不成立。例如 \((1,0)\begin{pmatrix}1\\0\end{pmatrix}=1\)，但 \(\begin{pmatrix}1\\0\end{pmatrix}(1,0)=\begin{pmatrix}1&0\\0&0\end{pmatrix}\ne I_2\)。</p>
+</div></details>
+
+<h3>用乘积定理计算行列式</h3>
+<p>乘积定理的另一个用途是：把一个行列式写成两个容易计算的行列式之积。</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.5.1 <span class="src">教材第 90 页</span></div>
+  <p>计算 \(n+1\) 阶行列式 \(|A|\)，其中 \(A=\bigl((a_i+b_j)^n\bigr)_{i,j=0,1,\dots,n}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">由二项式定理，\((a_i+b_j)^n=\sum_{k=0}^n\mathrm C_n^ka_i^k\,b_j^{n-k}\)。这正是一个矩阵乘积的 \((i,j)\) 元：\[A=\bigl(\mathrm C_n^ka_i^k\bigr)_{i,k}\cdot\bigl(b_j^{n-k}\bigr)_{k,j}.\]</div>
+    <div class="st">第一个矩阵各列提出 \(\mathrm C_n^0,\mathrm C_n^1,\dots,\mathrm C_n^n\) 后是 Vandermonde 矩阵 \((a_i^k)\)，行列式为 \(\mathrm C_n^1\cdots\mathrm C_n^n\prod_{0\le i\lt j\le n}(a_j-a_i)\)。</div>
+    <div class="st">第二个矩阵 \((b_j^{n-k})\) 的行是 \(b\) 的 \(n,n-1,\dots,0\) 次幂，把行倒过来是 Vandermonde 型，行列式为 \(\prod_{0\le i\lt j\le n}(b_i-b_j)\)。</div>
+    <div class="st">由 \(|AB|=|A||B|\)：\[|A|=\mathrm C_n^1\mathrm C_n^2\cdots\mathrm C_n^n\prod_{0\le i\lt j\le n}(a_j-a_i)(b_i-b_j).\]（已用 \(n=2,3\) 的具体数值验证。）</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.5.2 <span class="src">教材第 91 页</span></div>
+  <p>计算 \(|A|=\begin{vmatrix}x&-y&-z&-w\\y&x&-w&z\\z&w&x&-y\\w&-z&y&x\end{vmatrix}\)（\(x,y,z,w\) 为实数）。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">计算 \(AA'\)：各行两两“正交”，每行平方和为 \(u=x^2+y^2+z^2+w^2\)，所以 \(AA'=uI_4\)。</div>
+    <div class="st">两边取行列式：\(|A||A'|=|A|^2=u^4\)，所以 \(|A|=\pm u^2\)。</div>
+    <div class="st">定符号：\(|A|\) 是 \(x,y,z,w\) 的多项式，含 \(x^4\) 项（主对角线之积），系数为 \(+1\)；令 \(x=1,y=z=w=0\) 得 \(|A|=1=u^2\)。所以 \[|A|=(x^2+y^2+z^2+w^2)^2.\]</div>
+  </div>
+</div>
+
+<h2>二、初等变换法求逆阵</h2>
+<p>若 \(A\) 可逆，由引理 2.5.1，存在初等矩阵 \(Q_1,\dots,Q_t\) 使</p>
+\[Q_t\cdots Q_2Q_1A=I_n.\]
+<p>两边右乘 \(A^{-1}\)，得 \(A^{-1}=Q_t\cdots Q_2Q_1=Q_t\cdots Q_2Q_1\,I_n\)。这说明：<b>把 \(A\) 化成 \(I_n\) 的那一串行变换，作用在 \(I_n\) 上，恰好得到 \(A^{-1}\)</b>。把两者并排写在一起同时变换：</p>
+<div class="boxed-eq">\[(A\mid I_n)\xrightarrow{\ \text{初等行变换}\ }(I_n\mid A^{-1}).\]</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.5.3 <span class="src">教材第 92 页</span></div>
+  <p>求 \(A=\begin{pmatrix}1&2&3\\2&1&2\\1&3&4\end{pmatrix}\) 的逆阵。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(\left(\begin{array}{ccc|ccc}1&2&3&1&0&0\\2&1&2&0&1&0\\1&3&4&0&0&1\end{array}\right)\to\left(\begin{array}{ccc|ccc}1&2&3&1&0&0\\0&-3&-4&-2&1&0\\0&1&1&-1&0&1\end{array}\right)\)（第一行乘 \(-2\)、\(-1\) 分别加到第二、三行）。</div>
+    <div class="st">对调第二、三行（避免分数）：\(\left(\begin{array}{ccc|ccc}1&2&3&1&0&0\\0&1&1&-1&0&1\\0&-3&-4&-2&1&0\end{array}\right)\)。</div>
+    <div class="st">用第二行消去第二列其余元素：\(\left(\begin{array}{ccc|ccc}1&0&1&3&0&-2\\0&1&1&-1&0&1\\0&0&-1&-5&1&3\end{array}\right)\)。</div>
+    <div class="st">用第三行消去第三列，再把第三行乘 \(-1\)：\(\left(\begin{array}{ccc|ccc}1&0&0&-2&1&1\\0&1&0&-6&1&4\\0&0&1&5&-1&-3\end{array}\right)\)。</div>
+    <div class="st">所以 \(A^{-1}=\begin{pmatrix}-2&1&1\\-6&1&4\\5&-1&-3\end{pmatrix}\)。（验算 \(AA^{-1}=I\)。）</div>
+  </div>
+</div>
+<div class="widget" data-widget="gjinv" data-t="初等行变换法：(A | I) → (I | A⁻¹)" data-d="竖线左边是 A，右边是 I（或 B）。每一步对整行做同一个行变换；左边变成 I 时，右边就是 A⁻¹（或 X = A⁻¹B）。试试“奇异阵”：左边会出现零行。"></div>
+
+<h3>为什么必须只做行变换？</h3>
+<div class="box warn"><span class="tag">注 · 只能用初等行变换</span>
+  <p>我们希望每一步都等价于用<b>同一个</b>初等矩阵左乘两边：</p>
+  <div class="boxed-eq">\[P(A\mid I_n)=(PA\mid PI_n).\]</div>
+  <p>若混入列变换，左边变成 \(PAQ\)，右边却是 \(PIQ'\)（\(Q'\) 作用在另一块的列上），这种统一的左乘结构被破坏，右边就不再是 \(A^{-1}\)。所以：<b>初等变换法求逆矩阵时，只做初等行变换。</b>另外，若过程中左边出现零行，说明 \(|A|=0\)，\(A\) 不可逆。</p>
+</div>
+<details class="more"><summary>思考：只用列变换能否求逆？</summary><div class="dbody">
+  <p>可以，但要把 \(I_n\) 放在 \(A\) 的<b>下方</b>：\(\begin{pmatrix}A\\I_n\end{pmatrix}\xrightarrow{\text{初等列变换}}\begin{pmatrix}I_n\\A^{-1}\end{pmatrix}\)。理由：列变换是右乘，\(\begin{pmatrix}A\\I\end{pmatrix}Q=\begin{pmatrix}AQ\\Q\end{pmatrix}\)，当 \(AQ=I\) 时 \(Q=A^{-1}\)。两种方法不能混用。</p>
+</div></details>
+
+<h2>三、解矩阵方程</h2>
+<div class="w-grid">
+  <div class="box prop"><span class="tag">\(AX=B\)</span>
+    <p>若 \(A\) 可逆，则 \(X=A^{-1}B\)。计算时不必先求 \(A^{-1}\)：</p>
+    <div class="boxed-eq">\[(A\mid B)\xrightarrow{\text{初等行变换}}(I\mid A^{-1}B).\]</div>
+    <p class="small">理由同上：\(Q_t\cdots Q_1(A\mid B)=(I\mid Q_t\cdots Q_1B)=(I\mid A^{-1}B)\)。</p>
+  </div>
+  <div class="box prop"><span class="tag">\(XA=B\)</span>
+    <p>若 \(A\) 可逆，则 \(X=BA^{-1}\)（注意顺序）。可以转置化为 \(A'X'=B'\)，用 \((A'\mid B')\to(I\mid X')\)；或用列变换 \(\begin{pmatrix}A\\B\end{pmatrix}\to\begin{pmatrix}I\\BA^{-1}\end{pmatrix}\)。</p>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.5.4 <span class="src">教材第 93 页</span></div>
+  <p>解矩阵方程 \(\begin{pmatrix}1&0&1\\-1&1&1\\2&-1&1\end{pmatrix}X=\begin{pmatrix}1&1\\0&1\\-1&0\end{pmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">先确认系数矩阵可逆：\(|A|=1\cdot(1+1)-0+1\cdot(1-2)=1\ne0\)。</div>
+    <div class="st">\(\left(\begin{array}{ccc|cc}1&0&1&1&1\\-1&1&1&0&1\\2&-1&1&-1&0\end{array}\right)\xrightarrow{\text{行变换}}\left(\begin{array}{ccc|cc}1&0&0&3&1\\0&1&0&5&2\\0&0&1&-2&0\end{array}\right)\)。</div>
+    <div class="st">\(X=\begin{pmatrix}3&1\\5&2\\-2&0\end{pmatrix}\)。验算：第一行 \((1,0,1)\) 乘 \(X\) 得 \((1,1)\) ✓。</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 <span class="src">习题 2.5 第 3、4 题</span></div>
+  <p>设 \(A=\begin{pmatrix}2&2&3\\1&-1&0\\-1&2&1\end{pmatrix}\)。(1) 解 \(AX=\begin{pmatrix}4&-1\\2&1\\1&0\end{pmatrix}\)；(2) 解 \(XA=\begin{pmatrix}1&1&2\\0&-1&3\end{pmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(|A|=2(-1-0)-2(1-0)+3(2-1)=-1\ne0\)，\(A\) 可逆。</div>
+    <div class="st">(1) \((A\mid B)\to(I\mid X)\)，得 \(X=\begin{pmatrix}-7&-5\\-9&-6\\12&7\end{pmatrix}\)。</div>
+    <div class="st">(2) \(X\) 是 \(2\times3\) 矩阵，\(X=BA^{-1}\)。转置得 \(A'X'=B'\)，对 \((A'\mid B')\) 做行变换，得 \(X=\begin{pmatrix}0&3&2\\-4&23&15\end{pmatrix}\)。验算 \(XA=B\)：第一行 \((0,3,2)A=(0+3-2,\ 0-3+4,\ 0+0+2)=(1,1,2)\) ✓。</div>
+  </div>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 用逆矩阵算回归系数</span>
+  <p>一元线性回归 \(y_i=\beta_0+\beta_1x_i+\varepsilon_i\) 写成矩阵形式 \(y=X\beta+\varepsilon\)，其中设计矩阵 \(X=(\mathbf 1,x)\) 是 \(n\times2\) 矩阵。最小二乘估计满足<b>正规方程</b></p>
+  <div class="boxed-eq">\[X'X\hat\beta=X'y\quad\Longrightarrow\quad\hat\beta=(X'X)^{-1}X'y.\]</div>
+  <p>\(X'X=\begin{pmatrix}n&\sum x_i\\\sum x_i&\sum x_i^2\end{pmatrix}\)，\(|X'X|=n\sum x_i^2-(\sum x_i)^2=n\sum(x_i-\bar x)^2\)，只有当所有 \(x_i\) 都相同时才为 0。这一节的所有工具都用上了：矩阵乘法、转置、行列式判定可逆、求逆。</p>
+</div>
+<div class="widget" data-widget="ols" data-k="统计视角" data-t="拖动数据点：(X′X)⁻¹X′y 实时更新" data-d="把 5 个点拖到同一条竖线上（所有 x 相同），会看到 |X′X| = 0，X′X 不可逆。"></div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>\(|AB|=|A||B|\)，但 \(|A+B|\ne|A|+|B|\)（一般）。</li>
+    <li>\(|cA|=c^n|A|\)，\(|A^{-1}|=|A|^{-1}\)，\(|A^*|=|A|^{n-1}\)，\(|A'|=|A|\)。</li>
+    <li>求逆时只对 \((A\mid I)\) 做<b>相同的行</b>变换，不能混入列变换。</li>
+    <li>\(AX=B\) 的解是 \(A^{-1}B\)；\(XA=B\) 的解是 \(BA^{-1}\)。顺序不能错。</li>
+    <li>\(AB=I\Rightarrow BA=I\) 只对<b>方阵</b>成立。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="-2"><div class="qt">\(A,B\) 为 3 阶方阵，\(|A|=2\)，\(|B|=-\frac12\)，则 \(|2A^{-1}B|=\)？</div><div class="explain">\(|2A^{-1}B|=2^3\cdot|A|^{-1}\cdot|B|=8\cdot\frac12\cdot\bigl(-\frac12\bigr)=-2\)。数乘 2 要变成 \(2^3\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">用初等变换求 \(\begin{pmatrix}1&1&0\\-2&1&-1\\3&1&1\end{pmatrix}^{-1}\)（习题 2.5 第 1(2) 题），结果为：</div><ol class="opts"><li>\(\begin{pmatrix}2&-1&-5\\-1&1&2\\-1&1&3\end{pmatrix}\)</li><li>\(\begin{pmatrix}2&-1&-1\\-1&1&1\\-5&2&3\end{pmatrix}\)</li><li>\(\begin{pmatrix}2&1&-1\\1&1&1\\-5&-2&3\end{pmatrix}\)</li><li>不可逆</li></ol><div class="explain">\((A\mid I)\to(I\mid A^{-1})\)。选项 A 是正确答案的转置。验算第一行：\((1,1,0)\) 乘第一列 \((2,-1,-5)'\) 得 1 ✓。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">用 \((A\mid I)\) 求逆，下列操作<b>不允许</b>的是：</div><ol class="opts"><li>对调第 2、3 行</li><li>第 1 行乘 \(-\frac13\)</li><li>对调第 1、2 列</li><li>第 3 行乘 5 加到第 1 行</li></ol><div class="explain">只允许初等行变换。</div></div>
+  <div class="fill" data-ans="-1"><div class="qt">\(\begin{pmatrix}1&2&-1\\3&1&0\\7&6&-2\end{pmatrix}\) 的行列式为？其逆矩阵的 \((1,1)\) 元为 2。<span class="tiny muted">（习题 2.5 第 1(3) 题）</span></div><div class="explain">\(|A|=1(-2-0)-2(-6-0)+(-1)(18-7)=-2+12-11=-1\)，\(A^{-1}=\begin{pmatrix}2&2&-1\\-6&-5&3\\-11&-8&5\end{pmatrix}\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(A\) 为 \(n\) 阶方阵，且 \(A^2=A\)，\(A\ne I\)。则一定有：</div><ol class="opts"><li>\(A=O\)</li><li>\(|A|=1\)</li><li>\(A\) 可逆</li><li>\(|A|=0\)</li></ol><div class="explain">\(|A|^2=|A|\)，所以 \(|A|=0\) 或 1。若 \(|A|=1\)，\(A\) 可逆，两边左乘 \(A^{-1}\) 得 \(A=I\)，矛盾。（\(A\) 不一定是 \(O\)，如 \(\mathrm{diag}\{1,0\}\)。）</div></div>
+</div>
+<details class="more"><summary>更多练习答案（习题 2.5 第 1(1)、2 题）</summary><div class="dbody">
+  <p><b>1(1)</b>　\(\begin{pmatrix}1&2&3&4\\2&3&1&2\\1&1&-1&-1\\1&0&-6&-6\end{pmatrix}^{-1}=\begin{pmatrix}6&-6&6&1\\-5&5&-4&-1\\-1&0&2&-1\\2&-1&-1&1\end{pmatrix}\)（\(|A|=-1\)）。</p>
+  <p><b>2</b>　\(A\) 的第 \(i\) 行只有 \((i,i+1)\) 元 \(a_i\)，最后一行只有 \((n,1)\) 元 \(a_n\)。\(Ae_{i+1}=a_ie_i\)，所以 \(A^{-1}e_i=a_i^{-1}e_{i+1}\)：\(A^{-1}\) 的 \((i+1,i)\) 元为 \(a_i^{-1}\)（\(i=1,\dots,n-1\)），\((1,n)\) 元为 \(a_n^{-1}\)，其余为 0。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>非异阵只用行变换可化为 \(I\)；非异阵 = 初等矩阵之积。</li>
+  <li>\(A\) 非异 \(\iff|A|\ne0\)；\(|AB|=|A||B|\)；\(|A^{-1}|=|A|^{-1}\)；方阵 \(AB=I\Rightarrow BA=I\)。</li>
+  <li>求逆：\((A\mid I)\to(I\mid A^{-1})\)，只做行变换；解 \(AX=B\)：\((A\mid B)\to(I\mid A^{-1}B)\)。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>本节是全章逻辑的“汇合点”：先画出“初等变换 → 初等矩阵 → 非异阵 = 初等矩阵之积 → \(|AB|=|A||B|\) → 可逆 ⇔ \(|A|\ne0\)”的推理链，再逐个证明。</li>
+  <li>例 2.5.3 建议学生手算一遍再用课件验证，重点检查是否“整行”变换（右半部分也要一起变）。</li>
+  <li>回归实验可以作为课后探究：让学生把点拖到一条竖线上，体会“不可逆”的统计含义。</li>
+</ul></div></details>
+</template>

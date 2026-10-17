@@ -1,0 +1,97 @@
+<template data-route="c2" data-chapter="2" data-num="导引" data-short="本章导引" data-group="">
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="det-eyebrow">高等代数 · 第二章</span>
+      <h1><span class="bars">矩阵</span></h1>
+      <p class="lede">第一章研究的是方阵所对应的<b>一个数</b>——行列式。从这一章起，我们把数表 \((a_{ij})\) <b>本身</b>当作研究对象：它能加、能数乘、能相乘，有时还能“求倒数”；它可以被初等变换系统地化简，也可以按块拆开处理。</p>
+      <div class="meta-row"><span class="pill acc">7 节 · 建议 10–12 学时</span><span class="pill">谢启鸿 等《高等代数学（第四版）》第二章</span></div>
+      <div class="btns" style="margin-top:1rem"><a class="btn pri" href="#s2-1">从 §2.1 开始</a><a class="btn" href="#c2-summary">看本章总结</a><a class="btn" href="#c2-practice">做综合练习</a></div>
+    </div>
+    <div class="hero-demo" data-widget="hero2"></div>
+  </div>
+</section>
+
+<h2>为什么在行列式之后学习矩阵</h2>
+<p>首先要分清两件事：</p>
+<div class="w-grid">
+  <div class="box def"><span class="tag">矩阵</span><p>\(A=(a_{ij})_{m\times n}\) 是一个<b>对象</b>：一张有 \(m\) 行、\(n\) 列的数表，整体参与运算。</p></div>
+  <div class="box def"><span class="tag">行列式</span><p>\(\det A=|A|\) 是由<b>方阵</b>算出来的<b>一个数</b>。长方阵没有行列式。</p></div>
+</div>
+<p>第二章的核心任务不是“再学一种新的计算符号”，而是<b>建立一种新的代数对象及其运算体系</b>。行列式在这一章里退居“工具”的位置：它告诉我们一个方阵能不能求逆，乘积的行列式怎样计算。</p>
+
+<h2>整章的主逻辑</h2>
+<ol class="flow">
+  <li>矩阵是什么？</li><li class="arr">→</li><li>矩阵之间如何运算？</li><li class="arr">→</li><li>什么时候能“做除法”？</li><li class="arr">→</li><li class="key">逆矩阵</li><li class="arr">→</li><li>如何系统地化简而不改变问题的本质？</li><li class="arr">→</li><li class="key">初等变换、初等矩阵、矩阵相抵</li><li class="arr">→</li><li>与可逆性、行列式的关系？</li><li class="arr">→</li><li class="key">\(|AB|=|A||B|\)、初等变换法求逆</li><li class="arr">→</li><li>大矩阵怎样按结构拆开？</li><li class="arr">→</li><li class="key">分块矩阵与 Schur 补</li><li class="arr">→</li><li>乘法公式怎样推广到子式？</li><li class="arr">→</li><li class="key">Cauchy–Binet 公式</li>
+</ol>
+
+<h2>四个阶段</h2>
+<div class="stage-grid">
+  <div class="stage"><span class="sk">第一阶段 · §2.1 → §2.2</span><h3>建立矩阵语言</h3><p>什么是矩阵？矩阵怎样相加、数乘、相乘、转置、共轭？</p><p><a href="#s2-1">§2.1</a> · <a href="#s2-2">§2.2</a></p></div>
+  <div class="stage"><span class="sk">第二阶段 · §2.3</span><h3>建立“可逆性”理论</h3><p>矩阵什么时候能像非零实数那样存在“倒数”？伴随矩阵给出公式。</p><p><a href="#s2-3">§2.3</a></p></div>
+  <div class="stage"><span class="sk">第三阶段 · §2.4 → §2.5</span><h3>结构化的计算方法</h3><p>如何用初等变换化简矩阵？初等变换、可逆矩阵、行列式之间是什么关系？</p><p><a href="#s2-4">§2.4</a> · <a href="#s2-5">§2.5</a></p></div>
+  <div class="stage"><span class="sk">第四阶段 · §2.6 → §2.7</span><h3>更高层次的结构</h3><p>大矩阵怎样按块处理？行列式乘法定理怎样推广到矩形矩阵和高阶子式？</p><p><a href="#s2-6">§2.6</a> · <a href="#s2-7">*§2.7</a></p></div>
+</div>
+
+<h2>本章应建立的三种基本思维</h2>
+<div class="stage-grid">
+  <div class="box idea"><span class="tag">思维一 · 先看尺寸，再做运算</span>
+    <p>矩阵不像普通的数。相加要求<b>同型</b>；相乘要求<b>前一个的列数 = 后一个的行数</b>：</p>
+    <div class="boxed-eq">\[(m\times k)(k\times n)\longrightarrow m\times n.\]</div>
+    <p class="small">做任何矩阵运算之前，先检查尺寸。</p>
+  </div>
+  <div class="box idea"><span class="tag">思维二 · 乘法一般不交换</span>
+    <p>即使 \(AB\) 与 \(BA\) 都有意义，也一般有</p>
+    <div class="boxed-eq">\[AB\ne BA.\]</div>
+    <p class="small">这是矩阵代数与数的代数最根本的差别之一。由此还会失去消去律、普通的二项式公式。</p>
+  </div>
+  <div class="box idea"><span class="tag">思维三 · 化简要靠初等变换</span>
+    <p>许多问题最终都化成：</p>
+    <div class="boxed-eq">\[A\xrightarrow{\ \text{初等变换}\ }\text{简单形式}.\]</div>
+    <p class="small">解方程组、判断可逆、求逆矩阵、判断相抵、计算行列式、化阶梯形，都是这一个动作。</p>
+  </div>
+</div>
+
+<h2>课时安排参考</h2>
+<div class="tw"><table class="t l">
+  <tr><th>课次</th><th>内容</th><th>重点活动</th></tr>
+  <tr><td>第 1 次</td><td>§2.1、§2.2（加法、数乘、乘法）</td><td>尺寸口诀；“行乘列”；\(AB\ne BA\) 与零因子</td></tr>
+  <tr><td>第 2 次</td><td>§2.2（幂、转置、共轭）</td><td>\((AB)'=B'A'\)；对称与反对称；马尔可夫链的幂</td></tr>
+  <tr><td>第 3 次</td><td>§2.3</td><td>逆矩阵定义与唯一性；伴随矩阵；\(A\) 可逆 \(\iff|A|\ne0\)</td></tr>
+  <tr><td>第 4–5 次</td><td>§2.4</td><td>Gauss 消去法的矩阵化；相抵标准型；阶梯形；初等矩阵“行左列右”</td></tr>
+  <tr><td>第 6 次</td><td>§2.5</td><td>\(|AB|=|A||B|\)；\((A\mid I)\to(I\mid A^{-1})\)；矩阵方程；回归系数</td></tr>
+  <tr><td>第 7–8 次</td><td>§2.6</td><td>分块乘法；分块初等变换；Schur 补与降阶公式</td></tr>
+  <tr><td>第 9 次</td><td>*§2.7、复习</td><td>Cauchy–Binet；Lagrange 恒等式；Cauchy–Schwarz 不等式</td></tr>
+</table></div>
+
+<h2>统计学中的矩阵</h2>
+<div class="box stat"><span class="tag">统计视角 · 这一章会反复用到</span>
+  <ul>
+    <li><b>数据矩阵</b>：\(n\) 个样品、\(p\) 个变量排成 \(n\times p\) 矩阵 \(X\)，每一行是一个观测，每一列是一个变量（§2.1）。</li>
+    <li><b>矩阵乘法</b>：\(X'X\)、样本协方差矩阵 \(S=\frac{1}{n-1}X_c'X_c\)、线性组合 \(Xw\) 都是乘法（§2.2）。</li>
+    <li><b>转移矩阵的幂</b>：马尔可夫链 \(k\) 步之后的分布是 \(\pi_0P^k\)（§2.2）。</li>
+    <li><b>逆矩阵</b>：线性回归的最小二乘估计 \(\hat\beta=(X'X)^{-1}X'y\)；\(X'X\) 不可逆就是完全多重共线性（§2.3、§2.5）。</li>
+    <li><b>分块矩阵</b>：多元正态的条件分布、偏相关，都用协方差矩阵的分块与 Schur 补 \(\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}\)（§2.6）。</li>
+    <li><b>Cauchy–Binet</b>：\(X'X\) 的行列式等于各子数据阵行列式的平方和，推出 Cauchy–Schwarz 不等式与“相关系数绝对值不超过 1”（*§2.7）。</li>
+  </ul>
+</div>
+
+<h2>各节导航</h2>
+<div class="cards">
+  <a class="card" href="#s2-1" data-route="s2-1"><span class="no">§2.1</span><span class="tt">矩阵的概念</span><span class="ds">定义、尺寸、特殊矩阵、矩阵相等、行（列）向量</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s2-2" data-route="s2-2"><span class="no">§2.2</span><span class="tt">矩阵的运算</span><span class="ds">加法、数乘、乘法、幂、转置、共轭；\(AB\ne BA\)</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s2-3" data-route="s2-3"><span class="no">§2.3</span><span class="tt">方阵的逆阵</span><span class="ds">逆矩阵、伴随矩阵、\(AA^*=|A|I\)、可逆判定</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s2-4" data-route="s2-4"><span class="no">§2.4</span><span class="tt">初等变换与初等矩阵</span><span class="ds">Gauss 消去法、相抵标准型、阶梯形、行左列右</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s2-5" data-route="s2-5"><span class="no">§2.5</span><span class="tt">乘积的行列式与求逆</span><span class="ds">\(|AB|=|A||B|\)；\((A\mid I)\to(I\mid A^{-1})\)；矩阵方程</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s2-6" data-route="s2-6"><span class="no">§2.6</span><span class="tt">分块矩阵</span><span class="ds">分块运算、分块初等变换、Schur 补、降阶公式</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s2-7" data-route="s2-7"><span class="no">*§2.7</span><span class="tt">Cauchy–Binet 公式</span><span class="ds">乘积的子式；Lagrange 恒等式；Cauchy–Schwarz</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#c2-summary" data-route="c2-summary"><span class="no">小结</span><span class="tt">知识结构与易错点</span><span class="ds">结构总表、定义与定理清单、易错点、整体认识</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#c2-practice" data-route="c2-practice"><span class="no">练习</span><span class="tt">综合练习</span><span class="ds">概念辨析、计算、证明思路、统计应用</span><span class="seen" hidden>✓ 已浏览</span></a>
+</div>
+
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>第一节课先让学生回答“矩阵和行列式有什么不同”，把“对象”与“数”分清楚，后面的很多错误（如 \(|2A|=2|A|\)、长方阵求行列式）都源于此。</li>
+  <li>乘法的“尺寸口诀”要在每次课堂演算时都写出来，直到学生养成习惯。</li>
+  <li>本章有两条“反序”规则 \((AB)'=B'A'\)、\((AB)^{-1}=B^{-1}A^{-1}\)，可以用“穿袜子、穿鞋，脱的时候先脱鞋”帮助记忆。</li>
+</ul></div></details>
+</template>

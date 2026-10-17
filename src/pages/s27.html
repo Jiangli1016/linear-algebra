@@ -1,0 +1,147 @@
+<template data-chapter="2" data-route="s2-7" data-num="*§2.7" data-short="Cauchy–Binet 公式" data-group="第四阶段 · 更高层次的结构">
+<header class="page-head">
+  <span class="det-eyebrow">*§2.7 · 选学</span>
+  <h1>Cauchy–Binet 公式</h1>
+  <p class="lede">这一节是第二章理论上的提升。对同阶方阵有 \(|AB|=|A||B|\)。现在要问：如果 \(A,B\) 不是方阵，但乘积 \(AB\) 是方阵，\(|AB|\) 怎么算？更进一步，\(AB\) 的任意子式如何用 \(A,B\) 的子式表示？Cauchy–Binet 公式正是对乘积行列式定理的推广。</p>
+  <div class="meta-row"><span class="pill acc">建议 1 学时</span><span class="pill">教材第 105–109 页</span><span class="pill">关键词：子式之积求和</span></div>
+  <ul class="goals">
+    <li>掌握子式记号 \(A\begin{pmatrix}i_1&\cdots&i_s\\j_1&\cdots&j_s\end{pmatrix}\)</li>
+    <li>理解 Cauchy–Binet 公式的两种情形，知道它推广了 \(|AB|=|A||B|\)</li>
+    <li>了解乘积矩阵任意 \(r\) 阶子式的公式；\(AA'\) 的主子式非负</li>
+    <li>会用 Cauchy–Binet 公式推出 Lagrange 恒等式与 Cauchy–Schwarz 不等式</li>
+  </ul>
+</header>
+
+<h2>一、子式的记号</h2>
+<div class="box def"><span class="tag">子式记号</span>
+  <p>设 \(A=(a_{ij})\) 为 \(m\times n\) 矩阵。取 \(A\) 的第 \(i_1\lt i_2\lt\cdots\lt i_s\) 行与第 \(j_1\lt j_2\lt\cdots\lt j_s\) 列交叉处的元素，按原来的相对位置组成的 \(s\) 阶行列式，记作</p>
+  <div class="boxed-eq">\[A\begin{pmatrix}i_1&i_2&\cdots&i_s\\j_1&j_2&\cdots&j_s\end{pmatrix}.\]</div>
+  <p>上一行是行标，下一行是列标。当 \(i_k=j_k\)（行标与列标相同）时称为<b>主子式</b>。这与第一章 Laplace 定理中的 \(k\) 阶子式是同一个概念，只是长方阵也可以取子式。</p>
+</div>
+<p>例如 \(A=\begin{pmatrix}1&2&0\\-1&1&3\end{pmatrix}\)，则 \(A\begin{pmatrix}1&2\\1&3\end{pmatrix}=\begin{vmatrix}1&0\\-1&3\end{vmatrix}=3\)，\(A\begin{pmatrix}1&2\\2&3\end{pmatrix}=\begin{vmatrix}2&0\\1&3\end{vmatrix}=6\)。</p>
+
+<h2>二、Cauchy–Binet 公式</h2>
+<div class="box thm"><span class="tag">定理 2.7.1<em>Cauchy–Binet 公式</em></span>
+  <p>设 \(A=(a_{ij})\) 是 \(m\times n\) 矩阵，\(B=(b_{ij})\) 是 \(n\times m\) 矩阵，则 \(AB\) 是 \(m\) 阶方阵。</p>
+  <ol>
+    <li>若 \(m\gt n\)，则 \(|AB|=0\)；</li>
+    <li>若 \(m\le n\)，则 \[|AB|=\sum_{1\le j_1\lt j_2\lt\cdots\lt j_m\le n}A\begin{pmatrix}1&2&\cdots&m\\j_1&j_2&\cdots&j_m\end{pmatrix}B\begin{pmatrix}j_1&j_2&\cdots&j_m\\1&2&\cdots&m\end{pmatrix}.\]</li>
+  </ol>
+</div>
+<div class="box idea"><span class="tag">如何理解</span>
+  <p>从 \(A\) 中<b>选出 \(m\) 列</b>得到一个 \(m\) 阶子式；从 \(B\) 中<b>选出对应的 \(m\) 行</b>得到一个 \(m\) 阶子式；所有选法（共 \(\mathrm C_n^m\) 种）的对应乘积求和，得到 \(|AB|\)。</p>
+  <p>为什么 \(m\gt n\) 时为零？因为 \(A\) 根本取不出 \(m\) 阶子式（只有 \(n\lt m\) 列），右边是“空和”。直观上，\(AB\) 的每一行都是 \(B\) 的 \(n\) 行的组合，\(m\) 个这样的行“太多了”，必然相关（第三章：秩 \(\le n\lt m\)）。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 验证 Cauchy–Binet 公式</div>
+  <p>\(A=\begin{pmatrix}1&2&0\\-1&1&3\end{pmatrix}\)，\(B=\begin{pmatrix}2&1\\0&1\\1&-1\end{pmatrix}\)，分别直接计算和用公式计算 \(|AB|\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">直接计算：\(AB=\begin{pmatrix}2&3\\1&-3\end{pmatrix}\)，\(|AB|=-6-3=-9\)。</div>
+    <div class="st">\(m=2,\ n=3\)，选列 \(\{1,2\},\{1,3\},\{2,3\}\)：\(A\) 的子式分别为 \(\begin{vmatrix}1&2\\-1&1\end{vmatrix}=3,\ \begin{vmatrix}1&0\\-1&3\end{vmatrix}=3,\ \begin{vmatrix}2&0\\1&3\end{vmatrix}=6\)。</div>
+    <div class="st">\(B\) 的对应行子式：\(\begin{vmatrix}2&1\\0&1\end{vmatrix}=2,\ \begin{vmatrix}2&1\\1&-1\end{vmatrix}=-3,\ \begin{vmatrix}0&1\\1&-1\end{vmatrix}=-1\)。</div>
+    <div class="st">\(3\cdot2+3\cdot(-3)+6\cdot(-1)=6-9-6=-9\) ✓。</div>
+  </div>
+</div>
+<div class="widget" data-widget="cauchy" data-t="Cauchy–Binet：选列、选行、乘积求和" data-d="表中每一行是一种“选法”：A 的 m 阶子式乘 B 的对应子式，求和等于 |AB|。把 m 调成大于 n 看情形 1；“Lagrange 恒等式”取 B = A′，每一项都是平方。"></div>
+
+<h3>与 \(|AB|=|A||B|\) 的关系</h3>
+<p>若 \(m=n\)，只有唯一一种选择 \(j_1=1,\dots,j_n=n\)，公式立即退化为 \(|AB|=|A||B|\)。因此</p>
+<p class="eq-txt">乘积行列式定理是 Cauchy–Binet 公式的特殊情况。</p>
+
+<details class="proof"><summary>定理 2.7.1 的证明（分块初等变换 + Laplace 定理）</summary><div class="dbody">
+  <p>作 \(m+n\) 阶矩阵 \(C=\begin{pmatrix}A&O\\-I_n&B\end{pmatrix}\)。用 \(A\) 左乘第二分块行加到第一分块行（第三类分块初等变换，行列式不变）：</p>
+  \[M=\begin{pmatrix}I_m&A\\O&I_n\end{pmatrix}C=\begin{pmatrix}O&AB\\-I_n&B\end{pmatrix},\qquad|M|=|C|.\]
+  <p><b>算 \(|M|\)</b>：按前 \(m\) 行用 Laplace 定理展开，前 \(m\) 行只有在后 \(m\) 列构成的子式 \(|AB|\) 可能非零，其余子式为 \(|-I_n|\)，符号为 \((-1)^{(1+\cdots+m)+((n+1)+\cdots+(n+m))}\)。整理得 \(|M|=(-1)^{n(m+1)}|AB|\)。</p>
+  <p><b>算 \(|C|\)</b>：也按前 \(m\) 行展开。前 \(m\) 行的非零元素只在前 \(n\) 列（即 \(A\)），所以只有取 \(A\) 的 \(m\) 列 \(j_1\lt\cdots\lt j_m\) 的子式才可能非零。</p>
+  <ul>
+    <li>若 \(m\gt n\)，\(A\) 没有 \(m\) 阶子式，\(|C|=0\)，所以 \(|AB|=0\)。</li>
+    <li>若 \(m\le n\)，子式 \(A\begin{pmatrix}1&\cdots&m\\j_1&\cdots&j_m\end{pmatrix}\) 的余子式是 \((-I_n\ \ B)\) 去掉第 \(j_1,\dots,j_m\) 列后的 \(n\) 阶行列式。再对它按 \(-I_n\) 剩下的 \(n-m\) 列展开，只剩下 \(B\begin{pmatrix}j_1&\cdots&j_m\\1&\cdots&m\end{pmatrix}\) 乘一个符号。仔细计算，所有符号合起来恰为 \((-1)^{n(m+1)}\)，与 \(|M|\) 的符号抵消，即得公式。</li>
+  </ul>
+</div></details>
+
+<h2>三、乘积矩阵的任意子式</h2>
+<div class="box thm"><span class="tag">定理 2.7.2</span>
+  <p>设 \(A\) 是 \(m\times n\) 矩阵，\(B\) 是 \(n\times p\) 矩阵，\(C=AB\)。取 \(C\) 的任一 \(r\) 阶子式 \(C\begin{pmatrix}i_1&\cdots&i_r\\j_1&\cdots&j_r\end{pmatrix}\)：</p>
+  <ol>
+    <li>若 \(r\gt n\)，则该子式等于 0；</li>
+    <li>若 \(r\le n\)，则 \[C\begin{pmatrix}i_1&\cdots&i_r\\j_1&\cdots&j_r\end{pmatrix}=\sum_{1\le k_1\lt\cdots\lt k_r\le n}A\begin{pmatrix}i_1&\cdots&i_r\\k_1&\cdots&k_r\end{pmatrix}B\begin{pmatrix}k_1&\cdots&k_r\\j_1&\cdots&j_r\end{pmatrix}.\]</li>
+  </ol>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>\(C\) 的这个子式是矩阵 \(C_1=\bigl(c_{i_uj_v}\bigr)_{r\times r}\) 的行列式。而 \(C_1\) 恰好等于 \(A\) 的第 \(i_1,\dots,i_r\) 行组成的 \(r\times n\) 矩阵乘 \(B\) 的第 \(j_1,\dots,j_r\) 列组成的 \(n\times r\) 矩阵。对这两个矩阵用定理 2.7.1 即可。</p>
+</div></details>
+<p>这就是 Cauchy–Binet 公式对子式的完整推广：<b>\(AB\) 的子式 = \(A\) 的子式与 \(B\) 的子式“乘积之和”</b>，结构与矩阵乘法 \(c_{ij}=\sum_ka_{ik}b_{kj}\) 完全相同（\(r=1\) 时就是矩阵乘法的定义）。</p>
+
+<div class="box prop"><span class="tag">推论 2.7.1</span>
+  <p>设 \(A\) 为 \(m\times n\) 实矩阵，则 \(AA'\) 的任一主子式都非负。</p>
+</div>
+<details class="proof" open><summary>证明</summary><div class="dbody">
+  <p>取 \(r\) 阶主子式。若 \(r\gt n\)，由定理 2.7.2 它等于 0。若 \(r\le n\)，注意 \(A'\begin{pmatrix}k_1&\cdots&k_r\\i_1&\cdots&i_r\end{pmatrix}=A\begin{pmatrix}i_1&\cdots&i_r\\k_1&\cdots&k_r\end{pmatrix}\)（转置不改变行列式），所以</p>
+  \[AA'\begin{pmatrix}i_1&\cdots&i_r\\i_1&\cdots&i_r\end{pmatrix}=\sum_{k_1\lt\cdots\lt k_r}A\begin{pmatrix}i_1&\cdots&i_r\\k_1&\cdots&k_r\end{pmatrix}^2\ge0.\]
+  <p>（这是第八章“半正定矩阵”的一个预告。）</p>
+</div></details>
+
+<h2>四、Lagrange 恒等式与 Cauchy–Schwarz 不等式</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.7.1 Lagrange 恒等式 <span class="src">教材第 108–109 页</span></div>
+  <p>设 \(n\ge2\)，证明 \[\Bigl(\sum_{i=1}^na_i^2\Bigr)\Bigl(\sum_{i=1}^nb_i^2\Bigr)-\Bigl(\sum_{i=1}^na_ib_i\Bigr)^2=\sum_{1\le i\lt j\le n}(a_ib_j-a_jb_i)^2.\]</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">左边是一个二阶行列式，而且是一个矩阵乘积的行列式：\[\begin{vmatrix}\sum a_i^2&\sum a_ib_i\\\sum a_ib_i&\sum b_i^2\end{vmatrix}=\left|\begin{pmatrix}a_1&\cdots&a_n\\b_1&\cdots&b_n\end{pmatrix}\begin{pmatrix}a_1&b_1\\\vdots&\vdots\\a_n&b_n\end{pmatrix}\right|.\]</div>
+    <div class="st">这里 \(m=2\le n\)。由 Cauchy–Binet 公式，\[=\sum_{1\le i\lt j\le n}\begin{vmatrix}a_i&a_j\\b_i&b_j\end{vmatrix}\begin{vmatrix}a_i&b_i\\a_j&b_j\end{vmatrix}=\sum_{1\le i\lt j\le n}(a_ib_j-a_jb_i)^2.\]</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.7.2 Cauchy–Schwarz 不等式 <span class="src">教材第 109 页</span></div>
+  <p>对实数 \(a_i,b_i\)，证明 \(\Bigl(\sum_{i=1}^na_i^2\Bigr)\Bigl(\sum_{i=1}^nb_i^2\Bigr)\ge\Bigl(\sum_{i=1}^na_ib_i\Bigr)^2\)，并讨论等号何时成立。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">\(n=1\) 时等号成立。\(n\ge2\) 时，Lagrange 恒等式的右边是平方和，非负，即得不等式。</div>
+    <div class="st">等号成立 \(\iff\) 所有 \(a_ib_j-a_jb_i=0\) \(\iff\) 向量 \((a_1,\dots,a_n)\) 与 \((b_1,\dots,b_n)\) 成比例。</div>
+  </div>
+</div>
+<div class="box idea"><span class="tag">这一节的意义</span>
+  <p>这一节让学生第一次看到：</p>
+  <p class="eq-txt">矩阵与行列式理论　⟶　经典不等式</p>
+  <p>一个看起来纯粹是“计算行列式”的公式，推出了分析学中最重要的不等式之一。</p>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 相关系数为什么不超过 1</span>
+  <ul>
+    <li>两个变量的样本 \(x_1,\dots,x_n\) 与 \(y_1,\dots,y_n\)，中心化后 \(a_i=x_i-\bar x\)，\(b_i=y_i-\bar y\)。样本相关系数 \[r=\frac{\sum a_ib_i}{\sqrt{\sum a_i^2}\sqrt{\sum b_i^2}}.\] 由 Cauchy–Schwarz 不等式，\(|r|\le1\)；\(|r|=1\iff\) 中心化数据成比例，即所有点落在一条直线上。</li>
+    <li>由 Lagrange 恒等式，\(1-r^2=\dfrac{\sum_{i\lt j}(a_ib_j-a_jb_i)^2}{\sum a_i^2\sum b_i^2}\)：分子是各对样品构成的平行四边形面积的平方和。</li>
+    <li><b>广义方差</b>：数据矩阵 \(X_{n\times p}\)（\(n\ge p\)），\(|X'X|=\sum X\begin{pmatrix}i_1&\cdots&i_p\\1&\cdots&p\end{pmatrix}^2\ge0\)：等于所有 \(p\) 个样品组成的子数据阵行列式的平方和。\(n\lt p\)（变量比样品多）时 \(|X'X|=0\)——高维数据中 \(X'X\) 必然不可逆，这是现代统计中需要“正则化”的根本原因。</li>
+  </ul>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>\(m\gt n\) 时 \(|AB|=0\)，不要误以为“取不出子式”就无法计算。</li>
+    <li>\(A\) 选的是<b>列</b>，\(B\) 选的是对应的<b>行</b>，两者的下标必须一致。</li>
+    <li>\(A\) 为 \(m\times n\)、\(B\) 为 \(n\times m\) 时，\(|AB|\) 与 \(|BA|\) 一般不相等（\(m\ne n\) 时它们甚至阶数不同；\(m\lt n\) 时 \(|BA|=0\)）。</li>
+    <li>主子式的行标与列标相同；一般子式不必相同。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="0"><div class="qt">\(A\) 为 \(4\times3\) 矩阵，\(B\) 为 \(3\times4\) 矩阵，则 \(|AB|=\)？</div><div class="explain">\(m=4\gt n=3\)，由 Cauchy–Binet 公式 \(|AB|=0\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">\(A\) 为 \(2\times4\) 矩阵，\(B\) 为 \(4\times2\) 矩阵。Cauchy–Binet 公式右边共有几项？</div><ol class="opts"><li>4</li><li>6</li><li>8</li><li>16</li></ol><div class="explain">从 4 列中选 2 列，\(\mathrm C_4^2=6\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(n\ge3\) 时，\(n\) 阶行列式 \(\bigl|1+x_iy_j\bigr|\) 等于：<span class="tiny muted">（习题 2.7 第 1 题）</span></div><ol class="opts"><li>\(\prod(1+x_iy_i)\)</li><li>\(1+\sum x_iy_i\)</li><li>\(\prod_{i\lt j}(x_i-x_j)(y_i-y_j)\)</li><li>\(0\)</li></ol><div class="explain">\((1+x_iy_j)=\begin{pmatrix}1&x_1\\\vdots&\vdots\\1&x_n\end{pmatrix}\begin{pmatrix}1&\cdots&1\\y_1&\cdots&y_n\end{pmatrix}\)，是 \(n\times2\) 与 \(2\times n\) 的乘积，\(n\gt2\)，所以行列式为 0。</div></div>
+  <div class="fill" data-ans="24"><div class="qt">\(a=(1,2,3)\)，\(b=(1,0,-1)\)。\(\sum_{i\lt j}(a_ib_j-a_jb_i)^2=\)？（提示：用 Lagrange 恒等式）</div><div class="explain">\(\sum a_i^2=14\)，\(\sum b_i^2=2\)，\(\sum a_ib_i=-2\)，所以 \(14\times2-(-2)^2=24\)。逐项检验：\((1\cdot0-2\cdot1)^2=4\)，\((1\cdot(-1)-3\cdot1)^2=16\)，\((2\cdot(-1)-3\cdot0)^2=4\)，和为 24 ✓。</div></div>
+</div>
+<details class="more"><summary>证明题思路（习题 2.7 第 2、3、4 题）</summary><div class="dbody">
+  <p><b>2</b>　\(A\) 为 \(n\) 阶实矩阵且 \(AA'=I\)，则对任意 \(1\le i_1\lt\cdots\lt i_r\le n\)，\(\sum_{k_1\lt\cdots\lt k_r}A\begin{pmatrix}i_1&\cdots&i_r\\k_1&\cdots&k_r\end{pmatrix}^2=1\)：对 \(AA'=I\) 的主子式用推论 2.7.1 的式子，左边是 \(I\) 的主子式 1。</p>
+  <p><b>3</b>　\(A\) 为 \(m\times n\)、\(B\) 为 \(n\times m\)：\(AB\) 与 \(BA\) 的所有 \(r\) 阶主子式之和相等。两边都展开为 \(\sum A\begin{pmatrix}I\\K\end{pmatrix}B\begin{pmatrix}K\\I\end{pmatrix}\)，只是求和指标 \(I,K\) 的角色互换。（\(r=1\) 时就是 \(\operatorname{tr}(AB)=\operatorname{tr}(BA)\)。）</p>
+  <p><b>4</b>　\(A,B\) 为 \(m\times n\) 实矩阵，\(|AA'|\,|BB'|\ge|AB'|^2\)：对 \(|AB'|=\sum_K A\begin{pmatrix}1..m\\K\end{pmatrix}B\begin{pmatrix}1..m\\K\end{pmatrix}\) 用 Cauchy–Schwarz 不等式，再用 \(|AA'|=\sum_KA\begin{pmatrix}1..m\\K\end{pmatrix}^2\)。这是 Cauchy–Schwarz 不等式的“矩阵版”。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>\(A_{m\times n}B_{n\times m}\)：\(m\gt n\) 时 \(|AB|=0\)；\(m\le n\) 时 \(|AB|=\sum A\begin{pmatrix}1..m\\J\end{pmatrix}B\begin{pmatrix}J\\1..m\end{pmatrix}\)。</li>
+  <li>\(m=n\) 时就是 \(|AB|=|A||B|\)。</li>
+  <li>\(AB\) 的任意 \(r\) 阶子式 = 子式之积的和；\(AA'\) 的主子式非负。</li>
+  <li>Lagrange 恒等式 ⇒ Cauchy–Schwarz 不等式 ⇒ 相关系数 \(|r|\le1\)。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>本节为选学内容。时间不够时，至少讲清公式的含义（用实验演示）和 Lagrange 恒等式的推导。</li>
+  <li>证明中的符号计算较繁，可以只讲构造 \(C=\begin{pmatrix}A&O\\-I_n&B\end{pmatrix}\) 的思路，符号留给学生课后验证。</li>
+  <li>对统计专业，“相关系数为什么不超过 1”是很好的结尾，把抽象的子式公式和学生熟悉的统计量联系起来。</li>
+</ul></div></details>
+</template>

@@ -1,0 +1,239 @@
+<template data-chapter="2" data-route="s2-4" data-num="§2.4" data-short="初等变换与初等矩阵" data-group="第三阶段 · 结构化计算">
+<header class="page-head">
+  <span class="det-eyebrow">§2.4</span>
+  <h1>矩阵的初等变换与初等矩阵</h1>
+  <p class="lede">中学里解线性方程组用的是消元法。把消元的每一步写成对矩阵的操作，就得到矩阵的<b>初等变换</b>；再把每一种初等变换写成一次矩阵乘法，就得到<b>初等矩阵</b>。这一节建立本章最重要的桥梁：<b>矩阵操作 ⟷ 矩阵乘法</b>。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 77–87 页</span><span class="pill">关键词：行左列右</span></div>
+  <ul class="goals">
+    <li>理解 Gauss 消去法实际上是矩阵的初等行变换</li>
+    <li>掌握三种初等行（列）变换；掌握矩阵相抵（等价）的定义</li>
+    <li>掌握相抵标准型定理；掌握阶梯形矩阵的定义与存在定理</li>
+    <li>掌握三类初等矩阵；理解初等变换与矩阵乘法之间的关系</li>
+    <li>掌握初等矩阵的逆、行列式；理解相抵是一个等价关系</li>
+  </ul>
+</header>
+
+<h2>一、Gauss 消去法与矩阵的初等变换</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.4.1 用消去法解方程组 <span class="src">教材第 77–79 页</span></div>
+  <p>\(\begin{cases}x_2+x_3=2,\\2x_1+3x_2+2x_3=5,\\3x_1+x_2-x_3=-1.\end{cases}\)　左边写方程，右边写对应的<b>增广矩阵</b>，对照着看。</p></div>
+  <div class="sol" data-steps>
+    <div class="st"><b>交换第一、二式</b>：\(\begin{cases}2x_1+3x_2+2x_3=5\\x_2+x_3=2\\3x_1+x_2-x_3=-1\end{cases}\)　\(\begin{pmatrix}2&3&2&5\\0&1&1&2\\3&1&-1&-1\end{pmatrix}\)</div>
+    <div class="st"><b>第一式乘 \(-\frac32\) 加到第三式</b>，消去第三式中的 \(x_1\)：　\(\begin{pmatrix}2&3&2&5\\0&1&1&2\\0&-\frac72&-4&-\frac{17}2\end{pmatrix}\)</div>
+    <div class="st"><b>第二式乘 \(\frac72\) 加到第三式</b>：第三式成为 \(-\frac12x_3=-\frac32\)。　\(\begin{pmatrix}2&3&2&5\\0&1&1&2\\0&0&-\frac12&-\frac32\end{pmatrix}\)</div>
+    <div class="st"><b>第三式乘 \(-2\)</b>：\(x_3=3\)。　\(\begin{pmatrix}2&3&2&5\\0&1&1&2\\0&0&1&3\end{pmatrix}\)　——这已经是“阶梯形”。</div>
+    <div class="st"><b>回代</b>：第三式乘 \(-2\) 加到第一式、乘 \(-1\) 加到第二式，得 \(\begin{pmatrix}2&3&0&-1\\0&1&0&-1\\0&0&1&3\end{pmatrix}\)；第二式乘 \(-3\) 加到第一式，再乘 \(\frac12\)：\(\begin{pmatrix}1&0&0&1\\0&1&0&-1\\0&0&1&3\end{pmatrix}\)。</div>
+    <div class="st">解为 \(x_1=1,\ x_2=-1,\ x_3=3\)。整个过程中，未知数只是“占位符”，真正被操作的是增广矩阵的<b>行</b>。</div>
+  </div>
+</div>
+<p>归纳起来，Gauss 消去法对增广矩阵只用了三种操作：</p>
+<ul>
+  <li>交换两个方程 → 交换矩阵的两行；</li>
+  <li>一个方程乘一个非零常数 → 某一行乘非零常数；</li>
+  <li>一个方程加另一个方程的倍数 → 某一行乘一个数加到另一行。</li>
+</ul>
+<p>这三种操作都可以“撤销”，所以不改变方程组的解（变换前后的方程组同解）。将它们直接作用于矩阵，就得到矩阵的初等行变换。</p>
+
+<div class="box def"><span class="tag">定义 2.4.1<em>初等变换</em></span>
+  <p>下列三种变换称为矩阵的<b>初等行变换</b>：</p>
+  <ol>
+    <li><b>第一类</b>：对调矩阵的两行，记作 \(r_i\leftrightarrow r_j\)；</li>
+    <li><b>第二类</b>：用一个非零常数 \(c\) 乘矩阵的某一行，记作 \(c\,r_i\)（\(c\ne0\)）；</li>
+    <li><b>第三类</b>：将矩阵某一行乘以常数 \(c\) 加到另一行上去。</li>
+  </ol>
+  <p>把“行”换成“列”，就得到三种<b>初等列变换</b>。初等行变换与初等列变换统称<b>初等变换</b>。</p>
+</div>
+<div class="box warn"><span class="tag">第二类要求 \(c\ne0\)</span>
+  <p>乘 0 会把一行变成零行，信息丢失、无法撤销，不是初等变换。第三类中的 \(c\) 可以是任意数（\(c=0\) 时什么也没做）。</p>
+</div>
+
+<h2>二、相抵与相抵标准型</h2>
+<div class="box def"><span class="tag">定义 2.4.2<em>相抵（等价）</em></span>
+  <p>若矩阵 \(A\) 经过有限次初等变换可以变成矩阵 \(B\)，则称 \(A\) 与 \(B\) <b>相抵</b>（也称<b>等价</b>），记作 \(A\sim B\)。</p>
+</div>
+<div class="box thm"><span class="tag">定理 2.4.1<em>相抵标准型</em></span>
+  <p>任意一个 \(m\times n\) 矩阵 \(A\) 都可以经过初等变换化为如下形状的矩阵：</p>
+  <div class="eqs boxed"><span>\(\displaystyle\begin{pmatrix}I_r&O\\O&O\end{pmatrix},\)</span><span>\(0\le r\le\min(m,n),\)</span></div>
+  <p>即主对角线上前 \(r\) 个元素为 1、其余元素全为 0 的矩阵。它称为 \(A\) 的<b>相抵标准型</b>（\(A=O\) 时 \(r=0\)；\(A\ne O\) 时 \(1\le r\le\min(m,n)\)）。</p>
+</div>
+<details class="proof"><summary>证明（逐步把左上角“做成 1”，再消掉同行同列）</summary><div class="dbody">
+  <p>若 \(A=O\)，已经是标准型。设 \(A\ne O\)，则 \(A\) 至少有一个元素不为零。通过对调行与列，可以把它换到 \((1,1)\) 位置，不妨设 \(a_{11}\ne0\)。</p>
+  <p>把第一行乘 \(-a_{i1}a_{11}^{-1}\) 加到第 \(i\) 行（\(i=2,\dots,m\)），第一列除 \(a_{11}\) 外都变成 0；再把第一列乘 \(-a_{1j}a_{11}^{-1}\) 加到第 \(j\) 列，第一行除 \(a_{11}\) 外也都变成 0；最后第一行乘 \(a_{11}^{-1}\)。得到</p>
+  \[\begin{pmatrix}1&O\\O&A_1\end{pmatrix},\]
+  <p>\(A_1\) 是 \((m-1)\times(n-1)\) 矩阵。对 \(A_1\) 重复同样的过程（这些变换不影响第一行、第一列），对 \(m\) 用数学归纳法即得结论。</p>
+</div></details>
+<div class="box note"><span class="tag">注</span>
+  <p>化法可以不同，但最后得到的 \(r\) 是<b>唯一确定</b>的（第三章证明：\(r\) 就是矩阵的秩）。所以“相抵标准型”这个名称是合理的。这是后面“矩阵的秩”的直接入口：任何矩阵在相抵意义下都可以化成一个极简单的标准型，只由一个整数 \(r\) 决定。</p>
+</div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.4.2 化相抵标准型 <span class="src">教材第 81–82 页</span></div>
+  <p>用初等变换把 \(A=\begin{pmatrix}2&0&-1&3\\1&2&-2&4\\0&1&3&-1\end{pmatrix}\) 化为相抵标准型。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">对调第一、二行（让 \((1,1)\) 元为 1，避免分数）：\(\begin{pmatrix}1&2&-2&4\\2&0&-1&3\\0&1&3&-1\end{pmatrix}\)。</div>
+    <div class="st">第一行乘 \(-2\) 加到第二行：\(\begin{pmatrix}1&2&-2&4\\0&-4&3&-5\\0&1&3&-1\end{pmatrix}\)；再用第一列消去第一行其余元素（列变换）：\(\begin{pmatrix}1&0&0&0\\0&-4&3&-5\\0&1&3&-1\end{pmatrix}\)。</div>
+    <div class="st">对调第二、三行（再次避免分数）：\(\begin{pmatrix}1&0&0&0\\0&1&3&-1\\0&-4&3&-5\end{pmatrix}\)；第二行乘 4 加到第三行：\(\begin{pmatrix}1&0&0&0\\0&1&3&-1\\0&0&15&-9\end{pmatrix}\)。</div>
+    <div class="st">用第二列消去第二行其余元素：\(\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&15&-9\end{pmatrix}\)；第三列乘 \(\frac9{15}\) 加到第四列，第三行乘 \(\frac1{15}\)：\[\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\end{pmatrix}=\begin{pmatrix}I_3&O\end{pmatrix},\quad r=3.\]</div>
+  </div>
+</div>
+<div class="box note"><span class="tag">只用行变换够不够？</span>
+  <p>不够。例如 \((0,1,2)\) 只用行变换（只有一行，只能乘非零数）无法化成 \((1,0,0)\)；必须用列变换。但只用行变换可以化成下面的<b>阶梯形</b>，这对解方程组已经足够。</p>
+</div>
+
+<h2>三、阶梯形矩阵</h2>
+<div class="box def"><span class="tag">定义 2.4.3<em>阶梯形矩阵</em></span>
+  <p>设 \(A=(a_{ij})_{m\times n}\)。对第 \(i\) 行，记 \(k_i\) 为该行第一个非零元素的列标（零行记 \(k_i=+\infty\)）；\(a_{ik_i}\) 称为第 \(i\) 行的<b>阶梯点</b>（主元）。若存在 \(r\) 使</p>
+  <div class="eqs boxed"><span>\(k_1\lt k_2\lt\cdots\lt k_r,\)</span><span>\(k_{r+1}=\cdots=k_m=+\infty,\)</span></div>
+  <p>则称 \(A\) 为<b>阶梯形矩阵</b>。换句话说：</p>
+  <ol><li>所有非零行位于零行上方；</li><li>越往下，每一行的首个非零元素越往右（严格右移）。</li></ol>
+</div>
+<div class="w-grid">
+  <div class="box prop"><span class="tag">是阶梯形</span>
+    <p>\(\begin{pmatrix}\underline{2}&1&0&3\\0&0&\underline{-1}&1\\0&0&0&\underline{5}\end{pmatrix}\)，\(\begin{pmatrix}\underline{1}&2&0\\0&\underline{3}&1\\0&0&0\end{pmatrix}\)，\(\begin{pmatrix}0&\underline{1}&4\\0&0&0\end{pmatrix}\)</p>
+  </div>
+  <div class="box warn"><span class="tag">不是阶梯形</span>
+    <p>\(\begin{pmatrix}1&2&0\\0&0&0\\0&1&1\end{pmatrix}\)（零行在非零行上方），\(\begin{pmatrix}1&2&0\\0&3&1\\0&4&1\end{pmatrix}\)（第 2、3 行阶梯点在同一列）</p>
+  </div>
+</div>
+<p>若阶梯点全为 1，且阶梯点所在列的其余元素全为 0，称为<b>简化阶梯形</b>（例 2.4.1 最后得到的就是）。</p>
+<div class="box thm"><span class="tag">定理 2.4.2<em>阶梯形存在定理</em></span>
+  <p>任一矩阵都可以经过若干次<b>初等行变换</b>化为阶梯形矩阵。</p>
+</div>
+<details class="proof"><summary>证明思路（逐列处理）</summary><div class="dbody">
+  <p>找到第一个不全为零的列，设为第 \(k_1\) 列；用对调行把该列的一个非零元换到第一行；再用第三类行变换把这一列下方的元素全部消成 0。然后忽略第一行，对剩下的 \((m-1)\) 行用同样的方法处理，对行数归纳即可。这正是 Gauss 消去法“消元”阶段的矩阵表达。</p>
+</div></details>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 2.4.3 化阶梯形 <span class="src">教材第 83–84 页</span></div>
+  <p>用初等行变换把 \(A=\begin{pmatrix}0&2&-4\\-1&-4&5\\3&1&7\\0&5&-10\\2&3&0\end{pmatrix}\) 化为阶梯形。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">对调第一、二行；第一行乘 3 加到第三行，乘 2 加到第五行：\(\begin{pmatrix}-1&-4&5\\0&2&-4\\0&-11&22\\0&5&-10\\0&-5&10\end{pmatrix}\)。</div>
+    <div class="st">第二行分别乘 \(\frac{11}2,\ -\frac52,\ \frac52\) 加到第三、四、五行：\[\begin{pmatrix}-1&-4&5\\0&2&-4\\0&0&0\\0&0&0\\0&0&0\end{pmatrix}.\]阶梯点为 \(-1\) 与 \(2\)，非零行 2 个。</div>
+  </div>
+</div>
+<div class="widget" data-widget="reduce" data-t="初等变换化简：阶梯形 / 简化阶梯形 / 相抵标准型" data-d="选目标后一步一步看：黄色是被改动的行（列），蓝框是主元。每一步都标出了对应的初等矩阵。可以改数字，或随机生成 m × n 矩阵。"></div>
+
+<h2>四、初等矩阵</h2>
+<div class="box def"><span class="tag">定义 2.4.4<em>初等矩阵</em></span>
+  <p>对 \(n\) 阶单位阵 \(I_n\) 施以一次初等变换得到的矩阵称为<b>初等矩阵</b>。对应三类初等变换，有三类初等矩阵：</p>
+</div>
+<div class="stage-grid">
+  <div class="box def"><span class="tag">第一类 \(P_{ij}\)</span>
+    <p>对调 \(I_n\) 的第 \(i\) 行与第 \(j\) 行（也等于对调第 \(i\) 列与第 \(j\) 列）。例如 \(n=3\)：</p>
+    \[P_{13}=\begin{pmatrix}0&0&1\\0&1&0\\1&0&0\end{pmatrix}.\]
+  </div>
+  <div class="box def"><span class="tag">第二类 \(P_i(c)\)</span>
+    <p>把 \(I_n\) 的第 \(i\) 行（列）乘非零常数 \(c\)：</p>
+    \[P_2(c)=\begin{pmatrix}1&0&0\\0&c&0\\0&0&1\end{pmatrix}.\]
+  </div>
+  <div class="box def"><span class="tag">第三类 \(T_{ij}(c)\)</span>
+    <p>把 \(I_n\) 的第 \(i\) 行乘 \(c\) 加到第 \(j\) 行（等价地，第 \(j\) 列乘 \(c\) 加到第 \(i\) 列），即 \((j,i)\) 位置为 \(c\)：</p>
+    \[T_{13}(c)=\begin{pmatrix}1&0&0\\0&1&0\\c&0&1\end{pmatrix}.\]
+  </div>
+</div>
+<div class="box warn"><span class="tag">关于 \(T_{ij}(c)\) 的记号</span>
+  <p>本课件按<b>教材</b>的约定：\(T_{ij}(c)\) 是“第 \(i\) 行乘 \(c\) 加到第 \(j\) 行”，非零的非对角元在 \((j,i)\) 位置。有些讲义和教材写成“第 \(j\) 行的 \(c\) 倍加到第 \(i\) 行”（非对角元在 \((i,j)\) 位置）。两种写法只是下标的约定不同，本质一样；做题时以所用教材为准，并且<b>最好直接写出矩阵</b>，避免歧义。</p>
+</div>
+
+<div class="box thm"><span class="tag">定理 2.4.3<em>行左列右</em></span>
+  <p>对 \(m\times n\) 矩阵 \(A\) 施以一次初等<b>行</b>变换，得到的矩阵等于用相应的 \(m\) 阶初等矩阵<b>左乘</b> \(A\)；施以一次初等<b>列</b>变换，得到的矩阵等于用相应的 \(n\) 阶初等矩阵<b>右乘</b> \(A\)：</p>
+  <div class="eqs boxed"><span>\(A\xrightarrow{\text{一次初等行变换}}PA\)</span><span>\(A\xrightarrow{\text{一次初等列变换}}AQ\)</span></div>
+</div>
+<details class="proof"><summary>证明（以行变换为例）</summary><div class="dbody">
+  <p>把 \(A\) 按行写成 \(A=\begin{pmatrix}\alpha_1\\\vdots\\\alpha_m\end{pmatrix}\)，\(\alpha_k\) 是第 \(k\) 行。对任意 \(m\) 阶方阵 \(E\)，\(EA\) 的第 \(k\) 行等于 \(E\) 的第 \(k\) 行与 \(A\) 相乘，即 \(\sum_l e_{kl}\alpha_l\)：<b>左乘的结果的每一行都是 \(A\) 的各行的线性组合，系数由 \(E\) 的对应行给出</b>。</p>
+  <ul>
+    <li>\(P_{ij}\) 的第 \(i\) 行是 \(e_j'\)、第 \(j\) 行是 \(e_i'\)，其余第 \(k\) 行是 \(e_k'\)，所以 \(P_{ij}A\) 是对调 \(A\) 的第 \(i,j\) 行。</li>
+    <li>\(P_i(c)\) 的第 \(i\) 行是 \(ce_i'\)，所以 \(P_i(c)A\) 的第 \(i\) 行为 \(c\alpha_i\)，其余不变。</li>
+    <li>\(T_{ij}(c)\) 的第 \(j\) 行是 \(ce_i'+e_j'\)，所以 \(T_{ij}(c)A\) 的第 \(j\) 行为 \(c\alpha_i+\alpha_j\)，即第 \(i\) 行乘 \(c\) 加到第 \(j\) 行。</li>
+  </ul>
+  <p>列变换的情形：按列分块，右乘时结果的每一列是 \(A\) 的各列的组合，同理可证（也可以对行的情形取转置）。</p>
+</div></details>
+<div class="widget" data-widget="elem" data-t="初等矩阵：行左列右" data-d="选类型与 i、j、c。左乘（3 阶）作用在 A 的行上，右乘（4 阶）作用在列上；黄色是被改变的部分，蓝色标出初等矩阵与单位阵不同的位置。同时给出逆矩阵与行列式。"></div>
+<div class="box idea"><span class="tag">这是本节的核心桥梁</span>
+  <p class="eq-txt">矩阵操作（初等变换）　⟷　矩阵乘法（乘初等矩阵）</p>
+  <p>记忆：<b>行左列右</b>——对行做什么，就用“对 \(I\) 的行做同样事情”的矩阵从<b>左边</b>乘；对列做什么，就从<b>右边</b>乘。这样，一连串初等变换就可以写成一个等式，可以用代数方法推理。</p>
+</div>
+
+<h3>初等矩阵的性质</h3>
+<div class="box prop"><span class="tag">推论 2.4.1<em>初等矩阵的逆</em></span>
+  <p>三类初等矩阵都是非异阵，且逆矩阵仍是同类初等矩阵：</p>
+  <div class="eqs boxed"><span>\(P_{ij}^{-1}=P_{ij}\)</span><span>\(P_i(c)^{-1}=P_i(c^{-1})\)</span><span>\(T_{ij}(c)^{-1}=T_{ij}(-c)\)</span></div>
+  <p class="small">道理：对调两次回到原样；乘 \(c\) 再乘 \(c^{-1}\) 回到原样；加上 \(c\) 倍再加上 \(-c\) 倍回到原样。逆矩阵就是“撤销”这一步的变换。</p>
+</div>
+<div class="box prop"><span class="tag">推论 2.4.2</span>
+  <p>非异阵经过初等变换以后仍然是非异阵；奇异阵经过初等变换以后仍然是奇异阵。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>设 \(P\) 是初等矩阵。若 \(A\) 非异，则 \(PA\) 是两个非异阵的乘积，由 \((PA)^{-1}=A^{-1}P^{-1}\) 知 \(PA\) 非异。若 \(A\) 奇异而 \(PA\) 非异，则 \(A=P^{-1}(PA)\) 是两个非异阵之积，也非异，矛盾。列变换同理。</p>
+</div></details>
+<div class="box prop"><span class="tag">推论 2.4.3<em>初等矩阵的行列式</em></span>
+  <div class="eqs boxed"><span>\(|P_{ij}|=-1\)</span><span>\(|P_i(c)|=c\)</span><span>\(|T_{ij}(c)|=1\)</span></div>
+  <p class="small">对 \(|I_n|=1\) 分别用第一章的性质：对换两行变号；一行乘 \(c\) 值乘 \(c\)；一行的倍数加到另一行值不变。</p>
+</div>
+
+<h2>五、相抵是一个等价关系</h2>
+<div class="box thm"><span class="tag">定理 2.4.4</span>
+  <p>矩阵的相抵关系满足：</p>
+  <ol>
+    <li><b>反身性</b>：\(A\sim A\)；</li>
+    <li><b>对称性</b>：若 \(A\sim B\)，则 \(B\sim A\)；</li>
+    <li><b>传递性</b>：若 \(A\sim B\)，\(B\sim C\)，则 \(A\sim C\)。</li>
+  </ol>
+</div>
+<details class="proof"><summary>证明（用初等矩阵写成等式）</summary><div class="dbody">
+  <p>(1) 显然（做零次变换，或乘 \(I\)）。</p>
+  <p>(2) \(A\sim B\) 意味着存在初等矩阵 \(P_1,\dots,P_m,Q_1,\dots,Q_k\)，使 \[P_m\cdots P_1\,A\,Q_1\cdots Q_k=B.\] 两边依次左乘 \(P_m^{-1},\dots\)、右乘 \(Q_k^{-1},\dots\)，得 \(A=P_1^{-1}\cdots P_m^{-1}\,B\,Q_k^{-1}\cdots Q_1^{-1}\)。初等矩阵的逆仍是初等矩阵，所以 \(B\sim A\)。</p>
+  <p>(3) 把 \(A\to B\) 的变换与 \(B\to C\) 的变换接起来做即可。</p>
+</div></details>
+<div class="box note"><span class="tag">意义</span>
+  <p>等价关系把所有 \(m\times n\) 矩阵分成互不相交的“类”。由定理 2.4.1，每一类里都有一个代表元 \(\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\)；所以两个同型矩阵相抵 \(\iff\) 它们有相同的相抵标准型（相同的 \(r\)）。</p>
+</div>
+<div class="box prop"><span class="tag">用矩阵乘法表述相抵（习题 2.4 第 5 题）</span>
+  <p>对任一 \(m\times n\) 矩阵 \(A\)，存在 \(m\) 阶非异阵 \(P\) 与 \(n\) 阶非异阵 \(Q\)，使</p>
+  <div class="boxed-eq">\[PAQ=\begin{pmatrix}I_r&O\\O&O\end{pmatrix}.\]</div>
+  <p class="small">\(P\) 是所用初等行变换对应的初等矩阵之积，\(Q\) 是初等列变换对应的初等矩阵之积。这个式子在后面的章节中反复使用。</p>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 初等变换在数据处理中的影子</span>
+  <ul>
+    <li><b>第二类列变换 = 变量换单位</b>：数据矩阵 \(X\) 的某一列乘 \(c\)（厘米→米），就是右乘 \(P_j(c)\)；标准化 \(X\,\mathrm{diag}\{s_1^{-1},\dots,s_p^{-1}\}\) 是若干个第二类列变换。</li>
+    <li><b>第三类列变换 = 构造新变量</b>：把某一列减去另一列的若干倍（如“总分 − 0.5 × 平时分”），就是右乘 \(T_{ij}(c)\)。这类变换不改变 \(|X'X|\) 是否为零，即不影响有没有多重共线性。</li>
+    <li><b>第一类行变换 = 样品重新排序</b>：左乘置换矩阵，回归结果不变。</li>
+  </ul>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>初等<b>行</b>变换对应<b>左</b>乘，初等<b>列</b>变换对应<b>右</b>乘；左乘矩阵的阶数是 \(A\) 的行数 \(m\)，右乘矩阵的阶数是列数 \(n\)。</li>
+    <li>第二类变换必须 \(c\ne0\)。</li>
+    <li>\(T_{ij}(c)\) 的下标含义要与教材约定一致，最好写出矩阵。</li>
+    <li>解方程组时只能对增广矩阵做<b>行</b>变换；列变换会改变未知数的含义（交换列 = 交换未知数，倍加列则没有意义）。</li>
+    <li>阶梯形要求阶梯点的列标<b>严格</b>递增；零行必须放在最下面。</li>
+    <li>阶梯形不唯一，但非零行的个数 \(r\) 是唯一的。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="1"><div class="qt">\(A\) 为 \(3\times4\) 矩阵。把 \(A\) 的第 1 行乘 2 加到第 3 行，相当于：</div><ol class="opts"><li>右乘 4 阶矩阵 \(T_{13}(2)\)</li><li>左乘 3 阶矩阵 \(T_{13}(2)\)</li><li>左乘 3 阶矩阵 \(P_3(2)\)</li><li>左乘 4 阶矩阵 \(T_{13}(2)\)</li></ol><div class="explain">行变换左乘，阶数等于行数 3；按教材约定，\(T_{13}(2)\) 是“第 1 行乘 2 加到第 3 行”，\((3,1)\) 元为 2。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">\(P_{12}\begin{pmatrix}a&b\\c&d\end{pmatrix}P_{12}\)（\(P_{12}\) 为 2 阶）等于：</div><ol class="opts"><li>\(\begin{pmatrix}c&d\\a&b\end{pmatrix}\)</li><li>\(\begin{pmatrix}b&a\\d&c\end{pmatrix}\)</li><li>\(\begin{pmatrix}d&c\\b&a\end{pmatrix}\)</li><li>\(\begin{pmatrix}a&b\\c&d\end{pmatrix}\)</li></ol><div class="explain">左乘交换两行得 \(\begin{pmatrix}c&d\\a&b\end{pmatrix}\)，右乘再交换两列得 \(\begin{pmatrix}d&c\\b&a\end{pmatrix}\)。</div></div>
+  <div class="fill" data-ans="3"><div class="qt">\(\begin{pmatrix}-1&0&1&2\\3&1&0&-1\\0&2&1&4\end{pmatrix}\) 的相抵标准型中 \(r=\)？<span class="tiny muted">（习题 2.4 第 1(1) 题）</span></div><div class="explain">行变换后得 \(\begin{pmatrix}-1&0&1&2\\0&1&3&5\\0&0&-5&-6\end{pmatrix}\)，三个阶梯点，\(r=3\)，标准型 \((I_3\ \ O)\)。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">\(\begin{pmatrix}1&2&3&4\\0&-1&0&-2\\1&1&3&2\\2&2&6&4\end{pmatrix}\) 的相抵标准型中 \(r=\)？<span class="tiny muted">（习题 2.4 第 1(2) 题）</span></div><div class="explain">第三行 = 第一行 + 第二行，第四行 = 2 × 第三行，消去后只剩两个非零行。</div></div>
+  <div class="fill" data-ans="-6"><div class="qt">\(\bigl|P_{12}\,P_3(-6)\,T_{12}(5)\,P_{23}\bigr|\)（均为 3 阶）\(=\)？</div><div class="explain">用 §2.5 的 \(|AB|=|A||B|\)：\((-1)\cdot(-6)\cdot1\cdot(-1)=-6\)。两个第一类初等矩阵各贡献一个 \(-1\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(\begin{pmatrix}1&2&3\\2&4&6\\0&1&2\end{pmatrix}\) 与 \(\begin{pmatrix}1&-1&5\\0&3&3\\0&2&2\end{pmatrix}\) 是否相抵？<span class="tiny muted">（习题 2.4 第 3(1) 题）</span></div><ol class="opts"><li>相抵，\(r\) 都是 2</li><li>不相抵</li><li>无法判断</li><li>相抵，\(r\) 都是 3</li></ol><div class="explain">两者行列式都是 0，化简后都有两个非零行，相抵标准型都是 \(\mathrm{diag}\{1,1,0\}\)。（第 3(2) 题的两个矩阵 \(r\) 分别为 3 和 2，不相抵。）</div></div>
+</div>
+<details class="more"><summary>证明题思路（习题 2.4 第 4 题）</summary><div class="dbody">
+  <p><b>4</b>　\(n\) 阶方阵 \(A\) 非异 \(\iff A\) 与 \(I_n\) 相抵。“⇐”：\(I_n\) 非异，由推论 2.4.2，经初等变换得到的 \(A\) 仍非异。“⇒”：设 \(A\sim\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\)；若 \(r\lt n\)，标准型有零行，是奇异阵，由推论 2.4.2 \(A\) 也奇异，矛盾，所以 \(r=n\)。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>Gauss 消去法 = 对增广矩阵做初等行变换；三类初等变换都可以撤销。</li>
+  <li>相抵标准型 \(\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\)（行列变换都用）；阶梯形（只用行变换）。\(r\) 唯一确定。</li>
+  <li>初等矩阵：对 \(I\) 做一次初等变换；<b>行左列右</b>。</li>
+  <li>\(P_{ij}^{-1}=P_{ij}\)，\(P_i(c)^{-1}=P_i(c^{-1})\)，\(T_{ij}(c)^{-1}=T_{ij}(-c)\)；行列式分别为 \(-1,\ c,\ 1\)。</li>
+  <li>相抵是等价关系；\(PAQ=\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\)。</li>
+</ul>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>例 2.4.1 建议左右两栏对照：左边方程组，右边增广矩阵，让学生自己发现“未知数只是占位符”。</li>
+  <li>“行左列右”可以让学生用 2 阶例子当场验证：\(\begin{pmatrix}0&1\\1&0\end{pmatrix}\begin{pmatrix}a&b\\c&d\end{pmatrix}\) 与 \(\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}0&1\\1&0\end{pmatrix}\)。</li>
+  <li>\(T_{ij}(c)\) 的下标约定各书不一，课上明确一种，并要求作业里写出矩阵本身。</li>
+</ul></div></details>
+</template>
