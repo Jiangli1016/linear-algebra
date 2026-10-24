@@ -333,3 +333,38 @@ W.factor=function(el){
   load(PR.a[1]);
 };
 })();
+;(function(){
+'use strict';
+var D=window.D,W=window.WIDGETS,F=D.F,K=D.K,$=D.$,frame=D.frame,X=D.mx,P=X.P,mm=X.mm;
+/* =============== §2.3 展开定理 ⟹ AA* = |A|I：逐列构造伴随矩阵 =============== */
+W.adjlink=function(el){
+  var body=frame(el),A=null,ed,j=0;
+  var PR={a:['习题 2.3 第 1(1) 题',[[1,1,-1],[1,2,-3],[0,1,1]]],b:['例 2.5.3 的矩阵',[[1,2,3],[2,1,2],[1,3,4]]],s:['奇异阵',[[1,2,3],[2,4,6],[1,0,1]]]};
+  body.innerHTML='<div class="ctrl">'+Object.keys(PR).map(function(k){return '<button class="btn sm" type="button" data-p="'+k+'">'+PR[k][0]+'</button>'}).join('')+'</div><div class="row">'+K('A=')+'<span class="ed"></span></div><div class="ctrl al-j"></div><div class="al-out"></div>';
+  function vt(v){return '\\begin{pmatrix}'+v.map(function(x){return x.tex()}).join('\\\\')+'\\end{pmatrix}'}
+  function draw(){
+    var o=$('.al-out',body);if(!A){o.innerHTML=D.BAD;return}
+    var n=3,C=X.cofM(A),d=D.det(A),cj=C[j],Adj=D.transpose(C),AA=mm(A,Adj);
+    $('.al-j',body).innerHTML='取第 '+[0,1,2].map(function(k){return '<button class="btn sm'+(k===j?' pri':'')+'" type="button" data-j="'+k+'">'+(k+1)+'</button>'}).join('')+' 行元素的代数余子式';
+    var h='<p class="small">① 第 '+(j+1)+' 行元素的代数余子式：'+K(cj.map(function(x,k){return 'A_{'+(j+1)+(k+1)+'}='+x.tex()}).join(',\\ '))+'。把它们<b>竖着</b>排成列向量 '+K('c_{'+(j+1)+'}='+vt(cj))+'。</p>';
+    h+='<p class="small">② 用 A 的每一行去乘 '+K('c_{'+(j+1)+'}')+'，即计算 '+K('a_{i1}A_{'+(j+1)+'1}+a_{i2}A_{'+(j+1)+'2}+a_{i3}A_{'+(j+1)+'3}')+'：</p><div class="al-list">';
+    for(var i=0;i<n;i++){
+      var s=F(0),terms=A[i].map(function(a,k){s=s.add(a.mul(cj[k]));return D.pt(a)+'\\cdot'+D.pt(cj[k])});
+      var why;
+      if(i===j) why='<b>自己的行</b>：按第 '+(j+1)+' 行展开（定理 1.4.1），得 |A|';
+      else{var Bm=A.map(function(r,t){return t===j?A[i].slice():r.slice()});why='<b>别的行</b>（异乘变零，定理 1.4.2）：相当于把第 '+(j+1)+' 行换成第 '+(i+1)+' 行再展开，'+K(X.texM(Bm,'vmatrix'))+' 有两行相同，等于 0'}
+      h+='<div class="al-r'+(i===j?' self':'')+'"><div><b>第 '+(i+1)+' 行</b>　<span class="scroll-x al-f">'+K(terms.join('+')+'='+s.tex())+'</span></div><div class="small">'+why+'</div></div>';
+    }
+    h+='</div>';
+    var e=[F(0),F(0),F(0)];e[j]=d;
+    h+='<p class="small">合起来：'+K('Ac_{'+(j+1)+'}='+vt(e)+'=|A|\\,e_{'+(j+1)+'}')+'——这正是 '+K('|A|I')+' 的第 '+(j+1)+' 列。</p>';
+    h+='<p class="small">③ 三列并排，'+K('(c_1,c_2,c_3)')+' 的第 '+(j+1)+' 列是第 '+(j+1)+' <b>行</b>的余子式——这就是“代数余子式矩阵再转置”，即 '+K('A^*')+'：</p>';
+    h+='<div class="row el-eq">'+P(A)+'<span>·</span>'+P(Adj,{cell:function(r,c){return c===j?'mk':''}})+'<span>=</span>'+P(AA,{cell:function(r,c){return c===j?'on':''}})+'<span class="small">'+K('=|A|I_3,\\ |A|='+d.tex())+'</span></div>';
+    h+=d.isZero()?'<div class="err-note">这里 |A| = 0：AA* = O，两边无法“除以 |A|”，得不到逆矩阵（§2.5 证明此时 A 确实不可逆）。</div>':'<div class="ok-note">④ |A| = '+d.tex()+' ≠ 0：每一列都除以 |A|，'+K('A\\cdot\\frac{1}{|A|}A^*=I')+'，所以 '+K('A^{-1}=\\frac1{|A|}A^*')+'。能否求逆，取决于 |A| 这<b>一个数</b>是否为 0。</div>';
+    o.innerHTML=h;body.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+  function load(v){ed=null;ed=new D.MatEd($('.ed',body),v.map(function(r){return r.map(String)}),function(m){A=m;if(ed)draw()},{pm:true});draw()}
+  body.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.p)load(PR[b.dataset.p][1]);else if(b.dataset.j!==undefined){j=+b.dataset.j;draw()}});
+  load(PR.a[1]);
+};
+})();

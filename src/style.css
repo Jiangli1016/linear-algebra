@@ -722,3 +722,7 @@ svg .pl-ghost{fill:none;stroke:var(--ink-3);stroke-width:1.2;stroke-dasharray:3 
   .pf svg{width:100%;height:auto}
   .pf-row .dp-ar{font-size:.78rem;white-space:nowrap}
 }
+.al-list{display:grid;gap:.4rem;margin:.3rem 0 .6rem}
+.al-r{border:1px solid var(--rule);border-radius:8px;padding:.45rem .7rem;background:var(--sheet)}
+.al-r.self{background:var(--accent-soft);border-color:transparent}
+.al-f{display:inline-block;max-width:100%;vertical-align:middle}

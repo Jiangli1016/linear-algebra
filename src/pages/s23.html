@@ -67,7 +67,40 @@
 </div>
 
 <h2>三、伴随矩阵</h2>
-<p>怎样判断一个方阵是否可逆？可逆时怎样求逆？第一章的展开定理给出了答案。</p>
+<p class="trans">怎样判断一个方阵是否可逆？可逆时怎样求逆？下面一步一步看，为什么答案藏在第一章的展开定理里。</p>
+<h3>第一步：求逆就是解 \(n\) 组方程</h3>
+<p>要找 \(B\) 使 \(AB=I_n\)。按列来看矩阵乘法（每一列分别做“行乘列”），\(AB\) 的第 \(j\) 列是 \(A\) 乘 \(B\) 的第 \(j\) 列 \(b_j\)，而 \(I_n\) 的第 \(j\) 列是 \(e_j\)（第 \(j\) 个分量为 1，其余为 0）。所以 \(AB=I\) 就是</p>
+<div class="boxed-eq">\[Ab_j=e_j,\qquad\text{即}\quad(A\text{ 的第 }i\text{ 行})\cdot b_j=\begin{cases}1,&i=j,\\0,&i\ne j.\end{cases}\]</div>
+<p>换句话说，我们要找一列数 \(b_j\)：它与 \(A\) 的<b>第 \(j\) 行</b>“乘出非零”，与<b>其余各行</b>都“乘出 0”。</p>
+<h3>第二步：第一章的展开定理恰好提供了这样的一列数</h3>
+<div class="w-grid">
+  <div class="box thm"><span class="tag">定理 1.4.1 · 按第 \(j\) 行展开</span>
+    <p>第 \(j\) 行元素乘<b>自己的</b>代数余子式再求和，得行列式：</p>
+    \[a_{j1}A_{j1}+a_{j2}A_{j2}+\cdots+a_{jn}A_{jn}=|A|.\]
+  </div>
+  <div class="box thm"><span class="tag">定理 1.4.2 · 异乘变零</span>
+    <p>第 \(i\) 行元素乘<b>第 \(j\) 行</b>的代数余子式（\(i\ne j\)），得 0：</p>
+    \[a_{i1}A_{j1}+a_{i2}A_{j2}+\cdots+a_{in}A_{jn}=0.\]
+    <p class="small">（这相当于把第 \(j\) 行换成第 \(i\) 行后再按第 \(j\) 行展开，行列式有两行相同。）</p>
+  </div>
+</div>
+<p>把第 \(j\) 行元素的代数余子式<b>竖着</b>排成一列 \(c_j=(A_{j1},A_{j2},\dots,A_{jn})'\)，两个定理合起来说的就是：</p>
+<div class="boxed-eq">\[(A\text{ 的第 }i\text{ 行})\cdot c_j=\begin{cases}|A|,&i=j,\\0,&i\ne j,\end{cases}\qquad\text{即}\quad Ac_j=|A|\,e_j.\]</div>
+<p>这和第一步要找的 \(b_j\) 只差一个倍数 \(|A|\)！</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 二阶的情形</div><p>\(A=\begin{pmatrix}a&b\\c&d\end{pmatrix}\)，看展开定理怎样给出 \(A^{-1}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">第 1 行元素的代数余子式 \(A_{11}=d,\ A_{12}=-c\)，竖排成 \(c_1=\begin{pmatrix}d\\-c\end{pmatrix}\)：第 1 行乘它 \(ad-bc=|A|\)（按第 1 行展开），第 2 行乘它 \(cd-dc=0\)（异乘变零）。所以 \(Ac_1=\begin{pmatrix}|A|\\0\end{pmatrix}\)。</div>
+    <div class="st">第 2 行元素的代数余子式 \(A_{21}=-b,\ A_{22}=a\)，竖排成 \(c_2=\begin{pmatrix}-b\\a\end{pmatrix}\)：第 1 行乘它 \(-ab+ba=0\)，第 2 行乘它 \(-cb+da=|A|\)。所以 \(Ac_2=\begin{pmatrix}0\\|A|\end{pmatrix}\)。</div>
+    <div class="st">两列并排：\(A\begin{pmatrix}d&-b\\-c&a\end{pmatrix}=\begin{pmatrix}|A|&0\\0&|A|\end{pmatrix}=|A|I_2\)。当 \(|A|=ad-bc\ne0\) 时除以它，就得到 \(A^{-1}=\dfrac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}\)。</div>
+  </div>
+</div>
+<h3>第三步：并排起来，就是伴随矩阵</h3>
+<p>把 \(c_1,c_2,\dots,c_n\) 并排成一个矩阵 \((c_1,c_2,\dots,c_n)\)，就有 \(A(c_1,\dots,c_n)=(|A|e_1,\dots,|A|e_n)=|A|I_n\)。这个矩阵的第 \(j\) <b>列</b>放的是第 \(j\) <b>行</b>元素的代数余子式——正是“代数余子式按原位置排好再转置”。它就是下面定义的伴随矩阵 \(A^*\)，“转置”就是这样来的。</p>
+<div class="widget" data-widget="adjlink" data-t="从展开定理到 AA* = |A|I：一列一列地构造" data-d="选第 j 行的代数余子式，竖排成一列 c_j；看 A 的每一行乘它：自己的行得 |A|（按行展开），别的行得 0（异乘变零）。三列并排就是 A*。试试“奇异阵”。"></div>
+<div class="box idea"><span class="tag">一句话总结 · 可逆性与展开定理的关系</span>
+  <p>展开定理（“自己的余子式得 \(|A|\)，别人的余子式得 0”）⟹ \(AA^*=|A|I\) ⟹ 只要 \(|A|\ne0\)，除以 \(|A|\) 就得到逆矩阵。于是<b>“能否求逆”这个关于 \(n^2\) 个数的问题，归结为一个数 \(|A|\) 是否为零</b>。（反过来，\(|A|=0\) 时一定不可逆，要到 §2.5 用乘积行列式定理证明。）</p>
+</div>
+<h3>伴随矩阵的定义与基本性质</h3>
 <div class="box def"><span class="tag">定义 2.3.2<em>伴随矩阵</em></span>
   <p>设 \(A=(a_{ij})_{n\times n}\)，\(A_{ij}\) 是 \(a_{ij}\) 在行列式 \(|A|\) 中的代数余子式。称</p>
   <div class="boxed-eq">\[A^*=\begin{pmatrix}A_{11}&A_{21}&\cdots&A_{n1}\\A_{12}&A_{22}&\cdots&A_{n2}\\\vdots&\vdots&&\vdots\\A_{1n}&A_{2n}&\cdots&A_{nn}\end{pmatrix}\]</div>
@@ -77,7 +110,7 @@
   <p>对任意 \(n\) 阶方阵 \(A\)，</p>
   <div class="boxed-eq">\[AA^*=A^*A=|A|I_n.\]</div>
 </div>
-<details class="proof" open><summary>证明（第一章展开定理的直接应用）</summary><div class="dbody">
+<details class="proof"><summary>证明（把上面的推导整理成一般形式）</summary><div class="dbody">
   <p>\(AA^*\) 的 \((i,j)\) 元等于 \(A\) 的第 \(i\) 行乘 \(A^*\) 的第 \(j\) 列，而 \(A^*\) 的第 \(j\) 列是 \((A_{j1},A_{j2},\dots,A_{jn})'\)，所以</p>
   \[(AA^*)_{ij}=a_{i1}A_{j1}+a_{i2}A_{j2}+\cdots+a_{in}A_{jn}=\begin{cases}|A|,&i=j,\\0,&i\ne j.\end{cases}\]
   <p>对角线位置：按第 \(i\) 行展开（定理 1.4.1）；非对角位置：第 \(i\) 行元素乘第 \(j\) 行的代数余子式，相当于第 \(j\) 行换成第 \(i\) 行的行列式，有两行相同，等于 0（定理 1.4.2）。故 \(AA^*=|A|I_n\)。用按列展开同理得 \(A^*A=|A|I_n\)。</p>
