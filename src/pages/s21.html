@@ -57,7 +57,18 @@
 <p>这些名称之间有包含关系：</p>
 <ol class="flow"><li>单位矩阵</li><li class="arr">⊂</li><li>数量矩阵</li><li class="arr">⊂</li><li>对角矩阵</li><li class="arr">⊂</li><li>上（下）三角矩阵</li><li class="arr">⊂</li><li>方阵</li></ol>
 <p>对角矩阵既是上三角矩阵，也是下三角矩阵；反过来，既上三角又下三角的方阵一定是对角矩阵。</p>
-<div class="widget" data-widget="mtypes" data-t="特殊矩阵识别器" data-d="选一个预设，或自己改数字、改大小，看 A 属于哪些类；点任一名称，查看“是 / 不是”的理由，相关元素会标黄。"></div>
+<h3>行矩阵与列矩阵：行向量、列向量</h3>
+<p class="trans">上面除零矩阵外，都是方阵中的特殊矩阵。长方阵里也有两类特别重要的“最瘦”的矩阵：只有一行，或只有一列。它们是矩阵与向量之间的桥梁。</p>
+<p>只有一行的矩阵称为<b>行矩阵</b>，只有一列的矩阵称为<b>列矩阵</b>，它们也分别叫行向量、列向量。一个矩阵的每一行称为它的一个<b>行向量</b>，每一列称为它的一个<b>列向量</b>。</p>
+<div class="w-grid">
+  <div class="box def"><span class="tag">\(n\) 维行向量</span><p>\(1\times n\) 矩阵 \((a_1,a_2,\dots,a_n)\)。</p></div>
+  <div class="box def"><span class="tag">\(n\) 维列向量</span><p>\(n\times1\) 矩阵 \(\begin{pmatrix}a_1\\a_2\\\vdots\\a_n\end{pmatrix}\)，常写成 \((a_1,\dots,a_n)'\)。</p></div>
+</div>
+<p>行向量与列向量<b>不是同一个矩阵</b>（一个 \(1\times n\)，一个 \(n\times1\)），后面会看到，它们一个乘另一个，按顺序不同会得到一个数或一个 \(n\) 阶方阵。</p>
+<p>一个 \(m\times n\) 矩阵可以看成 \(m\) 个 \(n\) 维行向量叠起来，也可以看成 \(n\) 个 \(m\) 维列向量并排放着：</p>
+\[A=\begin{pmatrix}\alpha_1\\\alpha_2\\\vdots\\\alpha_m\end{pmatrix}=(\beta_1,\beta_2,\dots,\beta_n).\]
+<p>这两种看法在 §2.6 的分块乘法和第三章的向量组理论中都非常有用。</p>
+<div class="widget" data-widget="mtypes" data-t="特殊矩阵识别器" data-d="选一个预设，或自己改数字、改大小，看 A 属于哪些类（方阵类、行向量、列向量……）；点任一名称查看理由，相关元素会标黄。下方同时把 A 拆成行向量和列向量。"></div>
 
 <h2>矩阵相等</h2>
 <p class="trans">认识了各种矩阵之后，一个基本问题是：两个矩阵什么时候算“相同”？它是后面一切矩阵等式（例如 \(AB=BA\) 是否成立）的判断标准。</p>
@@ -72,18 +83,6 @@
     <div class="st">(2) 都是二阶方阵，都含两个 0 与两个 1，但 \((1,2)\) 元一个是 1、一个是 0，<b>不相等</b>。矩阵相等要求“完全一样”：位置也算数。</div>
   </div>
 </div>
-
-<h2>行向量与列向量</h2>
-<p class="trans">特殊矩阵中还有“最瘦”的一类：只有一行或只有一列。它们是矩阵与向量之间的桥梁。</p>
-<p>矩阵的每一行称为它的一个<b>行向量</b>，每一列称为它的一个<b>列向量</b>。</p>
-<div class="w-grid">
-  <div class="box def"><span class="tag">\(n\) 维行向量</span><p>\(1\times n\) 矩阵 \((a_1,a_2,\dots,a_n)\)。</p></div>
-  <div class="box def"><span class="tag">\(n\) 维列向量</span><p>\(n\times1\) 矩阵 \(\begin{pmatrix}a_1\\a_2\\\vdots\\a_n\end{pmatrix}\)，常写成 \((a_1,\dots,a_n)'\)。</p></div>
-</div>
-<p>行向量与列向量<b>不是同一个矩阵</b>（一个 \(1\times n\)，一个 \(n\times1\)），后面会看到，它们一个乘另一个，按顺序不同会得到一个数或一个 \(n\) 阶方阵。</p>
-<p>一个 \(m\times n\) 矩阵可以看成 \(m\) 个 \(n\) 维行向量叠起来，也可以看成 \(n\) 个 \(m\) 维列向量并排放着：</p>
-\[A=\begin{pmatrix}\alpha_1\\\alpha_2\\\vdots\\\alpha_m\end{pmatrix}=(\beta_1,\beta_2,\dots,\beta_n).\]
-<p>这两种看法在 §2.6 的分块乘法和第三章的向量组理论中都非常有用。</p>
 
 <h2>矩阵与行列式</h2>
 <p class="trans">最后，把本章的新对象与第一章的旧对象放在一起比较，避免混淆。</p>

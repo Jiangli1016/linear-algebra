@@ -12,7 +12,7 @@ function resizeV(v,m,n){var a=[];for(var i=0;i<m;i++){a.push([]);for(var j=0;j<n
 W.mtypes=function(el){
   var body=frame(el);
   var PR={o:['零矩阵',[[0,0,0],[0,0,0]]],i:['单位阵',[[1,0,0],[0,1,0],[0,0,1]]],s:['数量阵',[[3,0,0],[0,3,0],[0,0,3]]],d:['对角阵',[[2,0,0],[0,-1,0],[0,0,5]]],u:['上三角',[[1,2,3],[0,4,5],[0,0,6]]],l:['下三角',[[1,0,0],[2,3,0],[4,5,6]]],sy:['对称阵',[[1,1,0],[1,3,5],[0,5,-1]]],k:['反对称阵',[[0,2,1],[-2,0,-5],[-1,5,0]]],r:['行向量',[[1,0,4]]],c:['列向量',[[1],[1],[0]]]};
-  body.innerHTML='<div class="ctrl">'+btns(PR,'p')+'</div><div class="ctrl"><label>大小 <select class="m">'+opt(['1','2','3','4'],'3')+'</select> × <select class="n">'+opt(['1','2','3','4'],'3')+'</select></label><span class="small muted">改任何一个数，判断会立即更新</span></div><div class="row">'+K('A=')+'<span class="ed"></span></div><div class="mt-chips"></div><div class="mt-why small"></div><p class="small muted" style="margin:.5rem 0 .2rem">包含关系（深色 = A 属于这一类）：</p><ol class="flow mt-flow"></ol>';
+  body.innerHTML='<div class="ctrl">'+btns(PR,'p')+'</div><div class="ctrl"><label>大小 <select class="m">'+opt(['1','2','3','4'],'3')+'</select> × <select class="n">'+opt(['1','2','3','4'],'3')+'</select></label><span class="small muted">改任何一个数，判断会立即更新</span></div><div class="row">'+K('A=')+'<span class="ed"></span></div><div class="mt-chips"></div><div class="mt-why small"></div><p class="small muted" style="margin:.5rem 0 .2rem">包含关系（深色 = A 属于这一类）：</p><ol class="flow mt-flow"></ol><div class="mt-vec"></div>';
   var A=null,ed,sel='diag',vals=PR.d[1].map(function(r){return r.map(String)});
   function cells(f){var c=[];for(var i=0;i<A.length;i++)for(var j=0;j<A[0].length;j++)if(f(i,j))c.push([i,j]);return c}
   function nm(c){return '('+(c[0]+1)+', '+(c[1]+1)+')'}
@@ -47,6 +47,14 @@ W.mtypes=function(el){
     why.innerHTML='<b>'+nmS+'？</b>'+(r.ok?'<span class="ok"> 是。</span>':'<span class="no"> 不是。</span>')+esc(r.msg)+(r.cells.length?' <span class="muted">（黄色标出相关位置）</span>':'');
     ed.mark(function(i,j){return r.cells.some(function(c){return c[0]===i&&c[1]===j})});
     var chain=[['unit','单位阵'],['scal','数量阵'],['diag','对角阵'],['up','上三角阵'],['sq','方阵']];
+    var m=A.length,n=A[0].length;
+    var rT=A.map(function(r,i){return '\\alpha_{'+(i+1)+'}=('+r.map(function(x){return x.tex()}).join(',\\ ')+')'}).join(',\\quad ');
+    var cT=A[0].map(function(_,j){return '\\beta_{'+(j+1)+'}=\\begin{pmatrix}'+A.map(function(r){return r[j].tex()}).join('\\\\')+'\\end{pmatrix}'}).join(',\\quad ');
+    var vh='<p class="small" style="margin-top:.7rem"><b>按行看</b>：A 由 '+m+' 个 '+n+' 维行向量叠成，'+K('A=\\begin{pmatrix}'+A.map(function(_,i){return '\\alpha_{'+(i+1)+'}'}).join('\\\\')+'\\end{pmatrix}')+'：</p><div class="scroll-x">'+K(rT,true)+'</div>';
+    vh+='<p class="small"><b>按列看</b>：A 由 '+n+' 个 '+m+' 维列向量并排组成，'+K('A=('+A[0].map(function(_,j){return '\\beta_{'+(j+1)+'}'}).join(',')+')')+'：</p><div class="scroll-x">'+K(cT,true)+'</div>';
+    if(m===1&&n>1) vh+='<p class="small muted">A 本身是一个 '+n+' 维行向量。把它“竖起来”得到的 '+n+'×1 列向量与 A 尺寸不同，不是同一个矩阵（试试“列向量”预设）。</p>';
+    else if(n===1&&m>1) vh+='<p class="small muted">A 本身是一个 '+m+' 维列向量，常写成 '+K('('+A.map(function(r){return r[0].tex()}).join(',')+")'")+'；它与同样数字的行向量不是同一个矩阵。</p>';
+    $('.mt-vec',body).innerHTML=vh;
     $('.mt-flow',body).innerHTML=chain.map(function(c,k){return (k?'<li class="arr">⊂</li>':'')+'<li class="'+(t[c[0]].ok?'key':'')+'">'+c[1]+'</li>'}).join('');
     fire(body);
   }
