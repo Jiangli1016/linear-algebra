@@ -67,11 +67,42 @@
 </div>
 
 <h2>三、伴随矩阵</h2>
-<p class="trans">要判断一个方阵是否可逆、并在可逆时把逆求出来，需要一个新的工具：用 \(A\) 的全部代数余子式排成的矩阵。</p>
+<p class="trans">怎样判断一个方阵是否可逆？可逆时怎样求逆？先不急着下定义，从两个熟悉的问题出发，看看答案“长什么样”。</p>
+
+<h3>出发点一：Cramer 法则已经给出了判别条件</h3>
+<p>回顾 §1.4 的 Cramer 法则（定理 1.4.3）：线性方程组 \(Ax=\beta\)（\(n\) 个方程、\(n\) 个未知数，\(\beta=(b_1,\dots,b_n)'\)）当 \(|A|\ne0\) 时有唯一解</p>
+<div class="boxed-eq">\[x_i=\frac{|A_i|}{|A|}\qquad(i=1,2,\dots,n),\]</div>
+<p>其中 \(|A_i|\) 是把 \(|A|\) 的第 \(i\) 列换成 \(\beta\) 所得的行列式。把 \(|A_i|\) 按第 \(i\) 列展开（第 \(i\) 列的代数余子式与 \(|A|\) 的相同）：</p>
+\[|A_i|=b_1A_{1i}+b_2A_{2i}+\cdots+b_nA_{ni},\qquad\text{所以}\quad x_i=\frac1{|A|}\bigl(A_{1i}b_1+A_{2i}b_2+\cdots+A_{ni}b_n\bigr).\]
+<p>把 \(n\) 个分量合起来写成矩阵形式：</p>
+<div class="boxed-eq">\[x=\frac1{|A|}\underbrace{\begin{pmatrix}A_{11}&A_{21}&\cdots&A_{n1}\\A_{12}&A_{22}&\cdots&A_{n2}\\\vdots&\vdots&&\vdots\\A_{1n}&A_{2n}&\cdots&A_{nn}\end{pmatrix}}_{\text{记作 }M}\beta.\]</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 二元方程组</div><p>用 Cramer 法则解 \(\begin{cases}ax_1+bx_2=b_1,\\cx_1+dx_2=b_2\end{cases}\)（\(ad-bc\ne0\)），并写成矩阵形式。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(x_1=\dfrac{\begin{vmatrix}b_1&b\\b_2&d\end{vmatrix}}{ad-bc}=\dfrac{db_1-bb_2}{ad-bc}\)，\(x_2=\dfrac{\begin{vmatrix}a&b_1\\c&b_2\end{vmatrix}}{ad-bc}=\dfrac{-cb_1+ab_2}{ad-bc}\)。</div>
+    <div class="st">合起来：\(\begin{pmatrix}x_1\\x_2\end{pmatrix}=\dfrac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}\begin{pmatrix}b_1\\b_2\end{pmatrix}\)。解 \(x\) 等于一个<b>固定的矩阵</b>乘以右端 \(\beta\)。</div>
+  </div>
+</div>
+<p>两点观察：</p>
+<ol>
+  <li><b>判别条件</b>：Cramer 法则成立的条件是 \(|A|\ne0\)，此时对<b>任意</b>右端 \(\beta\) 都能“解出 \(x\)”。而若 \(A\) 可逆，\(Ax=\beta\) 两边左乘 \(A^{-1}\) 就得 \(x=A^{-1}\beta\)。这强烈暗示：\(|A|\ne0\) 就是 \(A\) 可逆的条件。</li>
+  <li><b>逆矩阵的“候选人”</b>：解的公式是 \(x=\frac1{|A|}M\beta\)，与 \(x=A^{-1}\beta\) 对比，\(\frac1{|A|}M\) 很可能就是 \(A^{-1}\)。</li>
+</ol>
+
+<h3>出发点二：求逆就是找 \(B\) 使 \(AB=I\)</h3>
+<p>直接从定义出发：要找 \(B\) 使 \(AB=I_n\)。按列看，\(AB\) 的第 \(j\) 列是 \(A\) 乘 \(B\) 的第 \(j\) 列 \(b_j\)，\(I_n\) 的第 \(j\) 列是 \(e_j\)（第 \(j\) 个分量为 1，其余为 0）。所以</p>
+<div class="boxed-eq">\[AB=I_n\iff Ab_j=e_j\quad(j=1,2,\dots,n):\]</div>
+<p>求逆就是解 \(n\) 个系数矩阵相同、右端分别为 \(e_1,\dots,e_n\) 的方程组。当 \(|A|\ne0\) 时，对每一个都用出发点一的公式（取 \(\beta=e_j\)）：</p>
+\[b_j=\frac1{|A|}Me_j=\frac1{|A|}\,(M\text{ 的第 }j\text{ 列})=\frac1{|A|}\begin{pmatrix}A_{j1}\\A_{j2}\\\vdots\\A_{jn}\end{pmatrix}.\]
+<p>于是 \(B=\frac1{|A|}M\)：<b>\(B\) 的第 \(j\) 列 = 第 \(j\) 行元素的代数余子式 ÷ \(|A|\)</b>。两条路得到了同一个矩阵 \(M\)，它值得一个名字。</p>
+<div class="box note"><span class="tag">还差一步</span>
+  <p>上面只保证了 \(AB=I\)，而逆矩阵的定义要求 \(AB=BA=I\)；另外“\(|A|=0\) 时不可逆”也还没有说明。下面先给 \(M\) 命名，再用第一章的展开定理<b>直接验证</b> \(AM=MA=|A|I\)。</p>
+</div>
+
+<h3>伴随矩阵的定义</h3>
 <div class="box def"><span class="tag">定义 2.3.2<em>伴随矩阵</em></span>
   <p>设 \(A=(a_{ij})_{n\times n}\)，\(A_{ij}\) 是 \(a_{ij}\) 在行列式 \(|A|\) 中的代数余子式。称</p>
   <div class="boxed-eq">\[A^*=\begin{pmatrix}A_{11}&A_{21}&\cdots&A_{n1}\\A_{12}&A_{22}&\cdots&A_{n2}\\\vdots&\vdots&&\vdots\\A_{1n}&A_{2n}&\cdots&A_{nn}\end{pmatrix}\]</div>
-  <p>为 \(A\) 的<b>伴随矩阵</b>。注意：<b>先把代数余子式按原位置排成矩阵，再转置</b>——\(A^*\) 的第 \(j\) 列是 \(A\) 的第 \(j\) <b>行</b>元素的代数余子式 \((A_{j1},A_{j2},\dots,A_{jn})'\)。为什么要转置，下面的引理马上给出答案。</p>
+  <p>为 \(A\) 的<b>伴随矩阵</b>——它就是上面的 \(M\)。注意：<b>先把代数余子式按原位置排成矩阵，再转置</b>，\(A^*\) 的第 \(j\) 列是第 \(j\) <b>行</b>元素的代数余子式 \((A_{j1},A_{j2},\dots,A_{jn})'\)。“转置”正是出发点一中 \(x_i\) 的系数 \(A_{1i},\dots,A_{ni}\) 来自<b>第 \(i\) 列</b>的余子式造成的。</p>
 </div>
 
 <h3>伴随矩阵的基本性质：\(AA^*=|A|I\)</h3>
@@ -100,7 +131,7 @@
 <p>这也解释了定义中为什么要“转置”：只有把第 \(j\) 行的余子式竖着放进第 \(j\) 列，“行乘列”时才正好是展开定理中的和式。</p>
 <div class="widget" data-widget="adjlink" data-t="逐列验证 AA* = |A|I：展开定理在起作用" data-d="选 A* 的第 j 列（即第 j 行元素的代数余子式）；看 A 的每一行乘它：自己的行得 |A|（按行展开），别的行得 0（异乘变零）。试试“奇异阵”。"></div>
 <div class="box idea"><span class="tag">引理的意义</span>
-  <p>\(AA^*=|A|I\) 是一个数量矩阵——它离单位矩阵 \(I\) 只差一个倍数 \(|A|\)。这正是从第一章的“展开定理”通往本节“逆矩阵”的桥梁。</p>
+  <p>出发点一、二用 Cramer 法则“猜”出了 \(\frac1{|A|}A^*\)；引理 2.3.1 用展开定理直接验证了它，而且<b>两边</b>都成立：\(AA^*=A^*A=|A|I\)。这是一个数量矩阵，离单位矩阵只差一个倍数 \(|A|\)——从第一章的展开定理通往本节逆矩阵的桥梁。</p>
 </div>
 
 <h2>四、可逆的判定与求逆公式</h2>
@@ -118,12 +149,8 @@
   <p>展开定理（“自己的余子式得 \(|A|\)，别人的余子式得 0”）⟹ \(AA^*=|A|I\) ⟹ 只要 \(|A|\ne0\)，除以 \(|A|\) 就得到逆矩阵。于是<b>“能否求逆”这个关于 \(n^2\) 个数的问题，归结为 \(|A|\) 这一个数是否为零</b>。</p>
 </div>
 
-<h3>怎样求逆：按列理解求逆公式</h3>
-<p>求逆，就是找 \(B\) 使 \(AB=I_n\)。按列看，\(AB\) 的第 \(j\) 列是 \(Ab_j\)（\(b_j\) 为 \(B\) 的第 \(j\) 列），\(I_n\) 的第 \(j\) 列是 \(e_j\)。所以求逆等价于解 \(n\) 个方程组</p>
-<div class="boxed-eq">\[Ab_j=e_j\qquad(j=1,2,\dots,n).\]</div>
-<p>引理 2.3.1 按列来读是 \(A\,(A^*\text{ 的第 }j\text{ 列})=|A|\,e_j\)，所以 \(|A|\ne0\) 时 \(b_j=\dfrac1{|A|}(A_{j1},A_{j2},\dots,A_{jn})'\)：</p>
-<div class="boxed-eq">\[A^{-1}\text{ 的第 }j\text{ 列}=\frac{\text{第 }j\text{ 行元素的代数余子式}}{|A|}.\]</div>
-<p>由此得到用伴随矩阵求逆的步骤：① 算 \(|A|\)，判断是否为 0；② 算出全部 \(n^2\) 个代数余子式；③ 按“第 \(j\) 行的余子式放第 \(j\) 列”排成 \(A^*\)；④ 除以 \(|A|\)，并验算 \(AA^{-1}=I\)。</p>
+<h3>用伴随矩阵求逆</h3>
+<p>出发点二已经说明：\(A^{-1}\) 的第 \(j\) 列 = 第 \(j\) 行元素的代数余子式 ÷ \(|A|\)。由此得到用伴随矩阵求逆的步骤：① 算 \(|A|\)，判断是否为 0；② 算出全部 \(n^2\) 个代数余子式；③ 按“第 \(j\) 行的余子式放第 \(j\) 列”排成 \(A^*\)；④ 除以 \(|A|\)，并验算 \(AA^{-1}=I\)。</p>
 <div class="widget" data-widget="adjinv" data-t="用伴随矩阵求逆：四步走" data-d="① 代数余子式按原位置排好；② 转置得 A*。点 A* 的任一元素，看它是哪一个代数余子式——下标是反过来的。③ 验证 AA* = |A|I；④ |A| ≠ 0 时得到 A⁻¹。也试试“奇异阵”。"></div>
 
 <div class="ex"><div class="ex-q"><div class="ex-h">例 二阶方阵的逆</div>
@@ -131,7 +158,7 @@
   <div class="sol" data-steps>
     <div class="st">代数余子式：\(A_{11}=d\)，\(A_{12}=-c\)，\(A_{21}=-b\)，\(A_{22}=a\)。</div>
     <div class="st">第 1 行的余子式放第 1 列，第 2 行的放第 2 列：\(A^*=\begin{pmatrix}d&-b\\-c&a\end{pmatrix}\)。验算引理：第 1 列 \((d,-c)'\) 与第 1 行相乘得 \(ad-bc=|A|\)（按行展开），与第 2 行相乘得 \(cd-dc=0\)（异乘变零）；第 2 列同理。所以 \(AA^*=|A|I_2\)。</div>
-    <div class="st">\[A^{-1}=\frac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}.\]口诀：<b>主对角线互换，副对角线变号，再除以行列式</b>。</div>
+    <div class="st">\[A^{-1}=\frac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}.\]口诀：<b>主对角线互换，副对角线变号，再除以行列式</b>。这与出发点一中用 Cramer 法则解二元方程组得到的矩阵完全一致。</div>
     <div class="st">\(|A|=6-5=1\)，\(\begin{pmatrix}2&5\\1&3\end{pmatrix}^{-1}=\begin{pmatrix}3&-5\\-1&2\end{pmatrix}\)。验算：\(\begin{pmatrix}2&5\\1&3\end{pmatrix}\begin{pmatrix}3&-5\\-1&2\end{pmatrix}=I_2\)。</div>
   </div>
 </div>
@@ -158,12 +185,13 @@
 </div>
 
 <h2>五、逆矩阵法解线性方程组与 Cramer 法则</h2>
-<p class="trans">有了可逆判定和求逆公式，回到出发点：方程组 \(Ax=\beta\) 能不能像 \(ax=b\) 那样“除过去”？</p>
+<p class="trans">本节是从 Cramer 法则出发引出伴随矩阵的（出发点一）。现在有了逆矩阵，把这条路倒过来走一遍：方程组 \(Ax=\beta\) 能像 \(ax=b\) 那样“除过去”，而 Cramer 法则只是它的分量形式。</p>
 <p>线性方程组写成 \(Ax=\beta\)（例 2.2.4）。若 \(|A|\ne0\)，则 \(A^{-1}\) 存在，两边左乘 \(A^{-1}\)：</p>
 \[A^{-1}Ax=A^{-1}\beta\ \Longrightarrow\ x=A^{-1}\beta.\]
 <p>反过来 \(x=A^{-1}\beta\) 代入确实满足 \(Ax=\beta\)，所以这是唯一解。把 \(A^{-1}=\frac1{|A|}A^*\) 代入：</p>
 \[x_i=\frac1{|A|}\bigl(b_1A_{1i}+b_2A_{2i}+\cdots+b_nA_{ni}\bigr)=\frac{|A_i|}{|A|},\]
-<p>其中 \(|A_i|\) 是把 \(|A|\) 的第 \(i\) 列换成 \(\beta\) 所得行列式（按第 \(i\) 列展开）。这就<b>重新得到了 Cramer 法则</b>（§1.6），而且推导更简洁。</p>
+<p>其中 \(|A_i|\) 是把 \(|A|\) 的第 \(i\) 列换成 \(\beta\) 所得行列式（按第 \(i\) 列展开）。这正是出发点一的式子倒过来读：<b>Cramer 法则 = \(x=A^{-1}\beta\) 的分量形式</b>。两者的分工是——</p>
+<div class="w-grid"><div class="box idea"><span class="tag">Cramer 法则（§1.4）</span><p>直接给出每个 \(x_i\) 的公式，适合理论分析和低阶计算；但只给出一个方程组的解。</p></div><div class="box idea"><span class="tag">逆矩阵法</span><p>\(A^{-1}\) 只依赖系数矩阵，求一次就能对任意右端 \(\beta\) 立刻写出 \(x=A^{-1}\beta\)；配合 §2.5 的初等变换法，计算更快。</p></div></div>
 <div class="ex"><div class="ex-q"><div class="ex-h">例 用求逆矩阵的方法解方程组 <span class="src">习题 2.3 第 2 题</span></div>
   <p>\(\begin{cases}x_1-x_2+3x_3=8,\\2x_1-x_2+4x_3=11,\\-x_1+2x_2-4x_3=-11.\end{cases}\)</p></div>
   <div class="sol" data-steps>
