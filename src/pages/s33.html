@@ -1,0 +1,138 @@
+<template data-chapter="3" data-route="s3-3" data-num="§3.3" data-short="线性空间" data-group="第二阶段 · 线性空间与线性关系">
+<header class="page-head">
+  <span class="det-eyebrow">§3.3</span>
+  <h1>线性空间</h1>
+  <p class="lede">\(\mathbb K^n\) 可以看成二维、三维空间的推广。现在再做进一步的抽象：不再关心对象“长什么样”，只要它们能做加法和数乘，而且满足八条运算规则，就把它们叫做向量。这是从“具体坐标”进入“抽象线性结构”的关键一步。</p>
+  <div class="meta-row"><span class="pill acc">建议 1 学时</span><span class="pill">教材第 122–125 页</span><span class="pill">关键词：八条公理</span></div>
+  <ul class="goals">
+    <li>掌握线性空间的定义（八条公理）</li>
+    <li>熟悉 \(\mathbb K^n\)、多项式空间、函数空间、矩阵空间等例子</li>
+    <li>理解同一个集合可以在不同数域上构成线性空间</li>
+    <li>掌握零向量、负向量的唯一性和基本运算性质</li>
+    <li>会判断一个集合在给定运算下是否构成线性空间</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下</span><p>§3.2 中 \(\mathbb K^n\) 的向量满足八条运算规则。可是多项式、矩阵、函数也有加法和数乘，而且满足同样的八条规则。我们后面要建立的理论（线性相关、秩、基、维数……）只用到这八条规则。</p><p class="bq">本节回答：哪些集合具有和向量一样的线性运算结构？抽象出来有什么好处？</p></div>
+
+<h2>一、线性空间的定义</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p><b>为什么要引进抽象的线性空间？</b>看几个熟悉的对象：</p>
+  <ul>
+    <li>多项式 \(1+2x\) 与 \(3-x^2\) 可以相加，也可以乘以一个数；</li>
+    <li>两个 \(2\times3\) 矩阵可以相加、数乘（§2.2）；</li>
+    <li>两个连续函数之和、连续函数的倍数仍连续。</li>
+  </ul>
+  <p>它们的运算规律和 \(\mathbb K^n\) 一模一样。如果对每一类对象都单独建立一遍“线性相关、基、维数”的理论，既重复又看不清本质。</p>
+  <p><b>目的</b>：把众多不同研究对象的共同特点概括出来，只要求“有加法、有数乘、满足八条规则”，于是一次证明的结论对所有这些对象都成立。这极大地扩大了理论的应用范围——在这一章里，我们正是要用线性空间的理论来彻底讨论线性方程组的解。线性空间的理论是线性代数的核心。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.3.1<em>线性空间</em></span>
+  <p>设 \(\mathbb K\) 是一个数域，\(V\) 是一个集合。在 \(V\) 上定义了一个<b>加法</b>：对 \(V\) 中任意两个元素 \(\alpha,\beta\)，总存在 \(V\) 中唯一的元素 \(\gamma\) 与之对应，记为 \(\gamma=\alpha+\beta\)；在 \(\mathbb K\) 与 \(V\) 之间定义了<b>数乘</b>：对 \(\mathbb K\) 中任一数 \(k\) 及 \(V\) 中任一元素 \(\alpha\)，在 \(V\) 中总有唯一的元素 \(\delta\) 与之对应，记为 \(\delta=k\alpha\)。若加法及数乘满足下列运算规则（对任意 \(\alpha,\beta,\gamma\in V\)，\(k,l\in\mathbb K\)）：</p>
+  <ol>
+    <li>加法交换律：\(\alpha+\beta=\beta+\alpha\)；</li>
+    <li>加法结合律：\((\alpha+\beta)+\gamma=\alpha+(\beta+\gamma)\)；</li>
+    <li>在 \(V\) 中存在一个元素 \(\mathbf 0\)，对任一 \(\alpha\in V\)，都有 \(\alpha+\mathbf 0=\alpha\)；</li>
+    <li>对 \(V\) 中每个元素 \(\alpha\)，存在元素 \(\beta\)，使 \(\alpha+\beta=\mathbf 0\)；</li>
+    <li>\(1\cdot\alpha=\alpha\)；</li>
+    <li>\(k(\alpha+\beta)=k\alpha+k\beta\)；</li>
+    <li>\((k+l)\alpha=k\alpha+l\alpha\)；</li>
+    <li>\(k(l\alpha)=(kl)\alpha\)，</li>
+  </ol>
+  <p>则称 \(V\) 为数域 \(\mathbb K\) 上的<b>线性空间</b>或<b>向量空间</b>。\(V\) 中的元素称为<b>向量</b>，适合 (3) 的元素 \(\mathbf 0\) 称为<b>零向量</b>；适合 \(\alpha+\beta=\mathbf 0\) 的 \(\beta\) 称为 \(\alpha\) 的<b>负向量</b>，记为 \(-\alpha\)。</p>
+</div>
+<div class="box idea"><span class="tag">读定义的三个要点</span>
+  <ol>
+    <li><b>封闭性</b>藏在定义里：“总存在 \(V\) 中唯一的元素”——运算结果必须还在 \(V\) 中。</li>
+    <li>“加法”“数乘”可以是任何规定好的运算，不一定是通常的加法和乘法（见下面的 \(\mathbb R^+\) 例子）。</li>
+    <li>数乘中的 \(k\) 取自指定的数域 \(\mathbb K\)：数域不同，就是不同的线性空间。</li>
+  </ol>
+</div>
+<p>实数域 \(\mathbb R\) 上的线性空间称为<b>实线性空间</b>，复数域 \(\mathbb C\) 上的线性空间称为<b>复线性空间</b>。</p>
+
+<h2>二、线性空间的例子</h2>
+<p class="trans">线性空间中的对象不一定是“箭头”，也不一定是数组。</p>
+<div class="stage-grid">
+  <div class="box prop"><span class="tag">例 3.3.1 · \(\mathbb K^n\)</span><p>数域 \(\mathbb K\) 上 \(n\) 维行向量全体 \(\mathbb K^n\)（列向量全体 \(\mathbb K_n\)）是 \(\mathbb K\) 上的线性空间。以后会看到（§3.7），这种空间具有普遍的代表性。</p></div>
+  <div class="box prop"><span class="tag">例 3.3.2 · 多项式空间</span><p>系数取自 \(\mathbb K\) 的一元多项式全体 \(\mathbb K[x]\)，按通常的多项式加法（同次项系数相加）和数乘（数乘以每一个系数），是 \(\mathbb K\) 上的线性空间。次数不超过 \(n\) 的多项式全体 \(\mathbb K_n[x]\) 也是。</p></div>
+  <div class="box prop"><span class="tag">例 3.3.3 · 连续函数空间</span><p>闭区间 \([0,1]\) 上的连续函数全体 \(C[0,1]\)，按 \((f+g)(x)=f(x)+g(x)\)，\((kf)(x)=kf(x)\)，是实数域上的线性空间。</p></div>
+  <div class="box prop"><span class="tag">例 3.3.4 · 矩阵空间</span><p>数域 \(\mathbb K\) 上 \(m\times n\) 矩阵全体，在矩阵的加法与数乘下构成 \(\mathbb K\) 上的线性空间，记作 \(M_{m\times n}(\mathbb K)\)。</p></div>
+  <div class="box prop"><span class="tag">例 3.3.5 · \(\mathbb C\) 作为 \(\mathbb R\) 上的空间</span><p>复数域 \(\mathbb C\) 可看成实数域 \(\mathbb R\) 上的线性空间：加法是复数加法，数乘是实数乘复数。一般地，若 \(\mathbb K_1\subseteq\mathbb K_2\)，则 \(\mathbb K_2\) 可看成 \(\mathbb K_1\) 上的线性空间；特别地，\(\mathbb K\) 是自身上的线性空间。</p></div>
+  <div class="box prop"><span class="tag">一个“奇怪”的例子</span><p>正实数全体 \(\mathbb R^+\)，规定 \(a\oplus b=ab\)，\(k\circ a=a^k\)。它是 \(\mathbb R\) 上的线性空间：零向量是数 1，\(a\) 的负向量是 \(\frac1a\)（习题 3.3 第 1(7) 题）。</p></div>
+</div>
+<div class="box warn"><span class="tag">同一个集合，不同的数域</span>
+  <p>\(\mathbb C\) 既可以看成 \(\mathbb C\) 上的线性空间，也可以看成 \(\mathbb R\) 上的线性空间。两者不是同一个线性空间：前者数乘允许乘复数，后者只允许乘实数。§3.5 会看到 \(\dim_{\mathbb C}\mathbb C=1\)，\(\dim_{\mathbb R}\mathbb C=2\)。</p>
+</div>
+<div class="widget" data-widget="axioms" data-t="这是线性空间吗？" data-d="选一个候选集合（来自例题和习题 3.3 第 1 题），看它是否满足八条公理；不满足的给出反例。ℝ⁺ 的例子可以输入数字验证。"></div>
+<p>从上面的例子可以看出，抽象线性空间概念的引入扩大了我们的视野：把众多不同研究对象的共同特点用线性空间这一概念加以概括，从而极大地扩大了代数理论的应用范围。</p>
+
+<h2>三、线性空间的基本性质</h2>
+<p class="trans">定义只给出了八条规则。在一般的线性空间中，像“\(0\cdot\alpha=\mathbf 0\)”这种在 \(\mathbb K^n\) 中显然的事实，都必须从八条规则推出来。</p>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>在 \(\mathbb K^n\) 中，\(0\cdot\alpha=\mathbf 0\)、零向量唯一，都可以直接逐分量验证。但在抽象的线性空间里，我们不知道向量“长什么样”，只能使用八条公理。这些基本性质保证了：<b>在线性空间中可以像对数一样做“移项”“消去”等运算</b>，后面的推导才能放心进行。</p>
+</div>
+<div class="w-grid">
+  <div class="box prop"><span class="tag">命题 3.3.1<em>零向量唯一</em></span><p>设 \(\mathbf 0_1,\mathbf 0_2\) 都是零向量，则 \(\mathbf 0_1=\mathbf 0_1+\mathbf 0_2=\mathbf 0_2\)。</p></div>
+  <div class="box prop"><span class="tag">命题 3.3.2<em>负向量唯一</em></span><p>设 \(\alpha+\beta_1=\mathbf 0\)，\(\alpha+\beta_2=\mathbf 0\)，则</p><div class="eqs"><span>\(\beta_1=\beta_1+(\alpha+\beta_2)\)</span><span>\(=(\beta_1+\alpha)+\beta_2=\beta_2\)。</span></div></div>
+</div>
+<div class="box prop"><span class="tag">命题 3.3.3</span>
+  <p>对任意的 \(\alpha,\beta,\gamma\in V\)，\(k\in\mathbb K\)：</p>
+  <ol>
+    <li>从 \(\alpha+\beta=\alpha+\gamma\) 可推出 \(\beta=\gamma\)，即加法消去律成立；</li>
+    <li>\(0\cdot\alpha=\mathbf 0\)，左边的 0 是数零，右边的 \(\mathbf 0\) 是零向量；</li>
+    <li>\(k\cdot\mathbf 0=\mathbf 0\)；</li>
+    <li>\((-1)\alpha=-\alpha\)；</li>
+    <li>若 \(k\alpha=\mathbf 0\)，则 \(\alpha=\mathbf 0\) 或 \(k=0\)。</li>
+  </ol>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>(1) 两边左加 \(-\alpha\)：\((-\alpha)+(\alpha+\beta)=(-\alpha)+(\alpha+\gamma)\)，由结合律 \(\mathbf 0+\beta=\mathbf 0+\gamma\)，即 \(\beta=\gamma\)。</p>
+  <p>(2) \(0\cdot\alpha=(0+0)\alpha=0\cdot\alpha+0\cdot\alpha\)，即 \(0\cdot\alpha+\mathbf 0=0\cdot\alpha+0\cdot\alpha\)，由 (1) 消去得 \(\mathbf 0=0\cdot\alpha\)。</p>
+  <p>(3) \(k\cdot\mathbf 0=k(\mathbf 0+\mathbf 0)=k\cdot\mathbf 0+k\cdot\mathbf 0\)，消去得 \(\mathbf 0=k\cdot\mathbf 0\)。</p>
+  <p>(4) \(\alpha+(-1)\alpha=1\cdot\alpha+(-1)\alpha=(1+(-1))\alpha=0\cdot\alpha=\mathbf 0\)，由负向量唯一性，\((-1)\alpha=-\alpha\)。</p>
+  <p>(5) 设 \(k\ne0\) 且 \(k\alpha=\mathbf 0\)，则 \(k^{-1}\) 存在（这里用到 \(\mathbb K\) 是数域！），\(\alpha=1\cdot\alpha=(k^{-1}k)\alpha=k^{-1}(k\alpha)=k^{-1}\mathbf 0=\mathbf 0\)。</p>
+</div></details>
+<div class="box note"><span class="tag">注</span>
+  <p>(1) 在 \(V\) 中定义<b>减法</b> \(\alpha-\beta=\alpha+(-1)\beta\)。由于消去律成立，\(V\) 中元素的等式可以“移项”：若 \(\alpha+\beta=\gamma\)，则 \(\alpha=\gamma-\beta\)，或 \(\alpha+\beta-\gamma=\mathbf 0\)。在形式上与数的加减运算完全一样。</p>
+  <p>(2) 由于加法结合律，几个向量相加可以不用括号，相加的先后次序也不影响结果，例如 \(((\alpha_1+\alpha_2)+\alpha_3)+\alpha_4=\alpha_1+(\alpha_2+(\alpha_3+\alpha_4))\)，可写为 \(\alpha_1+\alpha_2+\alpha_3+\alpha_4\)。</p>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 随机变量也是“向量”</span>
+  <p>方差有限的随机变量全体，在通常的加法 \(X+Y\) 和数乘 \(cX\) 下构成实线性空间；样本观测向量、回归中的残差向量都是 \(\mathbb R^n\) 中的向量。期望 \(E(aX+bY)=aE(X)+bE(Y)\) 说的正是“期望与线性运算可交换”。正是有了“随机变量构成线性空间”这个视角，协方差、相关系数、回归才能用几何语言（长度、夹角、投影）来理解——这在第九章内积空间中会展开。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>判断线性空间，首先检查<b>封闭性</b>（加法、数乘的结果是否还在集合里），再逐条检查公理；只要有一条不满足就不是。</li>
+    <li>“零向量”不一定是数 0 或零数组：在 \(\mathbb R^+\) 的例子中零向量是数 1。</li>
+    <li>\(0\cdot\alpha=\mathbf 0\) 两边的“0”含义不同：左边是数，右边是向量。</li>
+    <li>线性空间一定要说明数域；同一集合在不同数域上是不同的线性空间。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">下列集合（通常的运算）中，构成实线性空间的是：<span class="tiny muted">（习题 3.3 第 1 题）</span></div><ol class="opts"><li>次数等于 \(n\) 的实系数多项式全体</li><li>平面上直线 \(y=x+1\) 上的点全体</li><li>\([0,1]\) 上可导函数全体</li><li>非负实数全体</li></ol><div class="explain">可导函数之和、倍数仍可导。次数恰为 \(n\) 的多项式相加可能降次且不含零多项式；\(y=x+1\) 上的点相加跑出直线；非负实数乘 \(-1\) 变负。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">在 \(\mathbb R^+\)（\(a\oplus b=ab\)，\(k\circ a=a^k\)）中，向量 2 的负向量是：</div><ol class="opts"><li>\(\frac12\)</li><li>\(-2\)</li><li>0</li><li>1</li></ol><div class="explain">零向量是 1，\(2\oplus\frac12=1\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">命题 3.3.3 (5)“\(k\alpha=\mathbf 0\Rightarrow k=0\) 或 \(\alpha=\mathbf 0\)”的证明中，关键用到了：</div><ol class="opts"><li>加法交换律</li><li>零向量唯一</li><li>负向量唯一</li><li>\(k\ne0\) 时 \(k^{-1}\in\mathbb K\)</li></ol><div class="explain">\(\alpha=(k^{-1}k)\alpha=k^{-1}(k\alpha)=\mathbf 0\)，需要在数域中求倒数。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">实数对集合，\((a_1,b_1)\oplus(a_2,b_2)=(a_1+a_2,\ b_1-b_2)\)，通常数乘。它不是线性空间，因为：<span class="tiny muted">（习题 3.3 第 1(9) 题）</span></div><ol class="opts"><li>对加法不封闭</li><li>加法不满足交换律</li><li>没有零向量</li><li>\(1\cdot\alpha\ne\alpha\)</li></ol><div class="explain">交换后第二个分量变成 \(b_2-b_1\)。</div></div>
+</div>
+<details class="more"><summary>证明题思路（习题 3.3 第 2 题）</summary><div class="dbody">
+  <p>(1) \(-(-\alpha)=\alpha\)：\(\alpha\) 满足 \((-\alpha)+\alpha=\mathbf 0\)，由负向量唯一性得 \(-(-\alpha)=\alpha\)。</p>
+  <p>(2) \(-(k\alpha)=(-k)\alpha=k(-\alpha)\)：\(k\alpha+(-k)\alpha=(k-k)\alpha=\mathbf 0\)；\(k\alpha+k(-\alpha)=k(\alpha+(-\alpha))=k\mathbf 0=\mathbf 0\)。</p>
+  <p>(3) \(k(\alpha-\beta)=k\alpha-k\beta\)：\(k(\alpha+(-1)\beta)=k\alpha+(k\cdot(-1))\beta=k\alpha+(-1)(k\beta)\)。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>线性空间 = 集合 + 加法 + 数乘（取自数域 \(\mathbb K\)）+ 八条公理；封闭性包含在定义中。</li>
+  <li>\(\mathbb K^n\)、\(\mathbb K[x]\)、\(\mathbb K_n[x]\)、\(C[0,1]\)、\(M_{m\times n}(\mathbb K)\)、实数域上的 \(\mathbb C\) 都是线性空间。</li>
+  <li>零向量、负向量唯一；\(0\alpha=\mathbf 0\)，\(k\mathbf 0=\mathbf 0\)，\((-1)\alpha=-\alpha\)；\(k\alpha=\mathbf 0\Rightarrow k=0\) 或 \(\alpha=\mathbf 0\)。</li>
+  <li>线性空间的关键不是对象长什么样，而是：<b>满足同一套公理，就能使用同一套理论</b>。</li>
+</ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>有了线性空间，接下来研究其中最基本的问题：给定若干向量，一个向量能不能由另一些向量通过加法和数乘得到？一组向量之间是否存在“冗余”？这对应于方程组“有没有解”“有没有多余的方程”。</p><a class="bn" href="#s3-4">→ §3.4 向量的线性关系</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>先举多项式、矩阵的例子，让学生自己发现“它们的运算规律和 \(\mathbb K^n\) 一样”，再给出抽象定义，学生更容易接受。</li>
+  <li>\(\mathbb R^+\) 的例子是检验学生是否真正理解“抽象的加法”的好题：零向量是谁？负向量是谁？</li>
+  <li>命题 3.3.3 的证明是第一次“只用公理推理”，可以让学生体会公理化方法。</li>
+</ul></div></details>
+</template>

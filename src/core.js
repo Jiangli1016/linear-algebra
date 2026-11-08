@@ -324,7 +324,7 @@ function deckGeom(){
 function mkGen(cls,html){var d=document.createElement('div');d.className=cls;d.innerHTML=html;return d}
 function markNotes(root){
   $$('p.small,p.muted,.st .small.muted,.st span.muted',root).forEach(function(el){
-    if(el.closest('.widget,.tnote,.explain,.page-head,.hero,.stage,.chap,.goals,.ex-h,.sol-h,.menu,.w-head,.box.stat,.box.idea,.box.board,.chapters')) return;
+    if(el.closest('.widget,.tnote,.explain,.page-head,.hero,.stage,.chap,.goals,.ex-h,.sol-h,.menu,.w-head,.box.stat,.box.idea,.box.motive,.box.board,.chapters')) return;
     el.classList.add('note-red');
   });
   $$('p,li',root).forEach(function(el){

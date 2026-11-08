@@ -1,0 +1,171 @@
+<template data-chapter="3" data-route="s3-4" data-num="§3.4" data-short="向量的线性关系" data-group="第二阶段 · 线性空间与线性关系">
+<header class="page-head">
+  <span class="det-eyebrow">§3.4</span>
+  <h1>向量的线性关系</h1>
+  <p class="lede">给定若干向量，一个向量能不能由另一些向量通过加法和数乘得到？一组向量之间有没有“多余”的？这一节依次引入线性组合、线性表示、线性相关与线性无关——它们是后面极大无关组、秩、基、维数的直接基础。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 126–132 页</span><span class="pill">关键词：表示 ⇔ 有解；相关 ⇔ 有非零解</span></div>
+  <ul class="goals">
+    <li>掌握线性组合、线性表示的定义及其与线性方程组有解的关系</li>
+    <li>掌握线性相关、线性无关的定义及其与齐次方程组非零解的关系</li>
+    <li>掌握“相关组扩大仍相关、无关组缩小仍无关”</li>
+    <li>掌握线性相关的等价刻画、表示唯一性定理、线性表示的传递性</li>
+    <li>会用定义或方程组判断具体向量组的相关性</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下</span><p>§3.3 建立了线性空间：在其中可以做加法和数乘。用这两种运算，能从几个已知向量“造出”新的向量。反过来，给定一个向量，能否由已知向量造出来？已知的向量中有没有某一个可以由其余的造出来（即是多余的）？</p><p class="bq">本节回答：向量之间有哪些最基本的线性关系？它们与线性方程组有什么联系？</p></div>
+
+<h2>一、线性组合与线性表示</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p><b>从方程组出发。</b>设有 \(n\) 个未知数 \(m\) 个方程的线性方程组 \(\begin{cases}a_{11}x_1+\cdots+a_{1n}x_n=b_1,\\\cdots\cdots\\a_{m1}x_1+\cdots+a_{mn}x_n=b_m.\end{cases}\) 用 \(\alpha_1,\dots,\alpha_n,\beta\) 表示其增广矩阵的列向量，方程组就等价于向量形式的方程</p>
+  <div class="boxed-eq">\[x_1\alpha_1+x_2\alpha_2+\cdots+x_n\alpha_n=\beta.\]</div>
+  <p>于是“方程组有没有解”变成了一个关于<b>向量</b>的问题：能不能找到一组数，用 \(\alpha_1,\dots,\alpha_n\) 的“加权和”凑出 \(\beta\)？<b>目的</b>：给这个问题一个名字，并在任意线性空间（不只是数组）中研究它。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.4.1<em>线性组合、线性表示</em></span>
+  <p>设 \(V\) 是数域 \(\mathbb K\) 上的线性空间，\(\alpha_1,\dots,\alpha_n\) 和 \(\beta\) 均是 \(V\) 中的向量。若存在 \(\mathbb K\) 中的 \(n\) 个数 \(k_1,\dots,k_n\)，使</p>
+  <div class="boxed-eq">\[\beta=k_1\alpha_1+k_2\alpha_2+\cdots+k_n\alpha_n,\]</div>
+  <p>则称 \(\beta\) 是 \(\alpha_1,\dots,\alpha_n\) 的<b>线性组合</b>，或称 \(\beta\) 可由 \(\alpha_1,\dots,\alpha_n\) <b>线性表示</b>。</p>
+</div>
+<div class="box thm"><span class="tag">与线性方程组的关系</span>
+  <div class="eqs boxed"><span>\(Ax=\beta\) 有解</span><span>\(\iff\)</span><span>\(\beta\) 可由 \(A\) 的列向量 \(\alpha_1,\dots,\alpha_n\) 线性表示</span></div>
+</div>
+<div class="w-grid">
+  <div class="ex"><div class="ex-q"><div class="ex-h">例 3.4.1</div><p>\(\alpha_1=(1,0,1)\)，\(\alpha_2=(-1,2,2)\)，\(\beta=(1,2,4)\)。</p></div>
+    <div class="sol" data-steps><div class="st">\(2\alpha_1+\alpha_2=(2-1,\ 0+2,\ 2+2)=(1,2,4)=\beta\)，所以 \(\beta\) 是 \(\alpha_1,\alpha_2\) 的线性组合。</div><div class="st">怎么找到系数 2、1？解方程组 \(x_1\alpha_1+x_2\alpha_2=\beta\)：\(x_1-x_2=1,\ 2x_2=2,\ x_1+2x_2=4\)，得 \(x_2=1,x_1=2\)。</div></div></div>
+  <div class="ex"><div class="ex-q"><div class="ex-h">例 3.4.2 标准单位向量</div><p>\(e_1=(1,0,\dots,0),\dots,e_n=(0,\dots,0,1)\)。</p></div>
+    <div class="sol" data-steps><div class="st">任一 \(\alpha=(a_1,\dots,a_n)=a_1e_1+a_2e_2+\cdots+a_ne_n\)：每个 \(n\) 维向量都可由 \(e_1,\dots,e_n\) 线性表示，系数就是它的分量。</div></div></div>
+</div>
+<div class="widget" data-widget="lincomb2d" data-mode="rep" data-t="平面上的线性表示" data-d="拖动 α₁、α₂、β：α₁, α₂ 不共线时，任何 β 都能唯一表示；共线时，它们的组合只能落在一条直线上。"></div>
+
+<h2>二、线性相关与线性无关</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p><b>“冗余”从哪里来？</b>再看齐次线性方程组 \(x_1\alpha_1+\cdots+x_n\alpha_n=\mathbf 0\)。它总有零解；有没有非零解，取决于 \(\alpha_1,\dots,\alpha_n\) 之间是否有“牵连”：若有非零解，例如 \(x_1\ne0\)，就可以解出 \(\alpha_1=-\frac{x_2}{x_1}\alpha_2-\cdots\)，即 \(\alpha_1\) 可以由其余向量表示，它是<b>多余</b>的。</p>
+  <p>又比如方程组 \(\begin{cases}x_1+x_2+x_3=3\\2x_1-x_2-3x_3=-2\\4x_1+x_2-x_3=4\end{cases}\) 的第三个方程是第一个方程乘 2 加第二个方程，是多余的：增广矩阵的第三个行向量是前两个行向量的线性组合。</p>
+  <p><b>目的</b>：用一个对称的、不偏向任何一个向量的定义来刻画“一组向量中有没有冗余”，并为“表示是否唯一”提供判据。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.4.2<em>线性相关、线性无关</em></span>
+  <p>设 \(V\) 是数域 \(\mathbb K\) 上的线性空间，\(\alpha_1,\dots,\alpha_n\in V\)。若存在 \(\mathbb K\) 中<b>不全为零</b>的 \(n\) 个数 \(k_1,\dots,k_n\)，使</p>
+  <div class="boxed-eq">\[k_1\alpha_1+k_2\alpha_2+\cdots+k_n\alpha_n=\mathbf 0,\]</div>
+  <p>则称 \(\alpha_1,\dots,\alpha_n\) <b>线性相关</b>。反之，若不存在不全为零的数使上式成立，则称它们<b>线性无关</b>（线性独立）。</p>
+  <p>等价地：\(\alpha_1,\dots,\alpha_n\) 线性无关 \(\iff\) 由 \(k_1\alpha_1+\cdots+k_n\alpha_n=\mathbf 0\) 必推出 \(k_1=\cdots=k_n=0\)。</p>
+</div>
+<div class="box thm"><span class="tag">与齐次方程组的关系</span>
+  <div class="eqs boxed"><span>\(Ax=\mathbf 0\) 有非零解</span><span>\(\iff\)</span><span>\(A\) 的列向量线性相关</span></div>
+  <p class="small">判断线性无关，本质上就是看齐次方程组 \(k_1\alpha_1+\cdots+k_n\alpha_n=\mathbf 0\) 是否只有零解：<b>线性无关 ⇔ 只有零系数能表示零向量</b>。</p>
+</div>
+<div class="box warn"><span class="tag">注 · 系数必须取自数域 \(\mathbb K\)</span>
+  <p>若把复数域看成实数域上的线性空间，则 1 与 \(\mathrm i\) 线性无关：不存在不全为零的<b>实数</b> \(a,b\) 使 \(a+b\mathrm i=0\)。但如果允许 \(a,b\) 取复数，取 \(a=1,b=\mathrm i\) 就有 \(a+b\mathrm i=0\)。所以“线性相关”与所在的数域有关。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.4.3</div><p>\(\alpha_1=(1,2,3)\)，\(\alpha_2=(2,-1,-4)\)，\(\alpha_3=(1,1,1)\)。判断它们的相关性。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">验证：\(3\alpha_1+\alpha_2-5\alpha_3=(3+2-5,\ 6-1-5,\ 9-4-5)=(0,0,0)\)。</div>
+    <div class="st">系数 \(3,1,-5\) 不全为零，所以 \(\alpha_1,\alpha_2,\alpha_3\) 线性相关。（系数可以通过解齐次方程组 \(k_1\alpha_1+k_2\alpha_2+k_3\alpha_3=\mathbf 0\) 得到。）</div>
+  </div>
+</div>
+<div class="w-grid">
+  <div class="box prop"><span class="tag">例 3.4.4</span><p>\(e_1,\dots,e_n\) 线性无关：若 \(k_1e_1+\cdots+k_ne_n=\mathbf 0\)，则 \((k_1,\dots,k_n)=\mathbf 0\)，即 \(k_1=\cdots=k_n=0\)。</p></div>
+  <div class="box prop"><span class="tag">例 3.4.5 · 单个向量与零向量</span><p>单个向量 \(\alpha\) 线性相关 \(\iff\alpha=\mathbf 0\)（由 \(k\alpha=\mathbf 0,k\ne0\Rightarrow\alpha=\mathbf 0\)）。含零向量的向量组一定线性相关：\(1\cdot\mathbf 0+0\cdot\alpha_2+\cdots+0\cdot\alpha_m=\mathbf 0\)。</p></div>
+</div>
+<div class="widget" data-widget="lindep" data-t="判断 Kⁿ 中向量组的线性相关性" data-d="每行输入一个向量。实验解齐次方程组 k₁α₁ + … + kₘαₘ = 0：只有零解就无关；有非零解就相关，并写出哪个向量可由其余表示。"></div>
+<p>在线性空间理论中，线性组合、线性相关及线性无关是向量之间最基本的关系，统称为向量的<b>线性关系</b>。下面探讨它们最基本的性质。</p>
+
+<h2>三、线性关系的基本定理</h2>
+<div class="box thm"><span class="tag">定理 3.4.1<em>相关组扩大仍相关，无关组缩小仍无关</em></span>
+  <p>若 \(\alpha_1,\dots,\alpha_m\) 线性相关，则任一包含这组向量的向量组必线性相关。若 \(\alpha_1,\dots,\alpha_m\) 线性无关，则从中任意取出一组向量必线性无关。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>设 \(\alpha_1,\dots,\alpha_m,\alpha_{m+1},\dots,\alpha_n\) 包含 \(\alpha_1,\dots,\alpha_m\)。若 \(k_1\alpha_1+\cdots+k_m\alpha_m=\mathbf 0\)（\(k_i\) 不全为零），令 \(k_{m+1}=\cdots=k_n=0\)，仍有 \(k_1\alpha_1+\cdots+k_n\alpha_n=\mathbf 0\)，系数不全为零。另一个论断是这个结论的逆否命题。</p>
+</div></details>
+<div class="box thm"><span class="tag">定理 3.4.2<em>线性相关的等价刻画</em></span>
+  <p>\(\alpha_1,\dots,\alpha_m\)（\(m\ge2\)）线性相关的充分必要条件是：<b>其中至少有一个向量可以表示为其余向量的线性组合</b>。</p>
+</div>
+<details class="proof" open><summary>证明</summary><div class="dbody">
+  <p>必要性：设 \(k_1\alpha_1+\cdots+k_m\alpha_m=\mathbf 0\)，其中某个 \(k_i\ne0\)，于是</p><div class="eqs"><span>\(\alpha_i=-\dfrac{k_1}{k_i}\alpha_1-\cdots-\dfrac{k_{i-1}}{k_i}\alpha_{i-1}\)</span><span>\(-\dfrac{k_{i+1}}{k_i}\alpha_{i+1}-\cdots-\dfrac{k_m}{k_i}\alpha_m\)。</span></div>
+  <p>充分性：若 \(\alpha_i=b_1\alpha_1+\cdots+b_{i-1}\alpha_{i-1}+b_{i+1}\alpha_{i+1}+\cdots+b_m\alpha_m\)，则 \(b_1\alpha_1+\cdots+(-1)\alpha_i+\cdots+b_m\alpha_m=\mathbf 0\)，系数 \(-1\ne0\)。</p>
+</div></details>
+<p class="small muted">这就是“相关 = 有冗余”的精确含义：注意是“<b>至少有一个</b>”向量可由其余表示，并不是每一个都可以（例如 \(\alpha_1=(1,0),\alpha_2=(2,0),\alpha_3=(0,1)\) 相关，但 \(\alpha_3\) 不能由 \(\alpha_1,\alpha_2\) 表示）。</p>
+<div class="box thm"><span class="tag">定理 3.4.3<em>表示唯一性</em></span>
+  <p>设 \(\beta\) 可表示为 \(\alpha_1,\dots,\alpha_m\) 的线性组合：\(\beta=k_1\alpha_1+\cdots+k_m\alpha_m\)。则表示唯一的充分必要条件是 \(\alpha_1,\dots,\alpha_m\) 线性无关。</p>
+</div>
+<details class="proof" open><summary>证明</summary><div class="dbody">
+  <p>设 \(\alpha_1,\dots,\alpha_m\) 线性无关且另有表示 \(\beta=b_1\alpha_1+\cdots+b_m\alpha_m\)。两式相减：\((b_1-k_1)\alpha_1+\cdots+(b_m-k_m)\alpha_m=\mathbf 0\)，由线性无关得 \(b_i=k_i\)。</p>
+  <p>反之，若线性相关，有不全为零的 \(c_i\) 使 \(c_1\alpha_1+\cdots+c_m\alpha_m=\mathbf 0\)，则 \(\beta=(k_1+c_1)\alpha_1+\cdots+(k_m+c_m)\alpha_m\) 是另一个不同的表示。</p>
+</div></details>
+<div class="box note"><span class="tag">注</span><p>由定理 3.4.3，如果方程组 \(x_1\alpha_1+\cdots+x_n\alpha_n=\beta\) 有解，则<b>有唯一解的充分必要条件是 \(\alpha_1,\dots,\alpha_n\) 线性无关</b>。这把“唯一解”和“无冗余”联系了起来，§3.10 将由此得到完整的解的理论。</p></div>
+<div class="box thm"><span class="tag">定理 3.4.4<em>线性表示的传递性</em></span>
+  <p>设向量组 \(A=\{\alpha_1,\dots,\alpha_m\}\)，\(B=\{\beta_1,\dots,\beta_n\}\)，\(C=\{\gamma_1,\dots,\gamma_p\}\)。若 \(A\) 中任一向量都是 \(B\) 中向量的线性组合，\(B\) 中任一向量都是 \(C\) 中向量的线性组合，则 \(A\) 中任一向量都是 \(C\) 中向量的线性组合。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>设 \(\alpha_i=\sum_{j=1}^na_{ij}\beta_j\)，\(\beta_j=\sum_{k=1}^pb_{jk}\gamma_k\)，则</p><div class="eqs"><span>\(\displaystyle\alpha_i=\sum_{j=1}^na_{ij}\Bigl(\sum_{k=1}^pb_{jk}\gamma_k\Bigr)\)</span><span>\(\displaystyle=\sum_{k=1}^p\Bigl(\sum_{j=1}^na_{ij}b_{jk}\Bigr)\gamma_k\)。</span></div>
+  <p class="small">系数恰好是矩阵乘积 \((a_{ij})(b_{jk})\) 的元素——这和 §2.2 中“变量代换的复合 = 矩阵乘法”是同一件事。</p>
+</div></details>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.4.6 两个向量</div><p>证明：两个 \(n\) 维行向量 \(\alpha=(a_1,\dots,a_n)\)，\(\beta=(b_1,\dots,b_n)\) 线性相关的充分必要条件是 \(a_i,b_i\) 成比例。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">若 \(\alpha,\beta\) 线性相关，由定理 3.4.2，不妨设 \(\beta=k\alpha\)，则 \(ka_i=b_i\)（\(1\le i\le n\)），即 \(a_i,b_i\) 成比例。</div>
+    <div class="st">反之，若 \(ka_i=b_i\)，则 \(k\alpha-\beta=\mathbf 0\)，系数 \(-1\ne0\)，线性相关。</div>
+    <div class="st">这把抽象的线性相关与熟悉的“两个向量共线”联系了起来。<b>但三个及以上的向量</b>，相关不等于“两两成比例”。</div>
+  </div>
+</div>
+
+<h2>四、几何意义与思考</h2>
+<div class="box idea"><span class="tag">思考题（教材第 131 页）</span>
+  <ul>
+    <li>在三维几何空间中，3 个以原点为始点的向量线性相关的几何意义是<b>共面</b>，线性无关是<b>不共面</b>。</li>
+    <li>在平面上，两个以原点为始点的向量线性相关的几何意义是<b>共线</b>。</li>
+    <li>平面上 3 个以原点为始点的向量是否一定线性相关？<b>是</b>——下面的实验可以验证，§3.5 推论 3.5.1 给出证明。</li>
+    <li>若方程组的增广矩阵的行向量线性相关，说明至少有一个方程是其余方程的线性组合，是<b>多余</b>的，去掉后不改变解集。</li>
+  </ul>
+</div>
+<div class="widget" data-widget="lincomb2d" data-mode="dep" data-t="平面上任意 3 个向量都线性相关" data-d="随意拖动三个向量：总能找到不全为零的 k₁, k₂, k₃ 使 k₁α₁ + k₂α₂ + k₃α₃ = 0，折线回到原点。"></div>
+
+<div class="box stat"><span class="tag">统计视角 · 多重共线性</span>
+  <p>回归模型 \(y=X\beta+\varepsilon\) 中，设计矩阵 \(X\) 的列是各个解释变量。如果某个解释变量是其他变量的线性组合（例如同时放入“总分”与“三门单科成绩”），\(X\) 的列向量就<b>线性相关</b>，这叫<b>完全多重共线性</b>：</p>
+  <ul>
+    <li>由定理 3.4.3，拟合值 \(X\beta\) 的表示不唯一，回归系数 \(\beta\) 无法唯一确定；</li>
+    <li>齐次方程组 \(Xk=\mathbf 0\) 有非零解 \(k\)，于是 \(X'Xk=\mathbf 0\)，\(X'X\) 不可逆（§2.5 的回归实验中拖动数据点到同一竖线就是这种情形）。</li>
+  </ul>
+  <p>去掉多余变量，就是保留一个“极大无关组”——下一节的主题。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>线性相关的定义是“<b>存在</b>不全为零的系数”，不是“所有系数都不为零”，也不是“任意系数”。</li>
+    <li>“线性相关”≠“两两成比例”：只有两个向量时相关才等价于成比例。</li>
+    <li>线性相关时是“<b>至少有一个</b>”向量可由其余表示，不是每一个。</li>
+    <li>含零向量的组一定相关；单个非零向量线性无关。</li>
+    <li>线性相关性依赖于数域：系数必须取自 \(\mathbb K\)。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="1"><div class="qt">\((-1,3,1),\ (2,1,0),\ (1,4,1)\) 是否线性相关？<span class="tiny muted">（习题 3.4 第 1(1) 题）</span></div><ol class="opts"><li>线性无关</li><li>线性相关</li><li>无法判断</li></ol><div class="explain">第一个加第二个：\((1,4,1)\)，正好是第三个，所以 \(\alpha_1+\alpha_2-\alpha_3=\mathbf 0\)。也可以算行列式 \(=0\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\((2,3,0),\ (-1,4,0),\ (0,0,2)\) 是否线性相关？<span class="tiny muted">（习题 3.4 第 1(2) 题）</span></div><ol class="opts"><li>线性无关</li><li>线性相关</li></ol><div class="explain">行列式 \(=2\cdot(2\cdot4-3\cdot(-1))=22\ne0\)，齐次方程组只有零解。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">\((a,1,1),\ (1,a,1),\ (1,1,a)\) 线性相关当且仅当：<span class="tiny muted">（习题 3.4 第 2 题）</span></div><ol class="opts"><li>\(a=1\)</li><li>\(a=-2\)</li><li>\(a=1\) 或 \(a=-2\)</li><li>\(a=0\)</li></ol><div class="explain">行列式 \(=(a+2)(a-1)^2\)（各行加到第一行再提公因子），等于 0 当且仅当 \(a=1\) 或 \(-2\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(\alpha,\beta\) 线性无关，\(\alpha,\gamma\) 线性无关，\(\beta,\gamma\) 线性无关。则 \(\alpha,\beta,\gamma\)：<span class="tiny muted">（习题 3.4 第 6 题）</span></div><ol class="opts"><li>必线性无关</li><li>必线性相关</li><li>当且仅当不共面时无关，而它们一定不共面</li><li>不一定线性无关</li></ol><div class="explain">反例：平面上 \((1,0),(0,1),(1,1)\)，两两无关但三者相关。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(\alpha_1,\dots,\alpha_m\) 线性无关，\(c\ne0\)。则 \(c\alpha_1,\dots,c\alpha_m\)：<span class="tiny muted">（习题 3.4 第 3 题）</span></div><ol class="opts"><li>线性无关</li><li>线性相关</li><li>不一定</li></ol><div class="explain">\(\sum k_i(c\alpha_i)=\mathbf 0\Rightarrow\sum(ck_i)\alpha_i=\mathbf 0\Rightarrow ck_i=0\Rightarrow k_i=0\)。</div></div>
+</div>
+<details class="more"><summary>证明题思路（习题 3.4 第 4、5、7–11 题）</summary><div class="dbody">
+  <p><b>4</b>　不一定：\(\alpha_1=(1,0),\alpha_2=(2,0)\) 相关，\(\beta_1=(0,1),\beta_2=(0,3)\) 相关，但 \(\alpha_1+\beta_1=(1,1)\)，\(\alpha_2+\beta_2=(2,3)\) 无关。</p>
+  <p><b>5</b>　不一定：取 \(\beta=-\alpha_1\)，则 \(\alpha_1+\beta=\mathbf 0\)，组中含零向量。</p>
+  <p><b>7</b>　设 \(\alpha_1,\dots,\alpha_m\) 无关。若 \(\alpha_1,\dots,\alpha_m,\beta\) 相关，则 \(k_1\alpha_1+\cdots+k_m\alpha_m+c\beta=\mathbf 0\) 中 \(c\ne0\)（否则与无关矛盾），于是 \(\beta\) 可由 \(\alpha\) 表示。</p>
+  <p><b>8</b>　若这 \(m\) 个向量相关，由定理 3.4.2 某个 \(\alpha_i\) 可由其余表示，代入 \(\beta\) 的表示式，\(\beta\) 就能由 \(m-1\) 个向量表示，矛盾。</p>
+  <p><b>9</b>　\(\beta,\alpha_1,\dots,\alpha_r\) 相关而 \(\alpha_i\) 无关。取关系式 \(c\beta+k_1\alpha_1+\cdots=\mathbf 0\) 中最后一个非零系数的下标 \(j\)，则 \(\alpha_j\) 可由前面的向量表示；若有两个这样的 \(\alpha_i\)，利用 \(\beta\) 的系数 \(c\ne0\) 消去 \(\beta\) 会得到 \(\alpha\) 之间的非平凡关系，矛盾。</p>
+  <p><b>10</b>　\(\sum k_iA\alpha_i=A(\sum k_i\alpha_i)=\mathbf 0\)，左乘 \(A^{-1}\) 得 \(\sum k_i\alpha_i=\mathbf 0\)，所以 \(k_i=0\)。</p>
+  <p><b>11</b>　\(AB=I_n\)：若 \(Bk=\mathbf 0\)，则 \(k=ABk=\mathbf 0\)，所以 \(B\) 的列向量无关。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>\(\beta\) 可由 \(\alpha_1,\dots,\alpha_n\) 线性表示 ⇔ 方程组 \(x_1\alpha_1+\cdots+x_n\alpha_n=\beta\) 有解。</li>
+  <li>线性相关 ⇔ \(k_1\alpha_1+\cdots+k_n\alpha_n=\mathbf 0\) 有非零解 ⇔ 至少一个向量可由其余表示（有冗余）。</li>
+  <li>相关组扩大仍相关，无关组缩小仍无关；表示唯一 ⇔ 线性无关；线性表示可传递。</li>
+  <li>“能被表示”说明这组向量有<b>生成能力</b>；“线性无关”说明组内<b>没有冗余</b>。后面寻找“基”时，就是要同时满足这两点。</li>
+</ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>一组向量即使线性相关，其中仍可能包含一部分线性无关的向量。不断去掉“可由其余表示”的向量，直到剩下的向量线性无关为止——最后能留下几个？不同的去法留下的个数一样吗？</p><a class="bn" href="#s3-5">→ §3.5 向量组的秩</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>本节最重要的是两个“翻译”：线性表示 ⇔ 方程组有解；线性相关 ⇔ 齐次组有非零解。每个定理都可以请学生用方程组的语言再说一遍。</li>
+  <li>定理 3.4.2 的“至少有一个”和例 3.4.6 的“两个向量”是学生最常犯错的地方，可以用平面实验当场举反例。</li>
+  <li>定理 3.4.4 的证明里出现矩阵乘法，可以回顾 §2.2 “变量代换的复合”，体现章节联系。</li>
+</ul></div></details>
+</template>

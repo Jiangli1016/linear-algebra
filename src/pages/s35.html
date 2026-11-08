@@ -1,0 +1,158 @@
+<template data-chapter="3" data-route="s3-5" data-num="§3.5" data-short="向量组的秩" data-group="第三阶段 · 秩、基与维数">
+<header class="page-head">
+  <span class="det-eyebrow">§3.5</span>
+  <h1>向量组的秩</h1>
+  <p class="lede">一个向量组即使线性相关，其中仍可能包含一部分线性无关的向量。最多能挑出多少个彼此线性无关的向量？这个数就是“秩”。当研究对象从一个有限向量组扩大到整个线性空间时，得到的就是“基”与“维数”。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 132–137 页</span><span class="pill">关键词：极大无关组、替换引理</span></div>
+  <ul class="goals">
+    <li>掌握极大线性无关组的定义、存在性与不唯一性</li>
+    <li>理解替换引理（引理 3.5.1）及“多”用“少”表示必相关</li>
+    <li>掌握向量组的秩、等价向量组；等价向量组同秩</li>
+    <li>掌握基、维数的定义；会求常见线性空间的基与维数</li>
+    <li>掌握 \(n\) 维空间中 \(n\) 个向量成为基的判定、基扩张定理</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下</span><p>§3.4 最后的思考题中，方程组增广矩阵的三个行向量线性相关，第三个可以由前两个表示，说明第三个方程是多余的；而前两个行向量线性无关，去掉其中任何一个都会改变解集。</p><p class="bq">本节回答：一组向量中到底有多少个真正独立的方向？整个空间需要多少个独立方向来描述？</p></div>
+
+<h2>一、极大线性无关组</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>给定一组向量，如果线性相关，就必有某个向量可以用其余向量表示（定理 3.4.2），我们把它去掉。不断重复这个过程，直到剩下的向量线性无关为止。剩下的向量有两个特点：① 线性无关（没有冗余）；② 原来的每个向量都能用它们表示（信息没有丢失）。</p>
+  <p><b>目的</b>：给“保留真正独立的信息、去掉冗余”这件事一个严格的定义。剩下的这组向量就叫极大无关组。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.5.1<em>向量族、向量组、极大线性无关组</em></span>
+  <p>在线性空间 \(V\) 中，向量的集合称为<b>向量族</b>，向量的有限集合称为<b>向量组</b>。设 \(S\) 是向量族，若 \(S\) 中存在一组向量 \(\{\alpha_1,\dots,\alpha_r\}\) 满足：</p>
+  <ol><li>\(\alpha_1,\dots,\alpha_r\) 线性无关；</li><li>\(S\) 中任意一个向量都可以用 \(\alpha_1,\dots,\alpha_r\) 线性表示，</li></ol>
+  <p>则称 \(\{\alpha_1,\dots,\alpha_r\}\) 是向量族 \(S\) 的<b>极大线性无关组</b>，简称<b>极大无关组</b>。</p>
+</div>
+<div class="box note"><span class="tag">注 · “极大”的含义</span><p>条件 (2) 表明：若将 \(S\) 中任一向量 \(\alpha\) 加入 \(\{\alpha_1,\dots,\alpha_r\}\)，则 \(\{\alpha_1,\dots,\alpha_r,\alpha\}\) 一定线性相关。正是在这个意义上称它为“极大”——再也加不进去了。</p></div>
+<div class="box prop"><span class="tag">命题 3.5.1<em>存在性</em></span><p>设 \(S\) 是一个向量组且至少包含一个非零向量，则 \(S\) 的极大无关组一定存在。</p></div>
+<details class="proof"><summary>证明（对向量个数归纳）</summary><div class="dbody">
+  <p>设 \(S\) 含 \(k\) 个向量。\(k=1\) 时 \(S=\{\alpha\}\)，\(\alpha\ne\mathbf 0\)，\(\{\alpha\}\) 就是极大无关组。一般地，若 \(S\) 的 \(k\) 个向量线性无关，它们本身就是极大无关组；若线性相关，由定理 3.4.2 至少有一个向量（不妨设为 \(\alpha\)）是其余向量的线性组合。\(S\setminus\{\alpha\}\) 有 \(k-1\) 个向量且至少含一个非零向量，由归纳假设它有极大无关组 \(\{\alpha_1,\dots,\alpha_r\}\)。由定理 3.4.4，\(\alpha\) 也可由 \(\alpha_1,\dots,\alpha_r\) 表示，所以它也是 \(S\) 的极大无关组。</p>
+</div></details>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.5.1 极大无关组不唯一</div><p>\(S=\{(1,0),(0,1),(1,1)\}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">三个向量线性相关：\((1,0)+(0,1)-(1,1)=\mathbf 0\)。</div>
+    <div class="st">\(\{(1,0),(0,1)\}\)，\(\{(1,0),(1,1)\}\)，\(\{(0,1),(1,1)\}\) 都是 \(S\) 的极大无关组。一般来说，向量族的极大无关组<b>不唯一</b>。</div>
+    <div class="st">但是注意：这三个极大无关组所含向量的个数<b>都是 2</b>。这对一般的向量组也对吗？</div>
+  </div>
+</div>
+<div class="widget" data-widget="maxindep" data-t="逐个筛选：找极大无关组" data-d="按顺序检查每个向量：与已留下的无关就留下，否则写出它的表示并去掉。点“换个顺序”再筛一次，选出的向量可能不同，个数却不变。"></div>
+
+<h2>二、替换引理：极大无关组的个数唯一</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>假设向量族 \(S\) 有两个极大无关组 \(A,B\)。由定义，\(A,B\) 都线性无关，\(A\) 中每个向量可用 \(B\) 表示，\(B\) 中每个向量也可用 \(A\) 表示。<b>目的</b>：证明“两个能互相表示的无关组含有相同个数的向量”。这样，极大无关组的个数就是 \(S\) 本身的一个属性，可以拿来定义“秩”。关键是下面的引理。</p>
+</div>
+<div class="box thm"><span class="tag">引理 3.5.1<em>替换引理</em></span>
+  <p>设 \(A,B\) 是 \(V\) 中两组向量，\(A\) 含 \(r\) 个向量，\(B\) 含 \(s\) 个向量，且 \(A\) 中每个向量均可用 \(B\) 中向量线性表示。如果 \(A\) 中向量线性无关，则 \(r\le s\)。</p>
+</div>
+<details class="proof"><summary>证明（反证法 + 逐个替换）</summary><div class="dbody">
+  <p>设 \(A=\{\alpha_1,\dots,\alpha_r\}\)，\(B=\{\beta_1,\dots,\beta_s\}\)，假设 \(r\gt s\)。</p>
+  <p>\(\alpha_1=\lambda_1\beta_1+\cdots+\lambda_s\beta_s\)。因为 \(A\) 线性无关，\(\alpha_1\ne\mathbf 0\)，\(\lambda_i\) 中至少有一个不为零，不妨设 \(\lambda_1\ne0\)，解出 \(\beta_1=\frac1{\lambda_1}\alpha_1-\frac{\lambda_2}{\lambda_1}\beta_2-\cdots-\frac{\lambda_s}{\lambda_1}\beta_s\)。代入 \(\alpha_i\) 的表示式，\(\alpha_i\) 可由 \(\alpha_1,\beta_2,\dots,\beta_s\) 表示：<b>把 \(\beta_1\) 换成了 \(\alpha_1\)</b>。</p>
+  <p>归纳地，设 \(B\) 已换成 \(\{\alpha_1,\dots,\alpha_k;\beta_{k+1},\dots,\beta_s\}\)，且 \(A\) 中每个向量都可用它表示。若 \(k\lt r\)，\(\alpha_{k+1}=\mu_1\alpha_1+\cdots+\mu_k\alpha_k+\mu_{k+1}\beta_{k+1}+\cdots+\mu_s\beta_s\)，其中至少有一个 \(\mu_i\ne0\)（\(i\gt k\)），否则 \(\alpha_{k+1}\) 可由 \(\alpha_1,\dots,\alpha_k\) 表示，与 \(A\) 线性无关矛盾。同理可把这个 \(\beta_i\) 换成 \(\alpha_{k+1}\)。</p>
+  <p>因为 \(r\gt s\)，可以把 \(B\) 全部换成 \(\{\alpha_1,\dots,\alpha_s\}\)，于是 \(\alpha_r\) 也可由 \(\alpha_1,\dots,\alpha_s\) 表示，\(\{\alpha_1,\dots,\alpha_s,\alpha_r\}\) 线性相关，矛盾。</p>
+</div></details>
+<div class="widget" data-widget="exchange" data-t="替换引理的过程" data-d="把 A 中的向量一个一个换进标准基 B = {e₁, e₂, e₃}。A 线性无关时每一步都能换；A 有 4 个向量时，第 4 个会被前 3 个表示——“多”用“少”表示必相关。"></div>
+<div class="box idea"><span class="tag">一句话记忆（引理 3.5.1 的逆否命题）</span>
+  <p class="eq-txt">“多”若可以用“少”来线性表示，则“多”线性相关。</p>
+</div>
+<div class="box prop"><span class="tag">引理 3.5.2</span><p>设 \(A,B\) 都是线性无关的向量组，\(A\) 中任一向量可用 \(B\) 中向量表示，\(B\) 中任一向量也可用 \(A\) 中向量表示，则这两组向量所含个数相等。</p><p class="small">由引理 3.5.1，\(r\le s\) 且 \(s\le r\)。</p></div>
+<div class="box thm"><span class="tag">定理 3.5.1</span><p>设 \(A\) 与 \(B\) 都是向量族 \(S\) 的极大线性无关组，则 \(A\) 与 \(B\) 所含的向量个数相等。</p></div>
+<p>这说明：虽然极大无关组可能不唯一，但其中向量的<b>个数</b>是唯一确定的。这正是定义“秩”的基础。</p>
+
+<h2>三、向量组的秩</h2>
+<div class="box def"><span class="tag">定义 3.5.2<em>秩</em></span>
+  <p>向量族 \(S\) 的极大无关组所含的向量个数称为 \(S\) 的<b>秩</b>，记作 \(\mathrm r(S)\) 或 \(\mathrm{rank}(S)\)。（只含零向量的向量组，秩规定为 0。）</p>
+  <p class="small">向量族的秩可以看成向量族线性无关程度的度量：<b>秩 = 这组向量中真正独立的信息个数</b>。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.5.3<em>等价向量组</em></span><p>若向量组 \(A\) 和 \(B\) 可以互相线性表示，则称这两个向量组<b>等价</b>。</p></div>
+<div class="box thm"><span class="tag">定理 3.5.2</span><p>等价的向量组有相同的秩。</p></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>设 \(A_1,B_1\) 分别是 \(A,B\) 的极大无关组，含 \(r\)、\(s\) 个向量。\(B_1\) 中向量可用 \(A\) 表示，\(A\) 中向量可用 \(A_1\) 表示，由定理 3.4.4，\(B_1\) 可用 \(A_1\) 表示；\(B_1\) 线性无关，由引理 3.5.1 得 \(s\le r\)。同理 \(r\le s\)。</p>
+</div></details>
+<p>因此，秩只与向量组所能生成的线性结构有关，而不依赖于具体选了哪些冗余向量。</p>
+
+<h2>四、基与维数</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>如果把向量族取成<b>整个线性空间 \(V\)</b>，它的极大无关组就是一组“最精简的生成元”：用它可以表示 \(V\) 中每一个向量，而且其中没有多余的向量。这样，研究整个（可能无限多个元素的）空间，就归结为研究有限个向量；空间的“大小”也可以用一个数来衡量。<b>目的</b>：给出描述整个空间所需的“最少的一套方向”——基，以及方向的个数——维数。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.5.4<em>基与维数</em></span>
+  <p>设 \(V\) 是数域 \(\mathbb K\) 上的线性空间。若 \(V\) 中存在线性无关的向量 \(e_1,e_2,\dots,e_n\)，使得 \(V\) 中任一向量均可表示为这组向量的线性组合，则称 \(\{e_1,\dots,e_n\}\) 是 \(V\) 的一组<b>基</b>，线性空间 \(V\) 称为 <b>\(n\) 维线性空间</b>，记为 \(\dim_{\mathbb K}V=n\)。如果不存在由有限个向量组成的基，则称 \(V\) 是<b>无限维线性空间</b>。（零空间 \(\{\mathbf 0\}\) 的维数规定为 0。）</p>
+</div>
+<div class="box note"><span class="tag">注</span><p>\(V\) 的一组极大无关组就是 \(V\) 的一组基；由定理 3.5.1，\(n\) 维线性空间的任一组基都含有 \(n\) 个向量，所以维数是良定义的。对无限维线性空间（如 \(\mathbb K[x]\)、\(C[0,1]\)）也有基的概念，其存在性证明超出了本课程的范围。</p></div>
+<div class="box idea"><span class="tag">为什么“基”是最理想的向量组</span>
+  <div class="eqs boxed"><span>线性无关（无冗余）</span><span>+</span><span>能生成整个空间</span></div>
+  <p class="eq-txt">基 = 最小的生成组 = 最大的无关组</p>
+</div>
+<div class="stage-grid">
+  <div class="box prop"><span class="tag">例 3.5.2 · \(\mathbb K^n\)</span><p>\(\{e_1,\dots,e_n\}\) 是 \(\mathbb K^n\) 的一组基（例 3.4.2、例 3.4.4），\(\dim_{\mathbb K}\mathbb K^n=n\)；列向量空间同理。</p></div>
+  <div class="box prop"><span class="tag">例 3.5.3 · 实数域上的 \(\mathbb C\)</span><p>把 \(\mathbb C\) 看成实数域上的线性空间，\(\{1,\mathrm i\}\) 是一组基，\(\dim_{\mathbb R}\mathbb C=2\)。而 \(\dim_{\mathbb C}\mathbb C=1\)。维数依赖于数域。</p></div>
+  <div class="box prop"><span class="tag">多项式空间</span><p>\(\mathbb K_n[x]\)（次数 ≤ n）有基 \(\{1,x,\dots,x^n\}\)，维数 \(n+1\)；也有基 \(\{1,x+1,\dots,(x+1)^n\}\)（习题 3.5 第 3 题）。\(\mathbb K[x]\) 是无限维的。</p></div>
+  <div class="box prop"><span class="tag">矩阵空间</span><p>\(M_{m\times n}(\mathbb K)\) 有基 \(\{E_{ij}\}\)（只有 \((i,j)\) 元为 1），维数 \(mn\)（习题 3.5 第 5 题）。</p></div>
+</div>
+<div class="box prop"><span class="tag">推论 3.5.1</span><p>\(n\) 维线性空间 \(V\) 中任一超过 \(n\) 个向量的向量组必线性相关。</p><p class="small">设 \(\alpha_1,\dots,\alpha_m\)（\(m\gt n\)）都可由基 \(e_1,\dots,e_n\) 表示，由引理 3.5.1 的逆否命题即得——“多”用“少”表示必相关。</p></div>
+<div class="box thm"><span class="tag">定理 3.5.3<em>\(n\) 个向量成为基的判定</em></span>
+  <p>设 \(V\) 是 \(n\) 维线性空间，\(e_1,\dots,e_n\) 是 \(V\) 中 \(n\) 个向量。若它们适合下列条件之一，则 \(\{e_1,\dots,e_n\}\) 是 \(V\) 的一组基：</p>
+  <ol><li>\(e_1,\dots,e_n\) 线性无关；</li><li>\(V\) 中任一向量均可由 \(e_1,\dots,e_n\) 线性表示。</li></ol>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>(1) 对任一 \(v\in V\)，\(n+1\) 个向量 \(e_1,\dots,e_n,v\) 必线性相关，存在不全为零的 \(a_1,\dots,a_n,c\) 使 \(a_1e_1+\cdots+a_ne_n+cv=\mathbf 0\)。必有 \(c\ne0\)，否则由 \(e_i\) 无关得全部系数为零。于是 \(v=-\frac{a_1}ce_1-\cdots-\frac{a_n}ce_n\)。</p>
+  <p>(2) 取 \(\{e_1,\dots,e_n\}\) 的极大无关组，不妨设为 \(\{e_1,\dots,e_r\}\)，\(r\le n\)。由定理 3.4.4，\(V\) 中任一向量可由 \(e_1,\dots,e_r\) 表示，所以它是 \(V\) 的一组基，\(r=\dim V=n\)。</p>
+</div></details>
+<p>意义：在 \(n\) 维空间中，如果恰好已有 \(n\) 个向量，那么 <b>无关 ⇔ 生成 ⇔ 基</b>，只需检验一个条件。</p>
+<div class="box thm"><span class="tag">定理 3.5.4<em>基扩张定理</em></span>
+  <p>设 \(V\) 是 \(n\) 维线性空间，\(v_1,\dots,v_m\) 是 \(V\) 中 \(m\)（\(m\lt n\)）个线性无关的向量，又 \(\{e_1,\dots,e_n\}\) 是 \(V\) 的一组基，则必可在 \(\{e_1,\dots,e_n\}\) 中选出 \(n-m\) 个向量，使之和 \(v_1,\dots,v_m\) 一起组成 \(V\) 的一组基。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>将 \(e_i\) 依次放入 \(\{v_1,\dots,v_m\}\)，必有一个 \(e_i\) 使 \(v_1,\dots,v_m,e_i\) 线性无关：否则每个 \(e_i\) 都可由 \(v_1,\dots,v_m\) 表示（习题 3.4 第 7 题），“多”（\(n\) 个）用“少”（\(m\) 个）表示，与 \(e_i\) 线性无关矛盾。不断这样做下去，直到个数达到 \(n\)，由定理 3.5.3 即为一组基。</p>
+</div></details>
+<div class="box note"><span class="tag">注 · 常用形式</span><p>\(n\) 维空间中任意 \(m\) 个线性无关的向量均可扩张为一组基；任一子空间的基均可扩张为整个空间的一组基（§3.9 中求维数公式时要用到）。上面“逐个筛选”实验的最后一个预设就是基扩张的过程。</p></div>
+
+<div class="box stat"><span class="tag">统计视角 · 秩 = 有效变量的个数</span>
+  <p>设计矩阵 \(X\) 有 \(p\) 列（\(p\) 个解释变量）。列向量组的秩 \(r\) 就是其中“不能互相表示”的变量个数：</p>
+  <ul>
+    <li>\(r=p\)：没有完全共线性，每个变量都提供新信息；</li>
+    <li>\(r\lt p\)：有 \(p-r\) 个变量是多余的，可以去掉而不改变拟合值——保留一个极大无关组即可；</li>
+    <li>不同的极大无关组对应不同的“保留哪些变量”的方案，但保留的个数总是 \(r\)。</li>
+  </ul>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>极大无关组不唯一，<b>唯一的是它的向量个数</b>（秩）。</li>
+    <li>“极大”指再加入 \(S\) 中任一向量就相关，不是“找不到别的极大组”。</li>
+    <li>基必须同时满足“线性无关”和“能生成整个空间”两条；只有在已知维数为 \(n\) 且恰有 \(n\) 个向量时，才可以只验证一条（定理 3.5.3）。</li>
+    <li>维数依赖于数域：\(\dim_{\mathbb R}\mathbb C=2\)，\(\dim_{\mathbb C}\mathbb C=1\)。</li>
+    <li>\(\mathbb K_n[x]\) 的维数是 \(n+1\)，不是 \(n\)。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="2"><div class="qt">向量组 \((1,0,2)\)，\((2,-1,3)\)，\((3,-2,4)\)，\((4,-3,5)\) 的秩是？<span class="tiny muted">（例 3.6.5）</span></div><div class="explain">\((2,-1,3)-(1,0,2)=(1,-1,1)\)，\((3,-2,4)-(2,-1,3)=(1,-1,1)\)……后面每个向量都是前两个的组合，极大无关组 \(\{(1,0,2),(2,-1,3)\}\)，秩 2。</div></div>
+  <div class="fill" data-ans="6"><div class="qt">3 阶上三角矩阵全体构成的线性空间的维数是？<span class="tiny muted">（习题 3.5 第 6 题）</span></div><div class="explain">基 \(\{E_{ij}:i\le j\}\)，共 \(\frac{3\cdot4}2=6\) 个。一般 \(n\) 阶为 \(\frac{n(n+1)}2\)。</div></div>
+  <div class="fill" data-ans="3"><div class="qt">3 阶反对称矩阵全体构成的线性空间的维数是？<span class="tiny muted">（习题 3.5 第 8 题）</span></div><div class="explain">基 \(\{E_{ij}-E_{ji}:i\lt j\}\)，共 \(\frac{3\cdot2}2=3\) 个。对称矩阵空间维数为 \(\frac{n(n+1)}2=6\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">在 4 维空间 \(V\) 中，下列说法正确的是：</div><ol class="opts"><li>任意 4 个向量构成一组基</li><li>可以有 5 个线性无关的向量</li><li>4 个线性无关的向量一定构成一组基</li><li>3 个向量一定线性无关</li></ol><div class="explain">定理 3.5.3 (1)。推论 3.5.1 说明不可能有 5 个无关向量。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">\(V=\{a+b\sqrt2+c\sqrt3+d\sqrt6:\ a,b,c,d\in\mathbb Q\}\) 作为有理数域上的线性空间，维数是：<span class="tiny muted">（习题 3.5 第 11 题）</span></div><ol class="opts"><li>2</li><li>4</li><li>1</li><li>无限</li></ol><div class="explain">\(\{1,\sqrt2,\sqrt3,\sqrt6\}\) 在 \(\mathbb Q\) 上线性无关且生成 \(V\)。</div></div>
+</div>
+<details class="more"><summary>证明题思路（习题 3.5 第 1–4 题）</summary><div class="dbody">
+  <p><b>1</b>　表示唯一：取 \(\mathbf 0=0\alpha_1+\cdots+0\alpha_n\)，唯一性说明 \(\sum k_i\alpha_i=\mathbf 0\Rightarrow k_i=0\)，即线性无关；又能表示一切向量，所以是基。</p>
+  <p><b>2</b>　基 \(\alpha\) 可由 \(\beta\) 表示，\(V\) 中任一向量可由 \(\alpha\) 表示，传递得可由 \(\beta\) 表示；\(n\) 个向量能生成 \(n\) 维空间，由定理 3.5.3 (2) 是基。</p>
+  <p><b>3</b>　\(\{1,x,\dots,x^n\}\)：若 \(\sum a_ix^i=0\)（零多项式）则所有系数为 0。\(\{1,x+1,\dots,(x+1)^n\}\)：\(n+1\) 个向量，且 \(x^k=((x+1)-1)^k\) 可由它们表示，用定理 3.5.3。</p>
+  <p><b>4</b>　若 \(\sum k_if_i(x)=0\)，代入 \(x=a_j\)：只有 \(f_j(a_j)\ne0\)，得 \(k_j=0\)。\(n\) 个无关向量在 \(n\) 维空间中构成基（Lagrange 插值基）。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>极大无关组：无关 + 能表示全体；存在但不唯一；个数唯一（替换引理）。</li>
+  <li>秩 = 极大无关组的向量个数 = 真正独立的信息个数；等价向量组同秩。</li>
+  <li>基 = 整个空间的极大无关组；维数 = 基中向量的个数。</li>
+  <li>\(n\) 维空间中：超过 \(n\) 个向量必相关；\(n\) 个向量“无关 ⇔ 生成 ⇔ 基”；无关组可扩张成基。</li>
+</ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>秩是抽象定义的：要找极大无关组才知道秩。对 \(\mathbb K^n\) 中的向量组，能不能有一个机械的算法？矩阵的每一行、每一列都是向量——把这套理论用到矩阵上，行向量组的秩与列向量组的秩有什么关系？与第二章的初等变换、相抵标准型中的 \(r\) 又有什么关系？</p><a class="bn" href="#s3-6">→ §3.6 矩阵的秩</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>替换引理是本节（乃至本章）最重要的证明，建议先用实验逐步演示，再讲一般证明。“多用少表示必相关”这句口诀要让学生记住。</li>
+  <li>极大无关组“不唯一但个数唯一”可以用例 3.5.1 和“换个顺序”实验来体会。</li>
+  <li>基与维数可以多举例：\(\mathbb K^n\)、多项式空间、矩阵空间、实数域上的 \(\mathbb C\)。</li>
+</ul></div></details>
+</template>

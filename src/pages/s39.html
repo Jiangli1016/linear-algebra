@@ -1,0 +1,212 @@
+<template data-chapter="3" data-route="s3-9" data-num="§3.9" data-short="子空间" data-group="第五阶段 · 子空间与方程组">
+<header class="page-head">
+  <span class="det-eyebrow">§3.9</span>
+  <h1>子空间</h1>
+  <p class="lede">在 \(\mathbb R^3\) 中，过原点的平面上任意两个向量之和仍在这个平面上，平面上的向量乘以任一实数也仍在平面上：这个平面本身就是一个线性空间。线性空间内部这种“对线性运算封闭”的部分称为子空间。本节研究子空间的判定、交与和、生成子空间、维数公式与直和。</p>
+  <div class="meta-row"><span class="pill acc">建议 3 学时</span><span class="pill">教材第 159–165 页</span><span class="pill">关键词：交与和、维数公式、直和</span></div>
+  <ul class="goals">
+    <li>掌握子空间的定义与判定（两条封闭性）</li>
+    <li>掌握子空间的交与和；知道并集一般不是子空间</li>
+    <li>掌握生成子空间 \(L(S)\) 及其维数</li>
+    <li>掌握维数公式 \(\dim(V_1+V_2)=\dim V_1+\dim V_2-\dim(V_1\cap V_2)\)</li>
+    <li>理解直和的定义及其等价条件，尤其是“分解唯一”</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下</span><p>前几节把整个线性空间当作研究对象：它的基、维数、坐标。但很多重要的向量集合只是某个大空间的一部分：\(\mathbb R^3\) 中过原点的平面、\(\mathbb K[x]\) 中次数不超过 \(n\) 的多项式、\(M_n(\mathbb K)\) 中的对称矩阵、齐次线性方程组的全部解……</p><p class="bq">这些“部分”本身是不是线性空间？怎样判断？它们之间如何运算？</p></div>
+
+<h2>一、子空间的定义与判定</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>要验证一个集合是线性空间，原本需要检查两种运算的封闭性和八条公理。但如果这个集合是某个已知线性空间 \(V\) 的子集，运算就是 \(V\) 中的运算，八条公理中的等式在 \(V\) 中已经成立，在子集中自然也成立。真正需要检查的只是：<b>运算的结果会不会跑出这个子集</b>。</p>
+  <p><b>目的</b>：给出一个只需检查封闭性的简便判定方法，并为研究“空间内部的结构”建立语言。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.9.1<em>子空间</em></span>
+  <p>设 \(V\) 是数域 \(\mathbb K\) 上的线性空间，\(V_0\) 是 \(V\) 的非空子集。若 \(V_0\) 对 \(V\) 的加法和数乘封闭，即</p>
+  <ol><li>对任意 \(\alpha,\beta\in V_0\)，\(\alpha+\beta\in V_0\)；</li><li>对任意 \(\alpha\in V_0\)，\(k\in\mathbb K\)，\(k\alpha\in V_0\)，</li></ol>
+  <p>则称 \(V_0\) 是 \(V\) 的<b>线性子空间</b>，简称<b>子空间</b>。</p>
+</div>
+<div class="box prop"><span class="tag">命题 3.9.1</span><p>线性空间 \(V\) 的子空间 \(V_0\) 在 \(V\) 的加法与数乘下也是数域 \(\mathbb K\) 上的线性空间。</p></div>
+<details class="proof"><summary>证明：为什么八条公理不需要重新检查</summary><div class="dbody">
+  <p>加法交换律、结合律以及数乘的四条规则（第 1、2、5–8 条）都是关于运算的等式，在 \(V\) 中成立，对 \(V_0\) 中的元素当然也成立。需要说明的只是零向量和负向量在 \(V_0\) 中：任取 \(\alpha\in V_0\)（\(V_0\) 非空），由数乘封闭性，\(\mathbf 0=0\alpha\in V_0\)，\(-\alpha=(-1)\alpha\in V_0\)（命题 3.3.3）。</p>
+</div></details>
+<div class="box note"><span class="tag">注 · 判定的常用形式</span>
+  <ul>
+    <li>两条封闭性可以合并为一条：对任意 \(\alpha,\beta\in V_0\)，\(k,l\in\mathbb K\)，\(k\alpha+l\beta\in V_0\)。由此，子空间中向量的任意有限线性组合仍在子空间中。</li>
+    <li>子空间一定含零向量。<b>不含零向量的子集一定不是子空间</b>——这是最快的否定方法。</li>
+  </ul>
+</div>
+<div class="stage-grid">
+  <div class="box prop"><span class="tag">平凡子空间</span><p>\(\{\mathbf 0\}\)（<b>零子空间</b>，维数 0）和 \(V\) 本身。其余子空间称为非平凡子空间（真子空间）。</p></div>
+  <div class="box prop"><span class="tag">\(\mathbb R^3\) 中</span><p>过原点的直线是 1 维子空间，过原点的平面是 2 维子空间；反之，\(\mathbb R^3\) 的 1 维、2 维子空间都是这样的直线、平面。不过原点的直线、平面不是子空间。</p></div>
+  <div class="box prop"><span class="tag">函数与矩阵</span><p>\(\mathbb K_n[x]\) 是 \(\mathbb K[x]\) 的子空间；\(n\) 阶对称矩阵、反对称矩阵、上三角矩阵全体都是 \(M_n(\mathbb K)\) 的子空间。</p></div>
+  <div class="box prop"><span class="tag">解空间</span><p>齐次线性方程组 \(Ax=\mathbf 0\) 的解集是 \(\mathbb K_n\) 的子空间：\(A(\alpha+\beta)=\mathbf 0\)，\(A(k\alpha)=\mathbf 0\)（§3.10）。</p></div>
+</div>
+<div class="widget" data-widget="subtest" data-t="子空间判定：两条封闭性" data-d="选一个 ℝ² 的子集，随机抽取 α、β 和 k，看 α + β 与 kα 是否还在集合中。不是子空间的，点“给出反例”。"></div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 · 判断 \(\mathbb R^n\) 的子集是否为子空间（习题 3.9 第 1 题）</div></div>
+  <div class="sol" data-steps>
+    <div class="st">\(\{(a_1,\dots,a_n):a_1+\cdots+a_n=0\}\)：是。若 \(\sum a_i=0\)，\(\sum b_i=0\)，则 \(\sum(a_i+b_i)=0\)，\(\sum ka_i=0\)。它是齐次方程 \(x_1+\cdots+x_n=0\) 的解空间。</div>
+    <div class="st">\(\{a_1^2+\cdots+a_n^2=1\}\)（单位球面）：不是，不含零向量。</div>
+    <div class="st">\(\{a_1=0\}\)、\(\{a_1=a_2=\cdots=a_n\}\)：是，都是齐次线性方程组的解空间。</div>
+    <div class="st">\(\{a_i\ge0,\ i=1,\dots,n\}\)：不是，\((-1)(1,\dots,1)\) 不在其中，对数乘不封闭。</div>
+  </div>
+</div>
+<div class="box prop"><span class="tag">子空间的维数</span>
+  <p>设 \(V\) 是 \(n\) 维线性空间，\(V_0\) 是子空间，则 \(\dim V_0\le n\)；且 \(\dim V_0=n\iff V_0=V\)。</p>
+  <p class="small">\(V_0\) 中线性无关的向量也是 \(V\) 中线性无关的向量，个数不超过 \(n\)（推论 3.5.1）。若 \(\dim V_0=n\)，\(V_0\) 的基是 \(V\) 中 \(n\) 个线性无关的向量，由定理 3.5.3 也是 \(V\) 的基，于是 \(V=V_0\)。更一般地（习题 3.9 第 3 题）：\(V_1\subseteq V_2\) 时，\(V_1=V_2\iff\dim V_1=\dim V_2\)。</p>
+</div>
+
+<h2>二、子空间的交与和</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>有了两个子空间，自然要问能否通过集合运算得到新的子空间。交集 \(V_1\cap V_2\) 是“同时满足两组条件”的向量，例如两个方程组的公共解。并集呢？在 \(\mathbb R^2\) 中两条坐标轴的并集不是子空间：\((1,0)+(0,1)=(1,1)\) 不在任何一条轴上。并集“太小”，需要把所有 \(\alpha+\beta\) 都放进来——这就是“和”。</p>
+  <p><b>目的</b>：定义子空间之间的两种基本运算，使结果仍是子空间。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.9.2<em>交与和</em></span>
+  <p>设 \(V_1,V_2\) 是 \(V\) 的子空间，定义</p>
+  <div class="eqs"><span>\(V_1\cap V_2=\{\alpha\mid\alpha\in V_1\text{ 且 }\alpha\in V_2\}\)，</span><span>\(V_1+V_2=\{\alpha+\beta\mid\alpha\in V_1,\ \beta\in V_2\}\)，</span></div>
+  <p>分别称为 \(V_1\) 与 \(V_2\) 的<b>交</b>与<b>和</b>。多个子空间的交 \(V_1\cap\cdots\cap V_m\) 与和 \(V_1+\cdots+V_m=\{v_1+\cdots+v_m\mid v_i\in V_i\}\) 类似定义。</p>
+</div>
+<div class="box prop"><span class="tag">命题 3.9.2</span><p>\(V_1\cap V_2\) 和 \(V_1+V_2\) 都是 \(V\) 的子空间。</p></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>两者都含 \(\mathbf 0\)，非空。若 \(\alpha,\beta\in V_1\cap V_2\)，则 \(\alpha+\beta\) 与 \(k\alpha\) 既在 \(V_1\) 中又在 \(V_2\) 中。若 \(\alpha_1+\beta_1,\ \alpha_2+\beta_2\in V_1+V_2\)（\(\alpha_i\in V_1,\ \beta_i\in V_2\)），则 \((\alpha_1+\beta_1)+(\alpha_2+\beta_2)=(\alpha_1+\alpha_2)+(\beta_1+\beta_2)\in V_1+V_2\)，\(k(\alpha_1+\beta_1)=k\alpha_1+k\beta_1\in V_1+V_2\)。</p>
+</div></details>
+<div class="box warn"><span class="tag">注意</span><p>\(V_1\cup V_2\) 一般<b>不是</b>子空间；它是子空间当且仅当 \(V_1\subseteq V_2\) 或 \(V_2\subseteq V_1\)。\(V_1+V_2\) 是包含 \(V_1\cup V_2\) 的最小子空间。</p></div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.9.1</div><p>在 \(\mathbb K^3\) 中，\(V_1=\{(a,0,0)\}\)，\(V_2=\{(0,b,0)\}\)，\(V_3=\{(0,0,c)\}\)，\(V_4=\{(a,b,0)\}\)，\(V_5=\{(0,b,c)\}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(V_1,V_2,V_3\) 是三条坐标轴，\(V_4\) 是 \(xy\) 平面，\(V_5\) 是 \(yz\) 平面。</div>
+    <div class="st">\(V_4=V_1+V_2\)，\(V_5=V_2+V_3\)，\(V_2=V_4\cap V_5\)。</div>
+    <div class="st">\(\mathbb K^3=V_3+V_4=V_1+V_5=V_4+V_5=V_1+V_2+V_3\)。</div>
+  </div>
+</div>
+
+<h2>三、生成子空间</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>给定一些向量 \(S\)，想找一个包含它们的子空间。由于子空间对线性组合封闭，它必须包含 \(S\) 中向量的所有线性组合；而所有线性组合的集合本身恰好就是子空间。</p>
+  <p><b>目的</b>：由一组向量“生成”一个最小的子空间。这是描述子空间最常用的方式：给出一组生成向量。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.9.3<em>生成子空间</em></span>
+  <p>设 \(S\) 是 \(V\) 的非空子集，\(S\) 中向量所有可能的（有限）线性组合构成的集合记为 \(L(S)\)，称为由 \(S\) <b>生成（张成）的子空间</b>。若 \(S=\{\alpha_1,\dots,\alpha_m\}\)，记 \(L(\alpha_1,\dots,\alpha_m)=\{k_1\alpha_1+\cdots+k_m\alpha_m\mid k_i\in\mathbb K\}\)。</p>
+</div>
+<div class="box thm"><span class="tag">定理 3.9.1</span>
+  <ol>
+    <li>\(L(S)\) 是包含 \(S\) 的子空间，并且任何包含 \(S\) 的子空间都包含 \(L(S)\)。即 \(L(S)\) 是包含 \(S\) 的<b>最小</b>子空间。</li>
+    <li>若 \(\{\alpha_1,\dots,\alpha_r\}\) 是 \(S\) 的极大无关组，则 \(L(S)=L(\alpha_1,\dots,\alpha_r)\)，且 \(\dim L(S)=\mathrm r(S)\)。</li>
+  </ol>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>(1) 两个线性组合之和、线性组合的倍数仍是线性组合，所以 \(L(S)\) 是子空间；\(\alpha=1\cdot\alpha\)，故 \(S\subseteq L(S)\)。若子空间 \(V_0\supseteq S\)，\(V_0\) 对线性组合封闭，所以 \(V_0\supseteq L(S)\)。</p>
+  <p>(2) \(S\) 中每个向量都可由 \(\alpha_1,\dots,\alpha_r\) 表示，由定理 3.4.4，\(S\) 中向量的线性组合也可由它们表示，所以 \(L(S)=L(\alpha_1,\dots,\alpha_r)\)。而 \(\alpha_1,\dots,\alpha_r\) 线性无关，是 \(L(S)\) 的一组基。</p>
+</div></details>
+<div class="box idea"><span class="tag">把前面的概念串起来</span>
+  <div class="eqs boxed"><span>\(\dim L(\alpha_1,\dots,\alpha_m)\)</span><span>\(=\)</span><span>\(\{\alpha_1,\dots,\alpha_m\}\) 的秩</span><span>\(=\)</span><span>\(\mathrm r(\alpha_1,\alpha_2,\dots,\alpha_m)\)（以它们为列的矩阵的秩）</span></div>
+  <p>在 \(\mathbb R^3\) 中（例 3.9.2）：一个非零向量生成过原点的直线；两个不共线的向量生成过原点的平面；三个不共面的向量生成整个空间。矩阵 \(A\) 的列向量生成的子空间称为 \(A\) 的<b>列空间</b>，其维数为 \(\mathrm r(A)\)。</p>
+</div>
+<div class="box prop"><span class="tag">例 3.9.3<em>和与生成</em></span><p>\(V_1+V_2=L(V_1\cup V_2)\)。特别地，若 \(V_1=L(\alpha_1,\dots,\alpha_s)\)，\(V_2=L(\beta_1,\dots,\beta_t)\)，则 \(V_1+V_2=L(\alpha_1,\dots,\alpha_s,\beta_1,\dots,\beta_t)\)。多个子空间类似。</p><p class="small">这给出了求和空间的基与维数的方法：把两组生成向量放在一起求极大无关组。</p></div>
+
+<h2>四、维数公式</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>\(V_1+V_2\) 由两组基合起来生成，那么 \(\dim(V_1+V_2)=\dim V_1+\dim V_2\) 吗？例 3.9.1 中 \(\dim V_4=\dim V_5=2\)，但 \(V_4+V_5=\mathbb K^3\) 只有 3 维：两个平面有一条公共直线 \(V_2\)，这个公共方向被<b>数了两次</b>。减去重复的部分就得到正确的公式。</p>
+  <p><b>目的</b>：精确地计算和空间的维数，并刻画“没有重复”的情形。</p>
+</div>
+<div class="box thm"><span class="tag">定理 3.9.2<em>维数公式</em></span>
+  <div class="eqs boxed"><span>\(\dim(V_1+V_2)=\dim V_1+\dim V_2-\dim(V_1\cap V_2)\)</span></div>
+  <p class="small">与集合的“容斥原理” \(|A\cup B|=|A|+|B|-|A\cap B|\) 形式相同。</p>
+</div>
+<details class="proof"><summary>证明（从交空间的基出发扩张）</summary><div class="dbody">
+  <p>设 \(\dim V_1=n_1\)，\(\dim V_2=n_2\)，\(\dim(V_1\cap V_2)=m\)。取 \(V_1\cap V_2\) 的一组基 \(\alpha_1,\dots,\alpha_m\)，由基扩张定理分别扩张为 \(V_1\) 的基 \(\alpha_1,\dots,\alpha_m,\beta_{m+1},\dots,\beta_{n_1}\) 和 \(V_2\) 的基 \(\alpha_1,\dots,\alpha_m,\gamma_{m+1},\dots,\gamma_{n_2}\)。只需证明</p>
+  <div class="eqs"><span>\(\alpha_1,\dots,\alpha_m,\)</span><span>\(\beta_{m+1},\dots,\beta_{n_1},\)</span><span>\(\gamma_{m+1},\dots,\gamma_{n_2}\)</span></div>
+  <p>是 \(V_1+V_2\) 的一组基（共 \(n_1+n_2-m\) 个）。它们生成 \(V_1+V_2\)（例 3.9.3）。设</p>
+  <div class="eqs"><span>\(\sum a_i\alpha_i+\sum b_j\beta_j+\sum c_k\gamma_k=\mathbf 0\)，</span></div>
+  <p>则 \(\delta=\sum a_i\alpha_i+\sum b_j\beta_j=-\sum c_k\gamma_k\)。左边在 \(V_1\) 中，右边在 \(V_2\) 中，所以 \(\delta\in V_1\cap V_2\)，可写成 \(\delta=\sum d_i\alpha_i\)。于是 \(\sum d_i\alpha_i+\sum c_k\gamma_k=\mathbf 0\)，由 \(V_2\) 的基线性无关得 \(c_k=0\)（以及 \(d_i=0\)），从而 \(\delta=\mathbf 0\)；再由 \(V_1\) 的基线性无关得 \(a_i=b_j=0\)。</p>
+</div></details>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 · 求和与交的基和维数（习题 3.9 第 7 题）</div><p>\(V_1=L(\alpha_1,\alpha_2,\alpha_3)\)，\(\alpha_1=(1,0,-1,0),\ \alpha_2=(0,1,2,1),\ \alpha_3=(2,1,0,1)\)；\(V_2=L(\beta_1,\beta_2,\beta_3)\)，\(\beta_1=(-1,1,1,1),\ \beta_2=(1,-1,-3,-1),\ \beta_3=(-1,1,-1,1)\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(\alpha_3=2\alpha_1+\alpha_2\)，\(\alpha_1,\alpha_2\) 线性无关，\(\dim V_1=2\)；\(\beta_3=2\beta_1+\beta_2\)，\(\beta_1,\beta_2\) 线性无关，\(\dim V_2=2\)。</div>
+    <div class="st">\(V_1+V_2=L(\alpha_1,\alpha_2,\beta_1,\beta_2)\)。注意 \(\beta_2=\alpha_1-\alpha_2\in V_1\)，而 \(\beta_1\notin V_1\)（设 \(\beta_1=x\alpha_1+y\alpha_2=(x,y,-x+2y,y)\) 得 \(x=-1,y=1\)，第三个分量为 3 而不是 1）。所以 \(\{\alpha_1,\alpha_2,\beta_1\}\) 是 \(V_1+V_2\) 的一组基，\(\dim(V_1+V_2)=3\)。</div>
+    <div class="st">由维数公式 \(\dim(V_1\cap V_2)=2+2-3=1\)。而 \(\beta_2\in V_1\cap V_2\) 非零，所以 \(V_1\cap V_2=L(\beta_2)=L\big((1,-1,-3,-1)\big)\)。</div>
+    <div class="st">一般方法：求交时设 \(x_1\alpha_1+x_2\alpha_2=y_1\beta_1+y_2\beta_2\)，解这个齐次方程组；每个解给出交中的一个向量。</div>
+  </div>
+</div>
+<div class="widget" data-widget="sumint" data-t="和、交与维数公式" data-d="输入两组生成向量，自动求 V₁、V₂、V₁+V₂、V₁∩V₂ 的基与维数，并验证维数公式。试试“两个平面相同”和“直线 + 平面”。"></div>
+
+<h2>五、直和</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>由维数公式，\(\dim(V_1+V_2)=\dim V_1+\dim V_2\iff V_1\cap V_2=\{\mathbf 0\}\)：此时两个子空间没有公共方向，没有“重复计数”。从另一个角度看，和空间中每个向量都能写成 \(v_1+v_2\)；当 \(V_1\cap V_2\ne\{\mathbf 0\}\) 时，取其中非零 \(\gamma\)，\(v_1+v_2=(v_1+\gamma)+(v_2-\gamma)\)，分解就不唯一了。</p>
+  <p><b>目的</b>：刻画“把空间分解成几个互不重叠的部分”，使得每个向量都能<b>唯一地</b>拆成各部分的分量——就像 \(\mathbb R^3\) 中向量唯一分解为沿三条坐标轴的分量。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.9.4<em>直和</em></span>
+  <p>设 \(V_1,\dots,V_m\) 是 \(V\) 的子空间，\(V_0=V_1+\cdots+V_m\)。若对每个 \(i\)，</p>
+  <div class="eqs"><span>\(V_i\cap(V_1+\cdots+V_{i-1}+V_{i+1}+\cdots+V_m)=\{\mathbf 0\}\)，</span></div>
+  <p>则称 \(V_0\) 是 \(V_1,\dots,V_m\) 的<b>直接和</b>，简称<b>直和</b>，记为 \(V_0=V_1\oplus V_2\oplus\cdots\oplus V_m\)。两个子空间时即 \(V_1\cap V_2=\{\mathbf 0\}\)。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.9.4</div><p>接例 3.9.1。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">\(V_4=V_1\oplus V_2\)，\(V_5=V_2\oplus V_3\)，\(\mathbb K^3=V_3\oplus V_4=V_1\oplus V_5=V_1\oplus V_2\oplus V_3\)。</div>
+    <div class="st">但 \(\mathbb K^3=V_4+V_5\) <b>不是</b>直和：\(V_4\cap V_5=V_2\ne\{\mathbf 0\}\)。例如 \((1,1,1)=(1,1,0)+(0,0,1)=(1,0,0)+(0,1,1)\)。</div>
+  </div>
+</div>
+<div class="box thm"><span class="tag">定理 3.9.3<em>直和的等价条件</em></span>
+  <p>设 \(V_0=V_1+\cdots+V_m\)，则下列条件等价：</p>
+  <ol>
+    <li>\(V_0=V_1\oplus\cdots\oplus V_m\)（定义）；</li>
+    <li>\(V_i\cap(V_1+\cdots+V_{i-1})=\{\mathbf 0\}\)，\(2\le i\le m\)（逐步相交为零）；</li>
+    <li>\(\dim V_0=\dim V_1+\cdots+\dim V_m\)（维数可加）；</li>
+    <li>\(V_1,\dots,V_m\) 各自的基合起来是 \(V_0\) 的一组基；</li>
+    <li>\(V_0\) 中每个向量 \(\alpha\) 都<b>唯一地</b>表示为 \(\alpha=v_1+\cdots+v_m\)，\(v_i\in V_i\)。</li>
+  </ol>
+  <p class="small">(5) 等价于 (5′)：零向量的分解唯一，即 \(\mathbf 0=v_1+\cdots+v_m\)（\(v_i\in V_i\)）只有 \(v_1=\cdots=v_m=\mathbf 0\)。</p>
+</div>
+<details class="proof"><summary>证明思路</summary><div class="dbody">
+  <p>(1)⇒(2) 显然（\(V_1+\cdots+V_{i-1}\) 包含在“其余之和”中）。(2)⇒(3) 对 \(m\) 用维数公式归纳：\(\dim(V_1+\cdots+V_i)=\dim(V_1+\cdots+V_{i-1})+\dim V_i\)。(3)⇒(4) 各基合起来共 \(\sum\dim V_i=\dim V_0\) 个向量且生成 \(V_0\)，由定理 3.5.3 是基。(4)⇒(5) 把 \(v_i\) 用 \(V_i\) 的基展开，由基下表示唯一即得。(5)⇒(1) 若 \(\gamma\in V_i\cap(\sum_{j\ne i}V_j)\)，\(\gamma=\sum_{j\ne i}v_j\)，则 \(\mathbf 0=(-\gamma)+\sum_{j\ne i}v_j\) 是零向量的一个分解，由 (5′) 得 \(\gamma=\mathbf 0\)。</p>
+</div></details>
+<div class="box warn"><span class="tag">两两相交为零 ≠ 直和</span><p>三个及以上子空间时，<b>两两的交都为零不能保证是直和</b>（习题 3.9 第 9 题）。例如 \(\mathbb R^2\) 中三条不同的过原点直线，两两交为零，但它们的和是 \(\mathbb R^2\)（2 维），而维数之和是 3。定义要求每个 \(V_i\) 与<b>其余所有之和</b>的交为零。</p></div>
+<div class="widget" data-widget="dsum2d" data-t="直和 = 分解唯一" data-d="两条不共线的直线：每个 α 唯一分解为两条直线上的分量。改选“三个子空间”：三条直线两两相交为零，但 α 有不止一种分解，不是直和。"></div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 · 对称 ⊕ 反对称（习题 3.9 第 10 题）</div><p>证明 \(M_n(\mathbb K)=S\oplus T\)，其中 \(S,T\) 分别是对称矩阵、反对称矩阵全体。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">任一 \(A=\dfrac{A+A'}2+\dfrac{A-A'}2\)，第一项对称，第二项反对称，所以 \(M_n=S+T\)。</div>
+    <div class="st">若 \(A\in S\cap T\)，则 \(A=A'=-A\)，\(A=O\)。所以是直和。维数检验：\(\frac{n(n+1)}2+\frac{n(n-1)}2=n^2\)。</div>
+  </div>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 拟合值 ⊕ 残差</span>
+  <p>线性回归中，响应向量 \(y\in\mathbb R^n\) 被分解为 \(y=\hat y+e\)：拟合值 \(\hat y\) 在设计矩阵的列空间 \(L(X)\) 中（\(p\) 维），残差 \(e\) 在另一个 \(n-p\) 维子空间中，两个子空间的交为零，\(\mathbb R^n=L(X)\oplus(\text{残差空间})\)。直和保证分解唯一，维数可加：\(n=p+(n-p)\)——这就是“总自由度 = 回归自由度 + 残差自由度”。方差分析中把 \(\mathbb R^n\) 分解成多个子空间的直和，也是同样的结构。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>判定子空间先看是否含零向量；不过原点的直线、平面不是子空间。</li>
+    <li>\(V_1\cup V_2\) 一般不是子空间，要用 \(V_1+V_2\)。</li>
+    <li>\(\dim(V_1+V_2)\) 一般不等于 \(\dim V_1+\dim V_2\)，要减去交的维数。</li>
+    <li>“和”不一定是“直和”；多个子空间时两两交为零不够。</li>
+    <li>分配律一般不成立：\(V_1\cap(V_2+V_3)\ne(V_1\cap V_2)+(V_1\cap V_3)\)（习题 3.9 第 6 题，平面上三条直线）。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">下列 \(\mathbb R^3\) 的子集中，是子空间的是：</div><ol class="opts"><li>\(\{(a,b,c):a+b+c=1\}\)</li><li>\(\{(a,b,c):abc=0\}\)</li><li>\(\{(a,2a,b):a,b\in\mathbb R\}\)</li><li>\(\{(a,b,c):a\ge0\}\)</li></ol><div class="explain">第 1 个不含零向量；第 2 个是三个坐标平面的并，\((1,1,0)+(0,0,1)=(1,1,1)\) 不在其中；第 4 个对数乘 \(-1\) 不封闭。第 3 个 \(=L\big((1,2,0),(0,0,1)\big)\)，维数 2。</div></div>
+  <div class="fill" data-ans="1"><div class="qt">\(\dim L\big((1,2,-1),(3,6,-3)\big)=\)？<span class="tiny muted">（习题 3.9 第 2(4) 题）</span></div><div class="explain">\((3,6,-3)=3(1,2,-1)\)，极大无关组只有一个向量。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">\(\mathbb R^4\) 中，\(\dim V_1=3,\ \dim V_2=3\)，\(V_1\ne V_2\)，则 \(\dim(V_1\cap V_2)=\)？</div><div class="explain">\(V_1\ne V_2\) 且维数相同，所以 \(V_1+V_2\) 严格包含 \(V_1\)，维数 \(\ge4\)，只能是 4。\(\dim(V_1\cap V_2)=3+3-4=2\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">设 \(V_1,V_2\) 是 \(V\) 的子空间，下列与“\(V_1+V_2\) 是直和”<b>不</b>等价的是：</div><ol class="opts"><li>\(V_1\cap V_2=\{\mathbf 0\}\)</li><li>\(V_1\cup V_2=V_1+V_2\)</li><li>\(\dim(V_1+V_2)=\dim V_1+\dim V_2\)</li><li>零向量的分解 \(\mathbf 0=v_1+v_2\) 唯一</li></ol><div class="explain">\(V_1\cup V_2\) 是子空间要求一个包含另一个，与直和无关。</div></div>
+</div>
+<details class="more"><summary>证明题思路（习题 3.9 第 8、12、14、15 题）</summary><div class="dbody">
+  <p><b>8</b>　\(\alpha_1,\alpha_2,\alpha_3\) 两两无关而整体相关，则 \(\dim L(\alpha_1,\alpha_2,\alpha_3)=2\)，而 \(L(\alpha_i,\alpha_j)\) 都是其中的 2 维子空间，由“包含 + 维数相同 ⇒ 相等”即得。</p>
+  <p><b>12（补空间）</b>　取 \(U\) 的基，扩张为 \(V\) 的基，新添的向量生成 \(W\)，则 \(V=U\oplus W\)。补空间不唯一（平面中一条直线的补可以是任何另一条直线）。</p>
+  <p><b>14</b>　取基 \(e_1,\dots,e_n\)，\(V=L(e_1)\oplus\cdots\oplus L(e_n)\)。</p>
+  <p><b>15</b>　有限个真子空间的并不能覆盖 \(V\)：对个数归纳，在 \(V_1\setminus V_2\) 中取 \(\alpha\)，在 \(V_2\setminus V_1\) 中取 \(\beta\)，考虑 \(\alpha+k\beta\)（\(k\) 取无穷多个不同的值）。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>子空间 = 对加法、数乘封闭的非空子集；一定含零向量。</li>
+  <li>交、和都是子空间，并一般不是；\(V_1+V_2=L(V_1\cup V_2)\)。</li>
+  <li>\(L(S)\) 是包含 \(S\) 的最小子空间，\(\dim L(S)=\mathrm r(S)\)。</li>
+  <li>维数公式：\(\dim(V_1+V_2)=\dim V_1+\dim V_2-\dim(V_1\cap V_2)\)。</li>
+  <li>直和 ⇔ 交为零（两个时）⇔ 维数可加 ⇔ 基合并为基 ⇔ 分解唯一。</li>
+</ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>齐次线性方程组 \(Ax=\mathbf 0\) 的解集是一个子空间（解空间）。它的维数是多少？能否找出一组基，用有限个解表示出全部（无穷多个）解？非齐次方程组 \(Ax=\beta\) 的解集不含零向量，不是子空间，它又有什么样的结构？</p><a class="bn" href="#s3-10">→ §3.10 线性方程组的解</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>用 \(\mathbb R^2\)、\(\mathbb R^3\) 中的直线和平面建立直观，再推广。</li>
+  <li>维数公式的证明是“基扩张定理”的典型应用，建议完整讲。</li>
+  <li>直和的五个等价条件中，强调“分解唯一”是本质，“维数可加”是最好用的判别法。</li>
+</ul></div></details>
+</template>

@@ -1,0 +1,133 @@
+<template data-chapter="3" data-route="s3-8" data-num="§3.8" data-short="基变换与过渡矩阵" data-group="第四阶段 · 坐标与基变换">
+<header class="page-head">
+  <span class="det-eyebrow">§3.8</span>
+  <h1>基变换与过渡矩阵</h1>
+  <p class="lede">一个向量只有在选定基以后才有坐标。换一组基，同一个向量的坐标也会变化。两组基之间怎样互相表示？同一个向量在两组基下的坐标怎样换算？本节用一个矩阵——过渡矩阵——统一回答。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 153–158 页</span><span class="pill">关键词：过渡矩阵、坐标变换公式</span></div>
+  <ul class="goals">
+    <li>掌握过渡矩阵的定义；知道过渡矩阵的第 \(j\) 列是什么</li>
+    <li>掌握坐标变换公式 \([\alpha]_e=A[\alpha]_f\)，分清方向</li>
+    <li>掌握反向过渡矩阵是逆矩阵、连续换基时过渡矩阵相乘</li>
+    <li>会用初等行变换计算过渡矩阵</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下</span><p>§3.7 中，\(p(x)=3+2x-x^2\) 在基 \(\{1,x,x^2\}\) 下的坐标是 \((3,2,-1)'\)，在基 \(\{1,x-1,(x-1)^2\}\) 下的坐标是 \((4,0,-1)'\)。</p><p class="bq">两组坐标之间有什么关系？能不能不重新做 Taylor 展开，直接由一组坐标算出另一组？</p></div>
+
+<h2>一、过渡矩阵</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>设 \(\{e_1,\dots,e_n\}\)（旧基）和 \(\{f_1,\dots,f_n\}\)（新基）是 \(V\) 的两组基。由于 \(e\) 是基，每个新基向量 \(f_j\) 都可以唯一地用旧基表示。把这 \(n^2\) 个系数记下来，就完全掌握了“两组基之间的关系”。</p>
+  <p><b>目的</b>：用一个 \(n\) 阶矩阵记录基之间的关系，再用它来换算坐标。</p>
+</div>
+<p>设</p>
+<div class="eqs"><span>\(\begin{cases}f_1=a_{11}e_1+a_{21}e_2+\cdots+a_{n1}e_n,\\ f_2=a_{12}e_1+a_{22}e_2+\cdots+a_{n2}e_n,\\ \quad\cdots\cdots\\ f_n=a_{1n}e_1+a_{2n}e_2+\cdots+a_{nn}e_n.\end{cases}\)</span></div>
+<div class="box def"><span class="tag">定义 3.8.1<em>过渡矩阵</em></span>
+  <p>上式中系数矩阵的转置</p>
+  <div class="eqs"><span>\(A=\begin{pmatrix}a_{11}&a_{12}&\cdots&a_{1n}\\a_{21}&a_{22}&\cdots&a_{2n}\\\vdots&\vdots&&\vdots\\a_{n1}&a_{n2}&\cdots&a_{nn}\end{pmatrix}\)</span></div>
+  <p>称为从基 \(\{e_1,\dots,e_n\}\) 到基 \(\{f_1,\dots,f_n\}\) 的<b>过渡矩阵</b>。形式地记为</p>
+  <div class="eqs boxed"><span>\((f_1,f_2,\dots,f_n)=(e_1,e_2,\dots,e_n)A\)</span></div>
+</div>
+<div class="box idea"><span class="tag">必须记住</span>
+  <p class="eq-txt">\(A\) 的第 \(j\) 列 \(=\) 新基向量 \(f_j\) 在旧基 \(e\) 下的坐标 \([f_j]_e\)</p>
+  <p>即 \(A=\big([f_1]_e,[f_2]_e,\dots,[f_n]_e\big)\)。特别地，在 \(\mathbb K^n\)（列向量形式）中从标准基到 \(\{f_j\}\) 的过渡矩阵，就是把 \(f_1,\dots,f_n\) 依次作为列排成的矩阵。</p>
+</div>
+
+<h2>二、坐标变换公式</h2>
+<p>设同一个向量 \(\alpha\) 在两组基下的坐标分别为 \(\lambda=(\lambda_1,\dots,\lambda_n)'\) 与 \(\mu=(\mu_1,\dots,\mu_n)'\)：</p>
+<div class="eqs"><span>\(\alpha=(e_1,\dots,e_n)\lambda=(f_1,\dots,f_n)\mu=(e_1,\dots,e_n)A\mu\)。</span></div>
+<p>由坐标的唯一性（引理 3.7.1）得到：</p>
+<div class="box thm"><span class="tag">坐标变换公式</span>
+  <div class="eqs boxed"><span>\([\alpha]_e=A\,[\alpha]_f\)，</span><span>即 \(\lambda=A\mu\)，</span><span>\(\lambda_i=\sum_{j=1}^na_{ij}\mu_j\)。</span></div>
+  <p>反之，若对任一向量，两组坐标都满足 \(\lambda=A\mu\)，则 \(A\) 就是从 \(e\) 到 \(f\) 的过渡矩阵（取 \(\alpha=f_j\)，\(\mu\) 是第 \(j\) 个单位向量，\(\lambda=A\mu\) 是 \(A\) 的第 \(j\) 列）。</p>
+</div>
+<div class="box warn"><span class="tag">方向：本节最容易出错的地方</span>
+  <div class="eqs"><span>基：\(e\xrightarrow{\ A\ }f\)</span><span>坐标：\([\alpha]_f\xrightarrow{\ A\ }[\alpha]_e\)</span></div>
+  <p>基变换的方向和坐标变换的方向看起来是“反”的。原因是 \(A\) 的列存储的是<b>新基在旧基下的坐标</b>，所以 \(A\) 乘新坐标得到旧坐标。若要由旧坐标求新坐标，需要 \(\mu=A^{-1}\lambda\)——前提是 \(A\) 可逆。</p>
+</div>
+<div class="widget" data-widget="basis2d" data-mode="trans" data-t="两组基、一个向量、两组坐标" data-d="旧基是标准基 e₁, e₂，新基 f₁, f₂ 可拖动。A 的两列就是 f₁、f₂ 的分量；验证 α 在 e 下的坐标 λ 等于 A 乘以 α 在 f 下的坐标 μ。"></div>
+
+<h2>三、过渡矩阵的性质</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>从 \(e\) 到 \(f\) 有过渡矩阵 \(A\)，反过来从 \(f\) 到 \(e\) 也有过渡矩阵 \(B\)。由旧坐标求新坐标需要 \(A^{-1}\)，那么过渡矩阵一定可逆吗？自然猜想 \(B=A^{-1}\)。</p>
+</div>
+<div class="box thm"><span class="tag">定理 3.8.1</span><p>设 \(A\) 是从基 \(e\) 到基 \(f\) 的过渡矩阵，\(B\) 是从基 \(f\) 到基 \(e\) 的过渡矩阵，则 \(B=A^{-1}\)。特别地，过渡矩阵都是非异阵。</p></div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>对任一向量 \(\alpha\)，\(\lambda=A\mu\)，\(\mu=B\lambda\)，所以 \(\lambda=AB\lambda\) 对一切 \(\lambda\in\mathbb K_n\) 成立。依次取 \(\lambda\) 为单位列向量 \(e_1,\dots,e_n\)，得到 \(AB\) 的各列就是 \(I_n\) 的各列，即 \(AB=I_n\)。由推论 2.5.4（方阵只要一边乘积为 \(I\) 就够了），\(B=A^{-1}\)。</p>
+</div></details>
+<div class="box prop"><span class="tag">连续换基</span>
+  <p>设 \(A\) 是从 \(e\) 到 \(f\) 的过渡矩阵，\(B\) 是从 \(f\) 到 \(g\) 的过渡矩阵，则 \(AB\) 是从 \(e\) 到 \(g\) 的过渡矩阵。</p>
+  <div class="eqs boxed"><span>\(e\xrightarrow{\ A\ }f\xrightarrow{\ B\ }g\)</span><span>\(\Longrightarrow\)</span><span>\(e\xrightarrow{\ AB\ }g\)</span></div>
+  <p class="small">\((g_1,\dots,g_n)=(f_1,\dots,f_n)B=(e_1,\dots,e_n)AB\)；或用坐标：\(\lambda=A\mu\)，\(\mu=B\xi\)，于是 \(\lambda=AB\xi\)。</p>
+</div>
+<div class="box note"><span class="tag">注 · 行向量形式</span><p>若把坐标写成行向量，坐标变换公式变为 \((\lambda_1,\dots,\lambda_n)=(\mu_1,\dots,\mu_n)A'\)，即 (3.8.3) 的转置。有些教材把过渡矩阵定义为这里的 \(A'\)，阅读时要先看清定义。</p></div>
+
+<h2>四、计算过渡矩阵</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>直接按定义求两组一般的基之间的过渡矩阵，需要解 \(n^2\) 个未知数的方程组。借助一组“中间基”（例如标准基），可以利用连续换基公式，把问题化为求逆矩阵与乘法，再用第二章的初等变换一次完成。</p>
+</div>
+<div class="box idea"><span class="tag">方法：借助标准基</span>
+  <p>在 \(\mathbb K^n\) 中，设从标准基 \(e\) 到 \(f\)、\(g\) 的过渡矩阵分别为 \(A\)（\(f_j\) 排成列）、\(B\)（\(g_j\) 排成列）。由 \(f\xrightarrow{A^{-1}}e\xrightarrow{B}g\)，从 \(f\) 到 \(g\) 的过渡矩阵为</p>
+  <div class="eqs boxed"><span>\(P=A^{-1}B\)：</span><span>\((A\mid B)\xrightarrow{\text{初等行变换}}(I\mid A^{-1}B)\)</span></div>
+  <p class="small">这正是例 2.5.4 中“用初等行变换求 \(A^{-1}B\)”的方法。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.8.1</div><p>在 \(\mathbb K^3\) 中，\(f_1=(1,0,-1)',\ f_2=(2,1,1)',\ f_3=(1,1,1)'\)；\(g_1=(0,1,1)',\ g_2=(-1,1,0)',\ g_3=(1,2,1)'\)。求从基 \(\{f_1,f_2,f_3\}\) 到基 \(\{g_1,g_2,g_3\}\) 的过渡矩阵。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">从标准基到 \(f\)、\(g\) 的过渡矩阵分别为 \(A=\begin{pmatrix}1&2&1\\0&1&1\\-1&1&1\end{pmatrix}\)，\(B=\begin{pmatrix}0&-1&1\\1&1&2\\1&0&1\end{pmatrix}\)。所求 \(P=A^{-1}B\)。</div>
+    <div class="st">对 \((A\mid B)\) 做初等行变换：\(\left(\begin{array}{ccc|ccc}1&2&1&0&-1&1\\0&1&1&1&1&2\\-1&1&1&1&0&1\end{array}\right)\to\left(\begin{array}{ccc|ccc}1&2&1&0&-1&1\\0&1&1&1&1&2\\0&3&2&1&-1&2\end{array}\right)\)。</div>
+    <div class="st">\(\to\left(\begin{array}{ccc|ccc}1&2&1&0&-1&1\\0&1&1&1&1&2\\0&0&-1&-2&-4&-4\end{array}\right)\to\left(\begin{array}{ccc|ccc}1&0&0&0&1&1\\0&1&0&-1&-3&-2\\0&0&1&2&4&4\end{array}\right)\)。</div>
+    <div class="st">所以 \(P=\begin{pmatrix}0&1&1\\-1&-3&-2\\2&4&4\end{pmatrix}\)。检验第一列：\(0\cdot f_1-f_2+2f_3=(0,1,1)'=g_1\)。</div>
+  </div>
+</div>
+<div class="widget" data-widget="trans3" data-t="(A | B) → (I | A⁻¹B)" data-d="输入 f（A 的列）和 g（B 的列），逐步做初等行变换，右半部分就是从 f 到 g 的过渡矩阵。默认是例 3.8.1。"></div>
+
+<div class="ex"><div class="ex-q"><div class="ex-h">例 · 多项式空间的过渡矩阵（习题 3.8 第 5 题，\(n=2\)）</div><p>求 \(\mathbb K_2[x]\) 中从基 \(\{1,x,x^2\}\) 到基 \(\{1,x-a,(x-a)^2\}\) 的过渡矩阵，并由此求 \(p(x)=3+2x-x^2\) 在 \(a=1\) 时的新坐标。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">新基在旧基下的坐标：\(1\to(1,0,0)'\)，\(x-a\to(-a,1,0)'\)，\((x-a)^2=a^2-2ax+x^2\to(a^2,-2a,1)'\)。所以 \(A=\begin{pmatrix}1&-a&a^2\\0&1&-2a\\0&0&1\end{pmatrix}\)。</div>
+    <div class="st">新坐标 \(\mu=A^{-1}\lambda\)。\(a=1\) 时 \(A^{-1}=\begin{pmatrix}1&1&1\\0&1&2\\0&0&1\end{pmatrix}\)（从 \(x=(x-1)+1\)，\(x^2=(x-1)^2+2(x-1)+1\) 可直接读出）。</div>
+    <div class="st">\(\mu=\begin{pmatrix}1&1&1\\0&1&2\\0&0&1\end{pmatrix}\begin{pmatrix}3\\2\\-1\end{pmatrix}=\begin{pmatrix}4\\0\\-1\end{pmatrix}\)，与 §3.7 中 Taylor 展开的结果一致。</div>
+  </div>
+</div>
+
+<div class="box stat"><span class="tag">统计视角 · 主成分得分是新基下的坐标</span>
+  <p>一个观测 \(x\in\mathbb R^p\) 的原始数据就是它在标准基下的坐标。主成分分析找出一组新的（标准正交）基 \(f_1,\dots,f_p\)，从标准基到新基的过渡矩阵 \(P=(f_1,\dots,f_p)\)。由坐标变换公式 \(x=P\mu\)，<b>主成分得分</b> \(\mu=P^{-1}x\)。（标准正交时 \(P^{-1}=P'\)，第五、九章会学到。）变量的线性变换、中心化、标准化，在线性代数中都是“换一组基（加平移）看同一个数据”。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>过渡矩阵的<b>列</b>（不是行）是新基在旧基下的坐标。</li>
+    <li>“从 \(e\) 到 \(f\)”的过渡矩阵 \(A\) 满足 \(f=eA\)、\([\alpha]_e=A[\alpha]_f\)，不要写成 \([\alpha]_f=A[\alpha]_e\)。</li>
+    <li>连续换基是 \(AB\)（按换基的顺序右乘），不是 \(BA\)。</li>
+    <li>\((A\mid B)\to(I\mid A^{-1}B)\) 只能用初等<b>行</b>变换。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="2"><div class="qt">在 \(\mathbb R^2\) 中，\(f_1=(1,1)',\ f_2=(1,-1)'\)。\(\alpha=(3,1)'\) 在基 \(\{f_1,f_2\}\) 下的第一个坐标是？</div><div class="explain">\(A=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\)，\(\mu=A^{-1}\lambda=\frac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}\begin{pmatrix}3\\1\end{pmatrix}=\begin{pmatrix}2\\1\end{pmatrix}\)。检验：\(2f_1+f_2=(3,1)'\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">设 \(A\) 是从基 \(e\) 到基 \(f\) 的过渡矩阵，\(\alpha\) 在 \(e\)、\(f\) 下的坐标分别为 \(x,y\)，则：</div><ol class="opts"><li>\(y=Ax\)</li><li>\(x=A'y\)</li><li>\(x=Ay\)</li><li>\(y=A'x\)</li></ol><div class="explain">\(\alpha=eA y=ex\)，由坐标唯一性 \(x=Ay\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">从 \(e\) 到 \(f\) 的过渡矩阵为 \(A\)，从 \(f\) 到 \(g\) 的过渡矩阵为 \(B\)，则从 \(g\) 到 \(e\) 的过渡矩阵为：</div><ol class="opts"><li>\(AB\)</li><li>\(BA\)</li><li>\(A^{-1}B^{-1}\)</li><li>\(B^{-1}A^{-1}\)</li></ol><div class="explain">从 \(e\) 到 \(g\) 是 \(AB\)，反向是 \((AB)^{-1}=B^{-1}A^{-1}\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">在 \(\mathbb K^4\) 中求 \(\alpha=(1,2,1,3)'\) 在基 \(e_1=(1,0,0,0)',e_2=(1,0,1,0)',e_3=(0,1,0,-1)',e_4=(1,0,1,1)'\) 下的坐标：<span class="tiny muted">（习题 3.8 第 1(1) 题）</span></div><ol class="opts"><li>\((0,-4,2,5)'\)</li><li>\((1,2,1,3)'\)</li><li>\((0,4,2,-5)'\)</li><li>\((1,-4,2,5)'\)</li></ol><div class="explain">解 \(x_1e_1+x_2e_2+x_3e_3+x_4e_4=\alpha\)：第 2 分量 \(x_3=2\)；第 4 分量 \(-x_3+x_4=3\Rightarrow x_4=5\)；第 3 分量 \(x_2+x_4=1\Rightarrow x_2=-4\)；第 1 分量 \(x_1+x_2+x_4=1\Rightarrow x_1=0\)。</div></div>
+</div>
+<details class="more"><summary>习题 3.8 第 2、3 题答案</summary><div class="dbody">
+  <p><b>2(1)</b>　从标准基到 \(f\)：\(\begin{pmatrix}1&0&2&-1\\0&0&1&0\\0&1&0&1\\1&-1&3&2\end{pmatrix}\)（\(f_j\) 排成列）。</p>
+  <p><b>2(2)</b>　从基 \(e_1=(1,1,0,1)',e_2=(2,1,2,0)',e_3=(1,1,0,0)',e_4=(0,1,-1,-1)'\) 到同一组 \(f\)：\(P=E^{-1}F=\begin{pmatrix}-1&0&1&5\\-1&1&-1&2\\4&-2&3&-10\\-2&1&-2&3\end{pmatrix}\)。</p>
+  <p><b>3(1)</b>　\(\alpha=(1,0,0,1)'=f_1\)，在 \(f\) 下坐标 \((1,0,0,0)'\)；在第 2(2) 题的基 \(e\) 下坐标 \(P\cdot(1,0,0,0)'=(-1,-1,4,-2)'\)。</p>
+  <p><b>3(2)</b>　\(\alpha=(3,-1,0,2)'\)：在 \(f\) 下坐标 \((5,0,-1,0)'\)；在 \(e\) 下坐标 \((-6,-4,17,-8)'\)。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<div class="tw"><table class="t">
+  <tr><th>内容</th><th>公式</th></tr>
+  <tr><td>过渡矩阵（从 \(e\) 到 \(f\)）</td><td>\((f_1,\dots,f_n)=(e_1,\dots,e_n)A\)，第 \(j\) 列 \(=[f_j]_e\)</td></tr>
+  <tr><td>坐标变换</td><td>\([\alpha]_e=A[\alpha]_f\)，\([\alpha]_f=A^{-1}[\alpha]_e\)</td></tr>
+  <tr><td>反向</td><td>从 \(f\) 到 \(e\)：\(A^{-1}\)</td></tr>
+  <tr><td>连续换基</td><td>\(e\xrightarrow{A}f\xrightarrow{B}g\Rightarrow e\xrightarrow{AB}g\)</td></tr>
+  <tr><td>计算（\(\mathbb K^n\)）</td><td>\((A\mid B)\to(I\mid A^{-1}B)\)</td></tr>
+</table></div>
+<div class="bridge out"><span class="bk">走向下一节</span><p>到此为止，研究的对象一直是“整个”线性空间。但是在 \(\mathbb R^3\) 中，过原点的平面、直线本身对加法和数乘也是封闭的；齐次线性方程组的全部解也是如此。线性空间内部还藏着更小的线性空间——它们之间如何相交、相加？维数如何计算？</p><a class="bn" href="#s3-9">→ §3.9 子空间</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>反复强调方向：“新基用旧基表示，系数排成列”；坐标公式“旧 = A × 新”。</li>
+  <li>用二维图形实验让学生看到 \(\lambda=A\mu\) 的几何意义。</li>
+  <li>例 3.8.1 的方法与第二章求 \(A^{-1}B\) 完全相同，前后呼应。</li>
+</ul></div></details>
+</template>

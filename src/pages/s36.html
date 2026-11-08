@@ -1,0 +1,219 @@
+<template data-chapter="3" data-route="s3-6" data-num="§3.6" data-short="矩阵的秩" data-group="第三阶段 · 秩、基与维数">
+<header class="page-head">
+  <span class="det-eyebrow">§3.6</span>
+  <h1>矩阵的秩</h1>
+  <p class="lede">矩阵的每一行、每一列都是向量。把 §3.5 的“秩”用到矩阵的行向量组和列向量组上，得到行秩与列秩；本节最核心的结论是二者相等。由此得到矩阵的秩，它把第二章的初等变换、相抵标准型、可逆矩阵和第一章的行列式联系在一起。</p>
+  <div class="meta-row"><span class="pill acc">建议 3 学时</span><span class="pill">教材第 138–146 页</span><span class="pill">关键词：行秩 = 列秩、子式</span></div>
+  <ul class="goals">
+    <li>理解行秩、列秩的定义，以及“初等变换不改变行秩与列秩”的证明</li>
+    <li>掌握行秩 = 列秩；会用初等变换化阶梯形求秩</li>
+    <li>掌握秩的一系列推论：标准形、转置、非异阵、相抵的秩判据</li>
+    <li>理解 \(r\) 阶子式与“秩 = 非零子式的最高阶数”</li>
+    <li>会求向量组的秩与极大无关组，会判断向量组的线性相关性</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下</span><p>§3.5 定义了向量组的秩，但要找出极大无关组才知道秩，没有现成的算法。另一方面，第二章的相抵标准型定理 2.4.1 中出现了一个整数 \(r\)，当时只说“\(r\) 唯一确定，第三章证明”。</p><p class="bq">本节一次回答两件事：向量组的秩怎么算？相抵标准型里的 \(r\) 到底是什么？</p></div>
+
+<h2>一、行秩与列秩</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>一个 \(m\times n\) 矩阵 \(A\) 可以看成 \(m\) 个行向量（属于 \(\mathbb K^n\)），也可以看成 \(n\) 个列向量（属于 \(\mathbb K_m\)）。行向量组中真正独立的行的个数，衡量“方程组中真正独立的方程有几个”；列向量组中独立的列的个数，衡量“有几个未知量（变量）提供了独立的信息”。</p>
+  <p><b>目的</b>：用 §3.5 的理论给矩阵定义两个数，再找出它们的关系。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.6.1<em>行秩与列秩</em></span>
+  <p>设 \(A\) 是 \(m\times n\) 矩阵。\(A\) 的 \(m\) 个行向量组成的向量组的秩称为 \(A\) 的<b>行秩</b>；\(A\) 的 \(n\) 个列向量组成的向量组的秩称为 \(A\) 的<b>列秩</b>。</p>
+</div>
+<div class="box note"><span class="tag">注</span><p>行向量在 \(\mathbb K^n\) 中，列向量在 \(\mathbb K_m\) 中，是两个不同空间中的向量组，从定义上看行秩与列秩没有理由相等。下面将证明它们总是相等的——这是本节最核心的结论。</p></div>
+<div class="ex"><div class="ex-q"><div class="ex-h">先看一个例子</div><p>\(A=\begin{pmatrix}1&2&3\\2&4&6\end{pmatrix}\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">行：第二行是第一行的 2 倍，行秩 = 1。</div>
+    <div class="st">列：\((2,4)'=2(1,2)'\)，\((3,6)'=3(1,2)'\)，列秩 = 1。</div>
+    <div class="st">行向量在 \(\mathbb K^3\) 中，列向量在 \(\mathbb K_2\) 中，可两个数却相等。这是巧合吗？</div>
+  </div>
+</div>
+<div class="widget" data-widget="rankview" data-t="行秩、列秩与子式" data-d="同时看一个矩阵的行向量组和列向量组：分别找出极大无关组，再列出最高阶的非零子式。改动矩阵中的数字，三个数总是一起变化。"></div>
+
+<h2>二、初等变换不改变行秩与列秩</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>回忆消元法：方程组的三种同解变换（交换两个方程、某个方程乘非零常数、某个方程的倍数加到另一个方程上）不改变解。由此可以猜想：初等行变换不改变“真正独立的方程个数”，也就是行秩；更进一步，初等变换或许也不改变列秩。</p>
+  <p><b>目的</b>：如果行秩、列秩在初等变换下都不变，就可以把矩阵化成相抵标准型来计算，而标准型的行秩、列秩一眼就能看出。</p>
+</div>
+<div class="box thm"><span class="tag">定理 3.6.1</span><p>矩阵的行秩与列秩在初等变换下均保持不变。</p></div>
+<details class="proof"><summary>证明（分两步）</summary><div class="dbody">
+  <p>由于转置把行变换变成列变换，行秩变成列秩，只需证明初等行变换不改变行秩和列秩。</p>
+  <p><b>第一步：初等行变换不改变行秩。</b>设 \(A\) 的行向量为 \(\alpha_1,\dots,\alpha_m\)。交换两行，行向量组不变；第 \(i\) 行乘非零常数 \(k\)，\(\alpha_i=\frac1k(k\alpha_i)\)，新旧向量组可以互相表示；第 \(i\) 行的 \(k\) 倍加到第 \(j\) 行，\(\alpha_j=(-k)\alpha_i+(k\alpha_i+\alpha_j)\)，新旧向量组也可以互相表示。三种情形下新旧行向量组都等价，由定理 3.5.2，行秩不变。</p>
+  <p><b>第二步：初等行变换不改变列秩。</b>做一次初等行变换相当于左乘一个初等矩阵 \(Q\)。设 \(A=(\beta_1,\dots,\beta_n)\)，则 \(QA=(Q\beta_1,\dots,Q\beta_n)\)。设 \(\beta_{j_1},\dots,\beta_{j_r}\) 是 \(A\) 的列向量的极大无关组。</p>
+  <ul>
+    <li>\(Q\beta_{j_1},\dots,Q\beta_{j_r}\) 线性无关：若 \(\sum c_iQ\beta_{j_i}=\mathbf 0\)，左乘 \(Q^{-1}\) 得 \(\sum c_i\beta_{j_i}=\mathbf 0\)，于是 \(c_i=0\)。</li>
+    <li>任一 \(Q\beta_j\) 可由它们表示：\(\beta_j=\sum\mu_i\beta_{j_i}\Rightarrow Q\beta_j=\sum\mu_iQ\beta_{j_i}\)。</li>
+  </ul>
+  <p>所以 \(Q\beta_{j_1},\dots,Q\beta_{j_r}\) 是 \(QA\) 列向量的极大无关组，列秩仍为 \(r\)。</p>
+</div></details>
+<div class="box prop"><span class="tag">推论 3.6.1<em>行秩 = 列秩</em></span>
+  <p>任一矩阵的行秩等于其列秩。</p>
+  <p class="small">证明：由定理 2.4.1，\(A\) 经初等变换可化为相抵标准型 \(\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\)，它的行秩和列秩都是 \(r\)。由定理 3.6.1，\(A\) 的行秩与列秩也都是 \(r\)。</p>
+</div>
+<div class="box def"><span class="tag">定义<em>矩阵的秩</em></span><p>矩阵 \(A\) 的行秩（= 列秩）称为 \(A\) 的<b>秩</b>，记作 \(\mathrm r(A)\) 或 \(\mathrm{rank}(A)\)。显然 \(\mathrm r(A)\le\min(m,n)\)，\(\mathrm r(O)=0\)。</p></div>
+<div class="box idea"><span class="tag">回到第二章</span>
+  <p>相抵标准型里的 \(r\) 就是 \(\mathrm r(A)\)。由于秩是由 \(A\) 本身决定的数，不管用什么方法化相抵标准型，\(r\) 总是同一个——这正是定理 2.4.1 中“\(r\) 唯一确定”的证明。</p>
+</div>
+<div class="box prop"><span class="tag">推论 3.6.2</span><p>设 \(Q\) 是 \(m\) 阶非异阵，若 \(A\) 的第 \(j_1,\dots,j_r\) 列是 \(A\) 列向量的极大无关组，则 \(QA\) 的第 \(j_1,\dots,j_r\) 列是 \(QA\) 列向量的极大无关组。</p><p class="small">即：<b>初等行变换不改变列向量之间的线性关系</b>。这是下面用行变换找列向量极大无关组的依据。</p></div>
+
+<h2>三、用阶梯形求秩</h2>
+<div class="box prop"><span class="tag">命题 3.6.1<em>阶梯形矩阵的秩</em></span>
+  <p>若 \(A\) 是阶梯形矩阵，则 \(\mathrm r(A)\) 等于 \(A\) 的非零行数；且阶梯点（各非零行第一个非零元）所在的列向量构成 \(A\) 列向量的一个极大无关组。</p>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>设 \(A\) 有 \(r\) 个非零行。用阶梯点做第三类初等列变换，可把非零行中其余元素消成零，再交换列、乘以常数，化为 \(\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\)，所以 \(\mathrm r(A)=r\)。阶梯点所在的 \(r\) 列组成的 \(m\times r\) 矩阵，用同样的方法可以化为 \(\begin{pmatrix}I_r\\O\end{pmatrix}\)，秩为 \(r\)，故这 \(r\) 列线性无关，是极大无关组。</p>
+</div></details>
+<div class="box idea"><span class="tag">求秩的基本算法</span>
+  <div class="eqs boxed"><span>\(A\)</span><span>\(\xrightarrow{\text{初等行变换}}\)</span><span>阶梯形 \(B\)</span><span>\(\Rightarrow\)</span><span>\(\mathrm r(A)=B\) 的非零行数</span></div>
+  <p>同时，\(B\) 的阶梯点所在的列号，就是 \(A\) 的列向量的一个极大无关组的列号（推论 3.6.2）。</p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.6.1</div><p>求 \(A=\begin{pmatrix}1&2&3&4\\-1&-1&-1&-1\\1&3&5&7\end{pmatrix}\) 的秩，并求列向量的一个极大无关组。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">第一行加到第二行，第一行的 \(-1\) 倍加到第三行：\(\begin{pmatrix}1&2&3&4\\0&1&2&3\\0&1&2&3\end{pmatrix}\)。</div>
+    <div class="st">第二行的 \(-1\) 倍加到第三行：\(\begin{pmatrix}1&2&3&4\\0&1&2&3\\0&0&0&0\end{pmatrix}\)。</div>
+    <div class="st">非零行有 2 行，\(\mathrm r(A)=2\)。阶梯点在第 1、2 列，所以 \(A\) 的第 1、2 列 \((1,-1,1)'\)，\((2,-1,3)'\) 是列向量的一个极大无关组。</div>
+  </div>
+</div>
+<div class="widget" data-widget="reduce" data-t="化阶梯形求秩" data-d="选“阶梯形”，一步一步看行变换。最后数非零行数就是秩；蓝框（主元）所在的列号，就是原矩阵列向量的一个极大无关组。"></div>
+
+<h2>四、秩的一系列推论</h2>
+<p>有了秩，第二章的很多结论都可以用一个数来表述：</p>
+<div class="stage-grid">
+  <div class="box prop"><span class="tag">推论 3.6.3<em>秩标准形</em></span><p>若 \(\mathrm r(A)=r\)，则存在非异阵 \(P,Q\)，使 \(PAQ=\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\)。</p></div>
+  <div class="box prop"><span class="tag">推论 3.6.4</span><p>\(\mathrm r(A')=\mathrm r(A)\)。</p><p class="small">转置把行秩变成列秩。</p></div>
+  <div class="box prop"><span class="tag">推论 3.6.5</span><p>\(P,Q\) 非异时，\(\mathrm r(PA)=\mathrm r(AQ)=\mathrm r(PAQ)=\mathrm r(A)\)。</p><p class="small">非异阵是初等矩阵的乘积。</p></div>
+  <div class="box prop"><span class="tag">推论 3.6.6</span><p>\(n\) 阶方阵 \(A\) 非异 \(\iff\) \(\mathrm r(A)=n\)（称为<b>满秩</b>）。</p><p class="small">满秩 ⇔ 行向量线性无关 ⇔ 列向量线性无关。所以非异阵也叫满秩阵。</p></div>
+  <div class="box prop"><span class="tag">推论 3.6.7</span><p>同型矩阵 \(A,B\) 相抵 \(\iff\) \(\mathrm r(A)=\mathrm r(B)\)。</p><p class="small">秩完全刻画了相抵等价类。</p></div>
+</div>
+<details class="proof"><summary>推论 3.6.6 的证明</summary><div class="dbody">
+  <p>若 \(A\) 非异，\(\mathrm r(A)=\mathrm r(AI_n)=\mathrm r(I_n)=n\)（推论 3.6.5）。反之若 \(\mathrm r(A)=n\)，则 \(A\) 的相抵标准型为 \(I_n\)，即 \(PAQ=I_n\)，于是 \(A=P^{-1}Q^{-1}\) 是非异阵。</p>
+</div></details>
+
+<h2>五、子式与秩</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>对 \(n\) 阶方阵，推论 3.6.6 加上第二章的结论给出：\(\mathrm r(A)=n\iff A\) 非异 \(\iff|A|\ne0\)。即“满秩”可以用一个行列式来判断。对一般的 \(m\times n\) 矩阵，能否也用行列式来判断秩？观察 \(PAQ=\mathrm{diag}(I_r,O)\)：它有一个 \(r\) 阶行列式 \(|I_r|=1\ne0\)，而任何 \(r+1\) 阶的“子行列式”都含一个零行，等于零。</p>
+  <p><b>目的</b>：把“行列式是否为零”推广到任意矩阵，用第一章的工具刻画秩。</p>
+</div>
+<div class="box def"><span class="tag">定义<em>\(k\) 阶子式</em></span>
+  <p>在 \(m\times n\) 矩阵 \(A\) 中任取 \(k\) 行、\(k\) 列，位于交叉处的元素按原来的相对位置组成的 \(k\) 阶行列式，称为 \(A\) 的一个 <b>\(k\) 阶子式</b>。</p>
+  <p class="small">例如 \(A=\begin{pmatrix}1&2&3&1&0\\-1&0&1&-2&4\\0&1&-3&5&7\end{pmatrix}\)，取第 1、2 行，第 1、3 列，得 2 阶子式 \(\begin{vmatrix}1&3\\-1&1\end{vmatrix}=4\)；取第 2、3 行，第 1、5 列，得 \(\begin{vmatrix}-1&4\\0&7\end{vmatrix}=-7\)。</p>
+</div>
+<div class="box thm"><span class="tag">定理 3.6.2<em>秩的子式刻画</em></span>
+  <p>\(\mathrm r(A)=r\) 的充分必要条件是：\(A\) 有一个 \(r\) 阶子式不等于零，且 \(A\) 的所有 \(r+1\) 阶子式都等于零。</p>
+  <p class="eq-txt">\(\mathrm r(A)=A\) 中非零子式的最高阶数</p>
+</div>
+<details class="proof"><summary>证明思路</summary><div class="dbody">
+  <p>设 \(\mathrm r(A)=r\)。取 \(r\) 个线性无关的行，组成 \(r\times n\) 矩阵 \(A_1\)，其秩为 \(r\)，故有 \(r\) 个线性无关的列；这 \(r\) 列组成的 \(r\) 阶方阵满秩，其行列式不为零，这就是 \(A\) 的一个非零 \(r\) 阶子式。任取 \(r+1\) 行，它们线性相关，所以从中任取 \(r+1\) 列组成的 \(r+1\) 阶方阵的行向量也线性相关（截短向量保持相关，§3.4 习题 12），行列式为零。</p>
+  <p>反之，若有非零 \(r\) 阶子式，所在的 \(r\) 行（截短后）线性无关，从而原来的 \(r\) 行线性无关，\(\mathrm r(A)\ge r\)；若 \(\mathrm r(A)\ge r+1\)，由上面的论证会有非零 \(r+1\) 阶子式，矛盾。</p>
+</div></details>
+<div class="box note"><span class="tag">注 · 两种算法的比较</span><p>子式刻画在理论上很有用（例如证明秩的不等式、讨论含参数矩阵的秩），但一个 \(m\times n\) 矩阵的 \(k\) 阶子式有 \(\binom mk\binom nk\) 个，逐个计算太费事。实际求秩时优先用初等变换化阶梯形。</p></div>
+
+<h2>六、秩的几个重要性质</h2>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.6.2 分块对角矩阵的秩</div><p>证明 \(\mathrm r\begin{pmatrix}A&O\\O&B\end{pmatrix}=\mathrm r(A)+\mathrm r(B)\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">设 \(\mathrm r(A)=r_1\)，\(\mathrm r(B)=r_2\)，存在非异阵 \(P_1,Q_1,P_2,Q_2\) 使 \(P_1AQ_1=\mathrm{diag}(I_{r_1},O)\)，\(P_2BQ_2=\mathrm{diag}(I_{r_2},O)\)。</div>
+    <div class="st">\(\begin{pmatrix}P_1&O\\O&P_2\end{pmatrix}\begin{pmatrix}A&O\\O&B\end{pmatrix}\begin{pmatrix}Q_1&O\\O&Q_2\end{pmatrix}=\begin{pmatrix}P_1AQ_1&O\\O&P_2BQ_2\end{pmatrix}\)，两侧的分块对角阵都非异。</div>
+    <div class="st">右边经过行、列对换可化为 \(\mathrm{diag}(I_{r_1+r_2},O)\)，所以秩为 \(r_1+r_2\)。</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.6.3 乘积的秩</div><p>证明 \(\mathrm r(AB)\le\min\{\mathrm r(A),\mathrm r(B)\}\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">设 \(B=(\beta_1,\dots,\beta_n)\)，则 \(AB=(A\beta_1,\dots,A\beta_n)\)。设 \(\beta_{j_1},\dots,\beta_{j_r}\) 是 \(B\) 列向量的极大无关组，\(r=\mathrm r(B)\)。</div>
+    <div class="st">\(\beta_j=\sum\mu_i\beta_{j_i}\Rightarrow A\beta_j=\sum\mu_iA\beta_{j_i}\)，所以 \(AB\) 的列向量都可由 \(r\) 个向量 \(A\beta_{j_1},\dots,A\beta_{j_r}\) 表示，\(\mathrm r(AB)\le r=\mathrm r(B)\)。</div>
+    <div class="st">再由 \(\mathrm r(AB)=\mathrm r(B'A')\le\mathrm r(A')=\mathrm r(A)\)。</div>
+    <div class="st">直观理解：<b>矩阵相乘不会凭空增加独立的信息。</b></div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.6.4 幂等矩阵</div><p>设 \(A\) 是 \(n\) 阶方阵，证明 \(A^2=A\iff\mathrm r(A)+\mathrm r(I_n-A)=n\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st">对分块矩阵做分块初等变换（不改变秩）：\(\begin{pmatrix}A&O\\O&I-A\end{pmatrix}\to\begin{pmatrix}A&A\\O&I-A\end{pmatrix}\)（第一列加到第二列）。</div>
+    <div class="st">\(\to\begin{pmatrix}A&A\\A&I\end{pmatrix}\)（第一行加到第二行）\(\to\begin{pmatrix}A-A^2&O\\A&I\end{pmatrix}\)（第二行左乘 \(-A\) 加到第一行）。</div>
+    <div class="st">\(\to\begin{pmatrix}A-A^2&O\\O&I\end{pmatrix}\)（第二列右乘 \(-A\) 加到第一列）。</div>
+    <div class="st">由例 3.6.2：\(\mathrm r(A)+\mathrm r(I-A)=\mathrm r(A-A^2)+n\)。所以 \(\mathrm r(A)+\mathrm r(I-A)=n\iff\mathrm r(A-A^2)=0\iff A^2=A\)。</div>
+  </div>
+</div>
+<div class="box stat"><span class="tag">统计视角 · 投影矩阵</span>
+  <p>回归分析中的帽子矩阵 \(H=X(X'X)^{-1}X'\) 满足 \(H^2=H\)（幂等），残差矩阵 \(I-H\) 也幂等。由例 3.6.4，\(\mathrm r(H)+\mathrm r(I-H)=n\)。以后会知道 \(\mathrm r(H)=p\)（参数个数），于是 \(\mathrm r(I-H)=n-p\)，这正是残差平方和的<b>自由度</b>。</p>
+</div>
+
+<h2>七、向量组的秩与线性相关性的计算</h2>
+<p>有了矩阵的秩，\(\mathbb K^n\) 中向量组的秩就有了机械的算法：</p>
+<ol class="flow">
+  <li>把向量作为列向量排成矩阵 \(A\)（或作为行向量排成矩阵）；</li>
+  <li>用初等<b>行</b>变换把 \(A\) 化为阶梯形；</li>
+  <li>非零行数就是向量组的秩；阶梯点所在的列，对应的原向量构成一个极大无关组。</li>
+</ol>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.6.5</div><p>求向量组 \(\{(1,0,2),(2,-1,3),(3,-2,4),(4,-3,5)\}\) 的秩及一个极大无关组。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">按列排成 \(A=\begin{pmatrix}1&2&3&4\\0&-1&-2&-3\\2&3&4&5\end{pmatrix}\)。</div>
+    <div class="st">第一行的 \(-2\) 倍加到第三行，再第二行的 \(-1\) 倍加到第三行：\(\begin{pmatrix}1&2&3&4\\0&-1&-2&-3\\0&0&0&0\end{pmatrix}\)。</div>
+    <div class="st">秩为 2，阶梯点在第 1、2 列，所以 \(\{(1,0,2),(2,-1,3)\}\) 是一个极大无关组。</div>
+  </div>
+</div>
+<div class="box idea"><span class="tag">判断线性相关性</span>
+  <p class="eq-txt">\(m\) 个向量线性无关 \(\iff\) 以它们为列（行）的矩阵的秩 \(=m\)</p>
+  <p>特别地，\(n\) 个 \(n\) 维向量线性无关 \(\iff\) 以它们为行（列）的行列式不为零。</p>
+</div>
+<div class="w-grid">
+  <div class="ex"><div class="ex-q"><div class="ex-h">例 3.6.6</div><p>判断 \((-1,3,1),(2,1,0),(1,4,1)\) 的线性相关性。</p></div>
+    <div class="sol" data-steps><div class="st">按行排列并消元：\(\begin{pmatrix}-1&3&1\\2&1&0\\1&4&1\end{pmatrix}\to\begin{pmatrix}-1&3&1\\0&7&2\\0&7&2\end{pmatrix}\to\begin{pmatrix}-1&3&1\\0&7&2\\0&0&0\end{pmatrix}\)。</div><div class="st">秩为 2 \(\lt3\)，线性相关（与习题 3.4 第 1(1) 题的结论一致）。</div></div></div>
+  <div class="ex"><div class="ex-q"><div class="ex-h">例 3.6.7</div><p>判断 \((1,2,-1),(0,2,2),(2,1,3)\) 的线性相关性。</p></div>
+    <div class="sol" data-steps><div class="st">3 个 3 维向量，计算行列式：\(\begin{vmatrix}1&2&-1\\0&2&2\\2&1&3\end{vmatrix}=1\cdot4-2\cdot(-4)+(-1)\cdot(-4)=16\)。</div><div class="st">\(16\ne0\)，线性无关。</div></div></div>
+</div>
+<div class="widget" data-widget="lindep" data-t="用秩判断线性相关性" data-d="输入一组向量，看它们排成的矩阵化阶梯形后的非零行数：秩等于向量个数时线性无关，否则线性相关并给出一组非零系数。"></div>
+
+<div class="box stat"><span class="tag">统计视角 · 设计矩阵的秩</span>
+  <ul>
+    <li>设计矩阵 \(X\)（\(n\times p\)）的秩 \(\mathrm r(X)\) = 独立解释变量的个数；\(\mathrm r(X)=p\) 称为<b>列满秩</b>，这是最小二乘估计唯一存在的条件。</li>
+    <li>由例 3.6.3，\(\mathrm r(X'X)\le\mathrm r(X)\)。当 \(X\) 列不满秩（完全多重共线性）时，\(p\) 阶方阵 \(X'X\) 不满秩，从而不可逆，正规方程 \(X'X\beta=X'y\) 的解不唯一。（事实上 \(\mathrm r(X'X)=\mathrm r(X)\)，以后会证明。）</li>
+    <li>在虚拟变量陷阱中，截距列 = 各虚拟变量列之和，列向量组线性相关，\(\mathrm r(X)\lt p\)。</li>
+  </ul>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>行秩与列秩<b>不是</b>定义上相等，是定理（推论 3.6.1）证明的结论。</li>
+    <li>求列向量的极大无关组时<b>只能用初等行变换</b>（推论 3.6.2）；用了列变换，列的位置和线性关系都会改变。</li>
+    <li>阶梯点所在的列是<b>原矩阵</b>对应的列构成极大无关组，不是阶梯形矩阵的那些列。</li>
+    <li>\(\mathrm r(A)=r\) 不是说所有 \(r\) 阶子式都非零，而是<b>至少有一个</b>；也不是只要求 \(r+1\) 阶的某一个为零，而是<b>全部</b>为零。</li>
+    <li>\(\mathrm r(AB)\le\min\{\mathrm r(A),\mathrm r(B)\}\)，一般不相等；但与非异阵相乘秩不变。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="3"><div class="qt">\(\mathrm r\begin{pmatrix}1&2&0\\0&1&1\\-1&2&3\end{pmatrix}=\)？<span class="tiny muted">（习题 3.6 第 1(1) 题）</span></div><div class="explain">行列式 \(=1\cdot(3-2)-2\cdot(0+1)+0=-1\ne0\)，满秩，秩为 3。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">\(\mathrm r\begin{pmatrix}1&2&3\\0&-1&-1\\3&4&7\end{pmatrix}=\)？<span class="tiny muted">（习题 3.6 第 1(2) 题）</span></div><div class="explain">第三行 \(=3\times\)第一行 \(+2\times\)第二行，行列式为 0；前两行线性无关，秩为 2。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">\(\mathrm r\begin{pmatrix}-1&2&1&0\\1&-2&-1&0\\-1&0&1&1\\-2&0&2&2\end{pmatrix}=\)？<span class="tiny muted">（习题 3.6 第 1(4) 题）</span></div><div class="explain">第二行 = −第一行，第四行 = 2 × 第三行；第一、三行不成比例，秩为 2。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">\(\alpha_1=(1,2,3,4),\ \alpha_2=(2,3,4,5),\ \alpha_3=(3,4,5,6),\ \alpha_4=(4,5,6,7)\) 的秩与一个极大无关组是：<span class="tiny muted">（习题 3.6 第 4 题）</span></div><ol class="opts"><li>秩 4，全体</li><li>秩 2，\(\{\alpha_1,\alpha_2\}\)</li><li>秩 3，\(\{\alpha_1,\alpha_2,\alpha_3\}\)</li><li>秩 1，\(\{\alpha_1\}\)</li></ol><div class="explain">相邻两个之差都是 \((1,1,1,1)\)：\(\alpha_3=2\alpha_2-\alpha_1\)，\(\alpha_4=3\alpha_2-2\alpha_1\)；\(\alpha_1,\alpha_2\) 不成比例。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">向量组 \((1,2,3),(3,6,9),(2,1,1)\)：<span class="tiny muted">（习题 3.6 第 3(2) 题）</span></div><ol class="opts"><li>线性无关</li><li>秩为 1</li><li>线性相关，秩为 2</li><li>无法判断</li></ol><div class="explain">\((3,6,9)=3(1,2,3)\)，而 \((2,1,1)\) 与 \((1,2,3)\) 不成比例，秩 2，线性相关。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">设 \(A\) 是 \(3\times5\) 矩阵，\(\mathrm r(A)=2\)，则下列说法<b>错误</b>的是：</div><ol class="opts"><li>\(A\) 的所有 3 阶子式都为 0</li><li>\(A\) 的列向量组中有 3 个是多余的</li><li>\(A'\) 的秩为 2</li><li>\(A\) 的所有 2 阶子式都不为 0</li></ol><div class="explain">秩为 2 只说明<b>至少有一个</b> 2 阶子式非零。</div></div>
+</div>
+<details class="more"><summary>秩不等式（习题 3.6 第 5–9 题）提示</summary><div class="dbody">
+  <ul>
+    <li>\(\mathrm r(A\mid B)\le\mathrm r(A)+\mathrm r(B)\)：\((A\mid B)\) 的列向量可由 \(A,B\) 两个极大无关组的并表示。</li>
+    <li>\(\mathrm r(A+B)\le\mathrm r(A)+\mathrm r(B)\)：\(A+B\) 的列可由 \((A\mid B)\) 的列表示。</li>
+    <li>\(\mathrm r\begin{pmatrix}A&C\\O&B\end{pmatrix}\ge\mathrm r(A)+\mathrm r(B)\)：取 \(A,B\) 的非零最高阶子式拼成一个上三角分块的非零子式。</li>
+    <li>Sylvester 不等式 \(\mathrm r(AB)\ge\mathrm r(A)+\mathrm r(B)-n\)：仿照例 3.6.4，对 \(\begin{pmatrix}I_n&O\\O&AB\end{pmatrix}\) 做分块初等变换得到 \(\begin{pmatrix}I_n&B\\-A&O\end{pmatrix}\)。</li>
+    <li>\(A^2=I\iff\mathrm r(I+A)+\mathrm r(I-A)=n\)；\(\mathrm r(A)+\mathrm r(I+A)\ge n\)：都可用分块初等变换。</li>
+  </ul>
+</div></details>
+
+<h2>本节小结</h2>
+<div class="tw"><table class="t">
+  <tr><th>刻画</th><th>内容</th><th>用途</th></tr>
+  <tr><td>行秩 / 列秩</td><td>行（列）向量组的秩，二者相等</td><td>定义</td></tr>
+  <tr><td>阶梯形</td><td>非零行数；阶梯点所在列为极大无关组</td><td>计算</td></tr>
+  <tr><td>相抵标准形</td><td>\(PAQ=\mathrm{diag}(I_r,O)\)，相抵 ⇔ 同秩</td><td>分类</td></tr>
+  <tr><td>子式</td><td>非零子式的最高阶数</td><td>理论、含参数</td></tr>
+</table></div>
+<div class="bridge out"><span class="bk">走向下一节</span><p>到此为止，第三章的前半部分回答了“向量之间有多少独立的方向”。后半部分转向另一个问题：有了基以后，空间中的每个向量都可以唯一地用基表示——把表示的系数记下来，就是“坐标”。抽象的线性空间能否通过坐标完全转化为 \(\mathbb K^n\)？</p><a class="bn" href="#s3-7">→ §3.7 坐标向量</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>先用小例子让学生观察“行秩 = 列秩”，再讲证明；证明的关键是“行变换不改变列之间的线性关系”。</li>
+  <li>强调相抵标准型中 \(r\) 的唯一性在此得到证明，与第二章前后呼应。</li>
+  <li>例 3.6.4 的分块初等变换技巧是证明秩等式和秩不等式的常用方法，可配合习题 3.6 第 7–9 题。</li>
+</ul></div></details>
+</template>

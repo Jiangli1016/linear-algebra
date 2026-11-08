@@ -1,0 +1,74 @@
+<template data-chapter="3" data-route="c3-practice" data-num="练习" data-short="综合练习" data-group="收束">
+<header class="page-head">
+  <span class="det-eyebrow">综合练习</span>
+  <h1>第三章综合练习</h1>
+  <p class="lede">五组练习：概念辨析、计算、随机出题、证明与思考、统计应用。选择题点一下就判分；填空题支持整数、小数和 a/b 形式的分数。</p>
+</header>
+
+<h2>一、概念辨析</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="1"><div class="qt">在正实数集 \(\mathbb R^+\) 上定义 \(a\oplus b=ab\)，\(k\circ a=a^k\)，它构成实线性空间。它的零向量是：</div><ol class="opts"><li>0</li><li>1</li><li>\(\mathrm e\)</li><li>不存在</li></ol><div class="explain">零向量 \(\theta\) 要满足 \(a\oplus\theta=a\theta=a\)，所以 \(\theta=1\)。\(a\) 的负向量是 \(\frac1a\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">若向量组 \(\alpha_1,\dots,\alpha_m\)（\(m\ge2\)）线性相关，则：</div><ol class="opts"><li>每个向量都可由其余向量线性表示</li><li>其中一定含有零向量</li><li>至少有一个向量可由其余向量线性表示</li><li>\(\alpha_m\) 一定可由 \(\alpha_1,\dots,\alpha_{m-1}\) 线性表示</li></ol><div class="explain">定理 3.4.2。反例：\((1,0),(2,0),(0,1)\) 相关，但 \((0,1)\) 不能由前两个表示。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">设 \(V\) 是 \(n\) 维线性空间，下列说法<b>错误</b>的是：</div><ol class="opts"><li>\(V\) 中任意 \(n+1\) 个向量线性相关</li><li>\(V\) 中 \(n\) 个线性无关的向量构成一组基</li><li>\(V\) 中任意线性无关组都可扩张为一组基</li><li>\(V\) 中任意 \(n\) 个向量构成一组基</li></ol><div class="explain">\(n\) 个向量还必须线性无关（或能生成 \(V\)）。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">设 \(A\) 为 \(m\times n\) 矩阵，\(\mathrm r(A)=r\)。下列说法正确的是：</div><ol class="opts"><li>\(A\) 的列向量中存在 \(r\) 个线性无关的，任意 \(r+1\) 个都线性相关</li><li>\(A\) 的任意 \(r\) 个列向量线性无关</li><li>\(A\) 的所有 \(r\) 阶子式都不为零</li><li>\(A\) 经初等行变换化为阶梯形后，前 \(r\) 列就是极大无关组</li></ol><div class="explain">列秩 = \(r\)。极大无关组由阶梯点所在的列决定，不一定是前 \(r\) 列。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">\(V_1,V_2\) 是 \(V\) 的子空间，下列集合<b>一定</b>是子空间的是：</div><ol class="opts"><li>\(V_1\cup V_2\)</li><li>\(V_1\cap V_2\)</li><li>\(V\setminus V_1\)</li><li>\(\{\alpha+\beta:\alpha\in V_1,\beta\in V_2,\ \alpha\ne\mathbf 0\}\)</li></ol><div class="explain">交总是子空间。差集不含零向量；第 4 个集合在 \(V_1=\{\mathbf 0\}\) 时是空集。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">设从基 \(e\) 到基 \(f\) 的过渡矩阵为 \(A\)，向量 \(\alpha\) 在 \(e\) 下的坐标为 \(x\)，则 \(\alpha\) 在 \(f\) 下的坐标为：</div><ol class="opts"><li>\(Ax\)</li><li>\(A'x\)</li><li>\(A^{-1}x\)</li><li>\((A')^{-1}x\)</li></ol><div class="explain">\(x=Ay\)，所以 \(y=A^{-1}x\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(\gamma\) 是 \(Ax=\beta\)（\(\beta\ne\mathbf 0\)）的一个解，\(\eta_1,\eta_2\) 是导出组的基础解系。下列<b>不是</b> \(Ax=\beta\) 的一般解的是：</div><ol class="opts"><li>\(\gamma+k_1\eta_1+k_2\eta_2\)</li><li>\(\gamma+\eta_1+k_1\eta_1+k_2\eta_2\)</li><li>\(\gamma+k_1(\eta_1+\eta_2)+k_2(\eta_1-\eta_2)\)</li><li>\(k_1\gamma+k_2\eta_1+\eta_2\)</li></ol><div class="explain">\(\gamma+\eta_1\) 也是特解；\(\eta_1\pm\eta_2\) 也是基础解系。第 4 个当 \(k_1\ne1\) 时不是解。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">把 \(\mathbb C^2\) 看作实数域上的线性空间，维数是：</div><ol class="opts"><li>4</li><li>2</li><li>1</li><li>无限</li></ol><div class="explain">一组基 \((1,0),(\mathrm i,0),(0,1),(0,\mathrm i)\)。</div></div>
+</div>
+
+<h2>二、计算</h2>
+<div class="quiz">
+  <div class="fill" data-ans="2"><div class="qt">\(\mathrm r\begin{pmatrix}1&2&3&4\\2&3&4&5\\3&4&5&6\end{pmatrix}=\)？</div><div class="explain">第二行减第一行、第三行减第二行都得 \((1,1,1,1)\)，所以第三行 \(=2\times\)第二行 \(-\) 第一行；前两行不成比例，秩为 2。</div></div>
+  <div class="fill" data-ans="4"><div class="qt">\(\mathrm r\begin{pmatrix}1&2&3&4\\2&3&4&1\\3&4&1&2\\4&1&2&3\end{pmatrix}=\)？<span class="tiny muted">（习题 3.6 第 1(3) 题）</span></div><div class="explain">化阶梯形得 4 个非零行（行列式 \(=160\ne0\)），满秩。</div></div>
+  <div class="fill" data-ans="-2"><div class="qt">\((1,1,a),(1,a,1),(a,1,1)\) 线性相关时，\(a=1\) 或 \(a=\)？<span class="tiny muted">（习题 3.4 第 2 题）</span></div><div class="explain">行列式 \(=-(a-1)^2(a+2)\)，所以 \(a=1\) 或 \(a=-2\)。</div></div>
+  <div class="fill" data-ans="8"><div class="qt">\(\{A\in M_3(\mathbb R):\mathrm{tr}\,A=0\}\) 的维数是？</div><div class="explain">一个独立的线性约束 \(a_{11}+a_{22}+a_{33}=0\)，维数 \(9-1=8\)。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">在 \(\mathbb R^5\) 中，\(\dim V_1=3\)，\(\dim V_2=4\)，\(V_1+V_2=\mathbb R^5\)，则 \(\dim(V_1\cap V_2)=\)？</div><div class="explain">\(3+4-5=2\)。</div></div>
+  <div class="fill" data-ans="-2"><div class="qt">\(x^2\) 在 \(\mathbb R_2[x]\) 的基 \(\{1,\ x+1,\ (x+1)^2\}\) 下的第二个坐标是？</div><div class="explain">\(x^2=\big((x+1)-1\big)^2=(x+1)^2-2(x+1)+1\)，坐标为 \((1,-2,1)'\)。</div></div>
+  <div class="fill" data-ans="-2"><div class="qt">\(\mathbb R_1[x]\) 中从基 \(\{1,x\}\) 到基 \(\{1+x,\ 1-x\}\) 的过渡矩阵的行列式是？</div><div class="explain">\(A=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\)（新基的系数排成列），\(|A|=-2\ne0\)，所以 \(\{1+x,1-x\}\) 确实是基。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">\(\begin{cases}x_1+x_2+x_3+x_4=0\\x_1+2x_2+3x_3+4x_4=0\end{cases}\) 的解空间的维数是？</div><div class="explain">\(\mathrm r(A)=2\)，\(n-r=4-2=2\)。一个基础解系：\((1,-2,1,0)',(2,-3,0,1)'\)。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">\(\begin{cases}x_1+2x_2=1\\2x_1+4x_2=\lambda\end{cases}\) 有解时 \(\lambda=\)？</div><div class="explain">\(\mathrm r(A)=1\)，有解需 \(\mathrm r(\widetilde A)=1\)，即第二个方程是第一个的 2 倍，\(\lambda=2\)。此时有无穷多解。</div></div>
+  <div class="fill" data-ans="1"><div class="qt">\(\mathbb R^2\) 中 \(\alpha=(2,3)'\) 在基 \(f_1=(1,1)',\ f_2=(0,1)'\) 下的第二个坐标是？</div><div class="explain">\(2f_1+1\cdot f_2=(2,3)'\)，坐标 \((2,1)'\)。</div></div>
+</div>
+
+<h2>三、随机出题</h2>
+<div class="widget" data-widget="drill3" data-t="无限练习" data-d="每次随机生成一道题：求矩阵的秩、齐次方程组解空间的维数，或向量在一组基下的坐标。先自己算，再检查；做错了点“看解答”。"></div>
+<p>更多分步练习，可以回到各节的实验中：<a href="#s3-5">§3.5 极大无关组</a>、<a href="#s3-6">§3.6 行秩与列秩</a>、<a href="#s3-8">§3.8 过渡矩阵</a>、<a href="#s3-9">§3.9 和与交</a>、<a href="#s3-10">§3.10 解的结构</a>。</p>
+
+<h2>四、证明与思考</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="1"><div class="qt">\(\alpha_1,\alpha_2,\alpha_3\) 线性无关，则 \(\alpha_1+\alpha_2,\ \alpha_2+\alpha_3,\ \alpha_3-\alpha_1\)：</div><ol class="opts"><li>线性无关</li><li>线性相关</li><li>秩为 1</li><li>与 \(\alpha_i\) 的取法有关</li></ol><div class="explain">\((\alpha_1+\alpha_2)-(\alpha_2+\alpha_3)+(\alpha_3-\alpha_1)=\mathbf 0\)。也可看坐标矩阵的行列式 \(\begin{vmatrix}1&1&0\\0&1&1\\-1&0&1\end{vmatrix}=0\)。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">\(A\) 为 \(m\times n\) 矩阵，\(\mathrm r(A)=n\)（列满秩），\(B\) 为 \(n\times p\) 矩阵，则 \(\mathrm r(AB)\)：</div><ol class="opts"><li>\(=\mathrm r(A)\)</li><li>\(\lt\mathrm r(B)\)</li><li>\(=\mathrm r(B)\)</li><li>不能确定</li></ol><div class="explain">\(ABx=\mathbf 0\iff Bx=\mathbf 0\)（因 \(Ay=\mathbf 0\) 只有零解），两个齐次方程组同解，解空间维数相同，\(p-\mathrm r(AB)=p-\mathrm r(B)\)。</div></div>
+  <div class="mcq" data-ans="0"><div class="qt">\(A\) 是 \(n\) 阶方阵，\(A^2=O\)，则：</div><ol class="opts"><li>\(\mathrm r(A)\le\frac n2\)</li><li>\(A=O\)</li><li>\(\mathrm r(A)=\frac n2\)</li><li>\(A\) 可逆</li></ol><div class="explain">\(A\) 的列都在 \(Ax=\mathbf 0\) 的解空间中，所以 \(\mathrm r(A)\le n-\mathrm r(A)\)。例如 \(\begin{pmatrix}0&1\\0&0\end{pmatrix}\ne O\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">三个子空间 \(V_1,V_2,V_3\) 满足 \(V_1\cap V_2=V_2\cap V_3=V_1\cap V_3=\{\mathbf 0\}\)，则 \(V_1+V_2+V_3\)：</div><ol class="opts"><li>一定是直和</li><li>一定不是直和</li><li>是直和当且仅当 \(V\) 是 3 维的</li><li>不一定是直和</li></ol><div class="explain">平面上三条不同的过原点直线两两交为零，但不是直和；三条坐标轴是直和。</div></div>
+</div>
+<details class="more"><summary>证明题 1：\(\mathrm r(A'A)=\mathrm r(A)\)（\(A\) 为实矩阵）</summary><div class="dbody">
+  <p>设 \(A\) 是 \(m\times n\) 实矩阵。比较 \(Ax=\mathbf 0\) 与 \(A'Ax=\mathbf 0\) 的解：</p>
+  <ul>
+    <li>若 \(Ax=\mathbf 0\)，则 \(A'Ax=\mathbf 0\)；</li>
+    <li>若 \(A'Ax=\mathbf 0\)，则 \(x'A'Ax=(Ax)'(Ax)=\|Ax\|^2=0\)，实向量的平方和为零只能是零向量，所以 \(Ax=\mathbf 0\)。</li>
+  </ul>
+  <p>两个方程组同解，解空间维数相同：\(n-\mathrm r(A'A)=n-\mathrm r(A)\)。</p>
+  <p class="small">统计意义：\(X'X\) 可逆 \(\iff\mathrm r(X'X)=p\iff\mathrm r(X)=p\iff X\) 列满秩（没有完全共线性）。这里“实”不能去掉：复矩阵 \(A=(1,\mathrm i)'\) 有 \(A'A=1+\mathrm i^2=0\)。</p>
+</div></details>
+<details class="more"><summary>证明题 2：\(\mathrm r(A+B)\le\mathrm r(A)+\mathrm r(B)\)</summary><div class="dbody">
+  <p>设 \(A,B\) 的列向量分别为 \(\alpha_j,\beta_j\)，极大无关组分别为 \(\{\alpha_{i_1},\dots,\alpha_{i_r}\}\)，\(\{\beta_{j_1},\dots,\beta_{j_s}\}\)。\(A+B\) 的第 \(j\) 列 \(\alpha_j+\beta_j\) 可由这 \(r+s\) 个向量表示，所以 \(A+B\) 的列向量组的秩 \(\le r+s\)（替换引理）。</p>
+</div></details>
+<details class="more"><summary>思考题：同解的两个方程组</summary><div class="dbody">
+  <p>若 \(m\times n\) 矩阵 \(A\) 与 \(k\times n\) 矩阵 \(B\) 满足：\(Ax=\mathbf 0\) 与 \(Bx=\mathbf 0\) 同解，那么 \(\mathrm r(A)=\mathrm r(B)\)，而且 \(A\) 与 \(B\) 的行向量组等价（习题 3.10 第 8 题的推广）。这说明：<b>齐次方程组的解空间完全由系数矩阵的行空间决定</b>，消元法就是在保持行空间不变的前提下化简方程组。</p>
+</div></details>
+
+<h2>五、统计应用</h2>
+<div class="quiz">
+  <div class="fill" data-ans="7"><div class="qt">线性回归中 \(n=10\) 个观测，设计矩阵 \(X\)（含截距列）为 \(10\times3\) 且列满秩，残差的自由度 \(n-\mathrm r(X)=\)？</div><div class="explain">残差 \(e\) 满足 \(X'e=\mathbf 0\)，即 3 个独立的线性约束，落在 \(10-3=7\) 维子空间中。</div></div>
+  <div class="mcq" data-ans="2"><div class="qt">一个分类变量有 3 个水平，回归中同时放入截距列和 3 个虚拟变量列 \(D_1,D_2,D_3\)（每个观测恰有一个 \(D_i=1\)），则：</div><ol class="opts"><li>\(X\) 列满秩</li><li>\(X'X\) 可逆</li><li>\(X\) 的列向量组线性相关，\(\mathrm r(X)=3\)</li><li>\(\mathrm r(X)=4\)</li></ol><div class="explain">\(D_1+D_2+D_3=\mathbf 1\)（截距列），4 列线性相关，秩为 3（“虚拟变量陷阱”）。去掉一个虚拟变量或截距即可。</div></div>
+  <div class="fill" data-ans="4"><div class="qt">5 个样本的离差 \(x_i-\bar x\)（\(i=1,\dots,5\)）组成的向量落在 \(\mathbb R^5\) 的几维子空间中？</div><div class="explain">满足一个约束 \(\sum(x_i-\bar x)=0\)，即在 \(x_1+\cdots+x_5=0\) 的解空间中，维数 \(5-1=4\)。这就是样本方差除以 \(n-1\) 的原因。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">设计矩阵 \(X\) 列不满秩时，正规方程 \(X'X\beta=X'y\) 的解：</div><ol class="opts"><li>不存在</li><li>有无穷多个，彼此相差 \(X\eta=\mathbf 0\) 的解</li><li>唯一</li><li>只有零解</li></ol><div class="explain">正规方程总有解（可以证明 \(X'y\) 在 \(X'X\) 的列空间中）；解集 = 特解 + \(\{\eta:X'X\eta=\mathbf 0\}=\{\eta:X\eta=\mathbf 0\}\)。各个解的拟合值 \(X\hat\beta\) 都相同。</div></div>
+  <div class="fill" data-ans="2"><div class="qt">单因素方差分析中 3 个组、共 12 个观测。\(\mathbb R^{12}\) 分解为“总均值方向”（1 维）、“组间”和“组内”三个子空间的直和，组内部分是 9 维，则组间部分是几维？</div><div class="explain">直和维数可加：\(12=1+\dim(\text{组间})+9\)，组间 2 维 = 组数 \(-1\)；组内 9 维 = \(n-\) 组数。这就是方差分析表中的自由度。</div></div>
+</div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>“概念辨析”适合课前 5 分钟的小测；“计算”与各节例题、习题对应，可布置为作业。</li>
+  <li>证明题 1（\(\mathrm r(A'A)=\mathrm r(A)\)）把秩、解空间和最小二乘联系起来，建议在习题课上讲。</li>
+  <li>“统计应用”一组可以作为与回归分析、方差分析课程衔接的讨论题。</li>
+</ul></div></details>
+</template>

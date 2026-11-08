@@ -1,0 +1,148 @@
+<template data-chapter="3" data-route="s3-7" data-num="§3.7" data-short="坐标向量" data-group="第四阶段 · 坐标与基变换">
+<header class="page-head">
+  <span class="det-eyebrow">§3.7</span>
+  <h1>坐标向量</h1>
+  <p class="lede">在解析几何中，建立坐标系以后，平面上的点与有序数对一一对应，几何问题就变成了代数计算。线性空间中引进基的目的，就是要在其中引进“坐标”：无论向量是多项式、矩阵还是函数，只要基固定了，它就可以用一列数来完全描述。</p>
+  <div class="meta-row"><span class="pill acc">建议 2 学时</span><span class="pill">教材第 147–153 页</span><span class="pill">关键词：坐标、同构</span></div>
+  <ul class="goals">
+    <li>理解基确定以后坐标的唯一性；掌握坐标与坐标向量</li>
+    <li>理解坐标运算与向量运算的一致性</li>
+    <li>掌握线性空间同构的定义与基本性质</li>
+    <li>理解任一 \(n\) 维线性空间都与 \(\mathbb K^n\) 同构；有限维空间由维数决定</li>
+    <li>会用坐标向量判断线性相关性、求向量组的秩</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下</span><p>前半章回答了“一组向量中有多少独立的方向”，得到了基与维数；§3.6 又给出了 \(\mathbb K^n\) 中向量组的秩的算法（化阶梯形）。但对多项式、矩阵等抽象线性空间中的向量，还没有直接的算法。</p><p class="bq">本节的想法：选一组基，把抽象向量换成一列数——坐标，从而把一切问题搬到 \(\mathbb K^n\) 中计算。</p></div>
+
+<h2>一、坐标</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>平面解析几何中，取定原点和两条坐标轴（即两个不共线的向量 \(\mathbf i,\mathbf j\)）后，每个向量都唯一地写成 \(x\mathbf i+y\mathbf j\)，有序数对 \((x,y)\) 就是它的坐标。在 \(n\) 维线性空间中，基 \(\{e_1,\dots,e_n\}\) 扮演坐标轴的角色。要使“坐标”有意义，首先必须保证<b>表示是唯一的</b>。</p>
+  <p><b>目的</b>：建立“向量 ↔ 有序数组”的一一对应，把抽象空间的计算转化为数组的计算。</p>
+</div>
+<div class="box prop"><span class="tag">引理 3.7.1<em>表示唯一</em></span>
+  <p>设 \(\{e_1,\dots,e_n\}\) 是 \(V\) 的一组基，若 \(a_1e_1+\cdots+a_ne_n=b_1e_1+\cdots+b_ne_n\)，则 \(a_i=b_i\)（\(i=1,\dots,n\)）。</p>
+  <p class="small">移项得 \((a_1-b_1)e_1+\cdots+(a_n-b_n)e_n=\mathbf 0\)，由 \(e_i\) 线性无关即得。（也可直接由定理 3.4.3 得出。）</p>
+</div>
+<div class="box def"><span class="tag">定义<em>坐标与坐标向量</em></span>
+  <p>设 \(\{e_1,\dots,e_n\}\) 是 \(V\) 的一组（有序的）基，\(\alpha\in V\) 唯一地表示为 \(\alpha=a_1e_1+a_2e_2+\cdots+a_ne_n\)，则称有序数组 \((a_1,a_2,\dots,a_n)\) 为 \(\alpha\) 在这组基下的<b>坐标</b>（或<b>坐标向量</b>），\(a_i\) 称为第 \(i\) 个坐标。常写成列向量：</p>
+  <div class="eqs"><span>\([\alpha]_e=\begin{pmatrix}a_1\\a_2\\\vdots\\a_n\end{pmatrix}\)，</span><span>\(\alpha=(e_1,\dots,e_n)\begin{pmatrix}a_1\\\vdots\\a_n\end{pmatrix}\)。</span></div>
+</div>
+<div class="box note"><span class="tag">注 · 坐标不是向量本身</span>
+  <ul>
+    <li>基是<b>有序</b>的：交换 \(e_1,e_2\) 的顺序，坐标的顺序也随之改变。</li>
+    <li>同一个向量在不同的基下一般有不同的坐标（下一节研究它们之间的关系）。要始终区分向量 \(\alpha\) 与坐标向量 \([\alpha]_e\)。</li>
+    <li>在 \(\mathbb K^n\) 的标准基 \(\{e_1,\dots,e_n\}\) 下，\(\alpha=(a_1,\dots,a_n)\) 的坐标就是它自己；这是“向量 = 坐标”的错觉的来源。</li>
+  </ul>
+</div>
+<div class="widget" data-widget="basis2d" data-t="斜坐标系中的坐标" data-d="拖动 f₁、f₂ 改变基，拖动 α 改变向量。背景网格就是这组基画出的“斜坐标纸”：α 的坐标就是沿 f₁、f₂ 方向各走几格。让 f₁、f₂ 共线时，坐标不再存在或不唯一。"></div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 · 多项式的坐标</div><p>在 \(\mathbb R_2[x]\) 中，求 \(p(x)=3+2x-x^2\) 分别在基 \(\{1,x,x^2\}\) 和 \(\{1,x-1,(x-1)^2\}\) 下的坐标。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">在基 \(\{1,x,x^2\}\) 下，坐标就是系数：\((3,2,-1)'\)。</div>
+    <div class="st">在基 \(\{1,x-1,(x-1)^2\}\) 下，按 \(x-1\) 的幂展开（Taylor 展开）：\(p(1)=4\)，\(p'(1)=2-2=0\)，\(\frac{p''(1)}2=-1\)。</div>
+    <div class="st">所以 \(p(x)=4+0\cdot(x-1)-(x-1)^2\)，坐标为 \((4,0,-1)'\)。同一个向量，两组基下坐标不同。</div>
+  </div>
+</div>
+<div class="widget" data-widget="polycoord" data-t="多项式在两组基下的坐标" data-d="改变多项式的系数或平移量 a，比较 p(x) 在 {1, x, x²} 和 {1, x−a, (x−a)²} 下的坐标；后者就是 p 在 x = a 处的 Taylor 系数。"></div>
+
+<h2>二、坐标与向量运算的一致性</h2>
+<p>设 \(\alpha=\sum a_ie_i\)，\(\beta=\sum b_ie_i\)，则</p>
+<div class="eqs"><span>\(\alpha+\beta=\sum(a_i+b_i)e_i\)，</span><span>\(k\alpha=\sum(ka_i)e_i\)。</span></div>
+<div class="box idea"><span class="tag">坐标保持线性运算</span>
+  <div class="eqs boxed"><span>\([\alpha+\beta]_e=[\alpha]_e+[\beta]_e\)</span><span>\([k\alpha]_e=k[\alpha]_e\)</span></div>
+  <p>注意两边的“+”含义不同：左边是 \(V\) 中的加法（例如多项式相加），右边是 \(\mathbb K^n\) 中数组的加法。固定基以后，<b>抽象向量的加法和数乘完全可以转化为坐标的加法和数乘</b>。</p>
+</div>
+
+<h2>三、线性空间的同构</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p>取定基后，映射 \(\varphi:V\to\mathbb K^n\)，\(\varphi(\alpha)=[\alpha]_e\) 是一一对应（表示唯一，且任一数组都对应一个向量），并且保持加法与数乘。这样的映射说明：\(V\) 与 \(\mathbb K^n\) 虽然元素“长得不一样”，作为线性空间却“一模一样”。</p>
+  <p><b>目的</b>：把“两个线性空间结构相同”这件事抽象出来，给出严格的定义——同构。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.7.1<em>同构</em></span>
+  <p>设 \(V,U\) 是数域 \(\mathbb K\) 上的线性空间。若存在 \(V\) 到 \(U\) 的一一对应 \(\varphi\)，使得对任意 \(\alpha,\beta\in V\)，\(k\in\mathbb K\)：</p>
+  <div class="eqs"><span>\(\varphi(\alpha+\beta)=\varphi(\alpha)+\varphi(\beta)\)，</span><span>\(\varphi(k\alpha)=k\varphi(\alpha)\)，</span></div>
+  <p>则称 \(\varphi\) 是 \(V\) 到 \(U\) 的<b>同构映射</b>，称 \(V\) 与 \(U\) <b>同构</b>，记作 \(V\cong U\)。</p>
+</div>
+<div class="box thm"><span class="tag">定理 3.7.1</span><p>数域 \(\mathbb K\) 上任一 \(n\) 维线性空间都与 \(\mathbb K^n\) 同构。</p><p class="small">同构映射就是取坐标：\(\alpha\mapsto[\alpha]_e\)。</p></div>
+<div class="box thm"><span class="tag">定理 3.7.2<em>同构的基本性质</em></span>
+  <p>设 \(\varphi:V\to U\) 是同构映射，则：</p>
+  <ol>
+    <li>\(\varphi(\mathbf 0)=\mathbf 0\)；</li>
+    <li>\(\alpha_1,\dots,\alpha_m\) 线性相关（无关）\(\iff\) \(\varphi(\alpha_1),\dots,\varphi(\alpha_m)\) 线性相关（无关）；</li>
+    <li>同构关系是等价关系（反身、对称、传递）；</li>
+    <li>两个有限维线性空间同构 \(\iff\) 它们的维数相同。</li>
+  </ol>
+</div>
+<details class="proof"><summary>证明</summary><div class="dbody">
+  <p>(1) \(\varphi(\mathbf 0)=\varphi(\mathbf 0+\mathbf 0)=\varphi(\mathbf 0)+\varphi(\mathbf 0)\)，两边加上 \(-\varphi(\mathbf 0)\) 得 \(\varphi(\mathbf 0)=\mathbf 0\)。</p>
+  <p>(2) \(\sum k_i\varphi(\alpha_i)=\varphi(\sum k_i\alpha_i)\)。若 \(\sum k_i\alpha_i=\mathbf 0\)，则 \(\sum k_i\varphi(\alpha_i)=\varphi(\mathbf 0)=\mathbf 0\)；反之若 \(\varphi(\sum k_i\alpha_i)=\mathbf 0=\varphi(\mathbf 0)\)，由 \(\varphi\) 是单射得 \(\sum k_i\alpha_i=\mathbf 0\)。所以两组向量的线性关系完全相同。</p>
+  <p>(3) 恒等映射是 \(V\) 到自身的同构；同构映射的逆映射 \(\varphi^{-1}\) 也是同构：\(\varphi^{-1}(\xi+\eta)=\varphi^{-1}(\xi)+\varphi^{-1}(\eta)\)，两边用 \(\varphi\) 作用即可验证；两个同构映射的复合 \(\psi\varphi\) 仍是同构。</p>
+  <p>(4) 若 \(V\cong U\)，由 (2) \(\varphi\) 把 \(V\) 的基映为 \(U\) 中线性无关的向量，且 \(U\) 中任一 \(\xi=\varphi(\alpha)=\sum a_i\varphi(e_i)\)，所以 \(\varphi(e_i)\) 是 \(U\) 的基，维数相同。反之若 \(\dim V=\dim U=n\)，则 \(V\cong\mathbb K^n\cong U\)，由传递性 \(V\cong U\)。</p>
+</div></details>
+<div class="box idea"><span class="tag">本节最重要的思想</span>
+  <p>在同构意义下，数域 \(\mathbb K\) 上的有限维线性空间<b>只由维数决定</b>。\(\mathbb K^n\)（或列向量空间 \(\mathbb K_n\)）是所有 \(n\) 维线性空间的“模型”：</p>
+  <div class="eqs boxed"><span>\(\mathbb R_2[x]\)</span><span>\(\cong\)</span><span>\(\mathbb R^3\)</span><span>\(\cong\)</span><span>\(\{3\times3\) 反对称实矩阵\(\}\)</span></div>
+  <p>它们在线性运算上没有区别：一个空间中关于线性关系的结论，经过同构可以搬到另一个空间。</p>
+</div>
+
+<h2>四、用坐标计算</h2>
+<div class="box prop"><span class="tag">推论 3.7.1</span><p>设 \(V\) 是 \(n\) 维线性空间，\(\alpha_1,\dots,\alpha_m\in V\)，则向量组 \(\{\alpha_1,\dots,\alpha_m\}\) 的秩等于它们的坐标向量组的秩；它们的线性关系与坐标向量的线性关系相同。</p></div>
+<div class="box idea"><span class="tag">计算流程</span>
+  <ol class="flow">
+    <li>选一组方便的基，写出每个向量的坐标向量；</li>
+    <li>把坐标向量排成矩阵，化阶梯形（§3.6）；</li>
+    <li>由秩与阶梯点的位置，回到原来的向量得出结论。</li>
+  </ol>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 3.7.1</div><p>设 \(\{e_1,e_2,e_3\}\) 是 \(V\) 的一组基，\(\alpha_1=e_1+2e_2+3e_3\)，\(\alpha_2=2e_1-e_2-3e_3\)，\(\alpha_3=e_1-3e_2-6e_3\)。判断 \(\alpha_1,\alpha_2,\alpha_3\) 的线性相关性。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">坐标向量分别为 \((1,2,3),(2,-1,-3),(1,-3,-6)\)，排成矩阵 \(\begin{pmatrix}1&2&3\\2&-1&-3\\1&-3&-6\end{pmatrix}\)。</div>
+    <div class="st">消元：\(\to\begin{pmatrix}1&2&3\\0&-5&-9\\0&-5&-9\end{pmatrix}\to\begin{pmatrix}1&2&3\\0&-5&-9\\0&0&0\end{pmatrix}\)，秩为 2。</div>
+    <div class="st">所以 \(\alpha_1,\alpha_2,\alpha_3\) 线性相关。事实上 \(\alpha_3=\alpha_2-\alpha_1\)。</div>
+  </div>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 · 矩阵空间中的线性相关性</div><p>判断 \(A_1=\begin{pmatrix}1&1\\0&1\end{pmatrix}\)，\(A_2=\begin{pmatrix}0&1\\1&1\end{pmatrix}\)，\(A_3=\begin{pmatrix}1&0\\-1&0\end{pmatrix}\) 在 \(M_2(\mathbb R)\) 中是否线性相关。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">取基 \(\{E_{11},E_{12},E_{21},E_{22}\}\)，坐标向量为 \((1,1,0,1),(0,1,1,1),(1,0,-1,0)\)。</div>
+    <div class="st">观察：\((1,1,0,1)-(0,1,1,1)=(1,0,-1,0)\)，即 \(A_3=A_1-A_2\)，线性相关。（也可化阶梯形得秩为 2。）</div>
+  </div>
+</div>
+<div class="box stat"><span class="tag">统计视角 · 回归系数是坐标</span>
+  <p>二次回归 \(y\approx\beta_0+\beta_1x+\beta_2x^2\) 的拟合函数是 \(\mathbb R_2[x]\) 中的一个向量，回归系数 \((\beta_0,\beta_1,\beta_2)\) 是它在基 \(\{1,x,x^2\}\) 下的坐标。若把自变量<b>中心化</b>，改用基 \(\{1,x-\bar x,(x-\bar x)^2\}\)，拟合出的曲线不变，但系数（坐标）变了，而且通常共线性更弱、更易解释。正交多项式回归是换用另一组更好的基。<b>模型本身不依赖基，系数依赖基。</b></p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>说坐标必须先说<b>在哪组基下</b>，并且基是有序的。</li>
+    <li>\(\mathbb K^n\) 中向量在非标准基下的坐标一般<b>不是</b>它本身的分量。</li>
+    <li>同构映射必须是一一对应（既单又满），并且同时保持加法和数乘。</li>
+    <li>同构的两个空间必须在同一个数域上：\(\mathbb C\) 作为实线性空间与 \(\mathbb R^2\) 同构，作为复线性空间与 \(\mathbb C^1\) 同构。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">在 \(\mathbb R^3\) 中，\(\alpha=(1,2,3)\) 在基 \(f_1=(1,1,1),\ f_2=(1,1,0),\ f_3=(1,0,0)\) 下的坐标是：<span class="tiny muted">（习题 3.7 第 1 题，\(n=3\)）</span></div><ol class="opts"><li>\((1,2,3)'\)</li><li>\((1,1,1)'\)</li><li>\((3,-1,-1)'\)</li><li>\((3,2,1)'\)</li></ol><div class="explain">设 \(\alpha=x_1f_1+x_2f_2+x_3f_3=(x_1+x_2+x_3,\ x_1+x_2,\ x_1)\)，得 \(x_1=3\)，\(x_2=2-3=-1\)，\(x_3=1-2=-1\)。一般地坐标为 \((a_n,a_{n-1}-a_n,\dots,a_1-a_2)'\)。</div></div>
+  <div class="fill" data-ans="5"><div class="qt">在基 \(\{1,x-1,(x-1)^2\}\) 下，\(p(x)=x^2+3x+1\) 的第一个坐标（常数项）是？</div><div class="explain">第一个坐标是 \(p(1)=1+3+1=5\)；完整坐标为 \((5,5,1)'\)，因为 \(p'(1)=5\)，\(\frac{p''(1)}2=1\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">设 \(\alpha_1,\alpha_2,\alpha_3\) 线性无关，\(\beta_1=\alpha_1+\alpha_2,\ \beta_2=\alpha_2+\alpha_3,\ \beta_3=\alpha_3+\alpha_1\)。则 \(\beta_1,\beta_2,\beta_3\)：<span class="tiny muted">（习题 3.7 第 3 题，\(s=3\)）</span></div><ol class="opts"><li>线性相关</li><li>线性无关</li><li>与 \(\alpha_i\) 的取法有关</li><li>秩为 2</li></ol><div class="explain">以 \(\alpha_1,\alpha_2,\alpha_3\) 为基（在 \(L(\alpha_1,\alpha_2,\alpha_3)\) 中），坐标矩阵 \(\begin{vmatrix}1&1&0\\0&1&1\\1&0&1\end{vmatrix}=2\ne0\)，无关。一般地，\(s\) 为奇数时无关，偶数时相关（行列式 \(=1+(-1)^{s+1}\)）。</div></div>
+  <div class="fill" data-ans="3"><div class="qt">\(\alpha_1=e_1+e_2+e_3+3e_4,\ \alpha_2=-e_1-3e_2+5e_3+e_4,\ \alpha_3=3e_1+2e_2-e_3+4e_4,\ \alpha_4=-2e_1-6e_2+10e_3+2e_4\) 的秩是？<span class="tiny muted">（习题 3.7 第 4 题）</span></div><div class="explain">\(\alpha_4=2\alpha_2\)；\(\alpha_1,\alpha_2,\alpha_3\) 的坐标矩阵化阶梯形秩为 3，故秩 3，\(\{\alpha_1,\alpha_2,\alpha_3\}\) 是一个极大无关组。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">下列线性空间中，与 \(\mathbb R^4\) 同构的是：</div><ol class="opts"><li>\(\mathbb R_4[x]\)</li><li>3 阶实对称矩阵全体</li><li>\(\mathbb C^4\)（看作实线性空间）</li><li>2 阶实矩阵全体 \(M_2(\mathbb R)\)</li></ol><div class="explain">维数分别为 5、6、8、4。有限维空间同构 ⇔ 维数相同。</div></div>
+</div>
+<details class="more"><summary>证明题思路（习题 3.7 第 2、5 题）</summary><div class="dbody">
+  <p><b>2</b>　\(\{e_1,e_1+e_2,\dots,e_1+\cdots+e_n\}\) 在基 \(\{e_i\}\) 下的坐标矩阵是上三角阵，对角元全为 1，行列式为 1，所以这 \(n\) 个向量线性无关，构成一组基。</p>
+  <p><b>5</b>　\(a_1,\dots,a_n\) 互不相同时，\((1,a_i,a_i^2,\dots,a_i^{n-1})\)（\(i=1,\dots,n\)）排成的行列式是 Vandermonde 行列式，不为零，所以它们构成 \(\mathbb K^n\) 的一组基。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>基确定后，每个向量有唯一的坐标；坐标保持加法与数乘。</li>
+  <li>同构 = 保持线性运算的一一对应；任一 \(n\) 维空间 \(\cong\mathbb K^n\)；有限维空间同构 ⇔ 维数相同。</li>
+  <li>同构保持线性相关性和秩，所以抽象空间中的问题可以借助坐标化为矩阵计算。</li>
+</ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>坐标依赖于基的选取。上面多项式的例子中，同一个 \(p(x)\) 在两组基下的坐标分别是 \((3,2,-1)'\) 和 \((4,0,-1)'\)。换了一组基，坐标怎样随之变化？有没有一个矩阵把两组坐标联系起来？</p><a class="bn" href="#s3-8">→ §3.8 基变换与过渡矩阵</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>从解析几何的斜坐标系引入，再推广到多项式、矩阵空间，让学生体会“坐标化”的威力。</li>
+  <li>同构的概念是本章最重要的抽象之一，强调“结构相同”而不是“元素相同”。</li>
+  <li>推论 3.7.1 把抽象空间中的线性相关问题全部化为矩阵的秩，是后面计算的基本手段。</li>
+</ul></div></details>
+</template>

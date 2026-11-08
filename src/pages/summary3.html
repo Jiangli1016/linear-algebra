@@ -1,0 +1,220 @@
+<template data-chapter="3" data-route="c3-summary" data-num="小结" data-short="知识结构与易错点" data-group="收束">
+<header class="page-head">
+  <span class="det-eyebrow">本章小结</span>
+  <h1>知识结构与易错点</h1>
+  <p class="lede">第三章不是若干定义的堆积，而是逐步建立起一套完整的语言：抽象向量 → 线性关系 → 秩、基与维数 → 坐标 → 基变换 → 子空间 → 线性方程组的解空间。学完本章，应当能用这套语言重新解释第二章的所有计算。</p>
+</header>
+
+<h2>第三章知识结构总表</h2>
+<div class="tw"><table class="t l">
+  <tr><th>小节</th><th>核心问题</th><th>核心概念</th><th>最重要的结论</th></tr>
+  <tr><td><a href="#s3-1">§3.1</a></td><td>标量从哪里取？</td><td>数域</td><td>任一数域包含 \(\mathbb Q\)</td></tr>
+  <tr><td><a href="#s3-2">§3.2</a></td><td>最具体的向量是什么？</td><td>\(\mathbb K^n\)、加法、数乘</td><td>八条运算规则</td></tr>
+  <tr><td><a href="#s3-3">§3.3</a></td><td>什么对象都可以叫“向量”？</td><td>线性空间</td><td>八条公理；零向量、负向量唯一</td></tr>
+  <tr><td><a href="#s3-4">§3.4</a></td><td>向量之间有没有冗余？</td><td>线性组合、线性相关/无关</td><td>相关 ⇔ 某个可由其余表示；表示唯一 ⇔ 无关</td></tr>
+  <tr><td><a href="#s3-5">§3.5</a></td><td>有多少个独立方向？</td><td>极大无关组、秩、基、维数</td><td>替换引理；极大无关组等势；基扩张</td></tr>
+  <tr><td><a href="#s3-6">§3.6</a></td><td>矩阵含多少独立信息？</td><td>行秩、列秩、矩阵的秩、子式</td><td>行秩 = 列秩；秩 = 非零子式最高阶数</td></tr>
+  <tr><td><a href="#s3-7">§3.7</a></td><td>抽象向量怎样用数表示？</td><td>坐标、同构</td><td>\(n\) 维空间 \(\cong\mathbb K^n\)</td></tr>
+  <tr><td><a href="#s3-8">§3.8</a></td><td>换基后坐标怎样变？</td><td>过渡矩阵</td><td>\([\alpha]_e=A[\alpha]_f\)</td></tr>
+  <tr><td><a href="#s3-9">§3.9</a></td><td>空间内部有什么稳定结构？</td><td>子空间、交、和、生成、直和</td><td>维数公式；直和 ⇔ 分解唯一</td></tr>
+  <tr><td><a href="#s3-10">§3.10</a></td><td>方程组的全部解是什么结构？</td><td>基础解系、导出组</td><td>维数 \(n-r\)；特解 + 齐次通解</td></tr>
+</table></div>
+
+<h2>全章逻辑</h2>
+<ol class="flow v">
+  <li class="key">数域 \(\mathbb K\)</li><li class="arr">↓</li>
+  <li>\(\mathbb K^n\) 中的加法与数乘、八条规则</li><li class="arr">↓</li>
+  <li class="key">线性空间（抽象出八条公理）</li><li class="arr">↓</li>
+  <li>线性组合、线性相关与线性无关</li><li class="arr">↓</li>
+  <li>极大无关组 → 替换引理 → <b>秩</b></li><li class="arr">↓</li>
+  <li class="key">基与维数</li><li class="arr">↓</li>
+  <li>矩阵的行秩 = 列秩 = 秩（用于计算）</li><li class="arr">↓</li>
+  <li class="key">坐标：\(V\cong\mathbb K^n\)</li><li class="arr">↓</li>
+  <li>基变换与过渡矩阵</li><li class="arr">↓</li>
+  <li>子空间：交、和、生成、维数公式、直和</li><li class="arr">↓</li>
+  <li class="key">线性方程组：解空间（维数 \(n-r\)）+ 特解</li>
+</ol>
+
+<h2>新概念的动机一览</h2>
+<p>每个新概念都是为了回答一个具体的问题而提出的：</p>
+<div class="tw"><table class="t l">
+  <tr><th>概念</th><th>为了回答的问题</th></tr>
+  <tr><td>数域</td><td>运算结果要留在同一个数的范围内；讨论线性关系必须先说明数的范围</td></tr>
+  <tr><td>线性空间</td><td>多项式、矩阵、函数、随机变量都能做“加法与数乘”，能否用统一的理论处理？</td></tr>
+  <tr><td>线性相关</td><td>一组向量中有没有多余的（可以被其余表示的）向量？</td></tr>
+  <tr><td>极大无关组 / 秩</td><td>去掉冗余后还剩多少独立的信息？这个数与去法无关吗？</td></tr>
+  <tr><td>基 / 维数</td><td>描述整个空间最少需要几个方向？</td></tr>
+  <tr><td>矩阵的秩</td><td>向量组的秩怎样计算？相抵标准型中的 \(r\) 是什么？</td></tr>
+  <tr><td>子式</td><td>能否像方阵那样用行列式判断任意矩阵的秩？</td></tr>
+  <tr><td>坐标 / 同构</td><td>能否把抽象向量的计算化为数组的计算？</td></tr>
+  <tr><td>过渡矩阵</td><td>同一个向量在不同的基下，坐标之间有什么关系？</td></tr>
+  <tr><td>子空间 / 和 / 直和</td><td>空间内部哪些部分自己也是线性空间？它们如何组合、分解？</td></tr>
+  <tr><td>基础解系</td><td>无穷多个解能否用有限个解表示？</td></tr>
+</table></div>
+
+<h2>必须掌握的定义清单</h2>
+<p class="small muted">学生至少应能准确叙述下面每一个定义。</p>
+<ul class="checklist" data-widget="checklist" data-key="defs3">
+  <li><label><input type="checkbox"> 数域</label></li>
+  <li><label><input type="checkbox"> \(n\) 维行向量、列向量，\(\mathbb K^n\)</label></li>
+  <li><label><input type="checkbox"> 线性空间（八条公理）</label></li>
+  <li><label><input type="checkbox"> 零向量、负向量</label></li>
+  <li><label><input type="checkbox"> 线性组合、线性表示</label></li>
+  <li><label><input type="checkbox"> 线性相关、线性无关</label></li>
+  <li><label><input type="checkbox"> 向量族、向量组、极大线性无关组</label></li>
+  <li><label><input type="checkbox"> 向量组的秩、等价向量组</label></li>
+  <li><label><input type="checkbox"> 基、维数、有限维与无限维</label></li>
+  <li><label><input type="checkbox"> 行秩、列秩、矩阵的秩、满秩</label></li>
+  <li><label><input type="checkbox"> \(k\) 阶子式</label></li>
+  <li><label><input type="checkbox"> 坐标（坐标向量）</label></li>
+  <li><label><input type="checkbox"> 线性空间的同构</label></li>
+  <li><label><input type="checkbox"> 过渡矩阵</label></li>
+  <li><label><input type="checkbox"> 子空间、零子空间</label></li>
+  <li><label><input type="checkbox"> 子空间的交与和</label></li>
+  <li><label><input type="checkbox"> 生成子空间 \(L(S)\)</label></li>
+  <li><label><input type="checkbox"> 直和</label></li>
+  <li><label><input type="checkbox"> 齐次、非齐次线性方程组，导出组</label></li>
+  <li><label><input type="checkbox"> 解空间、基础解系</label></li>
+</ul>
+
+<h2>必须掌握的定理与公式</h2>
+<div class="w-grid">
+  <div class="box thm"><span class="tag">线性关系</span>
+    <ul>
+      <li>相关 ⇔ 至少一个向量可由其余表示</li>
+      <li>部分相关 ⇒ 整体相关；整体无关 ⇒ 部分无关</li>
+      <li>\(\alpha_1,\dots,\alpha_m\) 无关，加入 \(\beta\) 后相关 ⇒ \(\beta\) 可由它们唯一表示</li>
+      <li>“多”用“少”表示必相关（替换引理）</li>
+    </ul>
+  </div>
+  <div class="box thm"><span class="tag">秩、基与维数</span>
+    <ul>
+      <li>极大无关组所含向量个数相同；等价向量组同秩</li>
+      <li>\(n\) 维空间中：超过 \(n\) 个向量必相关</li>
+      <li>\(n\) 个向量：无关 ⇔ 生成 ⇔ 基</li>
+      <li>无关组可扩张为基</li>
+    </ul>
+  </div>
+  <div class="box thm"><span class="tag">矩阵的秩</span>
+    <ul>
+      <li>行秩 = 列秩 = \(\mathrm r(A)\) = 非零子式最高阶数</li>
+      <li>\(\mathrm r(A)=\mathrm r(A')=\mathrm r(PAQ)\)（\(P,Q\) 非异）</li>
+      <li>相抵 ⇔ 同秩；方阵非异 ⇔ 满秩</li>
+      <li>\(\mathrm r(AB)\le\min\{\mathrm r(A),\mathrm r(B)\}\)</li>
+      <li>\(\mathrm r\,\mathrm{diag}(A,B)=\mathrm r(A)+\mathrm r(B)\)</li>
+    </ul>
+  </div>
+  <div class="box thm"><span class="tag">坐标与基变换</span>
+    <ul>
+      <li>有限维空间同构 ⇔ 维数相同</li>
+      <li>\((f_1,\dots,f_n)=(e_1,\dots,e_n)A\)，\([\alpha]_e=A[\alpha]_f\)</li>
+      <li>反向：\(A^{-1}\)；连续：\(AB\)</li>
+      <li>\((A\mid B)\to(I\mid A^{-1}B)\)</li>
+    </ul>
+  </div>
+  <div class="box thm"><span class="tag">子空间</span>
+    <ul>
+      <li>\(\dim(V_1+V_2)=\dim V_1+\dim V_2-\dim(V_1\cap V_2)\)</li>
+      <li>\(\dim L(\alpha_1,\dots,\alpha_m)=\mathrm r(\alpha_1,\dots,\alpha_m)\)</li>
+      <li>直和 ⇔ 维数可加 ⇔ 基合并为基 ⇔ 分解唯一</li>
+    </ul>
+  </div>
+  <div class="box thm"><span class="tag">线性方程组</span>
+    <ul>
+      <li>有解 ⇔ \(\mathrm r(A)=\mathrm r(\widetilde A)\)；唯一 ⇔ 再加 \(=n\)</li>
+      <li>\(\dim\{x\mid Ax=\mathbf 0\}=n-\mathrm r(A)\)</li>
+      <li>\(x=\gamma+k_1\eta_1+\cdots+k_{n-r}\eta_{n-r}\)</li>
+    </ul>
+  </div>
+</div>
+
+<h2>常用方法汇总</h2>
+<div class="tw"><table class="t l">
+  <tr><th>问题</th><th>方法</th></tr>
+  <tr><td>判断向量组线性相关性</td><td>排成矩阵求秩，与向量个数比较；\(n\) 个 \(n\) 维向量可用行列式</td></tr>
+  <tr><td>求向量组的秩与极大无关组</td><td>按列排成矩阵，只用<b>行</b>变换化阶梯形，阶梯点所在列</td></tr>
+  <tr><td>抽象空间中的线性关系</td><td>取一组基，化为坐标向量的问题（推论 3.7.1）</td></tr>
+  <tr><td>求坐标</td><td>解方程组 \((f_1,\dots,f_n)x=\alpha\)</td></tr>
+  <tr><td>求过渡矩阵</td><td>新基在旧基下的坐标排成列；\(\mathbb K^n\) 中用 \((A\mid B)\to(I\mid A^{-1}B)\)</td></tr>
+  <tr><td>求 \(V_1+V_2\) 的基</td><td>两组生成向量合起来求极大无关组</td></tr>
+  <tr><td>求 \(V_1\cap V_2\)</td><td>解 \(\sum x_i\alpha_i=\sum y_j\beta_j\)；或用维数公式先求维数</td></tr>
+  <tr><td>证明是直和</td><td>验证交为零（两个时）或维数可加</td></tr>
+  <tr><td>解线性方程组</td><td>增广矩阵化简化阶梯形，读出特解和基础解系</td></tr>
+  <tr><td>证明秩的等式、不等式</td><td>分块初等变换；列向量组的线性表示；解空间维数比较</td></tr>
+</table></div>
+
+<h2>最需要反复强调的易错点</h2>
+<div class="tw"><table class="t l">
+  <tr><th>#</th><th>易错点</th><th>正确认识</th></tr>
+  <tr><td>1</td><td>不说明数域</td><td>线性相关性、维数都依赖于数域：\(\dim_{\mathbb R}\mathbb C=2\)，\(\dim_{\mathbb C}\mathbb C=1\)</td></tr>
+  <tr><td>2</td><td>“相关”当作“成比例”</td><td>只有两个向量时二者等价；三个以上是“存在不全为零的系数”</td></tr>
+  <tr><td>3</td><td>“相关 ⇒ 每个向量都可由其余表示”</td><td>只是<b>至少一个</b>可以</td></tr>
+  <tr><td>4</td><td>极大无关组唯一</td><td>不唯一，唯一的是它的个数</td></tr>
+  <tr><td>5</td><td>基只看“无关”或只看“生成”</td><td>两条都要；只有已知维数且个数为 \(n\) 时才能只验一条</td></tr>
+  <tr><td>6</td><td>行秩 = 列秩是定义</td><td>是定理，证明依赖“初等变换不改变行秩、列秩”</td></tr>
+  <tr><td>7</td><td>用列变换找列向量的极大无关组</td><td>只能用行变换；阶梯点对应<b>原矩阵</b>的列</td></tr>
+  <tr><td>8</td><td>向量与坐标混为一谈</td><td>坐标依赖于（有序）基</td></tr>
+  <tr><td>9</td><td>过渡矩阵方向弄反</td><td>列 = 新基在旧基下的坐标；旧坐标 = \(A\) × 新坐标</td></tr>
+  <tr><td>10</td><td>\(V_1\cup V_2\) 是子空间</td><td>一般不是，要用 \(V_1+V_2\)</td></tr>
+  <tr><td>11</td><td>“和”就是“直和”；两两交为零就是直和</td><td>两个子空间时直和 ⇔ 交为零；多个时要求每个与其余之和的交为零</td></tr>
+  <tr><td>12</td><td>非齐次方程组的解集是子空间</td><td>不是（不含零向量）；它是解空间的平移</td></tr>
+  <tr><td>13</td><td>基础解系 = 任意几个解</td><td>必须线性无关且个数为 \(n-\mathrm r(A)\)</td></tr>
+</table></div>
+
+<h2>“\(n\) 阶方阵 \(A\) 可逆”的等价说法（更新）</h2>
+<div class="box prop"><span class="tag">在第二章的基础上，又增加了</span>
+  <ol>
+    <li>\(\mathrm r(A)=n\)（满秩）；</li>
+    <li>\(A\) 的行（列）向量组线性无关；</li>
+    <li>\(A\) 的列向量组是 \(\mathbb K_n\) 的一组基；</li>
+    <li>\(Ax=\mathbf 0\) 只有零解；</li>
+    <li>对任意 \(\beta\)，\(Ax=\beta\) 有解（唯一解）；</li>
+    <li>\(A\) 是某两组基之间的过渡矩阵。</li>
+  </ol>
+</div>
+
+<h2>四个核心思想</h2>
+<div class="stage-grid">
+  <div class="box idea"><span class="tag">思想一</span><p class="eq-txt">基把抽象向量变成坐标</p><p class="small">有限维线性空间在同构意义下只由维数决定。</p></div>
+  <div class="box idea"><span class="tag">思想二</span><p class="eq-txt">换基改变的是描述，不是向量本身</p><p class="small">过渡矩阵联系同一向量的两种描述。</p></div>
+  <div class="box idea"><span class="tag">思想三</span><p class="eq-txt">子空间是空间内部稳定的结构</p><p class="small">交、和、直和刻画子空间之间的关系。</p></div>
+  <div class="box idea"><span class="tag">思想四</span><p class="eq-txt">方程组的解不是一堆零散的数</p><p class="small">解集 = 特解 + \((n-r)\) 维解空间。</p></div>
+</div>
+
+<h2>与后续课程的联系</h2>
+<div class="w-grid">
+  <div class="box idea"><span class="tag">高等代数后续章节</span>
+    <ul>
+      <li><b>线性映射</b>：在给定基下，线性映射 ↔ 矩阵；换基时矩阵变为 \(P^{-1}AP\)（相似），其中 \(P\) 就是过渡矩阵。</li>
+      <li><b>核与像</b>：\(Ax=\mathbf 0\) 的解空间是核，列空间是像；\(\dim\ker+\dim\mathrm{Im}=n\) 就是 \(n-r+r=n\)。</li>
+      <li><b>特征值</b>：特征子空间 = \((\lambda I-A)x=\mathbf 0\) 的解空间；可对角化 ⇔ 空间是特征子空间的直和。</li>
+      <li><b>内积空间</b>：正交补、正交直和分解、标准正交基。</li>
+    </ul>
+  </div>
+  <div class="box stat"><span class="tag">统计学</span>
+    <ul>
+      <li><b>多重共线性</b>：设计矩阵的列线性相关，\(\mathrm r(X)\lt p\)，\(X'X\) 不可逆。</li>
+      <li><b>自由度</b>：残差落在 \(n-p\) 维子空间中；方差分析是 \(\mathbb R^n\) 的直和分解。</li>
+      <li><b>可识别性</b>：参数解 = 特解 + \(X\eta=\mathbf 0\) 的解空间。</li>
+      <li><b>主成分分析</b>：换一组更好的基，主成分得分是新基下的坐标。</li>
+      <li><b>随机变量空间</b>：有限方差随机变量全体是线性空间，线性回归 = 在子空间上投影。</li>
+    </ul>
+  </div>
+</div>
+
+<h2>历史小记</h2>
+<ol class="timeline">
+  <li><span class="y">1844 年</span>Grassmann 出版《线性扩张论》，最早系统研究了 \(n\) 维空间、线性相关、维数与子空间的和与交，但当时很少有人读懂。</li>
+  <li><span class="y">1858 年</span>Cayley 的矩阵论把方程组写成矩阵形式。</li>
+  <li><span class="y">1879 年</span>Frobenius 引入矩阵的“秩”的概念，并用它讨论线性方程组的可解性。</li>
+  <li><span class="y">1888 年</span>Peano 在《几何演算》中第一次给出了线性空间的公理化定义，与今天的八条公理基本相同。</li>
+  <li><span class="y">20 世纪初</span>Weyl、Banach 等人的工作使抽象的线性空间（包括无限维空间）成为现代数学的基本语言。</li>
+</ol>
+<p class="small muted">（据数学史资料整理）从“解方程组”到“研究解集的结构”，正是本章的视角转变。</p>
+<div class="bridge out"><span class="bk">接下来</span><p>对照上面的清单自查之后，到综合练习页检验一下：概念辨析、计算、随机出题、证明与思考、统计应用。</p><a class="bn" href="#c3-practice">→ 第三章综合练习</a></div>
+<details class="tnote"><summary>教学提示 · 复习课建议</summary><div class="dbody"><ul>
+  <li>先用“全章逻辑”和“动机一览”串一遍，让学生说出每个概念是为了解决什么问题。</li>
+  <li>“方阵可逆的等价说法”可以让学生补出每两条之间的推导。</li>
+  <li>易错点表格可以改编成判断题，在课堂上限时作答。</li>
+</ul></div></details>
+</template>

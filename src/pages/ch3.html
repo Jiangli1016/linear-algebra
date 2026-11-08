@@ -1,0 +1,102 @@
+<template data-route="c3" data-chapter="3" data-num="导引" data-short="本章导引" data-group="">
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="det-eyebrow">高等代数 · 第三章</span>
+      <h1><span class="bars">线性空间</span></h1>
+      <p class="lede">前两章研究的是“怎么算”：行列式怎么算，矩阵怎么乘、怎么求逆、怎么化简。从这一章起，我们开始问“为什么”：<b>什么样的对象都能做加法和数乘？一组向量里真正独立的信息有多少？</b>线性方程组的全部解长什么样？</p>
+      <div class="meta-row"><span class="pill acc">10 节 · 建议 14–16 学时</span><span class="pill">谢启鸿 等《高等代数学（第四版）》第三章</span></div>
+      <div class="btns" style="margin-top:1rem"><a class="btn pri" href="#s3-1">从 §3.1 开始</a><a class="btn" href="#c3-summary">看本章总结</a><a class="btn" href="#c3-practice">做综合练习</a></div>
+    </div>
+    <div class="box idea" style="align-self:center"><span class="tag">一句话概括</span>
+      <p>第三章不是和第二章割裂的新内容，而是在回答：</p>
+      <p class="eq-txt">第二章那些矩阵计算为什么成立？<br>它们背后的线性结构是什么？</p>
+    </div>
+  </div>
+</section>
+
+<h2>从“矩阵计算”转向“线性结构”</h2>
+<p>回顾前两章，我们已经会：算行列式、做矩阵运算、用初等变换化简矩阵、判断可逆、解线性方程组。但有一些问题始终没有说清楚：</p>
+<div class="stage-grid">
+  <div class="box note"><span class="tag">问题一</span><p>方程组中有的方程是“多余”的（可以由别的方程推出），去掉它解不变。怎样精确地刻画“多余”？去掉多余方程后还剩几个？</p></div>
+  <div class="box note"><span class="tag">问题二</span><p>§2.4 说相抵标准型 \(\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\) 中的 \(r\) 是唯一确定的。为什么？\(r\) 到底代表什么？</p></div>
+  <div class="box note"><span class="tag">问题三</span><p>方程组有无穷多解时，能不能用<b>有限个</b>解把全部解表示出来？</p></div>
+</div>
+<p>回答这些问题需要一套新的语言：<b>线性组合、线性相关、秩、基、维数、子空间</b>。这套语言不只适用于数组，也适用于多项式、矩阵、函数——只要它们能做加法和数乘。</p>
+
+<h2>整章的主线</h2>
+<ol class="flow">
+  <li>先规定“数”从哪里来</li><li class="arr">→</li><li class="key">数域 \(\mathbb K\)</li><li class="arr">→</li><li>最具体的向量</li><li class="arr">→</li><li class="key">\(\mathbb K^n\)</li><li class="arr">→</li><li>抽掉坐标，只留加法与数乘</li><li class="arr">→</li><li class="key">线性空间 \(V\)</li><li class="arr">→</li><li>向量之间有无冗余</li><li class="arr">→</li><li class="key">线性相关 / 无关</li><li class="arr">→</li><li>真正独立的信息有多少</li><li class="arr">→</li><li class="key">秩、基、维数</li><li class="arr">→</li><li>用到矩阵的行与列</li><li class="arr">→</li><li class="key">矩阵的秩</li><li class="arr">→</li><li>选定基</li><li class="arr">→</li><li class="key">坐标、\(V\cong\mathbb K^n\)</li><li class="arr">→</li><li>换基</li><li class="arr">→</li><li class="key">过渡矩阵</li><li class="arr">→</li><li>空间内部的结构</li><li class="arr">→</li><li class="key">子空间、交、和、直和</li><li class="arr">→</li><li>应用到 \(Ax=\beta\)</li><li class="arr">→</li><li class="key">解 = 特解 + 齐次解空间</li>
+</ol>
+
+<h2>五个阶段</h2>
+<div class="stage-grid">
+  <div class="stage"><span class="sk">第一阶段 · §3.1 → §3.2</span><h3>数与向量</h3><p>线性组合里的系数从哪里取？最具体的向量怎样做加法和数乘？</p><p><a href="#s3-1">§3.1</a> · <a href="#s3-2">§3.2</a></p></div>
+  <div class="stage"><span class="sk">第二阶段 · §3.3 → §3.4</span><h3>线性空间与线性关系</h3><p>哪些集合具有和向量一样的运算结构？一组向量之间有没有冗余？</p><p><a href="#s3-3">§3.3</a> · <a href="#s3-4">§3.4</a></p></div>
+  <div class="stage"><span class="sk">第三阶段 · §3.5 → §3.6</span><h3>秩、基与维数</h3><p>一组向量中有多少个真正独立的方向？矩阵的行、列中包含多少独立信息？</p><p><a href="#s3-5">§3.5</a> · <a href="#s3-6">§3.6</a></p></div>
+  <div class="stage"><span class="sk">第四阶段 · §3.7 → §3.8</span><h3>坐标与换基</h3><p>选定基以后，抽象向量怎样变成一组数？换一组基，坐标怎样变？</p><p><a href="#s3-7">§3.7</a> · <a href="#s3-8">§3.8</a></p></div>
+  <div class="stage"><span class="sk">第五阶段 · §3.9 → §3.10</span><h3>子空间与方程组</h3><p>空间内部还有哪些线性空间？线性方程组的全部解有怎样的结构？</p><p><a href="#s3-9">§3.9</a> · <a href="#s3-10">§3.10</a></p></div>
+</div>
+
+<h2>本章的三次抽象</h2>
+<div class="stage-grid">
+  <div class="box idea"><span class="tag">第一次 · 从点和坐标到向量</span><p>平面上的点 ↔ 有序数对 ↔ 以原点为起点的向量。把二维、三维几何向量推广到 \(\mathbb K^n\)：“向量”不再需要画出来。</p></div>
+  <div class="box idea"><span class="tag">第二次 · 从 \(\mathbb K^n\) 到一般线性空间</span><p>不再关心“向量是不是一个数组”，只要求有加法和数乘、并满足八条运算规则。多项式、矩阵、函数都可以是“向量”。</p></div>
+  <div class="box idea"><span class="tag">第三次 · 从个数到“有效信息”的个数</span><p>向量多不代表信息多。真正需要的是<b>线性无关向量的最大个数</b>——这引出秩、维数、矩阵的秩。</p></div>
+</div>
+
+<h2>本章应建立的三种基本思维</h2>
+<div class="stage-grid">
+  <div class="box idea"><span class="tag">思维一 · 结构比外形重要</span><p>只要满足同一套加法、数乘公理，就能用同一套理论。判断一个对象能否当“向量”，看运算规则，不看长相。</p></div>
+  <div class="box idea"><span class="tag">思维二 · 一切化为方程组</span><p>线性表示 ⇔ 非齐次方程组有解；线性相关 ⇔ 齐次方程组有非零解；求坐标、求过渡矩阵、求交空间，最后都是解方程组。</p></div>
+  <div class="box idea"><span class="tag">思维三 · 数“独立方向”的个数</span><p>秩、维数、矩阵的秩、解空间维数 \(n-r\)，都在数同一种东西：不能互相表示的方向有几个。</p></div>
+</div>
+
+<h2>课时安排参考</h2>
+<div class="tw"><table class="t l">
+  <tr><th>课次</th><th>内容</th><th>重点活动</th></tr>
+  <tr><td>第 1 次</td><td>§3.1、§3.2</td><td>封闭性检验；\(\mathbb K^n\) 与几何向量</td></tr>
+  <tr><td>第 2 次</td><td>§3.3</td><td>八条公理；“奇怪的加法”判断题</td></tr>
+  <tr><td>第 3–4 次</td><td>§3.4</td><td>线性表示 ⇔ 方程组有解；相关 ⇔ 齐次组有非零解；三个基本定理</td></tr>
+  <tr><td>第 5–6 次</td><td>§3.5</td><td>极大无关组；替换引理；秩；基、维数；基扩张</td></tr>
+  <tr><td>第 7–8 次</td><td>§3.6</td><td>行秩 = 列秩；阶梯形求秩；子式刻画；秩不等式</td></tr>
+  <tr><td>第 9 次</td><td>§3.7</td><td>坐标；同构；用坐标判断相关性</td></tr>
+  <tr><td>第 10 次</td><td>§3.8</td><td>过渡矩阵（方向！）；坐标变换公式</td></tr>
+  <tr><td>第 11–12 次</td><td>§3.9</td><td>子空间判定；交与和；维数公式；直和</td></tr>
+  <tr><td>第 13–14 次</td><td>§3.10、复习</td><td>解的判定；基础解系；特解 + 齐次通解</td></tr>
+</table></div>
+
+<h2>统计学中的线性空间</h2>
+<div class="box stat"><span class="tag">统计视角 · 这一章会反复用到</span>
+  <ul>
+    <li><b>线性相关 = 多重共线性</b>：设计矩阵 \(X\) 的列线性相关时，\(X'X\) 不可逆，回归系数不唯一（§3.4、§3.6）。</li>
+    <li><b>秩 = 有效变量个数</b>：\(r(X)\) 是不能互相表示的解释变量的个数（§3.5、§3.6）。</li>
+    <li><b>列空间</b>：拟合值 \(\hat y=X\hat\beta\) 一定落在 \(X\) 的列向量生成的子空间 \(L(X)\) 中，最小二乘就是把 \(y\) 投影到这个子空间（§3.9）。</li>
+    <li><b>自由度 \(n-r\)</b>：残差落在一个 \(n-r(X)\) 维子空间里，这就是残差平方和的自由度（§3.10 的 \(n-r\)）。</li>
+    <li><b>换基 = 变量变换</b>：把变量标准化、做主成分，都是换一组基来描述同一组数据（§3.8）。</li>
+  </ul>
+</div>
+
+<h2>各节导航</h2>
+<div class="cards">
+  <a class="card" href="#s3-1" data-route="s3-1"><span class="no">§3.1</span><span class="tt">数域</span><span class="ds">四则运算封闭；任一数域都包含 \(\mathbb Q\)</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-2" data-route="s3-2"><span class="no">§3.2</span><span class="tt">行向量和列向量</span><span class="ds">\(\mathbb K^n\)；加法与数乘；八条运算规则</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-3" data-route="s3-3"><span class="no">§3.3</span><span class="tt">线性空间</span><span class="ds">八条公理；多项式、矩阵、函数空间</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-4" data-route="s3-4"><span class="no">§3.4</span><span class="tt">向量的线性关系</span><span class="ds">线性组合；线性相关与无关；表示唯一性</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-5" data-route="s3-5"><span class="no">§3.5</span><span class="tt">向量组的秩</span><span class="ds">极大无关组；秩；基与维数；基扩张</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-6" data-route="s3-6"><span class="no">§3.6</span><span class="tt">矩阵的秩</span><span class="ds">行秩 = 列秩；阶梯形求秩；子式刻画</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-7" data-route="s3-7"><span class="no">§3.7</span><span class="tt">坐标向量</span><span class="ds">坐标；同构；\(V\cong\mathbb K^n\)</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-8" data-route="s3-8"><span class="no">§3.8</span><span class="tt">基变换与过渡矩阵</span><span class="ds">\([\alpha]_e=A[\alpha]_f\)；连续换基</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-9" data-route="s3-9"><span class="no">§3.9</span><span class="tt">子空间</span><span class="ds">交与和；生成子空间；维数公式；直和</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#s3-10" data-route="s3-10"><span class="no">§3.10</span><span class="tt">线性方程组的解</span><span class="ds">秩判据；基础解系；特解 + 齐次通解</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#c3-summary" data-route="c3-summary"><span class="no">小结</span><span class="tt">知识结构与易错点</span><span class="ds">结构总表、定义与定理清单、易错点、整体认识</span><span class="seen" hidden>✓ 已浏览</span></a>
+  <a class="card" href="#c3-practice" data-route="c3-practice"><span class="no">练习</span><span class="tt">综合练习</span><span class="ds">概念辨析、计算、随机出题、证明思路、统计应用</span><span class="seen" hidden>✓ 已浏览</span></a>
+</div>
+
+<div class="bridge out"><span class="bk">开始学习</span><p>线性组合 \(k_1\alpha_1+\cdots+k_m\alpha_m\) 中的系数 \(k_i\) 允许取哪些数？这是第一个要说清楚的问题。</p><a class="bn" href="#s3-1">→ §3.1 数域</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>第三章是从“计算型”转向“结构型”的转折点，学生普遍觉得抽象。每引入一个新概念，都先讲“为什么需要它”（各节的“动机与目的”框），再给定义。</li>
+  <li>始终把抽象概念拉回到方程组：表示 ⇔ 有解，相关 ⇔ 齐次组有非零解。这是学生最可靠的“抓手”。</li>
+  <li>平面、空间中的几何图像（共线、共面、过原点的直线和平面）是理解相关性、子空间、直和的最好入口，课件中的平面实验可以反复使用。</li>
+</ul></div></details>
+</template>

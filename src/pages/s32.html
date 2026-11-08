@@ -1,0 +1,104 @@
+<template data-chapter="3" data-route="s3-2" data-num="§3.2" data-short="行向量和列向量" data-group="第一阶段 · 数与向量">
+<header class="page-head">
+  <span class="det-eyebrow">§3.2</span>
+  <h1>行向量和列向量</h1>
+  <p class="lede">这一节先不做高度抽象，而是从最熟悉的对象开始：有序数组 \((a_1,\dots,a_n)\)。先建立 \(\mathbb K^n\) 中加法与数乘的具体形式，总结出八条运算规则；下一节把这八条规则抽象成一般线性空间的公理。</p>
+  <div class="meta-row"><span class="pill acc">建议 0.5 学时</span><span class="pill">教材第 118–121 页</span><span class="pill">关键词：\(\mathbb K^n\)、八条规则</span></div>
+  <ul class="goals">
+    <li>掌握 \(n\) 维行向量、列向量的定义及相等</li>
+    <li>掌握向量的加法、减法、数乘；零向量、负向量</li>
+    <li>掌握向量运算的八条规则及其几何意义</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下</span><p>§3.1 规定了标量来自数域 \(\mathbb K\)。现在要建立“向量”。中学里的向量是有方向的线段；第二章里矩阵的每一行、每一列也被叫做“向量”。这两种“向量”有什么关系？</p><p class="bq">本节回答：最具体的向量是什么？怎样做加法和数乘？这些运算满足哪些规律？</p></div>
+
+<h2>一、从几何向量到数组</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p><b>为什么要把向量“代数化”？</b>在平面上建立直角坐标系后，点 \(C\) ↔ 有序实数对 \((a,b)\) ↔ 以原点为起点、\(C\) 为终点的向量 \(\overrightarrow{OC}\)。于是可以用实数对来代替以原点为起点的向量，甚至直接把 \((a,b)\) 定义为向量。</p>
+  <p><b>好处有二</b>：一是可以用代数工具研究几何对象（不必画图，直接计算）；二是可以推广到画不出来的情形——\(n\) 维向量。这种推广不仅是形式上的，对数学的发展与应用（比如一个样品的 \(p\) 个观测指标就是一个 \(p\) 维向量）有极其重要的作用。</p>
+</div>
+<div class="box def"><span class="tag">定义 3.2.1<em>\(n\) 维向量</em></span>
+  <p>设 \(\mathbb K\) 是一个数域，\(a_1,a_2,\dots,a_n\in\mathbb K\)。由 \(a_1,\dots,a_n\) 组成的有序数组 \((a_1,a_2,\dots,a_n)\) 称为数域 \(\mathbb K\) 上的一个 <b>\(n\) 维行向量</b>；把它们依次排成一列 \(\begin{pmatrix}a_1\\\vdots\\a_n\end{pmatrix}\)，称为 \(\mathbb K\) 上的一个 <b>\(n\) 维列向量</b>。</p>
+</div>
+<p>对这个定义需要说明三点：</p>
+<div class="stage-grid">
+  <div class="box note"><span class="tag">第一 · 行 ≠ 列</span><p>即使一个行向量与一个列向量的元素对应相等，也不认为它们是同一个东西（尺寸不同，§2.1）。不过它们有相同的性质，以后统称为向量。</p></div>
+  <div class="box note"><span class="tag">第二 · 相等</span><p>\(\alpha=(a_1,\dots,a_n)\) 与 \(\beta=(b_1,\dots,b_n)\) 相等当且仅当 \(a_i=b_i\)（\(i=1,\dots,n\)）。\((1,2)\ne(2,1)\)：不仅元素相同，次序也要相同。</p></div>
+  <div class="box note"><span class="tag">第三 · 向量是特殊矩阵</span><p>\(n\) 维行向量就是 \(1\times n\) 矩阵，\(n\) 维列向量就是 \(n\times1\) 矩阵；\(m\times n\) 矩阵的第 \(i\) 行是第 \(i\) 个行向量，第 \(j\) 列是第 \(j\) 个列向量。</p></div>
+</div>
+
+<h2>二、向量的运算</h2>
+<p class="trans">既然向量是特殊的矩阵，它的运算也与矩阵的相应运算一致。</p>
+<div class="box def"><span class="tag">加法、减法、数乘</span>
+  <p>设 \(\alpha=(a_1,\dots,a_n)\)，\(\beta=(b_1,\dots,b_n)\)，\(k\in\mathbb K\)。</p>
+  <div class="eqs boxed"><span>\(\alpha+\beta=(a_1+b_1,\dots,a_n+b_n)\)</span><span>\(\alpha-\beta=(a_1-b_1,\dots,a_n-b_n)\)</span><span>\(k\alpha=(ka_1,\dots,ka_n)\)</span></div>
+  <p>由于 \(\mathbb K\) 是数域，结果仍是 \(\mathbb K\) 上的 \(n\) 维向量。列向量同样定义。</p>
+</div>
+<div class="w-grid">
+  <div class="box def"><span class="tag">零向量</span><p>所有元素都是 0 的向量 \(\mathbf 0=(0,0,\dots,0)\)。注意 \(n\) 维零向量是一个 \(1\times n\)（或 \(n\times1\)）<b>零矩阵</b>，不是数 0。</p></div>
+  <div class="box def"><span class="tag">负向量</span><p>\(-\alpha=(-a_1,\dots,-a_n)\)，称为 \(\alpha\) 的负向量。</p></div>
+</div>
+<div class="box prop"><span class="tag">向量运算规则（八条）</span>
+  <p>对任意 \(\alpha,\beta,\gamma\in\mathbb K^n\)，\(k,l\in\mathbb K\)：</p>
+  <ol>
+    <li>加法交换律：\(\alpha+\beta=\beta+\alpha\)；</li>
+    <li>加法结合律：\((\alpha+\beta)+\gamma=\alpha+(\beta+\gamma)\)；</li>
+    <li>\(\alpha+\mathbf 0=\alpha\)；</li>
+    <li>\(\alpha+(-\alpha)=\mathbf 0\)；</li>
+    <li>\(1\cdot\alpha=\alpha\)；</li>
+    <li>\(k(\alpha+\beta)=k\alpha+k\beta\)；</li>
+    <li>\((k+l)\alpha=k\alpha+l\alpha\)；</li>
+    <li>\(k(l\alpha)=(kl)\alpha\)。</li>
+  </ol>
+  <p class="small">这些规则也可以看成矩阵的相应运算规则（§2.2）。<b>它们将在下一节原封不动地成为线性空间的公理。</b></p>
+</div>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 向量运算 <span class="src">习题 3.2 第 1、2 题</span></div>
+  <p>(1) \(\alpha=(1,1,0,-1)\)，\(\beta=(-2,1,0,0)\)，\(\gamma=(-1,-2,0,1)\)，求 \(\alpha+\beta+\gamma\) 和 \(3\alpha-\beta+5\gamma\)；(2) \(\beta=(1,0,1)\)，\(\gamma=(1,1,-1)\)，解向量方程 \(3x+\beta=\gamma\)。</p></div>
+  <div class="sol" data-steps>
+    <div class="st">(1) \(\alpha+\beta+\gamma=(1-2-1,\ 1+1-2,\ 0,\ -1+0+1)=(-2,0,0,0)\)。</div>
+    <div class="st">\(3\alpha-\beta+5\gamma=(3+2-5,\ 3-1-10,\ 0,\ -3-0+5)=(0,-8,0,2)\)。</div>
+    <div class="st">(2) 由运算规则可以“移项”：\(3x=\gamma-\beta=(0,1,-2)\)，所以 \(x=\frac13(0,1,-2)=\bigl(0,\frac13,-\frac23\bigr)\)。</div>
+  </div>
+</div>
+
+<h2>三、几何意义</h2>
+<p>在平面直角坐标系中，\(\alpha=(a_1,a_2)\)，\(\beta=(b_1,b_2)\)：</p>
+<ul>
+  <li>\(\alpha+\beta=(a_1+b_1,a_2+b_2)\)，和用平行四边形法则求两个向量之和的结果完全一致；</li>
+  <li>\(k\alpha=(ka_1,ka_2)\) 表示把 \(\alpha\) 伸长 \(k\) 倍：\(k\gt0\) 时沿原方向，\(k\lt0\) 时沿反方向伸长 \(-k\) 倍。</li>
+</ul>
+<div class="widget" data-widget="vec2d" data-t="向量加法与数乘的几何意义" data-d="拖动 α、β 的端点，调 k：坐标的“分量相加”就是平行四边形法则，“每个分量乘 k”就是伸缩。"></div>
+<p>对三维实向量也有类似的几何意义。数域 \(\mathbb K\) 上 \(n\) 维行向量全体组成的集合称为 \(\mathbb K\) 上的 <b>\(n\) 维行向量空间</b>，记作 \(\mathbb K^n\)；列向量全体称为 <b>\(n\) 维列向量空间</b>（教材记为 \(\mathbb K_n\)）。实数域上的二维、三维空间 \(\mathbb R^2,\mathbb R^3\) 就是熟悉的平面及三维空间。</p>
+
+<div class="box stat"><span class="tag">统计视角 · 观测是向量，变量也是向量</span>
+  <p>\(n\) 个样品、\(p\) 个变量的数据矩阵 \(X_{n\times p}\) 有两种看法：每一<b>行</b>是一个样品的观测，是 \(\mathbb R^p\) 中的向量；每一<b>列</b>是一个变量的 \(n\) 次观测，是 \(\mathbb R^n\) 中的向量。样本均值向量 \(\bar x=\frac1n(x_1+\cdots+x_n)\) 就是行向量的线性组合；“变量 3 = 2 × 变量 1 + 变量 2”这样的关系，就是列向量之间的线性关系（§3.4）。</p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>零向量 \(\mathbf 0\) 是一个向量，不是标量 0；不同维数的零向量也不同。</li>
+    <li>行向量与列向量不是同一个矩阵；不同维数的向量不能相加。</li>
+    <li>向量相等要求<b>次序</b>也相同：\((1,2)\ne(2,1)\)。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="fill" data-ans="-8"><div class="qt">\(\alpha=(1,1,0,-1)\)，\(\beta=(-2,1,0,0)\)，\(\gamma=(-1,-2,0,1)\)。\(3\alpha-\beta+5\gamma\) 的第 2 个分量是？</div><div class="explain">\(3\cdot1-1+5\cdot(-2)=-8\)。</div></div>
+  <div class="fill" data-ans="-2/3"><div class="qt">\(3x+(1,0,1)=(1,1,-1)\)，则 \(x\) 的第 3 个分量是？</div><div class="explain">\(x=\frac13\bigl((1,1,-1)-(1,0,1)\bigr)=\frac13(0,1,-2)\)。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">下列说法正确的是：</div><ol class="opts"><li>\((1,2)=(2,1)\)，因为元素相同</li><li>3 维零向量是 \(1\times3\) 零矩阵</li><li>行向量 \((1,2,3)\) 与列向量 \((1,2,3)'\) 相等</li><li>\((1,2)+(1,2,0)=(2,4,0)\)</li></ol><div class="explain">次序不同、行列不同、维数不同都不相等或不能运算。</div></div>
+</div>
+
+<h2>本节小结</h2>
+<ul>
+  <li>\(n\) 维向量 = 有序数组；行向量、列向量是特殊矩阵。</li>
+  <li>加法、数乘逐分量进行，几何上是平行四边形法则与伸缩。</li>
+  <li>\(\mathbb K^n\) 中的运算满足八条规则——下一节它们将成为线性空间的公理。</li>
+</ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>回头看八条规则：证明它们只用到了“加法与数乘的性质”，与“向量是不是数组”无关。多项式可以相加、可以乘以数；矩阵、函数也可以。如果一个集合中的对象根本不是数组，但仍有加法和数乘，并满足这八条规则，能不能也把它们当成向量？</p><a class="bn" href="#s3-3">→ §3.3 线性空间</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>本节可以与 §3.3 合并为一次课：先在 \(\mathbb K^n\) 中写出八条规则，再马上指出“多项式、矩阵也满足”，自然过渡到抽象定义。</li>
+  <li>让学生注意：八条规则在 §2.2 中已经作为矩阵运算规则出现过，这里没有新东西——新的是“把它们当作定义”的视角。</li>
+</ul></div></details>
+</template>

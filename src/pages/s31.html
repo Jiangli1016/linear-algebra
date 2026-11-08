@@ -1,0 +1,107 @@
+<template data-chapter="3" data-route="s3-1" data-num="§3.1" data-short="数域" data-group="第一阶段 · 数与向量">
+<header class="page-head">
+  <span class="det-eyebrow">§3.1</span>
+  <h1>数域</h1>
+  <p class="lede">后面要大量讨论线性组合 \(k_1\alpha_1+\cdots+k_m\alpha_m\)。这里的系数 \(k_i\) 从哪里取？能不能随便取？这一节先规定标量所在的集合必须具有足够好的四则运算性质——这就是数域。</p>
+  <div class="meta-row"><span class="pill acc">建议 0.5 学时</span><span class="pill">教材第 116–118 页</span><span class="pill">关键词：四则运算封闭</span></div>
+  <ul class="goals">
+    <li>掌握数域的定义；知道 \(\mathbb Q,\mathbb R,\mathbb C\) 都是数域</li>
+    <li>会验证一个数集在四则运算下是否封闭</li>
+    <li>理解数域一定包含 0、1 以及整个有理数域</li>
+    <li>理解“线性相关、维数”等结论可能依赖于所选的数域</li>
+  </ul>
+</header>
+<div class="bridge in"><span class="bk">承上启下 · 从第二章到第三章</span><p>前两章里我们默认矩阵的元素是“数”，可从没问过是什么数。解方程组要做除法（消元时除以主元，Cramer 法则除以 \(|A|\)），所以如果只允许用整数，很多计算就做不下去；而有时我们又只关心有理数或实数的解。</p><p class="bq">本节回答：线性运算中的“系数”允许从哪里取？一个数集要具备什么性质，才能放心地在里面做加、减、乘、除？</p></div>
+
+<h2>一、数域的定义</h2>
+<div class="box motive"><span class="tag">动机与目的</span>
+  <p><b>为什么要先规定数域？</b>后面所有的概念——线性组合、线性相关、基、维数、解方程组——都要对系数做加减乘除。例如定理 3.4.2 的证明要“除以 \(k_i\)”，求坐标要解方程组。如果系数所在的集合对除法不封闭（比如整数集），这些操作就会跑出集合，理论无法展开。</p>
+  <p><b>目的</b>：找出“能放心做四则运算”的数集，作为整章所有讨论的“标量范围”。</p>
+</div>
+<p>先看熟悉的数集。整数集 \(\mathbb Z\) 中任意两数相加、相减、相乘都还是整数，但两个整数相除（除数非零）不一定是整数，可能是分数。也就是说 \(\mathbb Z\) 在加法、减法、乘法下封闭，但在除法下不封闭。而在 \(\mathbb Q,\mathbb R,\mathbb C\) 中，加、减、乘、除都是封闭的。把这个特性抽象出来：</p>
+<div class="box def"><span class="tag">定义 3.1.1<em>数域</em></span>
+  <p>设 \(\mathbb K\) 是复数集 \(\mathbb C\) 的子集，且至少包含两个不同的元素。如果 \(\mathbb K\) 中任意两个数的<b>加法、减法、乘法及除法（除数不为零）</b>仍属于 \(\mathbb K\)，则称 \(\mathbb K\) 是一个<b>数域</b>。</p>
+  <div class="eqs boxed"><span>\(a,b\in\mathbb K\ \Longrightarrow\ a\pm b,\ ab\in\mathbb K\)；</span><span>\(b\ne0\) 时 \(\dfrac ab\in\mathbb K\)。</span></div>
+</div>
+<div class="w-grid">
+  <div class="box prop"><span class="tag">是数域</span><p>有理数域 \(\mathbb Q\)、实数域 \(\mathbb R\)、复数域 \(\mathbb C\)。</p></div>
+  <div class="box warn"><span class="tag">不是数域</span><p>整数集 \(\mathbb Z\)：\(1\div2=\frac12\notin\mathbb Z\)。在加、减、乘下封闭（不一定对除法封闭）的数集称为<b>数环</b>，所以 \(\mathbb Z\) 是数环但不是数域。</p></div>
+</div>
+<div class="widget" data-widget="fieldcheck" data-t="封闭性检验：这个数集是数域吗？" data-d="选一个数集，随机抽两个数做加、减、乘、除，看结果是否还在集合里；对不是数域的集合，点“看反例”。"></div>
+
+<h2>二、更多的数域</h2>
+<p class="trans">数域是一个比较广泛的概念。除了 \(\mathbb Q,\mathbb R,\mathbb C\)，还有没有别的数域？</p>
+<div class="ex"><div class="ex-q"><div class="ex-h">例 \(\mathbb Q(\sqrt2)\) 是数域 <span class="src">教材第 116–117 页</span></div>
+  <p>证明：所有形如 \(a+b\sqrt2\)（\(a,b\in\mathbb Q\)）的数构成一个数域，记作 \(\mathbb Q(\sqrt2)\)。</p></div>
+  <div class="sol" data-steps data-label="证明">
+    <div class="st"><b>加减法</b>：\((a+b\sqrt2)\pm(c+d\sqrt2)=(a\pm c)+(b\pm d)\sqrt2\)，系数仍是有理数。</div>
+    <div class="st"><b>乘法</b>：\((a+b\sqrt2)(c+d\sqrt2)=(ac+2bd)+(ad+bc)\sqrt2\)。</div>
+    <div class="st"><b>除法</b>：若 \(c+d\sqrt2\ne0\)，即 \(c,d\) 不同时为零，则 \(c^2-2d^2\ne0\)（否则 \(\sqrt2=|c/d|\) 是有理数）。分子分母同乘 \(c-d\sqrt2\)：\[\frac{a+b\sqrt2}{c+d\sqrt2}=\frac{ac-2bd}{c^2-2d^2}+\frac{bc-ad}{c^2-2d^2}\sqrt2.\]</div>
+    <div class="st">两个系数都是有理数，所以 \(\mathbb Q(\sqrt2)\) 对四则运算封闭，是数域。</div>
+  </div>
+</div>
+<div class="box note"><span class="tag">更多例子</span>
+  <ul>
+    <li>形如 \(\dfrac{a_0+a_1\pi+\cdots+a_n\pi^n}{b_0+b_1\pi+\cdots+b_m\pi^m}\)（\(a_i,b_j\in\mathbb Q\)，\(b_j\) 不全为零）的数全体构成数域。这里用到 \(\pi\) 是超越数：\(b_0+b_1\pi+\cdots+b_m\pi^m=0\) 当且仅当所有 \(b_j=0\)。</li>
+    <li>若限制 \(a,b\) 为整数，则 \(a+b\sqrt2\) 全体只是数环，不是数域：1 和 2 在其中，而 \(\frac12\) 不在。</li>
+  </ul>
+</div>
+
+<h2>三、有理数域是最小的数域</h2>
+<p class="trans">数域可以各式各样，但它们有没有共同的“最小部分”？</p>
+<div class="box prop"><span class="tag">数域必含 0 和 1</span>
+  <p>任一数域 \(\mathbb K\) 中至少有一个非零数 \(a\)（定义要求至少两个不同元素）。于是 \(a-a=0\in\mathbb K\)，\(\dfrac aa=1\in\mathbb K\)。</p>
+</div>
+<div class="box thm"><span class="tag">定理 3.1.1</span>
+  <p>任一数域都包含有理数域 \(\mathbb Q\)：</p>
+  <div class="boxed-eq">\[\mathbb Q\subseteq\mathbb K.\]</div>
+</div>
+<details class="proof" open><summary>证明</summary><div class="dbody">
+  <p>\(1\in\mathbb K\)。把 1 连加 \(n\) 次，得 \(n\in\mathbb K\)，所以全体正整数属于 \(\mathbb K\)；又 \(0-n=-n\in\mathbb K\)，所以全体整数都属于 \(\mathbb K\)。最后，对整数 \(m\ne0\)、\(n\)，由除法封闭性 \(\dfrac nm\in\mathbb K\)。因此每个有理数都在 \(\mathbb K\) 中。</p>
+</div></details>
+<p>定理 3.1.1 告诉我们：有理数域是一个“最小”的数域。</p>
+
+<h2>四、为什么必须说明“在哪个数域上”</h2>
+<div class="box warn"><span class="tag">课堂强调</span>
+  <p>后面写 \(k_1\alpha_1+\cdots+k_m\alpha_m\) 时，\(k_i\) 必须来自预先指定的数域 \(\mathbb K\)。同一组对象，在不同数域上讨论，结论可能不同。例如在 §3.4、§3.5 中会看到：</p>
+  <ul>
+    <li>把 \(\mathbb C\) 看成实数域上的空间，1 与 \(\mathrm i\) <b>线性无关</b>（不存在不全为零的实数 \(a,b\) 使 \(a+b\mathrm i=0\)），\(\dim_{\mathbb R}\mathbb C=2\)；</li>
+    <li>把 \(\mathbb C\) 看成复数域上的空间，系数可以取复数：取 \(a=1,b=\mathrm i\)，就有 \(a\cdot1+b\cdot\mathrm i=1+\mathrm i^2=0\)，即 1 与 \(\mathrm i\) <b>线性相关</b>，\(\dim_{\mathbb C}\mathbb C=1\)。</li>
+  </ul>
+  <p>所以：<b>讨论线性相关、基、维数时，必须先说明在哪个数域上。</b></p>
+</div>
+
+<h2>易错点</h2>
+<div class="box warn"><span class="tag">易错</span>
+  <ul>
+    <li>验证数域要检查<b>四种</b>运算，尤其不要漏掉除法；也要确认集合至少有两个元素。</li>
+    <li>除法检验中，要用到“除数不为零”的条件（例如说明 \(c^2-2d^2\ne0\)），不能省略。</li>
+    <li>“对加减乘封闭”只能说明是数环。整数集、偶数集都不是数域。</li>
+    <li>数域是 \(\mathbb C\) 的子集；本课程中的标量都来自某个数域。</li>
+  </ul>
+</div>
+
+<h2>课堂练习</h2>
+<div class="quiz">
+  <div class="mcq" data-ans="2"><div class="qt">下列数集中，是数域的是：<span class="tiny muted">（习题 3.1 第 1 题）</span></div><ol class="opts"><li>全体偶数</li><li>\(\{a\sqrt[3]2:\ a\in\mathbb Q\}\)</li><li>\(\{a+b\sqrt3:\ a,b\in\mathbb Q\}\)</li><li>全体整数</li></ol><div class="explain">\(\mathbb Q(\sqrt3)\) 与 \(\mathbb Q(\sqrt2)\) 的验证完全相同。偶数集不含 1；\(\{a\sqrt[3]2\}\) 对乘法不封闭：\(\sqrt[3]2\cdot\sqrt[3]2=\sqrt[3]4\)，而且 1 不在其中。</div></div>
+  <div class="mcq" data-ans="1"><div class="qt">关于数域 \(\mathbb K\)，下列说法错误的是：</div><ol class="opts"><li>\(\mathbb K\) 一定包含 0 和 1</li><li>\(\mathbb K\) 一定包含 \(\sqrt2\)</li><li>\(\mathbb K\) 一定包含全体有理数</li><li>\(\mathbb Q\) 是最小的数域</li></ol><div class="explain">\(\mathbb Q\) 本身就是数域，却不含 \(\sqrt2\)。</div></div>
+  <div class="mcq" data-ans="3"><div class="qt">\(\{a+b\mathrm i:\ a,b\in\mathbb Q\}\) 对除法封闭，是因为：</div><ol class="opts"><li>\(\mathrm i^2=-1\)</li><li>分母 \(c+d\mathrm i\) 是有理数</li><li>它包含 \(\mathbb R\)</li><li>乘以共轭后分母 \(c^2+d^2\) 是非零有理数</li></ol><div class="explain">\(\dfrac{a+b\mathrm i}{c+d\mathrm i}=\dfrac{(ac+bd)+(bc-ad)\mathrm i}{c^2+d^2}\)。它并不包含全体实数。</div></div>
+</div>
+<details class="more"><summary>习题思路（习题 3.1 第 3、4 题）</summary><div class="dbody">
+  <p><b>3</b>　\(\{a+b\sqrt[3]2+c\sqrt[3]4\}\)：加减乘封闭直接验证（用 \(\sqrt[3]2^3=2\)）。除法：对非零元 \(x\)，可以找到同类型的 \(y\) 使 \(xy\) 为非零有理数（类似“有理化分母”），从而 \(1/x\) 也属于该集合。</p>
+  <p><b>4</b>　\(\{a+b\sqrt2+c\sqrt3+d\sqrt6\}=\mathbb Q(\sqrt2)(\sqrt3)\)：先在 \(\mathbb Q(\sqrt2)\) 上看成 \(u+v\sqrt3\)，分母乘以共轭 \(u-v\sqrt3\) 得 \(u^2-3v^2\in\mathbb Q(\sqrt2)\)，再对它用 \(\mathbb Q(\sqrt2)\) 的除法。</p>
+</div></details>
+
+<h2>本节小结</h2>
+<ul>
+  <li>数域：\(\mathbb C\) 的子集，至少两个元素，对加、减、乘、除（除数非零）封闭。</li>
+  <li>\(\mathbb Q,\mathbb R,\mathbb C,\mathbb Q(\sqrt2)\) 是数域；\(\mathbb Z\) 只是数环。</li>
+  <li>任一数域包含 0、1 和整个 \(\mathbb Q\)；\(\mathbb Q\) 是最小的数域。</li>
+  <li>后面的线性组合系数都取自指定的数域 \(\mathbb K\)，结论可能依赖于 \(\mathbb K\)。</li>
+</ul>
+<div class="bridge out"><span class="bk">走向下一节</span><p>有了标量，下一步看最具体的“向量”：由 \(n\) 个数组成的有序数组。平面上的点、箭头都可以“代数化”成数组，再推广到任意 \(n\) 维。</p><a class="bn" href="#s3-2">→ §3.2 行向量和列向量</a></div>
+<details class="tnote"><summary>教学提示</summary><div class="dbody"><ul>
+  <li>这一节内容简单，0.5 学时即可；重点是让学生明白“为什么要先规定数域”，并记住“讨论线性问题要说明数域”。</li>
+  <li>\(\mathbb Q(\sqrt2)\) 的除法验证是“有理化分母”，学生中学就熟悉，可以请学生自己完成。</li>
+</ul></div></details>
+</template>
